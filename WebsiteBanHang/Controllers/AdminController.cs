@@ -21,6 +21,8 @@ namespace WebsiteBanHang.Controllers
         public ActionResult XemSanPham()
         {
 
+            List<SanPham> list = db.SanPhams.ToList();
+            return View(list);
         }
 
 

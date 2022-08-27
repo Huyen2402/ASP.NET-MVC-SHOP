@@ -1,0 +1,41 @@
+﻿
+@using WebsiteBanHang.Models;
+@model List<SanPham>
+
+@{
+    ViewBag.Title = "XemSanPham";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+
+    
+<div class="container mt-3" style="padding-top:80px;">
+    <h2>Danh Sách Sản Phẩm</h2>
+   
+    <table class="table table-dark " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Sản Phẩm</th>
+                <th>
+                    
+                    Hình Ảnh
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+
