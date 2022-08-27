@@ -1,0 +1,234 @@
+﻿@model WebsiteBanHang.Models.SanPham
+
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>Thêm Sản Phẩm</h2>
+
+@using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+
+<div class="form-horizontal">
+    <h4>SanPham</h4>
+    <hr />
+
+    <div class="form-group">
+
+        <label class="col-md-2 control-label">Mã Sản Phẩm</label>
+        <div class="col-md-10">
+
+            @Html.EditorFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Tên Sản Phẩm</label>
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Đơn giá</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Ngày Cập Nhật</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NgayCapNhat, new { htmlAttributes = new { @id = "datepicker", @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Cấu Hình</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CauHinh, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Mô tả</label>
+        <div class="col-md-10">
+            <textarea name="MoTa" class = "form-control" id="mytextarea"></textarea>
+           
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh</label>
+        <div class="col-md-10">
+            
+            <input id="UploadedXlsFile" type="file" name="HinhAnh" value="" />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Số Lượng Tồn</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">lượt Xem</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Lượt Bình Chọn</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Lượt Bình Luận</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Số Lần Mua</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Mới</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Nhà CC</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaNCC", null, new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Nhà SX</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaNSX", null, new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Loại Sản Phẩm</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaLoaiSP", null, new { @class = "form-control" })
+
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Đã Xóa</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DaXoa, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 1:</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HinhAnh1, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 2</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HinhAnh2, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 3</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HinhAnh3, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 4</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HinhAnh4, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm Mới" class="btn btn-default" />
+        </div>
+    </div>
+
+   
+</div>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+}
+
+<script>
+
+    tinymce.init({
+
+        selector: '#mytextarea',
+
+        plugins: [
+
+            'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+
+            'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+
+            'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+
+        ],
+
+        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+
+            'alignleft aligncenter alignright alignjustify | ' +
+
+            'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+
+    });
+
+</script>
+
+

@@ -1,0 +1,89 @@
+﻿@using WebsiteBanHang.Models;
+@model List<SanPham>
+
+
+
+@{
+    ViewBag.Title = "SearchSP";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+    int SlSPTrenTrang = 7;
+    int Trang = 1;
+    int DemSLSPTrenTrang =1;
+    int count = Model.Count;
+    int tongTrang = count/ SlSPTrenTrang;
+}
+
+
+<div class="content-top-bottom">
+    <h2>Danh sách tìm kiếm sản phẩm</h2>
+    @foreach (var item in Model)
+    {
+        if (DemSLSPTrenTrang % SlSPTrenTrang == 0)
+        {
+            Trang++;
+        }
+
+        <div class="@Url.Content("col-md-6 col-xs-12 men grid-top itemSearch Trang_"+Trang.ToString())">
+            <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
+                <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
+                <div class="b-wrapper">
+                    <h3 class="b-animate b-from-top top-in   b-delay03 ">
+                        <span>@item.MoTa</span>
+                    </h3>
+                </div>
+            </a>
+            <p><a href="single.html">@item.TenSP</a></p>
+
+        </div>
+        DemSLSPTrenTrang++;
+    }
+
+        
+</div>
+<div class="clearfix"> </div>
+
+<nav class="in">
+    <ul class="pagination justify-content-end">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        @if (count % SlSPTrenTrang == 0)
+        {
+            for (var i = 1; i <= tongTrang; i++)
+            {
+                <li class="page-item "><a data-page="Trang_@Url.Content(i.ToString())" class="page-link test linkPage" href="#">@i</a></li>
+
+            }
+        }
+        else
+        {
+            for (var i = 1; i <= (tongTrang + 1); i++)
+            {
+                <li class="page-item "><a class="page-link test linkPage" data-page="Trang_@Url.Content(i.ToString())" href="#">@i</a></li>
+
+                
+            }
+        }
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</nav>
+<style>
+    .itemSearch{
+        display: none;
+    }
+    .Trang_1{
+        display: block;
+    }
+</style>
+<script>
+    $('.linkPage').click(function () {
+        $('.itemSearch').hide();
+        // lay gia tri trang click vao
+        var s = $(this).attr('data-page');
+        //var s = $(this).data("page");
+        // show ra sp cua trnag do
+       
+        $('.'+@Url.Content("s")).show();
+
+
+    })
+</script>
+

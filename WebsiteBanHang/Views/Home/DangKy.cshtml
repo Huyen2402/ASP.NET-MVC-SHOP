@@ -1,0 +1,80 @@
+﻿@using WebsiteBanHang.Models
+@using CaptchaMvc.HtmlHelpers;
+@using CaptchaMvc;
+@model ThanhVien
+
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<div class=" container">
+    <div class=" register">
+        <h1>Đăng ký thành viên</h1>
+        @using (Html.BeginForm())
+        {
+
+        <div class="col-md-6 register-top-grid">
+            <h3>Thông tin người dùng</h3>
+            <div>
+                <span>Họ tên</span>
+                <input name="HoTen" type="text">
+            </div>
+            <div>
+                <span>Địa chỉ</span>
+                <input name="DiaChi" type="text">
+            </div>
+            <div>
+                <span>Email</span>
+                <input name="Email" type="text">
+            </div>
+            <div>
+                <span>Điện thoại</span>
+                <input name="SDT" type="text">
+            </div>
+            <div>
+                <span>Câu hỏi</span>
+                @Html.DropDownList("CauHoi")
+            </div>
+            <div>
+                <span>Câu trả lời</span>
+                <input name="CauTraLoi" type="text">
+            </div>
+            <div>
+                <span>Tài khoản</span>
+                <input name="TaiKhoan" type="text">
+            </div>
+
+            <a class="news-letter" href="#">
+                <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+            </a>
+        </div>
+
+        <div class="col-md-6 register-bottom-grid">
+            <h3>Thông tin tài khoản</h3>
+
+
+            <div>
+                <span>Mật khẩu</span>
+                <input name="MatKhau" type="password">
+            </div>
+            
+            <div>
+                <span>Nhập lại mật khẩu</span>
+                <input name="repass" type="password">
+            </div>
+            <div>
+                @Html.Captcha(5)
+            </div>
+            <input type="submit" value="Đăng ký">
+
+        </div>
+            <div class="clearfix"> </div>
+       
+        }
+            <h2 style="color:aqua">@ViewBag.ThongBao</h2>
+        
+    </div>
+</div>
+

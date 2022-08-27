@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<div id="full">
+    <button id="btn-dangnhap" class="btn btn-success">Đăng nhập </button>
+    <div id="popup-login">
+
+        <div class="container">
+
+            <div id="form_dangnhap">
+                <h2>Đăng nhập</h2>
+                <form>
+                    <i id="close" class="fa-solid fa-xmark"></i>
+
+                    <div>
+                        <span class="control-label">Email</span>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div>
+                        <span>Password</span>
+                        <input class="form-control" type="password">
+                    </div>
+                    <button class="btn btn-danger ">Đăng nhập</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#btn-dangnhap").click(function () {
+        $("#popup-login").fadeIn(300);
+    });
+
+    $("#close").click(function () {
+        $("#popup-login").hide();
+    }
+    );
+</script>
+

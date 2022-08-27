@@ -1,0 +1,30 @@
+﻿@using WebsiteBanHang.Models;
+@model IEnumerable<SanPham>
+
+<div class="product-bottom">
+    <div class="of-left-in">
+        <h3 class="best">Sản phẩm nổi bật</h3>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="product-go">
+            <div class=" fashion-grid">
+                <a href="#"><img class="img-responsive " src="@Url.Content(item.HinhAnh)" alt=""></a>
+
+            </div>
+            <div class=" fashion-grid1">
+                <h6 class="best2">
+                    <a href="#">
+                        @item.TenSP
+                    </a>
+                </h6>
+
+                <span class=" price-in1">@item.DonGia</span>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    }
+    
+
+</div>

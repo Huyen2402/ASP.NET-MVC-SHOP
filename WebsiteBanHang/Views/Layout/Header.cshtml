@@ -1,0 +1,95 @@
+﻿@using WebsiteBanHang.Models;
+
+
+
+<div class="header-top">
+    <div class="container">
+        <div class="search">
+            @using (Html.BeginForm("SearchSP","Search"))
+            {
+                <input name="txbSearch" type="text" value="">
+                <input name="btnSearch" type="submit" value="Tìm">
+            }
+        </div>
+        <div class="header-left">
+            
+            <ul>
+                @if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
+                {
+                    ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
+                    <li><a  class="lock" href="#">Chào bạn @tv.HoTen</a></li>
+                    <li><a class="lock" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a></li>
+                    
+
+                }
+                else
+                {
+                    <li><a id="btn-DangNhap" class="lock" href="#">Đăng nhập</a></li>
+                    <li><a class="lock" href="@Url.Action("DangKy", "Home")">Đăng ký</a></li>
+                }
+                <li>
+                </li>
+            </ul>
+            @Html.Action("GioHangPartial", "GioHang");
+            
+            @*<div class="cart box_1">
+                <a href="checkout.html">
+                    <h3>
+                        <div class="total">
+                            <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)
+                        </div>
+                        <img src="images/cart.png" alt="">
+                    </h3>
+                </a>
+                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+            </div>*@
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+
+
+<div id="popup">
+    <div id="frm-DangNhap" class="account mx-auto d-block ">
+        <div id="close-icon"><i style="color:black;" class="fa-solid fa-xmark"></i></div>
+        <h1>Đăng nhập</h1>
+        <div class="account-pass">
+            @using(Ajax.BeginForm("DangNhap","Home", new AjaxOptions {InsertionMode=InsertionMode.Replace,UpdateTargetId="ThongBao" }))
+            {
+                <div class="col-md-12 account-top">
+
+
+                    <div>
+                        <span>Tài khoản</span>
+                        <input name="TaiKhoan" type="text">
+                    </div>
+                    <div>
+                        <span>Mật khẩu</span>
+                        <input name="MatKhau" type="password">
+                    </div>
+                    <h4 id="ThongBao" style="color:red;"></h4>
+                    <input id="btn-dangnhap" type="submit" value="Đăng nhập">
+
+                </div>
+
+            }
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#btn-DangNhap").click(function () {
+        $("#popup").fadeIn(400);
+    });
+    //$("#popup").click(function () {
+    //    $("#popup").hide();
+    //})
+    $("#close-icon").click(function () {
+        $("#popup").hide();
+    })
+
+</script>

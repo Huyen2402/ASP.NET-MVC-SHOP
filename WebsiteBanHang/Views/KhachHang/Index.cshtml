@@ -1,0 +1,62 @@
+﻿
+@model IEnumerable <WebsiteBanHang.Models.KhachHang>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <table border="1px">
+            <tr>
+                <td>
+                    Mã Khách Hàng
+                </td>
+                <td>
+                    Tên Khách Hàng
+                </td>
+                <td>
+                    Địa chỉ
+                </td>
+                <td>
+                    Email
+                </td>
+                <td>
+                    SDT
+                </td>
+            </tr>
+           
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @item.MaKH
+                </td>
+                <td>
+                    @item.TenKH
+                </td>
+                <td>
+                    @item.DiaChi
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.SDT
+                </td>
+             
+
+            </tr>
+
+                }
+
+</table>
+    </div>
+</body>
+</html>
