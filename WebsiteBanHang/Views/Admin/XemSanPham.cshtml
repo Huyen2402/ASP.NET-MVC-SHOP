@@ -30,7 +30,7 @@
                     <td>@item.MaSP</td>
                     <td>@item.TenSP</td>
                     <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
-                    <td ><a class="btn btn-warning">Chỉnh Sửa</a></td>
+                    <td ><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a></td>
                     <td><a class="btn btn-danger ">Xoá</a></td>
                    
                 </tr>

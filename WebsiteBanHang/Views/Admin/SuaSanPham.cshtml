@@ -1,0 +1,336 @@
+﻿@model WebsiteBanHang.Models.SanPham
+
+@{
+    ViewBag.Title = "SuaSanPham";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>SuaSanPham</h2>
+
+
+@using (Html.BeginForm("SuaSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+
+    <div class="form-horizontal">
+        <h4>SanPham</h4>
+        <hr />
+
+        @Html.HiddenFor(model => model.MaSP)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên Sản Phẩm</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Đơn Giá</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Ngày Cập Nhật</label>
+
+            <div class="col-md-10">
+                <input readonly class="form-control" id="myDate" type="text" name="NgayCapNhat" value="" />
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mô Tả</label>
+
+            <div class="col-md-10">
+                <textarea class="form-control" name="MoTa" id="mytextarea">@ViewBag.MoTa</textarea>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh Hiện Tại</label>
+
+            <div class="col-md-10">
+                <img id="preview-img" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh" alt="Alternate Text" />
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh Mới</label>
+
+            <div class="col-md-10">
+                <input id="hsp_tentaptin" type="file" name="HinhAnh" value="~/Content/images/@ViewBag.HinhAnh" />
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 1 Hiện Tại</label>
+
+            <div class="col-md-10">
+                <img id="preview-img1" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh1" alt="Alternate Text" />
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 1 Mới</label>
+
+            <div class="col-md-10">
+
+
+                <input id="hsp_tentaptin1" type="file" name="HinhAnh1" value="@ViewBag.HinhAnh" />
+
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 2 Hiện Tại</label>
+
+            <div class="col-md-10">
+                <img id="preview-img2" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh2" alt="Alternate Text" />
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 2 Mới</label>
+
+            <div class="col-md-10">
+                <input id="hsp_tentaptin2" type="file" name="HinhAnh2" value="@ViewBag.HinhAnh" />
+
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 3 Hiện Tại</label>
+
+            <div class="col-md-10">
+                <img id="preview-img3" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh3" alt="Alternate Text" />
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Hình Ảnh 3 Mới</label>
+
+            <div class="col-md-10">
+                <input id="hsp_tentaptin3" type="file" name="HinhAnh3" value="@ViewBag.HinhAnh" />
+
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Số Lượng Tồn</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Lượt Xem</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Lượt Bình Chọn</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Lượt Bình Luận</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Số Lần Mua</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mới</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nhà Cung Cấp</label>
+
+            <div class="col-md-10">
+
+                @Html.DropDownList("MaNCC", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nhà Sản Xuất</label>
+
+            <div class="col-md-10">
+                @Html.DropDownList("MaNSX", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Loại Sản Phẩm</label>
+
+            <div class="col-md-10">
+                @Html.DropDownList("MaLoaiSP", null, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Đã Xoá</label>
+
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.DaXoa)
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+}
+
+<script>
+
+    tinymce.init({
+
+        selector: '#mytextarea',
+
+        plugins: [
+
+            'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+
+            'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+
+            'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+
+        ],
+
+        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+
+            'alignleft aligncenter alignright alignjustify | ' +
+
+            'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+
+    });
+
+</script>
+
+<script>
+    // Hiển thị ảnh preview (xem trước) khi người dùng chọn Ảnh
+
+    //hình 1
+    const reader = new FileReader();
+    const fileInput = document.getElementById("hsp_tentaptin");
+    const img = document.getElementById("preview-img");
+    reader.onload = e => {
+        img.src = e.target.result;
+    }
+    fileInput.addEventListener('change', e => {
+        const f = e.target.files[0];
+        reader.readAsDataURL(f);
+    })
+
+
+    //hình 2
+    const reader1 = new FileReader();
+    const fileInput1 = document.getElementById("hsp_tentaptin1");
+    const img1 = document.getElementById("preview-img1");
+    reader1.onload = e => {
+        img1.src = e.target.result;
+    }
+    fileInput1.addEventListener('change', e => {
+        const f1 = e.target.files[0];
+        reader1.readAsDataURL(f1);
+    })
+
+    //hình 3
+    const reader2 = new FileReader();
+    const fileInput2 = document.getElementById("hsp_tentaptin2");
+    const img2 = document.getElementById("preview-img2");
+    reader2.onload = e => {
+        img2.src = e.target.result;
+    }
+    fileInput2.addEventListener('change', e => {
+        const f2 = e.target.files[0];
+        reader2.readAsDataURL(f2);
+    })
+
+
+    //hình 4
+    const reader3 = new FileReader();
+    const fileInput3 = document.getElementById("hsp_tentaptin3");
+    const img3 = document.getElementById("preview-img3");
+    reader3.onload = e => {
+        img3.src = e.target.result;
+    }
+    fileInput3.addEventListener('change', e => {
+        const f3 = e.target.files[0];
+        reader3.readAsDataURL(f3);
+    })
+</script>
+
+<script>
+    const d = new Date();
+    const m = new Date();
+    const y = new Date();
+    const month = m.getMonth() + 1;
+    document.getElementById("myDate").value = d.getDate() + '/' + month + '/' + y.getFullYear();
+</script>
+
+
+

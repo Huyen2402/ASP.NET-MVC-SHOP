@@ -105,14 +105,47 @@ namespace WebsiteBanHang.Controllers
 
 
         [HttpGet]
-        public ActionResult SuaSanPham(int? id)
+        public ActionResult SuaSanPham(int? MaSP)
         {
+            
+
+            if(MaSP == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                // tìm sản phẩm co trong csdl không ?
+                SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+                // nếu có thì trả ra
+                if(sp == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    ViewBag.HinhAnh = sp.HinhAnh;
+                    ViewBag.HinhAnh1 = sp.HinhAnh1;
+                    ViewBag.HinhAnh2 = sp.HinhAnh2;
+                    ViewBag.HinhAnh3 = sp.HinhAnh3;
+                    ViewBag.MoTa = sp.MoTa;
+                    ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC", sp.MaNCC);
+                    ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai", sp.MaLoaiSP);
+                    ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX", sp.MaNSX);
+                    return View(sp);
+                }
+
+            }
             return View();
+            
         }
 
         [HttpPost]
-        public ActionResult SuaSanPham(FormCollection f)
+        public ActionResult SuaSanPham(SanPham sp)
         {
+            ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
+            ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
+            ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
             return View();
         }
     }

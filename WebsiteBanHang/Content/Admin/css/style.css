@@ -3147,3 +3147,6 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     color: white !important;
 }
+#preview-img, #preview-img1, #preview-img2, #preview-img3{
+    margin-bottom: 4px;
+}
