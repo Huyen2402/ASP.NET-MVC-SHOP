@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -51,10 +52,10 @@
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
@@ -209,6 +210,58 @@
     <Content Include="App_Data\QuanLyBanHang_log.ldf">
       <DependentUpon>QuanLyBanHang.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Admin\css\bootstrap.min.css" />
+    <Content Include="Content\Admin\css\font-awesome.css" />
+    <Content Include="Content\Admin\css\font.css" />
+    <Content Include="Content\Admin\css\jqvmap.css" />
+    <Content Include="Content\Admin\css\lightbox.css" />
+    <Content Include="Content\Admin\css\minimal.css" />
+    <Content Include="Content\Admin\css\monthly.css" />
+    <Content Include="Content\Admin\css\morris.css" />
+    <Content Include="Content\Admin\css\style-responsive.css" />
+    <Content Include="Content\Admin\css\style.css" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Admin\images\1.png" />
+    <Content Include="Content\Admin\images\2.png" />
+    <Content Include="Content\Admin\images\3.png" />
+    <Content Include="Content\Admin\images\bg.jpg" />
+    <Content Include="Content\Admin\images\close.png" />
+    <Content Include="Content\Admin\images\g1.jpg" />
+    <Content Include="Content\Admin\images\g2.jpg" />
+    <Content Include="Content\Admin\images\g3.jpg" />
+    <Content Include="Content\Admin\images\g4.jpg" />
+    <Content Include="Content\Admin\images\g5.jpg" />
+    <Content Include="Content\Admin\images\g6.jpg" />
+    <Content Include="Content\Admin\images\g7.jpg" />
+    <Content Include="Content\Admin\images\g8.jpg" />
+    <Content Include="Content\Admin\images\g9.jpg" />
+    <Content Include="Content\Admin\images\mail.png" />
+    <Content Include="Content\Admin\images\minimal.png" />
+    <Content Include="Content\Admin\images\nav-expand.png" />
+    <Content Include="Content\Admin\images\next.png" />
+    <Content Include="Content\Admin\images\pass.png" />
+    <Content Include="Content\Admin\images\prev.png" />
+    <Content Include="Content\Admin\images\search-icon.png" />
+    <Content Include="Content\Admin\js\bootstrap.js" />
+    <Content Include="Content\Admin\js\jquery.dcjqaccordion.2.7.js" />
+    <Content Include="Content\Admin\js\jquery.fileupload.js" />
+    <Content Include="Content\Admin\js\jquery.min.js" />
+    <Content Include="Content\Admin\js\jquery.nicescroll.js" />
+    <Content Include="Content\Admin\js\jquery.scrollTo.js" />
+    <Content Include="Content\Admin\js\jquery.slimscroll.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.asia.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.australia.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.europe.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.sampledata.js" />
+    <Content Include="Content\Admin\js\jquery.vmap.world.js" />
+    <Content Include="Content\Admin\js\jquery2.0.3.min.js" />
+    <Content Include="Content\Admin\js\lightbox-plus-jquery.min.js" />
+    <Content Include="Content\Admin\js\monthly.js" />
+    <Content Include="Content\Admin\js\morris.js" />
+    <Content Include="Content\Admin\js\raphael-min.js" />
+    <Content Include="Content\Admin\js\script.js" />
+    <Content Include="Content\Admin\js\scripts.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -343,6 +396,8 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\tinymce\CHANGELOG.md" />
+    <Content Include="Content\tinymce\js\tinymce\langs\README.md" />
     <EntityDeploy Include="Models\QuanLyBanHang.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
@@ -350,8 +405,13 @@
     <Content Include="Models\QuanLyBanHang.edmx.diagram">
       <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\tinymce\CHANGELOG.md" />
-    <Content Include="Content\tinymce\js\tinymce\langs\README.md" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Admin\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Admin\fonts\FontAwesome.otf" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -399,6 +459,7 @@
     <Content Include="Views\Layout\AdminHomeLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ThemSanPham.cshtml" />
+    <Content Include="Views\Admin\XemSanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -451,7 +512,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

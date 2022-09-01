@@ -15,15 +15,7 @@
     <h4>SanPham</h4>
     <hr />
 
-    <div class="form-group">
 
-        <label class="col-md-2 control-label">Mã Sản Phẩm</label>
-        <div class="col-md-10">
-
-            @Html.EditorFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">Tên Sản Phẩm</label>
@@ -50,19 +42,12 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">Cấu Hình</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CauHinh, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">Mô tả</label>
         <div class="col-md-10">
-            <textarea name="MoTa" class = "form-control" id="mytextarea"></textarea>
-           
+            <textarea name="MoTa" class="form-control" id="mytextarea"></textarea>
+
 
         </div>
     </div>
@@ -70,11 +55,39 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Hình Ảnh</label>
         <div class="col-md-10">
-            
+
             <input id="UploadedXlsFile" type="file" name="HinhAnh" value="" />
 
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 1</label>
+        <div class="col-md-10">
+            <input type="file" name="HinhAnh1" value="" />
+            
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 2</label>
+        <div class="col-md-10">
+            <input type="file" name="HinhAnh2" value="" />
+           
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Hình Ảnh 3</label>
+        <div class="col-md-10">
+            <input type="file" name="HinhAnh3" value="" />
+           
+
+        </div>
+    </div>
+
+   
 
     <div class="form-group">
         <label class="col-md-2 control-label">Số Lượng Tồn</label>
@@ -157,37 +170,7 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">Hình Ảnh 1:</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HinhAnh1, new { htmlAttributes = new { @class = "form-control" } })
 
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Hình Ảnh 2</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HinhAnh2, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Hình Ảnh 3</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HinhAnh3, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Hình Ảnh 4</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HinhAnh4, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -195,7 +178,7 @@
         </div>
     </div>
 
-   
+
 </div>
 
     <script>

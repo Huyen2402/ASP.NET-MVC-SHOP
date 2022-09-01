@@ -1,10 +1,10 @@
 ﻿@using WebsiteBanHang.Models;
 @model IEnumerable<SanPham>
 <div class="content-top-bottom">
-    <h2>Laptop</h2>
+    <h2>Sản Phẩm Cao Cấp</h2>
     @foreach (var item in Model)
     {
-        <div class="col-md-6 col-xs-12 men grid-top">
+        <div class="col-4 col-xs-12 men grid-top">
             <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
                 <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
                 <div class="b-wrapper">

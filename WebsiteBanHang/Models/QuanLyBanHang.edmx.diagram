@@ -4,32 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea03b7765ebb408b82025b72e5614ae3" Name="Diagram1" ZoomLevel="79">
-        <EntityTypeShape EntityType="QuanLyBanHangModel.BinhLuan" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietDonDatHang" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.DonDatHang" Width="1.5" PointX="6" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.KhachHang" Width="1.5" PointX="3.75" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.loaiSanPham" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.LoaiThanhVien" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaSanXuat" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.PhieuNhap" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.SanPham" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.ThanhVien" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_SanPham" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_TThanhVien" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_DonDatHang" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieuNhap_PhieuNhap" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieuNhap_SanPham" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_DonDatHang_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_KhachHang_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_LoaiSanPham" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_ThanhVien_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_PhieuNhap_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NhaCungCap" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NhaSanXuat" ManuallyRouted="false" />
+      <Diagram DiagramId="58e15a61bbb74b64b45ccda9a8fb4e3e" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="QuanLyBanHangModel.BinhLuan" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietDonDatHang" Width="1.5" PointX="8.25" PointY="4.625" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" Width="1.5" PointX="5.25" PointY="7.125" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.DonDatHang" Width="1.5" PointX="6" PointY="19.5" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.KhachHang" Width="1.5" PointX="3.75" PointY="19.625" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.loaiSanPham" Width="1.5" PointX="0.75" PointY="8.25" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.LoaiThanhVien" Width="1.5" PointX="0.75" PointY="16" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaSanXuat" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.PhieuNhap" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.SanPham" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.ThanhVien" Width="1.5" PointX="3" PointY="15.125" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_SanPham" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_BinhLuan_TThanhVien" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_DonDatHang" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieuNhap_PhieuNhap" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ChiTietPhieuNhap_SanPham" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_DonDatHang_ToTable" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_KhachHang_ToTable" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_LoaiSanPham" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_ThanhVien_ToTable" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_PhieuNhap_ToTable" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NhaCungCap" />
+        <AssociationConnector Association="QuanLyBanHangModel.FK_SanPham_NhaSanXuat" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

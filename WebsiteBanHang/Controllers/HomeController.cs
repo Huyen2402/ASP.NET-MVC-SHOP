@@ -16,16 +16,16 @@ namespace WebsiteBanHang.Controllers
         public ActionResult Index()
         {
             // Lấy list điện thoại
-            int numberDT = 6;
-            var listDT = db.SanPhams.Where(n => n.MaLoaiSP == 2).Take(numberDT);
+            int numberDT = 4;
+            var listDT = db.SanPhams.OrderByDescending(n => n.NgayCapNhat).Take(numberDT);
             ViewBag.listDT = listDT;
             //Lấy list máy tính bảng
             var listMTB = db.SanPhams.Where(n => n.MaLoaiSP == 1);
             ViewBag.listMTB = listMTB;
 
             //lấy list Laptop
-            int numberLT = 4;
-            var listLT = db.SanPhams.Where(n => n.MaLoaiSP == 3).OrderByDescending(x=>x.SoLanMua).Take(numberLT);
+            int numberLT = 6;
+            var listLT = db.SanPhams.OrderByDescending(x=>x.DonGia).Take(numberLT);
             ViewBag.listLT = listLT;
 
 
