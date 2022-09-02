@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using WebsiteBanHang.Models;
 
 namespace WebsiteBanHang.Controllers
@@ -11,7 +13,7 @@ namespace WebsiteBanHang.Controllers
     public class AdminController : Controller
     {
         QuanLyBanHangEntities db = new QuanLyBanHangEntities();
-        
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -21,7 +23,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult XemSanPham()
         {
 
-            List<SanPham> list = db.SanPhams.ToList();
+            List<SanPham> list = db.SanPhams.Where(n=>n.DaXoa == false).ToList();
             return View(list);
         }
 
@@ -40,7 +42,7 @@ namespace WebsiteBanHang.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult ThemSanPham( SanPham sp , HttpPostedFileBase HinhAnh, HttpPostedFileBase HinhAnh1, HttpPostedFileBase HinhAnh2, HttpPostedFileBase HinhAnh3)
+        public ActionResult ThemSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
         {
 
             // list nhà cung cấp
@@ -51,55 +53,88 @@ namespace WebsiteBanHang.Controllers
 
 
             // upload file hình ảnh
-
-            
-                if (HinhAnh.ContentLength > 0 && HinhAnh1.ContentLength > 0 && HinhAnh2.ContentLength > 0 && HinhAnh3.ContentLength > 0)
+            for (int i = 0; i < HinhAnh.Length; i++)
             {
-                string fileName = Path.GetFileName(HinhAnh.FileName);
-                string fileName1 = Path.GetFileName(HinhAnh1.FileName);
-                string fileName2 = Path.GetFileName(HinhAnh2.FileName);
-                string fileName3 = Path.GetFileName(HinhAnh3.FileName);
-                string path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                string path1 = Path.Combine(Server.MapPath("~/Content/images"), fileName1);
-                string path2 = Path.Combine(Server.MapPath("~/Content/images"), fileName2);
-                string path3 = Path.Combine(Server.MapPath("~/Content/images"), fileName3);
-                if (System.IO.File.Exists(path) && System.IO.File.Exists(path1) && System.IO.File.Exists(path2) && System.IO.File.Exists(path3))
-                    {
-
-                        ViewBag.Message = "File đã tồn tại";
-                        return View();
-                    }
-                    else
-                    {
-                        HinhAnh.SaveAs(path);
-                    HinhAnh1.SaveAs(path1);
-                    HinhAnh2.SaveAs(path2);
-                    HinhAnh3.SaveAs(path3);
-                    sp.HinhAnh = fileName;
-                    sp.HinhAnh1 = fileName1;
-                    sp.HinhAnh2 = fileName2;
-                    sp.HinhAnh3 = fileName3;
-
-                }
-
-
-                    db.SanPhams.Add(sp);
-                    db.SaveChanges();
-
-                    return RedirectToAction("XemSanPham", "Admin");
-
-                }
-                else
+                //Check content image
+                if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
                 {
-                    ViewBag.Message = "Có lỗi";
+                    //Get file name
+                    var fileName = Path.GetFileName(HinhAnh[i].FileName);
+                    //Get path
+                    var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                    
+                    //Check exitst
+                    if (!System.IO.File.Exists(path))
+                    {
+                        //Add image into folder
+                        HinhAnh[i].SaveAs(path);
+                       
+
+
+                    }
+
+                    
                 }
-            
+              
+            }
 
-            
+            sp.HinhAnh = HinhAnh[0].FileName;
+            sp.HinhAnh1 = HinhAnh[1].FileName;
+            sp.HinhAnh2 = HinhAnh[2].FileName;
+            sp.HinhAnh3 = HinhAnh[3].FileName;
 
-            return View();
+            db.SanPhams.Add(sp);
+            db.SaveChanges();
 
-            
+            return RedirectToAction("XemSanPham", "Admin");
+
+            //    if (HinhAnh.ContentLength > 0 && HinhAnh1.ContentLength > 0 && HinhAnh2.ContentLength > 0 && HinhAnh3.ContentLength > 0)
+            //{
+            //    string fileName = Path.GetFileName(HinhAnh.FileName);
+            //    string fileName1 = Path.GetFileName(HinhAnh1.FileName);
+            //    string fileName2 = Path.GetFileName(HinhAnh2.FileName);
+            //    string fileName3 = Path.GetFileName(HinhAnh3.FileName);
+            //    string path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+            //    string path1 = Path.Combine(Server.MapPath("~/Content/images"), fileName1);
+            //    string path2 = Path.Combine(Server.MapPath("~/Content/images"), fileName2);
+            //    string path3 = Path.Combine(Server.MapPath("~/Content/images"), fileName3);
+            //    if (System.IO.File.Exists(path) && System.IO.File.Exists(path1) && System.IO.File.Exists(path2) && System.IO.File.Exists(path3))
+            //        {
+
+            //            ViewBag.Message = "File đã tồn tại";
+            //            return View();
+            //        }
+            //        else
+            //        {
+            //            HinhAnh.SaveAs(path);
+            //        HinhAnh1.SaveAs(path1);
+            //        HinhAnh2.SaveAs(path2);
+            //        HinhAnh3.SaveAs(path3);
+            //        sp.HinhAnh = fileName;
+            //        sp.HinhAnh1 = fileName1;
+            //        sp.HinhAnh2 = fileName2;
+            //        sp.HinhAnh3 = fileName3;
+
+            //    }
+
+
+            //        db.SanPhams.Add(sp);
+            //        db.SaveChanges();
+
+            //        return RedirectToAction("XemSanPham", "Admin");
+
+            //    }
+            //    else
+            //    {
+            //        ViewBag.Message = "Có lỗi";
+            //    }
+
+
+
+
+
+
+
 
         }
 
@@ -107,9 +142,9 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult SuaSanPham(int? MaSP)
         {
-            
 
-            if(MaSP == null)
+
+            if (MaSP == null)
             {
                 Response.StatusCode = 404;
             }
@@ -118,7 +153,7 @@ namespace WebsiteBanHang.Controllers
                 // tìm sản phẩm co trong csdl không ?
                 SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
                 // nếu có thì trả ra
-                if(sp == null)
+                if (sp == null)
                 {
                     Response.StatusCode = 404;
                 }
@@ -137,16 +172,90 @@ namespace WebsiteBanHang.Controllers
 
             }
             return View();
-            
+
         }
 
         [HttpPost]
-        public ActionResult SuaSanPham(SanPham sp)
+        [ValidateInput(false)]
+        public ActionResult SuaSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
         {
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
             ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
-            return View();
+
+            SanPham check = db.SanPhams.SingleOrDefault(n => n.MaSP == sp.MaSP);
+            if (check != null)
+            {
+                for (int i = 0; i < HinhAnh.Length; i++)
+                {
+                    //Check content image
+                    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
+                    {
+                        //Get file name
+                        var fileName = Path.GetFileName(HinhAnh[i].FileName);
+                        //Get path
+                        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                        //Check exitst
+                        if (!System.IO.File.Exists(path))
+                        {
+                            //Add image into folder
+                            HinhAnh[i].SaveAs(path);
+                        }
+                    }
+                }
+
+                if (HinhAnh[0] != null)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh));
+                    check.HinhAnh = HinhAnh[0].FileName;
+                }
+                if (HinhAnh[1] != null)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh1));
+                    check.HinhAnh1 = HinhAnh[1].FileName;
+                }
+                if (HinhAnh[2] != null)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh2));
+                    check.HinhAnh2 = HinhAnh[2].FileName;
+                }
+                if (HinhAnh[3] != null)
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh3));
+                    check.HinhAnh3 = HinhAnh[3].FileName;
+                }
+
+                check.LuotBinhChon = sp.LuotBinhChon;
+                check.LuotBinhLuan = sp.LuotBinhLuan;
+                check.DaXoa = sp.DaXoa;
+                check.TenSP = sp.TenSP;
+                check.MoTa = sp.MoTa;
+                check.NgayCapNhat = sp.NgayCapNhat;
+                check.DonGia = sp.DonGia;
+                check.SoLuongTon = sp.SoLuongTon;
+                check.LuotXem = sp.LuotXem;
+                check.MaNSX = sp.MaNSX;
+                check.loaiSanPham = sp.loaiSanPham;
+                check.MaNCC = sp.MaNCC;
+                db.SaveChanges();
+
+                return RedirectToAction("XemSanPham", "Admin");
+
+            }
+            return View(sp);
+
         }
+
+        public ActionResult XoaSanPham(int MaSP)
+        {
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            if (sp != null)
+            {
+                sp.DaXoa = true;
+                db.SaveChanges();
+            }
+            return RedirectToAction("XemSanPham", "Admin");
+        }
+
     }
 }

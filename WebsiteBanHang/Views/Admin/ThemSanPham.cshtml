@@ -223,8 +223,10 @@
     const d = new Date();
     const m = new Date();
     const y = new Date();
+    const hours = new Date();
+    const Minutes = new Date();
     const month = m.getMonth() + 1;
-    document.getElementById("myDate").value = d.getDate() + '/' + month + '/' + y.getFullYear();
+    document.getElementById("myDate").value = d.getDate() + '/' + month + '/' + y.getFullYear() + ' ' + hours.getHours() + ':' + Minutes.getMinutes();
 </script>
 
 <script>

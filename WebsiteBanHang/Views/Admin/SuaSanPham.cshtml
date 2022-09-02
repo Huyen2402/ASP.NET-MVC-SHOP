@@ -87,7 +87,7 @@
             <div class="col-md-10">
 
 
-                <input id="hsp_tentaptin1" type="file" name="HinhAnh1" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
 
 
             </div>
@@ -107,7 +107,7 @@
             <label class="control-label col-md-2">Hình Ảnh 2 Mới</label>
 
             <div class="col-md-10">
-                <input id="hsp_tentaptin2" type="file" name="HinhAnh2" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
 
 
             </div>
@@ -126,7 +126,7 @@
             <label class="control-label col-md-2">Hình Ảnh 3 Mới</label>
 
             <div class="col-md-10">
-                <input id="hsp_tentaptin3" type="file" name="HinhAnh3" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
 
 
             </div>
@@ -328,8 +328,10 @@
     const d = new Date();
     const m = new Date();
     const y = new Date();
+    const hours = new Date();
+    const Minutes = new Date();
     const month = m.getMonth() + 1;
-    document.getElementById("myDate").value = d.getDate() + '/' + month + '/' + y.getFullYear();
+    document.getElementById("myDate").value = d.getDate() + '/' + month + '/' + y.getFullYear() + ' ' + hours.getHours() + ':' + Minutes.getMinutes();
 </script>
 
 

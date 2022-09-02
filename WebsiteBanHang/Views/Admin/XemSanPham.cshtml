@@ -31,7 +31,7 @@
                     <td>@item.TenSP</td>
                     <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
                     <td ><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a></td>
-                    <td><a class="btn btn-danger ">Xoá</a></td>
+                    <td><button data-MaSP="@item.MaSP" onclick="myFunction()"  name="btn-deleteSP" type="button" id="show" href="@Url.Action("XoaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-danger ">Xoá</button></td>
                    
                 </tr>
             }
@@ -40,5 +40,50 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function myFunction() {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xoá?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xoá',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                var MaSP =
+                Swal.fire(
+                    'Bạn đã xoá thành công',
+
+                    'success'
+                )
+            }
+        })
+    }
+
+    //$('#btn-deleteSP').click(function () {
+    //    Swal.fire({
+    //        title: 'Are you sure?',
+    //        text: "You won't be able to revert this!",
+    //        icon: 'warning',
+    //        showCancelButton: true,
+    //        confirmButtonColor: '#3085d6',
+    //        cancelButtonColor: '#d33',
+    //        confirmButtonText: 'Yes, delete it!'
+    //    }).then((result) => {
+    //        if (result.isConfirmed) {
+    //            Swal.fire(
+    //                'Deleted!',
+    //                'Your file has been deleted.',
+    //                'success'
+    //            )
+    //        }
+    //    })
+    //})
+</script>
 
 
