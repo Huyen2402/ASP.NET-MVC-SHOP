@@ -22,7 +22,10 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XemSanPham()
         {
-
+            //if (Session["Quyen"].ToString() != "Admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             List<SanPham> list = db.SanPhams.Where(n=>n.DaXoa == false).ToList();
             return View(list);
         }

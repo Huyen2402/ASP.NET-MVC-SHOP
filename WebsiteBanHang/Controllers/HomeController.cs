@@ -34,7 +34,7 @@ namespace WebsiteBanHang.Controllers
        
         public ActionResult MenuPartial()
         {
-            var listSP = db.SanPhams;
+            var listSP = db.SanPhams.Where(n=>n.DaXoa == false).ToList();
             return PartialView(listSP);
         }
 
@@ -77,11 +77,17 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public ActionResult DangNhap(string TaiKhoan, string MatKhau)
         {
-            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == TaiKhoan && n.MatKhau == MatKhau);
-            if(tv != null)
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == TaiKhoan && n.MatKhau == MatKhau );
+            if(tv != null && tv.MaLoaiTV == 2)
             {
                 Session["TaiKhoan"] = tv;
-                return Content(" <script>window.location.reload();</script>");
+                return Content(" <script>window.location.href = 'http://localhost:62979/Home/Index';</script>");
+            }
+            if(tv != null && tv.MaLoaiTV == 1)
+            {
+                Session["TaiKhoan"] = tv;
+                Session["Quyen"] = "Admin";
+                return Content(" <script>window.location.href = 'http://localhost:62979/Admin/XemSanPham';</script>");
             }
             return Content("Sai tài khoản hoặc mật khẩu");
         }
