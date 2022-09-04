@@ -8,30 +8,35 @@
 }
 
 
-    
+
 <div class="container mt-3" style="padding-top:80px;">
     <h2>Danh Sách Sản Phẩm</h2>
-   
-    <table class="table table-dark " style="z-index:99999;">
+
+    <table class="table table-light table-hover table-bordered  " style="z-index:99999;">
         <thead>
-            <tr>
-                <th>STT</th>
-                <th>Tên Sản Phẩm</th>
-                <th>
-                    
+            <tr class="row">
+                <th class="col-1">STT</th>
+                <th class="col-7">Tên Sản Phẩm</th>
+                <th class="col-2">
+
                     Hình Ảnh
+                </th>
+                <th class="col-2">
+                Thao Tác
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.MaSP</td>
-                    <td>@item.TenSP</td>
-                    <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
-                    <td><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a></td>
-                    <td><a data-MaSP="@item.MaSP" id="x" onclick="xoa(event)" href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })" class="btn btn-danger ">Xoá</a></td>                    
+                <tr class="row">
+                    <td class="col-1">@item.MaSP</td>
+                    <td class="col-7">@item.TenSP</td>
+                    <td class="col-2"><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
+                    <td class="col-2"><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a>
+                        <a data-MaSP="@item.MaSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
+                    </td>
+               
                 </tr>
             }
 
@@ -40,14 +45,45 @@
     </table>
 </div>
 <script>
-    function xoa(e) {
-        var result = confirm("Want to delete?");
-        if (result) {
+
+    $(".x").click(function () {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
             
-        } else {
-            e.preventDefault()
-        }
-    }
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#218838',
+            cancelButtonColor: '#c82333',
+            confirmButtonText: 'Xoá',
+            cancelButtonText: 'Không'
+            
+        }).then((result) => {
+            if (result.isConfirmed) {
+               
+                
+                Swal.fire(
+                   
+                    'Xoá thành công!',
+                    'Your file has been deleted.',
+                    'success'
+                   
+                   
+                    
+                )
+               
+                var ma = $(this).attr("data-MaSP");
+                var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
+                window.location.href = url;
+                
+            }
+            
+        })
+    })
+    
+
+
 </script>
+
+
 
 

@@ -140,6 +140,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DatHangController.cs" />
     <Compile Include="Controllers\DemoJQueryController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -199,7 +200,13 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThanhVien.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TinhTrangGiaoHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -460,6 +467,11 @@
     <Content Include="Views\Admin\ThemSanPham.cshtml" />
     <Content Include="Views\Admin\XemSanPham.cshtml" />
     <Content Include="Views\Admin\SuaSanPham.cshtml" />
+    <Content Include="Views\Admin\XemLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\SuaLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\ThemLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\XemNguoiDung.cshtml" />
+    <Content Include="Views\Admin\ThemNguoiDung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -477,6 +489,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\DatHang\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

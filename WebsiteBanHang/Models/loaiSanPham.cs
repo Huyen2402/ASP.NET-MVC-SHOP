@@ -17,15 +17,14 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public loaiSanPham()
         {
-            this.SanPham = new HashSet<SanPham>();
+            this.SanPhams = new HashSet<SanPham>();
         }
     
         public int MaLoaiSP { get; set; }
         public string TenLoai { get; set; }
-        public string Icon { get; set; }
-        public string BiDanh { get; set; }
+        public Nullable<bool> DaXoa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPham { get; set; }
+        public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

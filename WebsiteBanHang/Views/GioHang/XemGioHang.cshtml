@@ -69,36 +69,64 @@
             </div>
         </div>
         <div class="col-md-3 cart-total">
-            <a class="continue" href="#">Continue to basket</a>
+            <a class="continue" href="#">Thanh Toán</a>
             <div class="price-details">
-                <h3>Price Details</h3>
-                <span>Total</span>
+                <h3>Chi Tiết</h3> 
+                <span>Tổng Tiền</span>
                 <span class="total1">@ViewBag.TongTien</span>
-                <span>Discount</span>
+                <span>Giảm Giá</span>
                 <span class="total1">---</span>
-                <span>Delivery Charges</span>
-                <span class="total1">----</span>
+                <span>Hình thức thanh toán:</span>
+                <span class="total1">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="1" name="optradio" value="option1" checked>
+                        <label  class="form-check-label" for="1">Thanh Toán Khi Nhận Hàng</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="2" name="optradio" value="option2">
+                        <label class="form-check-label" for="2">Ví MoMo</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="3" name="optradio" value="option3">
+                        <label for="3" class="form-check-label">VN Pay</label>
+                    </div>
+                </span>
+
                 <div class="clearfix"></div>
             </div>
             <ul class="total_price">
-                <li class="last_price"> <h4>TOTAL</h4></li>
+                <li class="last_price"> <h4>TỔNG</h4></li>
                 <li class="last_price"><span>@ViewBag.TongTien </span></li>
                 <div class="clearfix"> </div>
             </ul>
 
 
             <div class="clearfix"></div>
-            <a class="order" href="#">Place Order</a>
-            <div class="total-item">
-                <h3>OPTIONS</h3>
-                <h4>COUPONS</h4>
-                <a class="cpns" href="#">Apply Coupons</a>
-                <p><a href="#">Log In</a> to use accounts - linked coupons</p>
-            </div>
+            <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
+           
         </div>
     }
 
     <div class="clearfix"> </div>
 </div>
     </div>
+<script>
+
+    var val = 1;
+    $(".form-check-input").click(function () {
+        
+        val = $(this).attr("id");
+
+
+        
+        
+    })
+
+    $("#btn-dathang").click(function () {
+        var url = "http://localhost:62979/DatHang/DatHang?id=" + val;
+        window.location.href = url;
+    })
+    
+   
+</script>
 

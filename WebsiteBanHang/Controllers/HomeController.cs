@@ -81,6 +81,7 @@ namespace WebsiteBanHang.Controllers
             if(tv != null && tv.MaLoaiTV == 2)
             {
                 Session["TaiKhoan"] = tv;
+                Session["idKH"] = tv.MaThanhVien;
                 return Content(" <script>window.location.href = 'http://localhost:62979/Home/Index';</script>");
             }
             if(tv != null && tv.MaLoaiTV == 1)
@@ -98,6 +99,8 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("Index");
         }
 
+
+        
 
     }
 }

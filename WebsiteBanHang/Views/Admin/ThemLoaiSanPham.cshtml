@@ -1,0 +1,35 @@
+﻿@model WebsiteBanHang.Models.loaiSanPham
+
+@{
+    ViewBag.Title = "ThemLoaiSanPham";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>ThemLoaiSanPham</h2>
+
+@using (Html.BeginForm("ThemLoaiSanPham", "Admin", FormMethod.Post)) 
+{
+   
+    
+    <div class="form-horizontal">
+        <h4>loaiSanPham</h4>
+        <hr />
+       
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên Loại:</label>
+           
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenLoai, new { htmlAttributes = new { @class = "form-control" } })
+              
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+

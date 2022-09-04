@@ -1,0 +1,88 @@
+﻿
+
+@using WebsiteBanHang.Models;
+@model List<ThanhVien>
+
+
+@{
+    ViewBag.Title = "XemNguoiDung";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+
+
+<div class="container mt-3" style="padding-top:80px;">
+    <h2>Danh Sách Người Dùng</h2>
+
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Người Dùng</th>
+                <th>Email</th>
+                <th>SDT</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaThanhVien</td>
+                    <td>@item.HoTen</td>
+                    <td>@item.Email</td>
+                    <td>@item.SDT</td>
+
+
+                    @if (item.DaKhoa == false)
+                    {
+                        <td>
+                            <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-danger block-user">Khoá</a>
+                        </td>
+                    }
+                    else
+                    {
+                <td>
+                    <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-secondary unblock-user">Đã Khoá</a>
+                </td>
+                            }
+
+
+
+
+                    </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+    $(".block-user").click(function () {
+        $(this).text("Đã Khoá");
+        
+        var matv = $(this).attr("data-MaThanhVien");
+        console.log(matv);
+        var url = "http://localhost:62979/Admin/KhoaNguoiDung?MaThanhVien=" + matv;
+        window.location.href = url;
+    })
+
+    $(".unblock-user").click(function () {
+        $(this).text("Khoá");
+        
+        var matv = $(this).attr("data-MaThanhVien");
+        console.log(matv);
+        var url = "http://localhost:62979/Admin/MoKhoaNguoiDung?MaThanhVien=" + matv;
+        window.location.href = url;
+    })
+
+ 
+
+
+</script>
+
+
+
+
+

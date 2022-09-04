@@ -12,16 +12,12 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTietDonDatHang
+    public partial class sysdiagram
     {
-        public Nullable<int> MaDDH { get; set; }
-        public Nullable<int> MaSP { get; set; }
-        public string TenSP { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public Nullable<decimal> DonGia { get; set; }
-        public int MaChiTietDDH1 { get; set; }
-    
-        public virtual DonDatHang DonDatHang { get; set; }
-        public virtual SanPham SanPham { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -260,5 +260,164 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("XemSanPham", "Admin");
         }
 
+        public ActionResult XemLoaiSanPham()
+        {
+            //if (Session["Quyen"].ToString() != "Admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n=>n.DaXoa == false).ToList();
+            return View(listLSP);
+        }
+
+
+        [HttpGet]
+        public ActionResult SuaLoaiSanPham(int? MaLoaiSP)
+        {
+            if(MaLoaiSP == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+
+                loaiSanPham lsp = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == MaLoaiSP);
+                if (lsp == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                
+                return View(lsp);
+            }
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SuaLoaiSanPham(loaiSanPham lsp)
+        {
+        loaiSanPham check = db.loaiSanPhams.SingleOrDefault(n=>n.MaLoaiSP == lsp.MaLoaiSP);
+            if(check == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                check.TenLoai = lsp.TenLoai;
+                db.SaveChanges();
+                return RedirectToAction("XemLoaisanPham", "Admin");
+            }
+
+
+            return View(lsp);
+        }
+
+        [HttpGet]
+        public ActionResult ThemLoaiSanPham()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ThemLoaiSanPham(loaiSanPham lsp)
+        {
+
+            db.loaiSanPhams.Add(lsp);
+            db.SaveChanges();
+            return RedirectToAction("XemLoaiSanPham", "Admin");
+        }
+
+        public ActionResult XoaloaiSanPham(int? MaLoaiSP)
+        {
+            
+                loaiSanPham lsp = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == MaLoaiSP);
+                if (lsp == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    lsp.DaXoa = true;
+                    db.SaveChanges();
+                    
+            }
+            return RedirectToAction("XemLoaiSanPham", "Admin");
+        }
+
+        public ActionResult XemNguoiDung()
+        {
+            List< ThanhVien> tv = db.ThanhViens.ToList();
+
+            return View(tv);
+        }
+
+
+        [HttpGet]
+        public ActionResult ThemNguoiDung()
+        {
+            ViewBag.MaLoaiTV = new SelectList(db.LoaiThanhViens, "MaLoaiTV", "TenLoai");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ThemNguoiDung(ThanhVien tv)
+        {
+
+            if (tv == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                db.ThanhViens.Add(tv);
+                db.SaveChanges();
+                return RedirectToAction("XemNguoiDung", "Admin");
+            }
+            return View();
+        }
+
+
+        
+        public ActionResult KhoaNguoiDung(int? MaThanhVien)
+        {
+
+            
+                ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == MaThanhVien);
+                if(check == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    check.DaKhoa = true;
+                    db.SaveChanges();
+                    
+                }
+            
+            return RedirectToAction("XemNguoiDung", "Admin");
+        }
+        public ActionResult MoKhoaNguoiDung(int? MaThanhVien)
+        {
+
+
+            ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == MaThanhVien);
+            if (check == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                check.DaKhoa = false;
+                db.SaveChanges();
+
+            }
+
+            return RedirectToAction("XemNguoiDung", "Admin");
+        }
+
     }
 }
