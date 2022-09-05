@@ -41,9 +41,27 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult DangKy()
         {
+            
+            ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
+            ViewBag.MaHuyen = new SelectList(db.Huyens, "MaHuyen", "TenHuyen");
+            ViewBag.MaXa = new SelectList(db.Xas, "MaXa", "TenXa");
             ViewBag.CauHoi = new SelectList(CauHoi());
             return View();
 
+        }
+
+        public ActionResult LayHuyen(int idTinh)
+        {
+            List<Huyen> listHuyen = db.Huyens.Where(n => n.MaTinh == idTinh).ToList();
+            ViewBag.MaHuyen = new SelectList(listHuyen, "MaHuyen", "TenHuyen");
+            return PartialView("LayHuyen");
+        }
+
+        public ActionResult LayXa(int idHuyen)
+        {
+            List<Xa> listXa = db.Xas.Where(n => n.MaHuyen == idHuyen).ToList();
+            ViewBag.MaXa = new SelectList(listXa, "MaXa", "TenXa");
+            return PartialView("LayXa");
         }
 
         [HttpPost]

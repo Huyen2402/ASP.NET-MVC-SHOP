@@ -28,15 +28,19 @@ namespace WebsiteBanHang.Models
         public string DiaChi { get; set; }
         public string Email { get; set; }
         public string SDT { get; set; }
-        public string CauHoi { get; set; }
-        public string CauTraLoi { get; set; }
         public Nullable<int> MaLoaiTV { get; set; }
         public Nullable<bool> DaKhoa { get; set; }
+        public Nullable<int> MaTinh { get; set; }
+        public Nullable<int> MaHuyen { get; set; }
+        public Nullable<int> MaXa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
+        public virtual Huyen Huyen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachHang> KhachHangs { get; set; }
         public virtual LoaiThanhVien LoaiThanhVien { get; set; }
+        public virtual Tinh Tinh { get; set; }
+        public virtual Xa Xa { get; set; }
     }
 }

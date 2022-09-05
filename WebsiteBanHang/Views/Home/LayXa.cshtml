@@ -1,0 +1,13 @@
+﻿@model WebsiteBanHang.Models.Xa
+
+<option value="">--- Chọn Xã ---</option>
+@{
+    if (ViewBag.MaXa != null)
+    {
+        foreach (var item in ViewBag.Maxa)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    }
+}
+

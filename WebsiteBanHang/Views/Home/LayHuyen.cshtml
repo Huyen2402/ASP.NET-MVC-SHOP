@@ -1,0 +1,12 @@
+﻿@model WebsiteBanHang.Models.Huyen
+
+<option value="">--- Chọn Huyện ---</option>
+@{
+    if (@ViewBag.MaHuyen != null)
+    {
+        foreach (var item in @ViewBag.MaHuyen)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    }
+}

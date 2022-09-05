@@ -21,10 +21,7 @@
                 <span>Họ tên</span>
                 <input name="HoTen" type="text">
             </div>
-            <div>
-                <span>Địa chỉ</span>
-                <input name="DiaChi" type="text">
-            </div>
+
             <div>
                 <span>Email</span>
                 <input name="Email" type="text">
@@ -34,18 +31,23 @@
                 <input name="SDT" type="text">
             </div>
             <div>
-                <span>Câu hỏi</span>
-                @Html.DropDownList("CauHoi")
+                <span>Tỉnh</span>
+                @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh"  })
             </div>
             <div>
-                <span>Câu trả lời</span>
-                <input name="CauTraLoi" type="text">
+                <span>Huyện</span>
+                @Html.DropDownList("MaHuyen", new SelectList(""), "" ,new { @class = "form-select", @id = "idHuyen" })
             </div>
             <div>
-                <span>Tài khoản</span>
-                <input name="TaiKhoan" type="text">
+                <span>Xã</span>
+                @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
+            </div>
+            <div>
+                <span>Địa chỉ</span>
+                <input name="DiaChi" type="text">
             </div>
 
+           
             <a class="news-letter" href="#">
                 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
             </a>
@@ -53,13 +55,16 @@
 
         <div class="col-md-6 register-bottom-grid">
             <h3>Thông tin tài khoản</h3>
-
+            <div>
+                <span>Tài khoản</span>
+                <input id="txbTK" name="TaiKhoan" type="text">
+            </div>
 
             <div>
                 <span>Mật khẩu</span>
                 <input name="MatKhau" type="password">
             </div>
-            
+
             <div>
                 <span>Nhập lại mật khẩu</span>
                 <input name="repass" type="password">
@@ -77,4 +82,41 @@
         
     </div>
 </div>
+<script>
+    $("#idTinh").change(function () {
+        var idTinh = $(this).val();
+        $.ajax({
+            type: "post",
+            
+            url: "http://localhost:62979/Home/LayHuyen?idTinh=" + idTinh,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idHuyen").empty();
+                $("#idHuyen").append(response);
+            }
+        })
+       
+    })
 
+
+    $("#idHuyen").change(function () {
+        var idHuyen = $(this).val();
+        $.ajax({
+            type: "post",
+
+            url: "http://localhost:62979/Home/LayXa?idHuyen=" + idHuyen,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idXa").empty();
+                $("#idXa").append(response);
+            }
+        })
+
+    })
+    
+
+</script>

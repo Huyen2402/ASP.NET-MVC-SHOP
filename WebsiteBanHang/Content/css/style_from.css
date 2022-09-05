@@ -31,3 +31,13 @@ button.btn.btn-danger.mt-4 {
 i.fa-solid.fa-xmark {
     color: aliceblue;
 }
+
+#idTinh, #idHuyen, #idXa {
+    padding: 1em;
+    margin: 8px, 0;
+}
+#txbTK {
+    width: 100%;
+    padding: 1em;
+    border: 1px solid #A09F9F;
+}
