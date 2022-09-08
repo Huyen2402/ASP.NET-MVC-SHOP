@@ -17,7 +17,9 @@
                 @if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
                 {
                     ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
-                    <li><a  class="lock" href="#">Chào bạn @tv.HoTen</a></li>
+                    <li><a  class="lock" href="#">Chào bạn @tv.HoTen</a>
+                        <a class="lock" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a>
+                    </li>
                     <li><a class="lock" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a></li>
                     
 

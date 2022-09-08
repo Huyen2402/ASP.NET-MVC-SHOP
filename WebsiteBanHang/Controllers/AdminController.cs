@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -417,6 +418,98 @@ namespace WebsiteBanHang.Controllers
             }
 
             return RedirectToAction("XemNguoiDung", "Admin");
+        }
+
+        public ActionResult DonHangChoXacNhan()
+        {
+
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n=>n.MaTinhTrangGiaoHang == 5).ToList();
+            
+            
+
+            
+
+            return View(listddh);
+        }
+
+        public ActionResult XemChiTietDonHang(int? MaDDH)
+        {
+
+            if(MaDDH == null)
+            {
+                Response.StatusCode = 404;
+
+            }
+            else
+            {
+                List< ChiTietDonDatHang > ct = db.ChiTietDonDatHangs.Where(n=>n.MaDDH == MaDDH).ToList();
+                if(ct == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                   
+                    return View(ct);
+                }
+            }
+            return View();
+        }
+
+        public ActionResult HuyDonHang(int? MaDDH)
+        {
+            
+            if( MaDDH == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+                for(var i=0; i< listCT.Count(); i++)
+                {
+                    db.ChiTietDonDatHangs.Remove(listCT[i]);
+                }
+                DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
+                db.DonDatHangs.Remove(ddh);
+                
+                
+            }
+            db.SaveChanges();
+            return RedirectToAction("DonHangChoXacNhan");
+        }
+
+        public ActionResult XacNhanDonHang(int? MaDDH)
+        {
+            if (MaDDH == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
+                if(ddh == null)
+                {
+                    Response.StatusCode = 404;
+
+                }
+                else
+                {
+                    ddh.MaTinhTrangGiaoHang = 6;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("DonHangChoXacNhan");
+
+        }
+
+        public ActionResult DonHangDangGiao()
+        {
+
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 6).ToList();
+
+
+            return View(listddh);
         }
 
     }

@@ -31,19 +31,19 @@
                 <input name="SDT" type="text">
             </div>
             <div>
-                <span>Tỉnh</span>
+                <span class="label-m10">Tỉnh</span>
                 @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh"  })
             </div>
             <div>
-                <span>Huyện</span>
+                <span class="label-m10">Huyện</span>
                 @Html.DropDownList("MaHuyen", new SelectList(""), "" ,new { @class = "form-select", @id = "idHuyen" })
             </div>
             <div>
-                <span>Xã</span>
+                <span class="label-m10">Xã</span>
                 @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
             </div>
             <div>
-                <span>Địa chỉ</span>
+                <span >Địa chỉ</span>
                 <input name="DiaChi" type="text">
             </div>
 
@@ -62,17 +62,17 @@
 
             <div>
                 <span>Mật khẩu</span>
-                <input name="MatKhau" type="password">
+                <input id="password" name="MatKhau" type="password">
             </div>
 
             <div>
                 <span>Nhập lại mật khẩu</span>
-                <input name="repass" type="password">
+                <input id="repass" name="repass" type="password">
             </div>
             <div>
                 @Html.Captcha(5)
             </div>
-            <input type="submit" value="Đăng ký">
+            <input id="btn-dangky" type="submit" value="Đăng ký">
 
         </div>
             <div class="clearfix"> </div>
@@ -117,6 +117,9 @@
         })
 
     })
+
+
+    
     
 
 </script>

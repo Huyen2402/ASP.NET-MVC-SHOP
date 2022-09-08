@@ -1,0 +1,72 @@
+﻿
+@using WebsiteBanHang.Models
+@model List<ChiTietDonDatHang>
+
+
+@{
+    ViewBag.Title = "XemChiTietDonHang";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>XemChiTietDonHang</h2>
+
+<div class="container mt-3" style="padding-top:80px;">
+    <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
+
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã SP</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Đơn giá</th>
+                @*<th>Thao Tác</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaChiTietDDH1</td>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td>@item.SoLuong</td>
+                    <td>@item.DonGia</td>
+                    <input data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaDDH" />
+
+
+
+
+                    @*<td>
+                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
+                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ</a>
+                        </td>*@
+
+
+
+
+
+
+                </tr>
+
+
+            }
+
+        </tbody>
+    </table>
+
+    <div>
+        <a id="btn-huydon" class="btn btn-danger" @*href="@Url.Action("HuyDonHang", "Admin", new {  })*@>Huỷ Đơn</a>
+    </div>
+</div>
+
+<script>
+    $("#btn-huydon").click(function () {
+        var id = $("#txb-idDDH").val()
+        var url = 'http://localhost:62979/Admin/HuyDonHang?MaDDH=' + id;
+        window.location.href = url;
+    })
+</script>
+

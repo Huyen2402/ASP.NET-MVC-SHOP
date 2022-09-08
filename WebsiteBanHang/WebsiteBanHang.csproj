@@ -483,6 +483,10 @@
     <Content Include="Views\Admin\ThemNguoiDung.cshtml" />
     <Content Include="Views\Home\LayHuyen.cshtml" />
     <Content Include="Views\Home\LayXa.cshtml" />
+    <Content Include="Views\Home\CapNhatThongTin.cshtml" />
+    <Content Include="Views\Admin\DonHangChoXacNhan.cshtml" />
+    <Content Include="Views\Admin\XemChiTietDonHang.cshtml" />
+    <Content Include="Views\Admin\DonHangDangGiao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

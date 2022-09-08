@@ -3150,3 +3150,8 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 #preview-img, #preview-img1, #preview-img2, #preview-img3{
     margin-bottom: 4px;
 }
+
+#btn-huydon {
+    float: right;
+    margin-bottom: 8px;
+}

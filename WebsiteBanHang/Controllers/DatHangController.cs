@@ -15,6 +15,8 @@ namespace WebsiteBanHang.Controllers
         {
             QuanLyBanHangEntities db = new QuanLyBanHangEntities();
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
+            
+
             int iduser = (int)Session["idKH"];
             if (listGioHang == null)
             {
@@ -43,14 +45,17 @@ namespace WebsiteBanHang.Controllers
                 }
                 ddh.UuDai = 0;
                 ddh.MaKH = iduser;
-
+                ddh.MaTinh = (int)Session["MaTinh"];
+                ddh.MaHuyen = (int)Session["MaHuyen"];
+                ddh.MaXa = (int)Session["MaXa"];
                 db.DonDatHangs.Add(ddh);
 
-                db.SaveChanges();
+               
 
                 for (var i = 0; i < listGioHang.Count(); i++)
                 {
                     ChiTietDonDatHang ct = new ChiTietDonDatHang();
+                    
                     ct.MaDDH = ddh.MaDDH;
                 
                     ct.MaSP = listGioHang[i].MaSP;
@@ -58,11 +63,19 @@ namespace WebsiteBanHang.Controllers
                     ct.SoLuong = listGioHang[i].SoLuong;
                     ct.DonGia = listGioHang[i].Dongia;
                     db.ChiTietDonDatHangs.Add(ct);
-                    
+
+                   if(ct != null)
+                    {
+                        SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
+                        spsl.SoLuongTon--;
+                        spsl.SoLanMua++;
+                    }
+
+
 
                 }
 
-                db.SaveChanges();
+             db.SaveChanges();
 
 
 

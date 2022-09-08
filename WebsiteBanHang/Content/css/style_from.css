@@ -41,3 +41,10 @@ i.fa-solid.fa-xmark {
     padding: 1em;
     border: 1px solid #A09F9F;
 }
+.label-m10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#btn-dangky{
+    margin-top: 16px;
+}

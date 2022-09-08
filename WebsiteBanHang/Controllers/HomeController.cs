@@ -67,18 +67,26 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public ActionResult DangKy(ThanhVien tv)
         {
+            ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
 
             ViewBag.CauHoi = new SelectList(CauHoi());
             if(this.IsCaptchaValid("Captcha is not valid"))
             {
                 ViewBag.ThongBao = "Thêm thành công";
+                tv.MaLoaiTV = 2;
+                tv.DaKhoa = false;
                 db.ThanhViens.Add(tv);
                
                 db.SaveChanges();
+                ViewBag.ThongBao = "Thêm thành công";
                 return View();
             }
+            else
+            {
+                ViewBag.ThongBao = "Thêm thất bại";
+            }
 
-            ViewBag.ThongBao = "Thêm thất bại";
+            
             return View();
         }
 
@@ -100,6 +108,9 @@ namespace WebsiteBanHang.Controllers
             {
                 Session["TaiKhoan"] = tv;
                 Session["idKH"] = tv.MaThanhVien;
+                Session["MaTinh"] = tv.MaTinh;
+                Session["MaHuyen"] = tv.MaHuyen;
+                Session["MaXa"] = tv.MaXa;
                 return Content(" <script>window.location.href = 'http://localhost:62979/Home/Index';</script>");
             }
             if(tv != null && tv.MaLoaiTV == 1)
@@ -117,8 +128,62 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult CapNhatThongTin(int? MaTV)
+        {
+            
 
-        
+            // tìm tên trong csdl
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n=>n.MaThanhVien == MaTV);
+            ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh", tv.MaTinh);
+           
+            if (tv == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                return View(tv);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CapNhatThongTin(ThanhVien tv)
+        {
+            if (tv == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == tv.MaThanhVien);
+                if (check == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    check.MaThanhVien = tv.MaThanhVien;
+                    check.HoTen = tv.HoTen;
+                    check.SDT = tv.SDT;
+                    check.MaHuyen = tv.MaHuyen;
+                    check.MaTinh = tv.MaTinh;
+                    check.MaXa = tv.MaXa;
+                    check.MatKhau = tv.MatKhau;
+                    check.DiaChi = tv.DiaChi;
+                    check.DaKhoa = false;
+                    db.SaveChanges();
+                   
+                    return RedirectToAction("Index","Home");
+
+                }
+
+            }
+            return View(tv);
+
+        }
+
 
     }
 }
