@@ -20,7 +20,6 @@ namespace WebsiteBanHang.Models
             this.ChiTietDonDatHangs = new HashSet<ChiTietDonDatHang>();
         }
     
-        public int MaDDH { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }
         public Nullable<bool> DaThanhToan { get; set; }
         public Nullable<int> MaKH { get; set; }
@@ -30,6 +29,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaHuyen { get; set; }
         public Nullable<int> MaTinh { get; set; }
         public Nullable<int> MaXa { get; set; }
+        public string MaDDH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
@@ -37,8 +37,6 @@ namespace WebsiteBanHang.Models
         public virtual Tinh Tinh { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
         public virtual Xa Xa { get; set; }
-        public virtual DonDatHang DonDatHang1 { get; set; }
-        public virtual DonDatHang DonDatHang2 { get; set; }
         public virtual TinhTrangGiaoHang TinhTrangGiaoHang { get; set; }
     }
 }

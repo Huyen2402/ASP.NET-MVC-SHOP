@@ -14,7 +14,7 @@ namespace WebsiteBanHang.Models
     
     public partial class ChiTietDonDatHang
     {
-        public Nullable<int> MaDDH { get; set; }
+        public string MaDDH { get; set; }
         public Nullable<int> MaSP { get; set; }
         public string TenSP { get; set; }
         public Nullable<int> SoLuong { get; set; }

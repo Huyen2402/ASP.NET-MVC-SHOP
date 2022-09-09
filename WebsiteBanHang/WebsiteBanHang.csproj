@@ -218,6 +218,8 @@
     <Compile Include="Models\Xa.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Other\MoMoSecurity.cs" />
+    <Compile Include="Other\PaymentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

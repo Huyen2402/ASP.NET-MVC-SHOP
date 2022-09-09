@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="MaChiTietDDH1" />
           </Key>
-          <Property Name="MaDDH" Type="int" />
+          <Property Name="MaDDH" Type="nvarchar" MaxLength="200" />
           <Property Name="MaSP" Type="int" />
           <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
           <Property Name="SoLuong" Type="int" />
@@ -39,7 +39,6 @@
           <Key>
             <PropertyRef Name="MaDDH" />
           </Key>
-          <Property Name="MaDDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NgayDat" Type="datetime" />
           <Property Name="DaThanhToan" Type="bit" />
           <Property Name="MaKH" Type="int" />
@@ -49,6 +48,7 @@
           <Property Name="MaHuyen" Type="int" />
           <Property Name="MaTinh" Type="int" />
           <Property Name="MaXa" Type="int" />
+          <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Huyen">
           <Key>
@@ -308,18 +308,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonDatHang_DonDatHang">
-          <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="1" />
-          <End Role="DonDatHang1" Type="Self.DonDatHang" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="DonDatHang">
-              <PropertyRef Name="MaDDH" />
-            </Principal>
-            <Dependent Role="DonDatHang1">
-              <PropertyRef Name="MaDDH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DonDatHang_TinhTrangGiaoHang">
           <End Role="TinhTrangGiaoHang" Type="Self.TinhTrangGiaoHang" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -530,10 +518,6 @@
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietPhieuNhap" EntitySet="ChiTietPhieuNhap" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonDatHang_DonDatHang" Association="Self.FK_DonDatHang_DonDatHang">
-            <End Role="DonDatHang" EntitySet="DonDatHang" />
-            <End Role="DonDatHang1" EntitySet="DonDatHang" />
-          </AssociationSet>
           <AssociationSet Name="FK_DonDatHang_TinhTrangGiaoHang" Association="Self.FK_DonDatHang_TinhTrangGiaoHang">
             <End Role="TinhTrangGiaoHang" EntitySet="TinhTrangGiaoHang" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -645,10 +629,6 @@
             <End Role="Xa" EntitySet="Xas" />
             <End Role="DonDatHang" EntitySet="DonDatHangs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonDatHang_DonDatHang" Association="QuanLyBanHangModel.FK_DonDatHang_DonDatHang">
-            <End Role="DonDatHang" EntitySet="DonDatHangs" />
-            <End Role="DonDatHang1" EntitySet="DonDatHangs" />
-          </AssociationSet>
           <AssociationSet Name="FK_DonDatHang_TinhTrangGiaoHang" Association="QuanLyBanHangModel.FK_DonDatHang_TinhTrangGiaoHang">
             <End Role="TinhTrangGiaoHang" EntitySet="TinhTrangGiaoHangs" />
             <End Role="DonDatHang" EntitySet="DonDatHangs" />
@@ -713,7 +693,7 @@
           <Key>
             <PropertyRef Name="MaChiTietDDH1" />
           </Key>
-          <Property Name="MaDDH" Type="Int32" />
+          <Property Name="MaDDH" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MaSP" Type="Int32" />
           <Property Name="TenSP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SoLuong" Type="Int32" />
@@ -738,7 +718,6 @@
           <Key>
             <PropertyRef Name="MaDDH" />
           </Key>
-          <Property Name="MaDDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NgayDat" Type="DateTime" Precision="3" />
           <Property Name="DaThanhToan" Type="Boolean" />
           <Property Name="MaKH" Type="Int32" />
@@ -748,13 +727,12 @@
           <Property Name="MaHuyen" Type="Int32" />
           <Property Name="MaTinh" Type="Int32" />
           <Property Name="MaXa" Type="Int32" />
+          <Property Name="MaDDH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietDonDatHangs" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.DonDatHangtoHuyen" FromRole="DonDatHang" ToRole="Huyen" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.DonDatHangtoTinh" FromRole="DonDatHang" ToRole="Tinh" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.DonDatHangtoThanhVien" FromRole="DonDatHang" ToRole="ThanhVien" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.DonDatHangtoXa" FromRole="DonDatHang" ToRole="Xa" />
-          <NavigationProperty Name="DonDatHang1" Relationship="QuanLyBanHangModel.FK_DonDatHang_DonDatHang" FromRole="DonDatHang" ToRole="DonDatHang1" />
-          <NavigationProperty Name="DonDatHang2" Relationship="QuanLyBanHangModel.FK_DonDatHang_DonDatHang" FromRole="DonDatHang1" ToRole="DonDatHang" />
           <NavigationProperty Name="TinhTrangGiaoHang" Relationship="QuanLyBanHangModel.FK_DonDatHang_TinhTrangGiaoHang" FromRole="DonDatHang" ToRole="TinhTrangGiaoHang" />
         </EntityType>
         <EntityType Name="Huyen">
@@ -1047,18 +1025,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonDatHang_DonDatHang">
-          <End Type="QuanLyBanHangModel.DonDatHang" Role="DonDatHang" Multiplicity="1" />
-          <End Type="QuanLyBanHangModel.DonDatHang" Role="DonDatHang1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="DonDatHang">
-              <PropertyRef Name="MaDDH" />
-            </Principal>
-            <Dependent Role="DonDatHang1">
-              <PropertyRef Name="MaDDH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DonDatHang_TinhTrangGiaoHang">
           <End Type="QuanLyBanHangModel.TinhTrangGiaoHang" Role="TinhTrangGiaoHang" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -1253,6 +1219,7 @@
           <EntitySetMapping Name="DonDatHangs">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.DonDatHang">
               <MappingFragment StoreEntitySet="DonDatHang">
+                <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
@@ -1262,7 +1229,6 @@
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="DaThanhToan" ColumnName="DaThanhToan" />
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

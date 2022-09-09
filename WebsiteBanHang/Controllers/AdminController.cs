@@ -432,7 +432,7 @@ namespace WebsiteBanHang.Controllers
             return View(listddh);
         }
 
-        public ActionResult XemChiTietDonHang(int? MaDDH)
+        public ActionResult XemChiTietDonHang(string MaDDH)
         {
 
             if(MaDDH == null)
@@ -456,7 +456,7 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        public ActionResult HuyDonHang(int? MaDDH)
+        public ActionResult HuyDonHang(string MaDDH)
         {
             
             if( MaDDH == null)
@@ -479,7 +479,7 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("DonHangChoXacNhan");
         }
 
-        public ActionResult XacNhanDonHang(int? MaDDH)
+        public ActionResult XacNhanDonHang(string MaDDH)
         {
             if (MaDDH == null)
             {

@@ -12,7 +12,7 @@
 <div class=" container">
     <div class=" register">
         <h1>Đăng ký thành viên</h1>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("DangKy", "Home", FormMethod.Post, new { @id = "form-dangky" }))
         {
 
         <div class="col-md-6 register-top-grid">
@@ -68,6 +68,7 @@
             <div>
                 <span>Nhập lại mật khẩu</span>
                 <input id="repass" name="repass" type="password">
+                <p id="erorr" style="color:red;"></p>
             </div>
             <div>
                 @Html.Captcha(5)
@@ -117,6 +118,49 @@
         })
 
     })
+
+    $(function () {
+        $("#form-dangky").submit(function (event) {
+            event.preventDefault();
+            var pass = $("#password").val();
+            var repass = $("#repass").val();
+            if (repass != pass) {
+                
+                $("#erorr").text("Mật khẩu không trùng khớp");
+            }
+
+            else {
+            
+
+             /*   $("#form-dangky").submit();*/
+                var actionurl = event.currentTarget.action;
+
+                //do your own request an handle the results
+                $.ajax({
+                    url: actionurl,
+                    type: 'post',
+                    dataType: 'application/json',
+                    data: $("#form-dangky").serialize()
+                   
+                   
+                });
+
+
+                Swal.fire({
+                   
+                    icon: 'success',
+                    title: 'Đăng ký tài khoản thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                   
+                })
+                window.location.reload();
+               
+            }
+            
+           
+        });
+    });
 
 
     
