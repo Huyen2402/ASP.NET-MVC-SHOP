@@ -6,7 +6,7 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
-@{ 
+@{
     IEnumerable<SanPham> listDT = (IEnumerable<SanPham>)ViewBag.listDT;
     IEnumerable<SanPham> listLT = (IEnumerable<SanPham>)ViewBag.listLT;
     IEnumerable<SanPham> listMTB = (IEnumerable<SanPham>)ViewBag.listMTB;
@@ -14,10 +14,42 @@
 
 
 <div class="container">
+    <div id="chat">
+        @*<div id="img-chat"><i class="fa-brands fa-rocketchat"></i></div>*@
+        <img id="img-chat" src="~/Content/images/chat.png" alt="Alternate Text" />
+        <div  class="card" id="box-chat">
+            <div class="card-header" id="title-chat">Tin Nhắn Của Bạn <i id="exit-chat" class="fa-solid fa-xmark"></i></div>
+            <div class="card-body" id="body-chat">
+                <div id="gui"><p>Hi bạn</p></div>
+                <div id="nhan"><p>Buổi chiều vui vẻ</p></div>
+            </div>
+            
+            <div class="card-header row" id="footer-chat">
+                @*<textarea class="col-10"></textarea>*@
+                <input style="margin:3px;" class="col-9" type="text" name="name" value="" />
+                
+                <a id="btn-send" class="btn col-2" href="#">Gửi</a>
+            </div>
+        </div>
+    </div>
     @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", listDT)
     @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", listLT)
-    
+
 
 
 </div>
+
+<script>
+    $("#img-chat").click(function () {
+        $("#img-chat").css("display", "none");
+        $("#box-chat").css("display", "block");
+
+    });
+    $("#exit-chat").click(function () {
+        $("#box-chat").css("display", "none");
+        $("#img-chat").css("display", "block");
+    })
+
+</script>
+
 

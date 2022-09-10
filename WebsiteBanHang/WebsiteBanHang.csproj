@@ -219,7 +219,10 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Other\MoMoSecurity.cs" />
+    <Compile Include="Other\PayCompare.cs" />
+    <Compile Include="Other\PayLib.cs" />
     <Compile Include="Other\PaymentRequest.cs" />
+    <Compile Include="Other\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

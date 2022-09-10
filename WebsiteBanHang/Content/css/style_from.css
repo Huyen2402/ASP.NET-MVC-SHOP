@@ -48,3 +48,89 @@ i.fa-solid.fa-xmark {
 #btn-dangky{
     margin-top: 16px;
 }
+
+#chat {
+    /* position: sticky;
+    z-index: 9999;
+    right: 0;
+    width: 50px;*/
+ 
+    position: fixed;
+    height: 100%;
+    z-index: 1000;
+    right: 0px;
+    top: 100px;
+    margin-top: 200px;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    overflow-y: auto;
+}
+
+#img-chat{
+    width: 50px
+}
+
+#box-chat {
+    width: 300px;
+    display: none;
+    position: fixed;
+ 
+    z-index: 1000;
+    right: 0px;
+    top: 150px;
+    margin-top: 200px;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+   
+}
+#exit-chat{
+    color: white;
+    cursor:pointer;
+    float: right;
+    padding:4px;
+}
+#title-chat {
+    background-color: black;
+    color: white;
+    font-size: 13px;
+    
+    font-weight: bold;
+    height: 40px;
+}
+
+#body-chat {
+    height: 300px;
+    background-color: #dde0e0;
+}
+#footer-chat {
+    height: 50px;
+    justify-content: space-between
+}
+#btn-send {
+    background-color: #EF5F21;
+    margin: 3px;
+}
+#gui {
+    border: 1px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    max-width: 250px;
+   
+}
+#nhan {
+    border: 1px;
+    background-color: dodgerblue;
+    border-radius: 4px;
+    
+    padding: 4px;
+    font-size: 12px;
+    max-width: 250px;
+    margin-left: 30px;
+}
