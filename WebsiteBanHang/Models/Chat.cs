@@ -12,9 +12,16 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TinhTrangGiaoHang
+    public partial class Chat
     {
-        public int MaTinhTrangGiaoHang { get; set; }
-        public string TenTinhTrang { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> FromUserId { get; set; }
+        public Nullable<int> ToUserId { get; set; }
+        public string Text { get; set; }
+        public Nullable<bool> Sent { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+    
+        public virtual ThanhVien ThanhVien { get; set; }
+        public virtual ThanhVien ThanhVien1 { get; set; }
     }
 }

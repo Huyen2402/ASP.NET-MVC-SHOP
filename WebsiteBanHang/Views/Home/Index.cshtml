@@ -13,22 +13,22 @@
 }
 
 
+<input type="hidden" value="@Session["idKH"]" id="UserID" />
 <div class="container">
     <div id="chat">
         @*<div id="img-chat"><i class="fa-brands fa-rocketchat"></i></div>*@
         <img id="img-chat" src="~/Content/images/chat.png" alt="Alternate Text" />
-        <div  class="card" id="box-chat">
+        <div class="card" id="box-chat">
             <div class="card-header" id="title-chat">Tin Nhắn Của Bạn <i id="exit-chat" class="fa-solid fa-xmark"></i></div>
             <div class="card-body" id="body-chat">
-                <div id="gui"><p>Hi bạn</p></div>
-                <div id="nhan"><p>Buổi chiều vui vẻ</p></div>
             </div>
-            
+
             <div class="card-header row" id="footer-chat">
                 @*<textarea class="col-10"></textarea>*@
-                <input style="margin:3px;" class="col-9" type="text" name="name" value="" />
-                
+                <input style="margin:3px;" class="col-9" type="text" name="name" value="" id="btn-input" />
+
                 <a id="btn-send" class="btn col-2" href="#">Gửi</a>
+                <img src="~/Content/images/loading.gif" class="loading-send btn bt_bg btn-sm" style="display:none;" />
             </div>
         </div>
     </div>
@@ -38,16 +38,88 @@
 
 
 </div>
-
+<script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+<script src="~/signalr/hubs" type="text/javascript"></script>
 <script>
-    $("#img-chat").click(function () {
-        $("#img-chat").css("display", "none");
-        $("#box-chat").css("display", "block");
 
-    });
-    $("#exit-chat").click(function () {
-        $("#box-chat").css("display", "none");
-        $("#img-chat").css("display", "block");
+    $(document).ready(function () {
+        var userID = $('#UserID').val();
+        if (userID) {
+            $("#img-chat").click(function () {
+                $("#img-chat").css("display", "none");
+                $("#box-chat").css("display", "block");
+
+            });
+            $("#exit-chat").click(function () {
+                $("#box-chat").css("display", "none");
+                $("#img-chat").css("display", "block");
+            })
+        }
+
+        $(function () {
+            var chat = $.connection.chatHubs
+            chat.client.displayMessage = function () {
+                getAllData();
+            }
+            $.connection.hub.start();
+            getAllData();
+        })
+
+        function getAllData() {
+            if (userID != undefined) {
+                var chatbox = $('#body-chat');
+                $.ajax({
+                    url: location.origin + "/Chat/GetAllMessageChating?UserID=" + userID,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        chatbox.empty()
+                        if (data.length > 0) {
+                            $.each(data, function (i, model) {
+                                if (model.FromUserID == userID) {
+                                    lastMessID = model.ID;
+                                    chatbox.append(
+                                        '<div id="nhan"><p>' + model.Text + '</p></div>'
+                                    );
+                                } else {
+                                    chatbox.append(
+                                        '<div id="gui"><p>' + model.Text + '</p></div>'
+                                    );
+                                }
+                            })
+                        } else {
+                            chatbox.append(
+                                '<p>Chưa có tin nhắn...</p>'
+                            );
+                        }
+                    }
+                })
+                $("#body-chat").animate({ scrollTop: 2000000 });
+            }
+        }
+
+        $('#btn-send').click(function send() {
+            var text = $('#btn-input').val();
+            $.ajax({
+                url: location.origin + "/Chat/Send",
+                data: { FromUserID: userID, ToUserID: 1002, Text: text, Side: "Client" },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.status) {
+                        $("#btn-send").show();
+                        $(".loading-send").hide();
+                        $('#btn-input').val("");
+                        $("#body-chat").animate({ scrollTop: 2000000 });
+                    } else {
+                        alert("Có lỗi xảy ra!");
+                        return;
+                    }
+                }
+            })
+            $("#btn-send").hide();
+            $(".loading-send").show();
+        })
     })
 
 </script>
