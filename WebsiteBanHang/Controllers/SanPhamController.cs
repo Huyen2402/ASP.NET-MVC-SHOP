@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
 using PagedList;
+using System.Web.UI.WebControls;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -22,6 +23,8 @@ namespace WebsiteBanHang.Controllers
         {
             return PartialView();
         }
+
+        [HttpGet]
         public ActionResult XemChitietSP(int? id)
         {
             if (id == null)
@@ -33,7 +36,38 @@ namespace WebsiteBanHang.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
+            ViewBag.listBL = listBL;
             return View(sp);
+        }
+        [HttpPost]
+        public ActionResult XemChitietSP( FormCollection f)
+        {
+            int id = Int32.Parse(f["MaSP"]);
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == id);
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            if (tv != null)
+            {
+                BinhLuan newBL = new BinhLuan();
+                newBL.MaSP = Int32.Parse(f["MaSP"]) ;
+                newBL.NoiDungBL = f["NoiDungBL"];
+                newBL.MaThanhVien = tv.MaThanhVien;
+                db.BinhLuans.Add(newBL);
+                db.SaveChanges();
+                return RedirectToAction("XemChitietSP", "SanPham", new { id = Int32.Parse(f["MaSP"])});
+            }
+            else
+            {
+                List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
+                ViewBag.listBL = listBL;
+                ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
+                return View(sp);
+                
+            }
+
+           
+
         }
 
         public ActionResult SanPham(int? MaLoaiSP, int? MaNSX, int? page)
@@ -75,6 +109,38 @@ namespace WebsiteBanHang.Controllers
             var listNoiBat = db.SanPhams.Take(n);
             return PartialView(listNoiBat);
         }
+
+        //public ActionResult BinhLuan(int? MaSP)
+        //{
+            
+        //    List<BinhLuan> listBL = db.BinhLuans.Where(n=>n.MaSP== MaSP).ToList();
+
+
+        //    return PartialView(listBL);
+        //}
+
+        //[HttpPost]
+
+        //public ActionResult UserBinhLuan(int MaSP, BinhLuan bl)
+        //{
+        //    ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+        //    BinhLuan blnew = new BinhLuan();
+        //    blnew.MaSP = MaSP;
+        //    blnew.MaThanhVien = tv.MaThanhVien;
+        //    blnew.NoiDungBL = bl.NoiDungBL;
+
+        //    return View();
+
+        //}
+
+        //[HttpGet]
+
+        //public ActionResult UserBinhLuan()
+        //{
+
+        //    return View();
+
+        //}
 
 
     }

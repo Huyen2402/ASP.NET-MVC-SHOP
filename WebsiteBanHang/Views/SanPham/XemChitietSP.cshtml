@@ -7,12 +7,17 @@
     Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
 
+@{ 
+   
+    List<BinhLuan> listBL = ViewBag.listBL as List<BinhLuan>;
+}
+
 <div class="col-md-9 product-price1">
     <div class="col-md-5 single-top">
         <div class="flexslider">
 
             <div class="flex-viewport" style="overflow: hidden; position: relative;">
-              
+
                 <ul class="slides" style="width: 1200%; transition-duration: 0.6s; transform: translate3d(-1217.6px, 0px, 0px);">
                     <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh)" class="clone" aria-hidden="true" style="width: 304.4px; float: left; display: block;">
                         <img src="@Url.Content("~/Content/images/"+Model.HinhAnh)" draggable="false">
@@ -28,7 +33,7 @@
                     </li>
 
                 </ul>
-                
+
             </div>
         </div>
         <!-- FlexSlider -->
@@ -64,19 +69,58 @@
 
             <h5 class="item_price">$@Model.DonGia</h5>
             <p>
-               @Model.MoTa
+                @Model.MoTa
             </p>
-            
-            
+
+
             <a href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })" class="add-cart item_add">ĐẶT HÀNG</a>
 
         </div>
-       
+
     </div>
     <div class="clearfix">
-       
+
     </div>
-    
+    <div>
+        <h1>Bình luận</h1>
+        @using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post))
+        {
+
+
+
+            <input type="hidden" name="MaSP" value="@Model.MaSP" />
+            <input class="form-control" type="text" name="NoiDungBL" value="" />
+
+
+            <div>
+                @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                <input type="submit" value="Gửi Bình Luận" class="btn btn-primary" />
+            </div>
+
+
+        }
+
+
+
+        @foreach (var item in listBL)
+        {
+            <div class="form-control " id="binhluan">
+                <div>
+                    <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                </div>
+                <div id="ndBL">
+                    @item.NoiDungBL
+                </div>
+
+            </div>
+        }
+
+        <p style="color:red;">@ViewBag.ThongBao</p>
+
+    </div>
+
+    @*@Html.Action("BinhLuan", "SanPham");*@
+
     <!---->
     <!---728x90--->
 

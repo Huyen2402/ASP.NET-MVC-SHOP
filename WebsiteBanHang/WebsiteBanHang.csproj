@@ -530,6 +530,7 @@
     <Content Include="Views\Admin\DonHangDangGiao.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Chat\Chating.cshtml" />
+    <Content Include="Views\SanPham\BinhLuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

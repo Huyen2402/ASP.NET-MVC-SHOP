@@ -25,4 +25,16 @@
     cursor: pointer;
     
 }
-
+#binhluan{
+    height: auto;
+    margin-bottom: 12px;
+}
+#TenBL{
+    font-size: 13px;
+}
+#ndBL {
+    font-size: 13px;
+}
+#btn-BL{
+    margin: 12px;
+}
