@@ -825,7 +825,7 @@ p.m_11 {
 /*----*/
 h3.cate {
 	color: #000;
-	  border-bottom: 1px solid #000;
+	/*  border-bottom: 1px solid #000;*/
   width: 69%;
 	font-size: 2em;
     font-family: 'Lato', sans-serif;
@@ -903,7 +903,7 @@ ul.kid-menu li,.menu ul li{
 }
 h3.best {
   color: #000;
-  border-bottom: 1px solid #000;
+ /* border-bottom: 1px solid #000;*/
   width: 81%;
   font-size: 2em;
     font-family: 'Lato', sans-serif;
@@ -946,7 +946,7 @@ a.shop-now:hover{
 }
 h3.tag {
 	color: #000;
-	  border-bottom: 1px solid #000;
+/*	  border-bottom: 1px solid #000;*/
   width: 32%;
 	font-size: 2em;
     font-family: 'Lato', sans-serif;

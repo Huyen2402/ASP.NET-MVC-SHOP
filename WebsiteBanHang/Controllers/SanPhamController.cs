@@ -61,12 +61,15 @@ namespace WebsiteBanHang.Controllers
             {
                 List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
                 ViewBag.listBL = listBL;
-                ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
-                return View(sp);
-                
-            }
+                //ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
+                //return View(sp);
+                return Content("Vui lòng đăng nhập để bình luận");
 
+
+            }
            
+
+
 
         }
 
@@ -106,41 +109,15 @@ namespace WebsiteBanHang.Controllers
         public ActionResult SanPhamNoiBat()
         {
             int n = 2;
-            var listNoiBat = db.SanPhams.Take(n);
+            var listNoiBat = db.SanPhams.OrderByDescending(q => q.SoLanMua).Take(n) ;
             return PartialView(listNoiBat);
         }
 
-        //public ActionResult BinhLuan(int? MaSP)
-        //{
-            
-        //    List<BinhLuan> listBL = db.BinhLuans.Where(n=>n.MaSP== MaSP).ToList();
-
-
-        //    return PartialView(listBL);
-        //}
-
-        //[HttpPost]
-
-        //public ActionResult UserBinhLuan(int MaSP, BinhLuan bl)
-        //{
-        //    ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
-        //    BinhLuan blnew = new BinhLuan();
-        //    blnew.MaSP = MaSP;
-        //    blnew.MaThanhVien = tv.MaThanhVien;
-        //    blnew.NoiDungBL = bl.NoiDungBL;
-
-        //    return View();
-
-        //}
-
-        //[HttpGet]
-
-        //public ActionResult UserBinhLuan()
-        //{
-
-        //    return View();
-
-        //}
+       public ActionResult Menu2PartialView()
+        {
+            List<SanPham> listSP = db.SanPhams.Where(n => n.DaXoa == false).ToList();
+            return PartialView(listSP);
+        }
 
 
     }

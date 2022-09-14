@@ -531,6 +531,7 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Chat\Chating.cshtml" />
     <Content Include="Views\SanPham\BinhLuan.cshtml" />
+    <Content Include="Views\SanPham\Menu2PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

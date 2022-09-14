@@ -1,0 +1,25 @@
+﻿@using WebsiteBanHang.Models
+@model List<SanPham>
+
+<div class=" rsidebar span_1_of_left">
+        <div class="of-left">
+            <h3 class="cate">Danh mục</h3>
+        </div>
+        <ul class="menu">
+            <li class="item1">
+                @foreach (var groupitems in Model.GroupBy(n=>n.loaiSanPham))
+                {
+                    <a href="#">@groupitems.Key.TenLoai </a><ul class="cute" style="display: none;">
+                       @foreach (var item in groupitems.GroupBy(n=>n.NhaSanXuat)) { 
+                        <li class="subitem1"><a href="#">@item.Key.TenNSX </a></li>
+                        
+                        }
+                    </ul>
+                }
+            </li>
+            
+            
+           
+
+        </ul>
+    </div>
