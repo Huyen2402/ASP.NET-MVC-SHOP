@@ -17,7 +17,7 @@ namespace WebsiteBanHang.Controllers
         {
             // Lấy list điện thoại
             int numberDT = 4;
-            var listDT = db.SanPhams.OrderByDescending(n => n.NgayCapNhat).Take(numberDT);
+            var listDT = db.SanPhams.Where(b=>b.DaXoa == false).OrderByDescending(n => n.NgayCapNhat).Take(numberDT);
             ViewBag.listDT = listDT;
             //Lấy list máy tính bảng
             var listMTB = db.SanPhams.Where(n => n.MaLoaiSP == 1);
@@ -25,7 +25,7 @@ namespace WebsiteBanHang.Controllers
 
             //lấy list Laptop
             int numberLT = 6;
-            var listLT = db.SanPhams.OrderByDescending(x=>x.DonGia).Take(numberLT);
+            var listLT = db.SanPhams.Where(b=>b.DaXoa == false).OrderByDescending(x=>x.DonGia).Take(numberLT);
             ViewBag.listLT = listLT;
 
 

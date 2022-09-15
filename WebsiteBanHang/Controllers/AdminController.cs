@@ -512,5 +512,52 @@ namespace WebsiteBanHang.Controllers
             return View(listddh);
         }
 
+        public ActionResult XemBinhLuan()
+        {
+            List<BinhLuan> listBL = db.BinhLuans.ToList();
+
+            return View(listBL);
+        }
+
+        [HttpGet]
+        public ActionResult TraLoiBinhLuan(int? MaBL)
+        {
+            if (MaBL == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                BinhLuan checkBL = db.BinhLuans.SingleOrDefault(n => n.MaBL == MaBL);
+                if (checkBL == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    List<TraLoiBinhLuan> list = db.TraLoiBinhLuans.ToList();
+                    ViewBag.list = list;
+                    return View(checkBL);
+                }
+            }
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult TraLoiBinhLuan(TraLoiBinhLuan tlbl)
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            TraLoiBinhLuan traloi = new TraLoiBinhLuan();
+            traloi.MaBL = tlbl.MaBL;
+            traloi.NoiDungTraLoi = tlbl.NoiDungTraLoi;
+            traloi.MaThanhVien = 1002;
+            db.TraLoiBinhLuans.Add(traloi);
+            db.SaveChanges();
+            
+
+            return RedirectToAction("TraLoiBinhLuan","Admin", new { MaBL = tlbl.MaBL });
+        }
+
     }
 }

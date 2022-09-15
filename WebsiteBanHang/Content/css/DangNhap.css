@@ -39,3 +39,10 @@
     margin: 12px;
     height: 40px;
 }
+
+#TLbinhluan {
+    height: auto;
+    background: #d5d5d5;
+    margin: 8px;
+    width: 98% !important;
+}

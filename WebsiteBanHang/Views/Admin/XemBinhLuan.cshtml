@@ -1,0 +1,45 @@
+﻿@using WebsiteBanHang.Models
+@model List<BinhLuan>
+
+@{
+    ViewBag.Title = "TraLoiBinhLuan";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>TraLoiBinhLuan</h2>
+
+<div class="container mt-3" style="padding-top:80px;">
+    <h2>Bình Luận Gần Đây</h2>
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th class="col-4">Tên Sản Phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Nội dung</th>
+                <th>Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaBL</td>
+                    <td class="col-4">@item.SanPham.TenSP</td>
+                    <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                    <td>@item.NoiDungBL</td>
+
+                    <td>
+                        <a href="@Url.Action("TraLoiBinhLuan", "Admin", new { @MaBL = item.MaBL })" class="btn btn-warning">Trả Lời</a>
+                        <a id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Bỏ Qua</a>
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

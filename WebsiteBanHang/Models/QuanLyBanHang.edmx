@@ -22,8 +22,8 @@
           <Property Name="FromUserId" Type="int" />
           <Property Name="ToUserId" Type="int" />
           <Property Name="Text" Type="nvarchar" MaxLength="500" />
-          <Property Name="Sent" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Sent" Type="bit" />
         </EntityType>
         <EntityType Name="ChiTietDonDatHang">
           <Key>
@@ -160,6 +160,20 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Tinh">
+          <Key>
+            <PropertyRef Name="MaTinh" />
+          </Key>
+          <Property Name="MaTinh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenTinh" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="TinhTrangGiaoHang">
+          <Key>
+            <PropertyRef Name="MaTinhTrangGiaoHang" />
+          </Key>
+          <Property Name="MaTinhTrangGiaoHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenTinhTrang" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
             <PropertyRef Name="MaThanhVien" />
@@ -177,19 +191,14 @@
           <Property Name="MaHuyen" Type="int" />
           <Property Name="MaXa" Type="int" />
         </EntityType>
-        <EntityType Name="Tinh">
+        <EntityType Name="TraLoiBinhLuan">
           <Key>
-            <PropertyRef Name="MaTinh" />
+            <PropertyRef Name="MaTraLoiBL" />
           </Key>
-          <Property Name="MaTinh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenTinh" Type="nvarchar" MaxLength="200" />
-        </EntityType>
-        <EntityType Name="TinhTrangGiaoHang">
-          <Key>
-            <PropertyRef Name="MaTinhTrangGiaoHang" />
-          </Key>
-          <Property Name="MaTinhTrangGiaoHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenTinhTrang" Type="nvarchar" MaxLength="200" />
+          <Property Name="MaTraLoiBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoiDungTraLoi" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaBL" Type="int" />
+          <Property Name="MaThanhVien" Type="int" />
         </EntityType>
         <EntityType Name="Xa">
           <Key>
@@ -371,6 +380,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TinhtoHuyen">
+          <End Role="Tinh" Type="Self.Tinh" Multiplicity="0..1" />
+          <End Role="Huyen" Type="Self.Huyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tinh">
+              <PropertyRef Name="MaTinh" />
+            </Principal>
+            <Dependent Role="Huyen">
+              <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ThanhVien_ToTable">
           <End Role="LoaiThanhVien" Type="Self.LoaiThanhVien" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -421,15 +442,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TinhtoHuyen">
-          <End Role="Tinh" Type="Self.Tinh" Multiplicity="0..1" />
-          <End Role="Huyen" Type="Self.Huyen" Multiplicity="*" />
+        <Association Name="FK_TraLoiBinhLuan_BinhLuan">
+          <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="0..1" />
+          <End Role="TraLoiBinhLuan" Type="Self.TraLoiBinhLuan" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tinh">
-              <PropertyRef Name="MaTinh" />
+            <Principal Role="BinhLuan">
+              <PropertyRef Name="MaBL" />
             </Principal>
-            <Dependent Role="Huyen">
-              <PropertyRef Name="MaTinh" />
+            <Dependent Role="TraLoiBinhLuan">
+              <PropertyRef Name="MaBL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraLoiBinhLuan_ThanhVien">
+          <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+          <End Role="TraLoiBinhLuan" Type="Self.TraLoiBinhLuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="TraLoiBinhLuan">
+              <PropertyRef Name="MaThanhVien" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -448,9 +481,10 @@
           <EntitySet Name="PhieuNhap" EntityType="Self.PhieuNhap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tinh" EntityType="Self.Tinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="Self.TinhTrangGiaoHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraLoiBinhLuan" EntityType="Self.TraLoiBinhLuan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Xa" EntityType="Self.Xa" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="ChiTietDonDatHangtoDonDatHang" Association="Self.ChiTietDonDatHangtoDonDatHang">
             <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -508,6 +542,10 @@
             <End Role="NhaSanXuat" EntitySet="NhaSanXuat" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
+          <AssociationSet Name="FK_TinhtoHuyen" Association="Self.FK_TinhtoHuyen">
+            <End Role="Tinh" EntitySet="Tinh" />
+            <End Role="Huyen" EntitySet="Huyen" />
+          </AssociationSet>
           <AssociationSet Name="FK_ThanhVien_ToTable" Association="Self.FK_ThanhVien_ToTable">
             <End Role="LoaiThanhVien" EntitySet="LoaiThanhVien" />
             <End Role="ThanhVien" EntitySet="ThanhVien" />
@@ -524,9 +562,13 @@
             <End Role="Xa" EntitySet="Xa" />
             <End Role="ThanhVien" EntitySet="ThanhVien" />
           </AssociationSet>
-          <AssociationSet Name="FK_TinhtoHuyen" Association="Self.FK_TinhtoHuyen">
-            <End Role="Tinh" EntitySet="Tinh" />
-            <End Role="Huyen" EntitySet="Huyen" />
+          <AssociationSet Name="FK_TraLoiBinhLuan_BinhLuan" Association="Self.FK_TraLoiBinhLuan_BinhLuan">
+            <End Role="BinhLuan" EntitySet="BinhLuan" />
+            <End Role="TraLoiBinhLuan" EntitySet="TraLoiBinhLuan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraLoiBinhLuan_ThanhVien" Association="Self.FK_TraLoiBinhLuan_ThanhVien">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="TraLoiBinhLuan" EntitySet="TraLoiBinhLuan" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -548,9 +590,10 @@
           <EntitySet Name="PhieuNhaps" EntityType="QuanLyBanHangModel.PhieuNhap" />
           <EntitySet Name="SanPhams" EntityType="QuanLyBanHangModel.SanPham" />
           <EntitySet Name="sysdiagrams" EntityType="QuanLyBanHangModel.sysdiagram" />
-          <EntitySet Name="ThanhViens" EntityType="QuanLyBanHangModel.ThanhVien" />
           <EntitySet Name="Tinhs" EntityType="QuanLyBanHangModel.Tinh" />
           <EntitySet Name="TinhTrangGiaoHangs" EntityType="QuanLyBanHangModel.TinhTrangGiaoHang" />
+          <EntitySet Name="ThanhViens" EntityType="QuanLyBanHangModel.ThanhVien" />
+          <EntitySet Name="TraLoiBinhLuans" EntityType="QuanLyBanHangModel.TraLoiBinhLuan" />
           <EntitySet Name="Xas" EntityType="QuanLyBanHangModel.Xa" />
           <AssociationSet Name="FK_BinhLuan_SanPham" Association="QuanLyBanHangModel.FK_BinhLuan_SanPham">
             <End Role="SanPham" EntitySet="SanPhams" />
@@ -559,6 +602,10 @@
           <AssociationSet Name="FK_BinhLuan_TThanhVien" Association="QuanLyBanHangModel.FK_BinhLuan_TThanhVien">
             <End Role="ThanhVien" EntitySet="ThanhViens" />
             <End Role="BinhLuan" EntitySet="BinhLuans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TraLoiBinhLuan_BinhLuan" Association="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan">
+            <End Role="BinhLuan" EntitySet="BinhLuans" />
+            <End Role="TraLoiBinhLuan" EntitySet="TraLoiBinhLuans" />
           </AssociationSet>
           <AssociationSet Name="FK_Chat_ThanhVien" Association="QuanLyBanHangModel.FK_Chat_ThanhVien">
             <End Role="ThanhVien" EntitySet="ThanhViens" />
@@ -588,13 +635,13 @@
             <End Role="Huyen" EntitySet="Huyens" />
             <End Role="Xa" EntitySet="Xas" />
           </AssociationSet>
-          <AssociationSet Name="FK_ThanhVientoHuyen" Association="QuanLyBanHangModel.FK_ThanhVientoHuyen">
-            <End Role="Huyen" EntitySet="Huyens" />
-            <End Role="ThanhVien" EntitySet="ThanhViens" />
-          </AssociationSet>
           <AssociationSet Name="FK_TinhtoHuyen" Association="QuanLyBanHangModel.FK_TinhtoHuyen">
             <End Role="Tinh" EntitySet="Tinhs" />
             <End Role="Huyen" EntitySet="Huyens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThanhVientoHuyen" Association="QuanLyBanHangModel.FK_ThanhVientoHuyen">
+            <End Role="Huyen" EntitySet="Huyens" />
+            <End Role="ThanhVien" EntitySet="ThanhViens" />
           </AssociationSet>
           <AssociationSet Name="FK_KhachHang_ToTable" Association="QuanLyBanHangModel.FK_KhachHang_ToTable">
             <End Role="ThanhVien" EntitySet="ThanhViens" />
@@ -628,6 +675,10 @@
             <End Role="Xa" EntitySet="Xas" />
             <End Role="ThanhVien" EntitySet="ThanhViens" />
           </AssociationSet>
+          <AssociationSet Name="FK_TraLoiBinhLuan_ThanhVien" Association="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien">
+            <End Role="ThanhVien" EntitySet="ThanhViens" />
+            <End Role="TraLoiBinhLuan" EntitySet="TraLoiBinhLuans" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BinhLuan">
           <Key>
@@ -639,6 +690,7 @@
           <Property Name="MaSP" Type="Int32" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_BinhLuan_SanPham" FromRole="BinhLuan" ToRole="SanPham" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_BinhLuan_TThanhVien" FromRole="BinhLuan" ToRole="ThanhVien" />
+          <NavigationProperty Name="TraLoiBinhLuans" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan" FromRole="BinhLuan" ToRole="TraLoiBinhLuan" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -648,8 +700,8 @@
           <Property Name="FromUserId" Type="Int32" />
           <Property Name="ToUserId" Type="Int32" />
           <Property Name="Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Sent" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Sent" Type="Boolean" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="Chat" ToRole="ThanhVien" />
           <NavigationProperty Name="ThanhVien1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="Chat" ToRole="ThanhVien" />
         </EntityType>
@@ -702,8 +754,8 @@
           <Property Name="TenHuyen" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MaTinh" Type="Int32" />
           <NavigationProperty Name="Xas" Relationship="QuanLyBanHangModel.FK_HuyentoXa" FromRole="Huyen" ToRole="Xa" />
-          <NavigationProperty Name="ThanhViens" Relationship="QuanLyBanHangModel.FK_ThanhVientoHuyen" FromRole="Huyen" ToRole="ThanhVien" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK_TinhtoHuyen" FromRole="Huyen" ToRole="Tinh" />
+          <NavigationProperty Name="ThanhViens" Relationship="QuanLyBanHangModel.FK_ThanhVientoHuyen" FromRole="Huyen" ToRole="ThanhVien" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -810,6 +862,22 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Tinh">
+          <Key>
+            <PropertyRef Name="MaTinh" />
+          </Key>
+          <Property Name="MaTinh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenTinh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Huyens" Relationship="QuanLyBanHangModel.FK_TinhtoHuyen" FromRole="Tinh" ToRole="Huyen" />
+          <NavigationProperty Name="ThanhViens" Relationship="QuanLyBanHangModel.FK_ThanhVientoTinh" FromRole="Tinh" ToRole="ThanhVien" />
+        </EntityType>
+        <EntityType Name="TinhTrangGiaoHang">
+          <Key>
+            <PropertyRef Name="MaTinhTrangGiaoHang" />
+          </Key>
+          <Property Name="MaTinhTrangGiaoHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenTinhTrang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
             <PropertyRef Name="MaThanhVien" />
@@ -834,22 +902,18 @@
           <NavigationProperty Name="LoaiThanhVien" Relationship="QuanLyBanHangModel.FK_ThanhVien_ToTable" FromRole="ThanhVien" ToRole="LoaiThanhVien" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK_ThanhVientoTinh" FromRole="ThanhVien" ToRole="Tinh" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.FK_ThanhVientoXa" FromRole="ThanhVien" ToRole="Xa" />
+          <NavigationProperty Name="TraLoiBinhLuans" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien" FromRole="ThanhVien" ToRole="TraLoiBinhLuan" />
         </EntityType>
-        <EntityType Name="Tinh">
+        <EntityType Name="TraLoiBinhLuan">
           <Key>
-            <PropertyRef Name="MaTinh" />
+            <PropertyRef Name="MaTraLoiBL" />
           </Key>
-          <Property Name="MaTinh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenTinh" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Huyens" Relationship="QuanLyBanHangModel.FK_TinhtoHuyen" FromRole="Tinh" ToRole="Huyen" />
-          <NavigationProperty Name="ThanhViens" Relationship="QuanLyBanHangModel.FK_ThanhVientoTinh" FromRole="Tinh" ToRole="ThanhVien" />
-        </EntityType>
-        <EntityType Name="TinhTrangGiaoHang">
-          <Key>
-            <PropertyRef Name="MaTinhTrangGiaoHang" />
-          </Key>
-          <Property Name="MaTinhTrangGiaoHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenTinhTrang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaTraLoiBL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoiDungTraLoi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaBL" Type="Int32" />
+          <Property Name="MaThanhVien" Type="Int32" />
+          <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan" FromRole="TraLoiBinhLuan" ToRole="BinhLuan" />
+          <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien" FromRole="TraLoiBinhLuan" ToRole="ThanhVien" />
         </EntityType>
         <EntityType Name="Xa">
           <Key>
@@ -882,6 +946,18 @@
             </Principal>
             <Dependent Role="BinhLuan">
               <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TraLoiBinhLuan_BinhLuan">
+          <End Type="QuanLyBanHangModel.BinhLuan" Role="BinhLuan" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.TraLoiBinhLuan" Role="TraLoiBinhLuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BinhLuan">
+              <PropertyRef Name="MaBL" />
+            </Principal>
+            <Dependent Role="TraLoiBinhLuan">
+              <PropertyRef Name="MaBL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -969,18 +1045,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ThanhVientoHuyen">
-          <End Type="QuanLyBanHangModel.Huyen" Role="Huyen" Multiplicity="0..1" />
-          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Huyen">
-              <PropertyRef Name="MaHuyen" />
-            </Principal>
-            <Dependent Role="ThanhVien">
-              <PropertyRef Name="MaHuyen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TinhtoHuyen">
           <End Type="QuanLyBanHangModel.Tinh" Role="Tinh" Multiplicity="0..1" />
           <End Type="QuanLyBanHangModel.Huyen" Role="Huyen" Multiplicity="*" />
@@ -990,6 +1054,18 @@
             </Principal>
             <Dependent Role="Huyen">
               <PropertyRef Name="MaTinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ThanhVientoHuyen">
+          <End Type="QuanLyBanHangModel.Huyen" Role="Huyen" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Huyen">
+              <PropertyRef Name="MaHuyen" />
+            </Principal>
+            <Dependent Role="ThanhVien">
+              <PropertyRef Name="MaHuyen" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1095,6 +1171,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TraLoiBinhLuan_ThanhVien">
+          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.TraLoiBinhLuan" Role="TraLoiBinhLuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="TraLoiBinhLuan">
+              <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1114,8 +1202,8 @@
           <EntitySetMapping Name="Chats">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.Chat">
               <MappingFragment StoreEntitySet="Chat">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Sent" ColumnName="Sent" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
                 <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
@@ -1270,6 +1358,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tinhs">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.Tinh">
+              <MappingFragment StoreEntitySet="Tinh">
+                <ScalarProperty Name="TenTinh" ColumnName="TenTinh" />
+                <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TinhTrangGiaoHangs">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.TinhTrangGiaoHang">
+              <MappingFragment StoreEntitySet="TinhTrangGiaoHang">
+                <ScalarProperty Name="TenTinhTrang" ColumnName="TenTinhTrang" />
+                <ScalarProperty Name="MaTinhTrangGiaoHang" ColumnName="MaTinhTrangGiaoHang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ThanhViens">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ThanhVien">
               <MappingFragment StoreEntitySet="ThanhVien">
@@ -1288,19 +1392,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tinhs">
-            <EntityTypeMapping TypeName="QuanLyBanHangModel.Tinh">
-              <MappingFragment StoreEntitySet="Tinh">
-                <ScalarProperty Name="TenTinh" ColumnName="TenTinh" />
-                <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TinhTrangGiaoHangs">
-            <EntityTypeMapping TypeName="QuanLyBanHangModel.TinhTrangGiaoHang">
-              <MappingFragment StoreEntitySet="TinhTrangGiaoHang">
-                <ScalarProperty Name="TenTinhTrang" ColumnName="TenTinhTrang" />
-                <ScalarProperty Name="MaTinhTrangGiaoHang" ColumnName="MaTinhTrangGiaoHang" />
+          <EntitySetMapping Name="TraLoiBinhLuans">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.TraLoiBinhLuan">
+              <MappingFragment StoreEntitySet="TraLoiBinhLuan">
+                <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
+                <ScalarProperty Name="MaBL" ColumnName="MaBL" />
+                <ScalarProperty Name="NoiDungTraLoi" ColumnName="NoiDungTraLoi" />
+                <ScalarProperty Name="MaTraLoiBL" ColumnName="MaTraLoiBL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

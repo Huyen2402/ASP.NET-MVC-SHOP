@@ -1,0 +1,66 @@
+﻿@using WebsiteBanHang.Models
+@model BinhLuan
+
+@{
+    ViewBag.Title = "TraLoiBinhLuan";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+@{ 
+    List<TraLoiBinhLuan> list = ViewBag.list as List<TraLoiBinhLuan>;
+}
+
+<div class="container mt-3" style="padding-top:80px;">
+    <h2>Trả Lời Bình Luận</h2>
+    <div id="TraLoi" class="form-control">
+        <div>
+            <label>@Model.ThanhVien.HoTen</label>
+        </div>
+        <div>
+            @Model.NoiDungBL
+
+
+        </div>
+        <div>
+            <div id="cmtAdmin">
+                @if (list != null)
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        if (list[i].MaBL == Model.MaBL)
+                        {
+                            <div id="itemCmtAdmin">
+                                <div class="mg-8">
+                                    <div>
+                                        <label>@list[i].ThanhVien.HoTen</label>
+                                    </div>
+                                    <div>
+                                        @list[i].NoiDungTraLoi
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        }
+                    }
+                }
+
+
+            </div>
+            <div id="form-TL">
+                @using (Html.BeginForm("TraLoiBinhLuan", "Admin", FormMethod.Post))
+                {
+                    <input type="hidden" name="MaBL" value="@Model.MaBL" />
+                    <input class="form-control" type="text" name="NoiDungTraLoi" value="" />
+
+                    
+                    <div id="button">
+
+                        <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary " />
+                    </div>
+                }
+            
+            </div>
+        </div>
+    </div>
+    
+
+</div>

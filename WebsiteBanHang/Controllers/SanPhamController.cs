@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebsiteBanHang.Models;
 using PagedList;
 using System.Web.UI.WebControls;
+using System.Web.Optimization;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -36,9 +37,12 @@ namespace WebsiteBanHang.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
+            List<TraLoiBinhLuan> listTraLoi = db.TraLoiBinhLuans.ToList();
+            ViewBag.listTraLoi = listTraLoi;
             ViewBag.listBL = listBL;
+            
             return View(sp);
         }
         [HttpPost]
@@ -55,15 +59,16 @@ namespace WebsiteBanHang.Controllers
                 newBL.MaThanhVien = tv.MaThanhVien;
                 db.BinhLuans.Add(newBL);
                 db.SaveChanges();
-                return RedirectToAction("XemChitietSP", "SanPham", new { id = Int32.Parse(f["MaSP"])});
+                //return Content("<script> window.location.href = 'http://localhost:62979/SanPham/XemChiTietSP/6';</script>");
+                return RedirectToAction("XemChitietSP", "SanPham", new { id = Int32.Parse(f["MaSP"]) });
             }
             else
             {
                 List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
                 ViewBag.listBL = listBL;
-                //ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
-                //return View(sp);
-                return Content("Vui lòng đăng nhập để bình luận");
+                ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
+                return View(sp);
+                //return Content("Vui lòng đăng nhập để bình luận");
 
 
             }

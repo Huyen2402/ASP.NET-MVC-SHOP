@@ -252,6 +252,9 @@
     <Compile Include="Models\TinhTrangGiaoHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TraLoiBinhLuan.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Xa.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -532,6 +535,8 @@
     <Content Include="Views\Chat\Chating.cshtml" />
     <Content Include="Views\SanPham\BinhLuan.cshtml" />
     <Content Include="Views\SanPham\Menu2PartialView.cshtml" />
+    <Content Include="Views\Admin\XemBinhLuan.cshtml" />
+    <Content Include="Views\Admin\TraLoiBinhLuan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -27,8 +27,8 @@ namespace WebsiteBanHang.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Xa> Xas { get; set; }
+        public virtual Tinh Tinh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThanhVien> ThanhViens { get; set; }
-        public virtual Tinh Tinh { get; set; }
     }
 }

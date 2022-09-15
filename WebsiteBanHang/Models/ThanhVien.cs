@@ -21,6 +21,7 @@ namespace WebsiteBanHang.Models
             this.Chats = new HashSet<Chat>();
             this.Chats1 = new HashSet<Chat>();
             this.KhachHangs = new HashSet<KhachHang>();
+            this.TraLoiBinhLuans = new HashSet<TraLoiBinhLuan>();
         }
     
         public int MaThanhVien { get; set; }
@@ -48,5 +49,7 @@ namespace WebsiteBanHang.Models
         public virtual LoaiThanhVien LoaiThanhVien { get; set; }
         public virtual Tinh Tinh { get; set; }
         public virtual Xa Xa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraLoiBinhLuan> TraLoiBinhLuans { get; set; }
     }
 }
