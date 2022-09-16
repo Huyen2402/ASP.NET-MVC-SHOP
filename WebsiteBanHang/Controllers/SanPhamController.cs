@@ -28,6 +28,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult XemChitietSP(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,16 +38,19 @@ namespace WebsiteBanHang.Controllers
             {
                 return HttpNotFound();
             }
-            
-            List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
+
+            List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).OrderByDescending(b=>b.NgayTao).ToList();
             List<TraLoiBinhLuan> listTraLoi = db.TraLoiBinhLuans.ToList();
             ViewBag.listTraLoi = listTraLoi;
             ViewBag.listBL = listBL;
-            
+
             return View(sp);
+
         }
+
+    
         [HttpPost]
-        public ActionResult XemChitietSP( FormCollection f)
+        public ActionResult XemChitietSP(FormCollection f)
         {
             int id = Int32.Parse(f["MaSP"]);
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == id);
@@ -54,17 +58,21 @@ namespace WebsiteBanHang.Controllers
             if (tv != null)
             {
                 BinhLuan newBL = new BinhLuan();
-                newBL.MaSP = Int32.Parse(f["MaSP"]) ;
+                newBL.MaSP = Int32.Parse(f["MaSP"]);
                 newBL.NoiDungBL = f["NoiDungBL"];
                 newBL.MaThanhVien = tv.MaThanhVien;
+                newBL.NgayTao = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
                 db.BinhLuans.Add(newBL);
                 db.SaveChanges();
-                //return Content("<script> window.location.href = 'http://localhost:62979/SanPham/XemChiTietSP/6';</script>");
+                //string url = "<script> window.location.href = 'http://localhost:62979/SanPham/XemChiTietSP/" + id.ToString() + "'" + ";</script>";
+                //return Content(url);
                 return RedirectToAction("XemChitietSP", "SanPham", new { id = Int32.Parse(f["MaSP"]) });
+                //'http://localhost:62979/SanPham/XemChiTietSP/'
+
             }
             else
             {
-                List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).ToList();
+                List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).OrderByDescending(b => b.NgayTao).ToList();
                 ViewBag.listBL = listBL;
                 ViewBag.ThongBao = "Vui lòng đăng nhập để bình luận";
                 return View(sp);
@@ -72,11 +80,14 @@ namespace WebsiteBanHang.Controllers
 
 
             }
-           
+
 
 
 
         }
+
+      
+
 
         public ActionResult SanPham(int? MaLoaiSP, int? MaNSX, int? page)
 

@@ -1,0 +1,80 @@
+﻿@using WebsiteBanHang.Models;
+
+@{
+
+    List<BinhLuan> listBL = ViewBag.listBL as List<BinhLuan>;
+    List<TraLoiBinhLuan> listTraLoi = ViewBag.listTraLoi as List<TraLoiBinhLuan>;
+}
+
+
+<div id="CMT">
+    <h1>Bình luận </h1>
+    <div>
+
+        @*@using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post)) {*@
+
+
+        @using (Ajax.BeginForm("ThemBinhLuan", "SanPham", new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "POST", UpdateTargetId = "divEmp" }))
+
+        {
+
+            <input type="hidden" name="MaSP" value="@Model.MaSP" />
+            <input class="form-control" type="text" name="NoiDungBL" value="" />
+            @*<p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>*@
+            <p id="divEmp" style="color:red;"></p>
+
+            <div>
+                @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary float-end" />
+            </div>
+
+
+        }
+
+    </div>
+    <div class="clearfix"> </div>
+
+
+    <div>
+        <div>
+            @foreach (var item in listBL)
+            {
+                <div class="form-control " id="binhluan">
+                    <div>
+                        <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                    </div>
+                    <div id="ndBL">
+                        @item.NoiDungBL
+                    </div>
+
+                    @if (listTraLoi != null)
+                    {
+                        foreach (var tl in listTraLoi)
+                        {
+                            if (tl.MaBL == item.MaBL)
+                            {
+                                <div id="TraLoiBL">
+                                    <div class="form-control " id="TLbinhluan">
+                                        <div>
+                                            <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                        </div>
+                                        <div id="ndBL">
+                                            @tl.NoiDungTraLoi
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+
+
+</div>

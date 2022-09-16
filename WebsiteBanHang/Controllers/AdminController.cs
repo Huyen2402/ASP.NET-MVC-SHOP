@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using WebsiteBanHang.Models;
@@ -514,7 +515,10 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XemBinhLuan()
         {
-            List<BinhLuan> listBL = db.BinhLuans.ToList();
+            DateTime dateStart = DateTime.Now.AddDays(-3);
+            DateTime dateEnd = DateTime.Now;
+            List<BinhLuan> listBL =  db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd)).OrderByDescending(b=>b.NgayTao).ToList();
+            //List<BinhLuan> listBL = db.BinhLuans.ToList();
 
             return View(listBL);
         }
@@ -551,6 +555,7 @@ namespace WebsiteBanHang.Controllers
             TraLoiBinhLuan traloi = new TraLoiBinhLuan();
             traloi.MaBL = tlbl.MaBL;
             traloi.NoiDungTraLoi = tlbl.NoiDungTraLoi;
+            traloi.NgayTao = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             traloi.MaThanhVien = 1002;
             db.TraLoiBinhLuans.Add(traloi);
             db.SaveChanges();

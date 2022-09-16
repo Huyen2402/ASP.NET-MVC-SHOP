@@ -48,16 +48,17 @@
             <div id="form-TL">
                 @using (Html.BeginForm("TraLoiBinhLuan", "Admin", FormMethod.Post))
                 {
+                    <input type="hidden" name="MaSP" value="@Model.MaSP" />
                     <input type="hidden" name="MaBL" value="@Model.MaBL" />
                     <input class="form-control" type="text" name="NoiDungTraLoi" value="" />
 
-                    
+
                     <div id="button">
 
                         <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary " />
                     </div>
                 }
-            
+
             </div>
         </div>
     </div>

@@ -7,13 +7,18 @@
     Layout = "~/Views/Layout/ProductLayout.cshtml";
 }
 
-@{ 
+@{
+
+
 
     List<BinhLuan> listBL = ViewBag.listBL as List<BinhLuan>;
     List<TraLoiBinhLuan> listTraLoi = ViewBag.listTraLoi as List<TraLoiBinhLuan>;
 }
 
 <div class="col-md-9 product-price1">
+
+
+
     <div class="col-md-5 single-top">
         <div class="flexslider">
 
@@ -82,19 +87,23 @@
     <div class="clearfix">
 
     </div>
+
     <div id="CMT">
         <h1>Bình luận </h1>
         <div>
 
-            @using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post)) { 
-            @*@using (Ajax.BeginForm("XemChitietSP", "SanPham", new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "POST", UpdateTargetId = "divEmp" }))*@
+            @using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post))
+            {
 
-            
+
+                @*@using (Ajax.BeginForm("XemChitietSP", "SanPham", new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "POST", UpdateTargetId = "divEmp" }))
+
+                {*@
 
                 <input type="hidden" name="MaSP" value="@Model.MaSP" />
                 <input class="form-control" type="text" name="NoiDungBL" value="" />
-                @*<p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>*@
-                <p id="divEmp" style="color:red;">@ViewBag.ThongBao</p>
+                <p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>
+                @*<p id="divEmp" style="color:red;"></p>*@
 
                 <div>
                     @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
@@ -107,12 +116,24 @@
         </div>
         <div class="clearfix"> </div>
 
+        @{
+            int SoLuongBinhLuan = 1;
+            int SoLuongBinhLuanTrenTrang = 4;
+            int Trang = 1;
+            int tongSLBL = listBL.Count;
+            int tongTrang = tongSLBL / SoLuongBinhLuanTrenTrang;
+        }
+
 
         <div>
             <div>
                 @foreach (var item in listBL)
                 {
-                    <div class="form-control " id="binhluan">
+                    if (SoLuongBinhLuan % SoLuongBinhLuanTrenTrang == 0)
+                    {
+                        Trang++;
+                    }
+                    <div class="@Url.Content("form-control itemSearch Trang_"+Trang)" id="binhluan">
                         <div>
                             <label id="TenBL"> @item.ThanhVien.HoTen</label>
                         </div>
@@ -120,7 +141,7 @@
                             @item.NoiDungBL
                         </div>
 
-                        @if (listTraLoi !=null)
+                        @if (listTraLoi != null)
                         {
                             foreach (var tl in listTraLoi)
                             {
@@ -142,17 +163,27 @@
                             }
                         }
                     </div>
-
+                    SoLuongBinhLuan++;
                 }
             </div>
-            
+
         </div>
+
+        @if (tongSLBL > 4)
+        {
+            <div class="container mt-3">
+
+                <a id="HienThiThem">Hiển thị thêm bình luận khác</a>
+
+            </div>
+        }
+
+
 
 
 
     </div>
 
-    @*@Html.Action("BinhLuan", "SanPham");*@
 
     <!---->
     <!---728x90--->
@@ -160,4 +191,34 @@
 
 </div>
 
+<style>
+    #HienThiThem {
+        color: blue;
+        text-decoration: blue;
+        text-decoration-line: none;
+        text-decoration-line: underline;
+        font-size: 12px;
+        padding: 4px;
+    }
+    #HienThiThem:hover{
+        cursor: pointer;
+    }
+    .itemSearch {
+        display: none;
+    }
+
+    .Trang_1 {
+        display: block;
+    }
+</style>
+<script>
+ 
+    var i = 1;
+    $("#HienThiThem").click(function () {
+        i++;
+        $("."+"Trang_"+i).show();
+       
+    })
+
+</script>
 
