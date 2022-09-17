@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
@@ -26,6 +27,7 @@ namespace WebsiteBanHang.Controllers
             ViewBag.TongTien = TongTien();
             return PartialView();
         }
+        
 
         public List<GioHang> SessionGioHang()
         {
@@ -60,7 +62,9 @@ namespace WebsiteBanHang.Controllers
                     {
                         gh.SoLuong++;
                         gh.ThanhTien = gh.SoLuong * gh.Dongia;
-                        return Redirect(strURL);
+                        //return Redirect(strURL);
+                        //return PartialView("GioHangPartial");
+                        return RedirectToAction("GioHangPartial");
                     }
                     else
                     {
@@ -71,11 +75,12 @@ namespace WebsiteBanHang.Controllers
                             //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó
                             listGioHang.Add(newgh);
                             Session["GioHang"] = listGioHang;
-                            return Redirect(strURL);
+                            //return PartialView("GioHangPartial");
+                            return RedirectToAction("GioHangPartial");
                         }
                         else
                         {
-                            return View("ThongBao");
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
                         }
                     }
@@ -90,11 +95,12 @@ namespace WebsiteBanHang.Controllers
                         //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó
                         listGioHang.Add(newgh);
                         Session["GioHang"] = listGioHang;
-                        return Redirect(strURL);
+                        //return PartialView("GioHangPartial");
+                        return RedirectToAction("GioHangPartial");
                     }
                     else
                     {
-                        return View("ThongBao");
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
                     }
                 }
@@ -128,7 +134,7 @@ namespace WebsiteBanHang.Controllers
 
         }
 
-        public ActionResult XoaGioHang(int MaSP, string strURL)
+        public ActionResult XoaGioHang(int MaSP)
         {
 
             // Kiem tra xem co ton tai list gio hang chua
@@ -147,11 +153,15 @@ namespace WebsiteBanHang.Controllers
             }
             //nguoc lai, san pham ton tai trong gio hang, thi remove no khoi list san pham trong gio
             listGioHang.Remove(gh);
-            return Redirect(strURL);
+            ViewBag.listGioHang = listGioHang;
+            ViewBag.TongSoLuong = TongSL();
+            ViewBag.TongTien = TongTien();
+            return RedirectToAction("ThemSlPartialView");
         }
 
-        public ActionResult ThemSl(int MaSP, string strURL)
+        public ActionResult ThemSl(int MaSP)
         {
+            int id = MaSP;
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
             if(listGioHang == null)
             {
@@ -173,13 +183,24 @@ namespace WebsiteBanHang.Controllers
                         return null;
                     }
                 }
-                return Redirect(strURL);
+                //string url = "<script>window.location.href = 'http://localhost:62979/GioHang/ThemSl?MaSP="+id.ToString() +"'" + ";</script>";
+                //return Content(url);
+                return RedirectToAction("ThemSlPartialView");
             }
         }
 
-
-        public ActionResult GiamSL(int MaSP, string strURL)
+        public ActionResult ThemSlPartialView()
         {
+            ViewBag.TongSoLuong = TongSL();
+            ViewBag.TongTien = TongTien();
+            ViewBag.listGioHang = Session["GioHang"];
+            return PartialView("ThemSlPartialView");
+        }
+
+
+        public ActionResult GiamSL(int MaSP)
+        {
+           
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
             if (listGioHang == null)
             {
@@ -194,7 +215,7 @@ namespace WebsiteBanHang.Controllers
                     if (sp.SoLuong == 1)
                     {
                         listGioHang.Remove(sp);
-                        return Redirect(strURL);
+                        return RedirectToAction("ThemSlPartialView");
                     }
                     else
                     {
@@ -202,8 +223,14 @@ namespace WebsiteBanHang.Controllers
                         sp.ThanhTien = sp.SoLuong * sp.Dongia;
                     }
                 }
-                return Redirect(strURL);
+                return RedirectToAction("ThemSlPartialView");
             }
+        }
+
+        public ActionResult CapNhatGioHang()
+        {
+            
+            return RedirectToAction("GioHangPartial");
         }
     }
 }

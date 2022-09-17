@@ -25,7 +25,7 @@
                 <div style="height:50px;">
                     <b><p class="tun">@item.TenSP</p></b>
                 </div>
-                <a href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })" class="item_add"><p class="number item_price"><i> </i>$@item.DonGia.Value</p></a>
+                <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="item_add ThemGioHang"><p class="number item_price"><i> </i>$@item.DonGia.Value</p></a>
             </div>
 
 
@@ -41,4 +41,46 @@
     </div>
 
     </div>
+
+<script>
+    $(".ThemGioHang").click(function () {
+        var MaSP = $(this).attr("data-MaSP");
+        var strURL = $(this).attr("data-strURL");
+        $.ajax({
+
+
+            type: "get",
+
+            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+            contentType: "html",
+            statusCode: {
+                400: function (xhr) {
+                    
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Sản phẩm đã hết hàng',
+                        showConfirmButton: false,
+                        timer: 1500
+
+                    })
+                }
+            },
+            success: function (response) {
+                debugger
+               
+
+                $("#GioHangPartial").html(response);
+
+
+            }
+
+        })
+
+    
+
+
+    })
+</script>
+
 

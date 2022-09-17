@@ -539,6 +539,7 @@
     <Content Include="Views\Admin\TraLoiBinhLuan.cshtml" />
     <Content Include="Views\SanPham\ThemBinhLuan.cshtml" />
     <Content Include="Views\SanPham\BinhLuanPartialView.cshtml" />
+    <Content Include="Views\GioHang\ThemSlPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

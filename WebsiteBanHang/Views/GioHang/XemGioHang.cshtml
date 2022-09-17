@@ -7,126 +7,23 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
-<div class="container">
+<div id="hihi" class="container">
     @if (Model.Count == 0)
     {
         <h2>Giỏ hàng hiện đang trống</h2>
     }
     else
     {
-        <div class="check">
-            <h1>Giỏ hàng của bạn (@ViewBag.TongSoLuong)</h1>
-            <div class="col-md-9 cart-items">
-
-                <script>
-                    $(document).ready(function (c) {
-                        $('.close1').on('click', function (c) {
-                            $('.cart-header').fadeOut('slow', function (c) {
-                                $('.cart-header').remove();
-                            });
-                        });
-                    });
-                </script>
-                @foreach (var item in Model)
-                {
-                    <div class="cart-header">
-                        <a href="@Url.Action("XoaGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })" class="close1"> </a>
-                        <div class="cart-sec simpleCart_shelfItem">
-                            <div class="cart-item cyc">
-                                <img src="@Url.Content("~/Content/images/"+item.HinhAnh)" class="img-responsive" alt="">
-                            </div>
-                            <div class="cart-item-info">
-                                <h3><a href="#">@item.TenSP</a><span>Model No: 3578</span></h3>
-                                <ul class="qty">
-                                    <li id="li_xemGH"><p>Số lượng: </p></li>
-                                    <a class="btn sl" href="@Url.Action("ThemSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })">+</a>
-
-                                    <li id="li_xemGH"><p> @item.SoLuong</p></li>
-                                    <a class="btn sl" href="@Url.Action("GiamSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })">-</a>
-                                </ul>
-
-                                <div class="delivery">
-                                    <p>Giá: @item.Dongia</p>
-                                    <span>Thời gian nhận hàng từ 5-7 ngày</span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-
-                        </div>
-                    </div>
-                }
-                <script>
-                    $(document).ready(function (c) {
-                        $('.close2').on('click', function (c) {
-                            $('.cart-header2').fadeOut('slow', function (c) {
-                                $('.cart-header2').remove();
-                            });
-                        });
-                    });
-                </script>
-
-            </div>
-        </div>
-        <div class="col-md-3 cart-total">
-            <a class="continue" href="#">Thanh Toán</a>
-            <div class="price-details">
-                <h3>Chi Tiết</h3> 
-                <span>Tổng Tiền</span>
-                <span class="total1">@ViewBag.TongTien</span>
-                <span>Giảm Giá</span>
-                <span class="total1">---</span>
-                <span>Hình thức thanh toán:</span>
-                <span class="total1">
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="1" name="optradio" value="option1" checked>
-                        <label  class="form-check-label" for="1">Thanh Toán Khi Nhận Hàng</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="2" name="optradio" value="option2">
-                        <label class="form-check-label" for="2">Ví MoMo</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="3" name="optradio" value="option3">
-                        <label for="3" class="form-check-label">VN Pay</label>
-                    </div>
-                </span>
-
-                <div class="clearfix"></div>
-            </div>
-            <ul class="total_price">
-                <li class="last_price"> <h4>TỔNG</h4></li>
-                <li class="last_price"><span>@ViewBag.TongTien </span></li>
-                <div class="clearfix"> </div>
-            </ul>
-
-
-            <div class="clearfix"></div>
-            <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
+        <div id="test" class="check">
            
+            @Html.Action("ThemSlPartialView", "GioHang")
         </div>
+        
     }
 
     <div class="clearfix"> </div>
 </div>
-    </div>
-<script>
-
-    var val = 1;
-    $(".form-check-input").click(function () {
-        
-        val = $(this).attr("id");
 
 
-        
-        
-    })
 
-    $("#btn-dathang").click(function () {
-        var url = "http://localhost:62979/DatHang/DatHang?id=" + val;
-        window.location.href = url;
-    })
-    
-   
-</script>
 

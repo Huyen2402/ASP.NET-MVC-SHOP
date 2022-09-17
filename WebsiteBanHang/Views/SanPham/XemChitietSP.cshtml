@@ -79,7 +79,7 @@
             </p>
 
 
-            <a href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })" class="add-cart item_add">ĐẶT HÀNG</a>
+            <a data-MaSP="@Model.MaSP" data-strURL="@Request.Url.ToString()"  @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })"*@ class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
 
         </div>
 
@@ -218,6 +218,45 @@
         i++;
         $("."+"Trang_"+i).show();
        
+    })
+
+    $(".ThemGioHang").click(function () {
+        var MaSP = $(this).attr("data-MaSP");
+        var strURL = $(this).attr("data-strURL");
+        $.ajax({
+
+
+            type: "get",
+
+            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+            contentType: "html",
+            statusCode: {
+                400: function (xhr) {
+
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Sản phẩm đã hết hàng',
+                        showConfirmButton: false,
+                        timer: 1500
+
+                    })
+                }
+            },
+            success: function (response) {
+                debugger
+
+
+                $("#GioHangPartial").html(response);
+
+
+            }
+
+        })
+
+
+
+
     })
 
 </script>

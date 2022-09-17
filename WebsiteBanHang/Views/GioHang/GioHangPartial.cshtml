@@ -1,7 +1,7 @@
-﻿<div class="cart box_1">
+﻿<div id="GioHangPartial" class="cart box_1">
     <a href="@Url.Action("XemGioHang","GioHang")">
         <h3>
-            <div class="total">
+            <div data-total="@ViewBag.TongTien" data-slide="@ViewBag.TongSoLuong" class="total">
                 
                 @ViewBag.TongTien VND (<span>@ViewBag.TongSoLuong</span>)
             </div>
@@ -10,3 +10,6 @@
     </a>
     <p><a href="" class="simpleCart_empty">Empty Cart</a></p>
 </div>
+
+
+
