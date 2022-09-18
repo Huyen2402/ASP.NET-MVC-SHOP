@@ -8,15 +8,15 @@
         <EntityTypeShape EntityType="QuanLyBanHangModel.BinhLuan" Width="1.5" PointX="15.75" PointY="9.625" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.Chat" Width="1.5" PointX="12.75" PointY="8.125" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietDonDatHang" Width="1.5" PointX="9.75" PointY="4.625" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" Width="1.5" PointX="12.75" PointY="4.875" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" Width="1.5" PointX="12.75" PointY="11.5" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.DonDatHang" Width="1.5" PointX="7.5" PointY="8.875" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.Huyen" Width="1.5" PointX="3" PointY="12.125" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.KhachHang" Width="1.5" PointX="12.75" PointY="14.75" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.loaiSanPham" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.loaiSanPham" Width="1.5" PointX="5.25" PointY="15.375" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.LoaiThanhVien" Width="1.5" PointX="8.25" PointY="14" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaCungCap" Width="1.5" PointX="5.25" PointY="15.75" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaSanXuat" Width="1.5" PointX="5.25" PointY="2" />
-        <EntityTypeShape EntityType="QuanLyBanHangModel.PhieuNhap" Width="1.5" PointX="7.5" PointY="17" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaCungCap" Width="1.5" PointX="5.25" PointY="18" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.NhaSanXuat" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="QuanLyBanHangModel.PhieuNhap" Width="1.5" PointX="7.5" PointY="18.125" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.SanPham" Width="1.5" PointX="7.5" PointY="1" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="QuanLyBanHangModel.Tinh" Width="1.5" PointX="0.75" PointY="7.5" />

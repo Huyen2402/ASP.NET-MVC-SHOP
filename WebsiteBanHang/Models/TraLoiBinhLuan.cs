@@ -7,13 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 namespace WebsiteBanHang.Models
 {
-    using System;
-    using System.Collections.Generic;
     
     public partial class TraLoiBinhLuan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public int MaTraLoiBL { get; set; }
         public string NoiDungTraLoi { get; set; }
         public Nullable<int> MaBL { get; set; }

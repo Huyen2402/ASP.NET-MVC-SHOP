@@ -1,151 +1,148 @@
-﻿@using WebsiteBanHang.Models;
-
+﻿
+@using WebsiteBanHang.Models;
+@model SanPham
 
 @{
 
 
+    List<BinhLuan> listBL1 = ViewBag.listBL1 as List<BinhLuan>;
+    List<TraLoiBinhLuan> listTraLoi1 = ViewBag.listTraLoi1 as List<TraLoiBinhLuan>;
 
-    List<BinhLuan> listBL = ViewBag.listBL as List<BinhLuan>;
-    List<TraLoiBinhLuan> listTraLoi = ViewBag.listTraLoi as List<TraLoiBinhLuan>;
 }
 
-<div class="col-md-5 single-top">
-    <div class="flexslider">
+<div id="BinhLuanAjax">
+    <div id="CMT">
+        <h1>Bình luận </h1>
+        <div>
+            @*@using (Ajax.BeginForm("XemChitietSP", "SanPham", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divEmp", InsertionMode = InsertionMode.Replace })) {*@
+            @using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post, new { @id = "formBL" }))
+            {
+                <input id="getID" data-MaSP="@Model.MaSP" type="hidden" name="MaSP" value="@Model.MaSP" />
+                <input class="form-control" type="text" name="NoiDungBL" value="" />
+                <p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>
+                <p id="divEmp" style="color:red;"></p>
 
-        <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                <div>
+                    @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                    <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary float-end" />
+                </div>
+            }
 
-            <ul class="slides" style="width: 1200%; transition-duration: 0.6s; transform: translate3d(-1217.6px, 0px, 0px);">
-                <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh)" class="clone" aria-hidden="true" style="width: 304.4px; float: left; display: block;">
-                    <img src="@Url.Content("~/Content/images/"+Model.HinhAnh)" draggable="false">
-                </li>
-                <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh1)" style="width: 304.4px; float: left; display: block;" class="">
-                    <img src="@Url.Content("~/Content/images/"+Model.HinhAnh1)" draggable="false">
-                </li>
-                <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh2)" style="width: 304.4px; float: left; display: block;" class="">
-                    <img src="@Url.Content("~/Content/images/"+Model.HinhAnh2)" draggable="false">
-                </li>
-                <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh3)" style="width: 304.4px; float: left; display: block;" class="">
-                    <img src="@Url.Content("~/Content/images/"+Model.HinhAnh3)" draggable="false">
-                </li>
-
-            </ul>
 
         </div>
-    </div>
-    <!-- FlexSlider -->
-    <script defer="" src="~/Content/js/jquery.flexslider.js"></script>
-    <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen">
-    <script>
-        // Can also be used with $(document).ready()
-        $(window).load(function () {
-            $('.flexslider').flexslider({
-                animation: "slide",
-                controlNav: "thumbnails"
-            });
-        });
-    </script>
-</div>
-<div class="col-md-7 single-top-in simpleCart_shelfItem">
-    <div class="single-para ">
-        <h4>@Model.TenSP</h4>
-        <div class="star-on">
-            <ul class="star-footer">
-                <li><a href="#"><i> </i></a></li>
-                <li><a href="#"><i> </i></a></li>
-                <li><a href="#"><i> </i></a></li>
-                <li><a href="#"><i> </i></a></li>
-                <li><a href="#"><i> </i></a></li>
-            </ul>
-            <div class="review">
-                <a href="#"> 1 customer review </a>
+        <div class="clearfix"> </div>
 
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-
-        <h5 class="item_price">$@Model.DonGia</h5>
-        <p>
-            @Model.MoTa
-        </p>
-
-
-        <a href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })" class="add-cart item_add">ĐẶT HÀNG</a>
-
-    </div>
-
-</div>
-<div class="clearfix">
-
-</div>
-
-<div id="CMT">
-    <h1>Bình luận </h1>
-    <div>
-
-        @*@using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post)) {*@
-
-
-        @using (Ajax.BeginForm("XemChitietSP", "SanPham", new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "POST", UpdateTargetId = "divEmp" }))
-
-        {
-
-            <input type="hidden" name="MaSP" value="@Model.MaSP" />
-            <input class="form-control" type="text" name="NoiDungBL" value="" />
-            @*<p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>*@
-            <p id="divEmp" style="color:red;"></p>
-
-            <div>
-                @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
-                <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary float-end" />
-            </div>
-
-
+        @{
+            int SoLuongBinhLuan = 1;
+            int SoLuongBinhLuanTrenTrang = 4;
+            int Trang = 1;
+            int tongSLBL = listBL1.Count;
+            int tongTrang = tongSLBL / SoLuongBinhLuanTrenTrang;
         }
 
-    </div>
-    <div class="clearfix"> </div>
 
-
-    <div>
         <div>
-            @foreach (var item in listBL)
-            {
-                <div class="form-control " id="binhluan">
-                    <div>
-                        <label id="TenBL"> @item.ThanhVien.HoTen</label>
-                    </div>
-                    <div id="ndBL">
-                        @item.NoiDungBL
-                    </div>
-
-                    @if (listTraLoi != null)
+            <div>
+                @foreach (var item in listBL1)
+                {
+                    if (item.MaSP == Model.MaSP)
                     {
-                        foreach (var tl in listTraLoi)
+                        if (SoLuongBinhLuan % SoLuongBinhLuanTrenTrang == 0)
                         {
-                            if (tl.MaBL == item.MaBL)
-                            {
-                                <div id="TraLoiBL">
-                                    <div class="form-control " id="TLbinhluan">
-                                        <div>
-                                            <label id="TenBL">@tl.ThanhVien.HoTen</label>
-                                        </div>
-                                        <div id="ndBL">
-                                            @tl.NoiDungTraLoi
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            }
+                            Trang++;
                         }
-                    }
-                </div>
+                        <div class="@Url.Content("form-control itemSearch Trang_"+Trang)" id="binhluan">
+                            <div>
+                                <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                            </div>
+                            <div id="ndBL">
+                                @item.NoiDungBL
+                            </div>
 
-            }
+                            @if (listTraLoi1 != null)
+                            {
+                                foreach (var tl in listTraLoi1)
+                                {
+                                    if (tl.MaBL == item.MaBL)
+                                    {
+                                        <div id="TraLoiBL">
+                                            <div class="form-control " id="TLbinhluan">
+                                                <div>
+                                                    <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                                </div>
+                                                <div id="ndBL">
+                                                    @tl.NoiDungTraLoi
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        SoLuongBinhLuan++;
+                    }
+                }
+            </div>
+
         </div>
 
+        @if (tongSLBL > 4)
+        {
+            <div class="container mt-3">
+
+                <a id="HienThiThem">Hiển thị thêm bình luận khác</a>
+
+            </div>
+        }
+
+
+
+
+
     </div>
-
-
-
 </div>
+
+<script>
+    $(function () {
+        $("#formBL").submit(function (event) {
+            event.preventDefault();
+            var actionurl = event.currentTarget.action;
+
+            //do your own request an handle the results
+            $.ajax({
+                url: actionurl,
+                type: 'post',
+                dataType: 'application/json',
+                data: $("#formBL").serialize(),
+
+            });
+
+
+            var MaSP = $("#getID").attr("data-MaSP");
+            alert(MaSP)
+            $.ajax({
+
+
+                type: "get",
+
+                url: "http://localhost:62979/SanPham/CapNhatBinhLuan?id=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+                    alert(response);
+                    $("#BinhLuanAjax").html(response);
+
+
+
+                }
+
+
+            })
+
+
+        });
+    }
+</script>

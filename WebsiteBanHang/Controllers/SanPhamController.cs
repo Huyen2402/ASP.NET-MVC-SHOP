@@ -28,7 +28,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult XemChitietSP(int? id)
         {
-            
+            int? masp = id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,10 +39,6 @@ namespace WebsiteBanHang.Controllers
                 return HttpNotFound();
             }
 
-            List<BinhLuan> listBL = db.BinhLuans.Where(n => n.MaSP == id).OrderByDescending(b=>b.NgayTao).ToList();
-            List<TraLoiBinhLuan> listTraLoi = db.TraLoiBinhLuans.ToList();
-            ViewBag.listTraLoi = listTraLoi;
-            ViewBag.listBL = listBL;
 
             return View(sp);
 
@@ -66,7 +62,8 @@ namespace WebsiteBanHang.Controllers
                 db.SaveChanges();
                 //string url = "<script> window.location.href = 'http://localhost:62979/SanPham/XemChiTietSP/" + id.ToString() + "'" + ";</script>";
                 //return Content(url);
-                return RedirectToAction("XemChitietSP", "SanPham", new { id = Int32.Parse(f["MaSP"]) });
+                return RedirectToAction("XemChitietSP", "SanPham",  new {@id = id} );
+                //return RedirectToAction("XemChitietSP", "SanPham", new { id = id });
                 //'http://localhost:62979/SanPham/XemChiTietSP/'
 
             }
@@ -81,13 +78,19 @@ namespace WebsiteBanHang.Controllers
 
             }
 
-
-
-
         }
 
       
+        public ActionResult BinhLuanPartialView(int? id)
+        { 
+            List<BinhLuan> listBL1 = db.BinhLuans.OrderByDescending(b => b.NgayTao).ToList();
+            ViewBag.listBL1 = listBL1;
+            List<TraLoiBinhLuan> listTraLoi1 = db.TraLoiBinhLuans.ToList();
+            ViewBag.listTraLoi1 = listTraLoi1;
+            SanPham sp1 = db.SanPhams.SingleOrDefault(n=>n.MaSP == id);
 
+            return PartialView("BinhLuanPartialView", sp1);
+        }
 
         public ActionResult SanPham(int? MaLoaiSP, int? MaNSX, int? page)
 
@@ -133,6 +136,12 @@ namespace WebsiteBanHang.Controllers
         {
             List<SanPham> listSP = db.SanPhams.Where(n => n.DaXoa == false).ToList();
             return PartialView(listSP);
+        }
+
+        public ActionResult CapNhatBinhLuan(int? id)
+        {
+            int? ma = id;
+            return RedirectToAction("BinhLuanPartialView", "SanPham", new { id = ma });
         }
 
 
