@@ -5,6 +5,9 @@
 @{
     ViewBag.Title = "XemChitietSP";
     Layout = "~/Views/Layout/ProductLayout.cshtml";
+
+    List<BinhLuan> ListBL = ViewBag.ListBL as List<BinhLuan>;
+    List<TraLoiBinhLuan> ListTL = ViewBag.ListTL as List<TraLoiBinhLuan>;
 }
 
 
@@ -82,13 +85,64 @@
         <div class="clearfix">
 
         </div>
-        @Html.Action("BinhLuanPartialView", "SanPham", Request.Params["id"] )
+        <div id="CMT">
+            <h1>Bình luận </h1>
+            <div>
+                @if (Session["TaiKhoan"] != null)
+                {
+                    <input type="hidden" name="MaSP" value="@Model.MaSP" id="masp" />
+                    <input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
+                    <p id="divEmp" style="color:red;"></p>
+                    <div>
+                        @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                        <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
+                    </div>
+                }
+                else
+                {
+                    <h3>Dui lòng đăng nhập để gửi bình luận</h3>
+                }
+            </div>
+            <div class="clearfix"> </div>
 
 
-        <!---->
-        <!---728x90--->
+            <div id="container-binhluan">
+                @foreach (var item in ListBL)
+                {
+                    <div class="form-control binhluan" id="binhluan">
+                        <div>
+                            <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                        </div>
+                        <div id="ndBL" class="noidungbinhluan" data-mabl="@item.MaBL">
+                            @item.NoiDungBL
+                        </div>
 
+                        @if (ListTL != null)
+                        {
+                            foreach (var tl in ListTL)
+                            {
+                                if (tl.MaBL == item.MaBL)
+                                {
+                                    <div id="TraLoiBL">
+                                        <div class="form-control " id="TLbinhluan">
+                                            <div>
+                                                <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                            </div>
+                                            <div id="ndBL">
+                                                @tl.NoiDungTraLoi
+                                            </div>
 
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                }
+                <b id="loadMore">Hịn thêm thì click dô</b>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -115,94 +169,68 @@
     }
 </style>
 <script>
+    $(document).ready(function () {
+        $("#btn-BL").click(function () {
+            var masp = $("#masp").val();
+            var noidung = $("#noidung").val();
+            $.ajax('/SanPham/ThemBinhLuan',
+                {
+                    type: "POST",
+                    dataType: 'json',
+                    data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
+                    success: function (data, status, xhr) {
+                        if (data.status) {
+                            $("#noidung").val('');
 
-    var i = 1;
-    $("#HienThiThem").click(function () {
-        i++;
-        $("." + "Trang_" + i).show();
+                            alert("Thành công")
 
-    })
-
-    $(".ThemGioHang").click(function () {
-        var MaSP = $(this).attr("data-MaSP");
-        var strURL = $(this).attr("data-strURL");
-        $.ajax({
-
-
-            type: "get",
-
-            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
-            contentType: "html",
-            statusCode: {
-                400: function (xhr) {
-
-                    Swal.fire({
-
-                        icon: 'error',
-                        title: 'Sản phẩm đã hết hàng',
-                        showConfirmButton: false,
-                        timer: 1500
-
-                    })
-                }
-            },
-            success: function (response) {
-                debugger
-
-
-                $("#GioHangPartial").html(response);
-
-
+                            $("#container-binhluan").prepend(
+                                '<div class="form-control " id="binhluan">' +
+                                '<div>' +
+                                '<label id="TenBL">' + data.TenThanhVien + '</label>' +
+                                '</div>' +
+                                '<div id="ndBL">'
+                                + noidung +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        console.log(data)
+                    }
+                });
+        });
+        $(".binhluan").hide();
+        $(".binhluan").slice(0, 4).show();
+        $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $(".binhluan:hidden").slice(0, 4).slideDown();
+            if ($(".binhluan:hidden").length == 0) {
+                $("#loadMore").text("Hết gòi bà dà");
             }
-
-        })
-
-
-
-
-    })
-
-
-    $(function () {
-        $("#formBL").submit(function (event) {
-            event.preventDefault();
-            //var actionurl = event.currentTarget.action;
-
-            ////do your own request an handle the results
-            //$.ajax({
-            //    url: actionurl,
-            //    type: 'post',
-            //    dataType: 'application/json',
-            //    data: $("#formBL").serialize(),
-
         });
 
-
-        //var MaSP = $("#getID").attr("data-MaSP");
-        //alert(MaSP)
-        //$.ajax({
-
-
-        //    type: "get",
-
-        //    url: "http://localhost:62979/SanPham/CapNhatBinhLuan?id=" + MaSP,
-        //    contentType: "html",
-
-        //    success: function (response) {
-        //        debugger
-        //        alert(response);
-        //        $("#BinhLuanAjax").html(response);
-
-
-
-        //    }
-
-
-        //})
-
-
-        /* });*/
-    }
-
+        $(".noidungbinhluan").click(function () {
+            var noidung = window.prompt("Nhập nội dung bình luận");
+            var mabl = $(this).attr("data-mabl")
+            if (noidung) {
+                $.ajax('/SanPham/SuaBinhLuan',
+                    {
+                        type: "POST",
+                        dataType: 'json',
+                        data: { MaBL: mabl, noidung: noidung },
+                        success: function (data, status, xhr) {
+                            if (data.status) {
+                                $('body').find('[data-mabl=' + mabl + ']').html(noidung);
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            console.log(data)
+                        }
+                    });
+            }
+        })
+    });
 </script>
 

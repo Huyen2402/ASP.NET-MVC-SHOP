@@ -1026,7 +1026,6 @@
           <Property Name="MaBL" Type="Int32" />
           <Property Name="MaThanhVien" Type="Int32" />
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <Property Name="MaSP" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan" FromRole="TraLoiBinhLuan" ToRole="BinhLuan" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien" FromRole="TraLoiBinhLuan" ToRole="ThanhVien" />
         </EntityType>
@@ -1572,7 +1571,6 @@
           <EntitySetMapping Name="TraLoiBinhLuans">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.TraLoiBinhLuan">
               <MappingFragment StoreEntitySet="TraLoiBinhLuan">
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
                 <ScalarProperty Name="MaBL" ColumnName="MaBL" />

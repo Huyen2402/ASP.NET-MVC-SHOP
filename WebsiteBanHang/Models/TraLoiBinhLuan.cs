@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 namespace WebsiteBanHang.Models
 {
+    using System;
+    using System.Collections.Generic;
     
     public partial class TraLoiBinhLuan
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public int MaTraLoiBL { get; set; }
         public string NoiDungTraLoi { get; set; }
         public Nullable<int> MaBL { get; set; }
         public Nullable<int> MaThanhVien { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
-        public Nullable<int> MaSP { get; set; }
     
         public virtual BinhLuan BinhLuan { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
