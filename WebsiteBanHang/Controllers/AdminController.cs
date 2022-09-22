@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.Xml.Schema;
 using WebsiteBanHang.Models;
 
 namespace WebsiteBanHang.Controllers
@@ -19,9 +21,74 @@ namespace WebsiteBanHang.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            List<ThanhVien> listTV = db.ThanhViens.Where(n=>n.MaLoaiTV == 2).ToList();
+            ViewBag.TongTV = listTV.Count();
+            List<BinhLuan> listBl = db.BinhLuans.ToList();
+            ViewBag.TongBL = listBl.Count();
+            
+            ViewBag.TongTien = TongTien();
+            List<DonDatHang> listDDH = db.DonDatHangs.ToList();
+            ViewBag.TongDDH = listDDH.Count();
             return View();
         }
 
+        public decimal? TongTien()
+        {
+            List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.ToList();
+            decimal? total = 0;
+            for(int i=0; i < ct.Count; i++)
+            {
+                total += ct[i].SoLuong * ct[i].DonGia;
+            }
+            return total;
+        }
+
+        public JsonResult TongTienTheoThang(int? sl)
+        {
+            decimal? total = 0;
+            
+               
+                DateTime dateStart = DateTime.Now.AddDays(1);
+                DateTime dateEnd = DateTime.Now.AddYears(-1);
+
+                //List<DonDatHang> dhh = db.DonDatHangs.Where(u => Convert.ToDateTime(u.NgayDat).Month == month).ToList();
+                
+                List<DonDatHang> dhh = db.DonDatHangs.Where(s => (DbFunctions.TruncateTime(s.NgayDat.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayDat.Value) <= dateEnd)).ToList();
+                
+                if (dhh == null)
+                {
+                    total = 0;
+                }
+                else
+                {
+                    for (int i = 1; i <= sl; i++)
+                    {
+                        total = 0;
+                        List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaThongKe == i).ToList();
+                        
+                            for (int j = 0; j < ct.Count; j++)
+                            {
+                                total += ct[j].SoLuong * ct[j].DonGia;
+                            }
+
+                        
+
+                    }
+                    return Json(new { data = total }, JsonRequestBehavior.AllowGet);
+                }
+                
+            
+           
+     
+            return Json(new {data = total }, JsonRequestBehavior.AllowGet);
+           
+        }
+
+        public ActionResult ThongKeBieuDo(int? time)
+        {
+          
+            return View();
+        }
         public ActionResult XemSanPham()
         {
             //if (Session["Quyen"].ToString() != "Admin")

@@ -1,8 +1,159 @@
-﻿
+﻿@using WebsiteBanHang.Models
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>Index</h2>
+
+
+
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-2">
+        <div class="col-md-4 market-update-right">
+            
+            <i class="fa fa-comment"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Bình Luận</h4>
+            <h3>@ViewBag.TongBL</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-1">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-users"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Khách Hàng</h4>
+            <h3>@ViewBag.TongTV</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-3">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-usd"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Tổng Tiền</h4>
+            <h3>@ViewBag.TongTien</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-4">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Tổng Đơn</h4>
+            <h3>@ViewBag.TongDDH</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="clearfix"> </div>
+
+<canvas id="myChart" style="width:100%;"></canvas>
+<script>
+    const d = new Date();
+    mont = d.getMonth()+1;
+    var month = [];
+    for (var i = 1; i <= 12; i++) {
+       
+           text = "Tháng " + [i];
+            month.push(text);
+
+        //if (i > 12) {
+        //    for (var p = 1; p <= mont; p++) {
+
+        //        text = "Tháng " + [p];
+        //        month.push(text);
+        //    }
+        //}
+        //else {
+        //    text = "Tháng " + [i];
+        //    month.push(text);
+        //}
+      
+  
+    }
+    var totalMonth = [] ;
+   
+    for (var j = 1; j < 13; j++) {
+
+        $.ajax('/Admin/TongTienTheoThang?sl=' + j,
+            {
+                type: "GET",
+                dataType: 'json',
+
+                success: function (data, status, xhr) {
+                    totalMonth.push(data);
+                    var mang = [totalMonth[0].data, totalMonth[1].data, totalMonth[2].data, totalMonth[3].data, totalMonth[4].data, totalMonth[5].data,
+                        totalMonth[6].data, totalMonth[7].data, totalMonth[8].data, totalMonth[9].data, totalMonth[10].data, totalMonth[11].data];
+                    alert(mang);
+                    var yValues = [1668000, 38160000, 41508000, 51192000, 52296000, 53964000, 55068000, 36492000, 500000, 11352000, 13020000, 14808000, 26808000];
+                    console.log(mang)
+                    new Chart("myChart", {
+                        type: "line",
+                        data: {
+                            labels: month,
+                            datasets: [{
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "rgba(0,0,255,1.0)",
+                                borderColor: "rgba(0,0,255,0.1)",
+                                data: mang
+                            }]
+                        },
+                        options: {
+                            legend: { display: false },
+                            scales: {
+                                yAxes: [{ ticks: { min: 100000, max: 1500000 } }],
+                            }
+                        }
+                    });
+
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    console.log(data)
+                }
+            });
+
+    }
+ 
+  
+ 
+
+
+//new Chart("myChart", {
+//  type: "line",
+//  data: {
+//      labels: month,
+//    datasets: [{
+//      fill: false,
+//      lineTension: 0,
+//      backgroundColor: "rgba(0,0,255,1.0)",
+//        borderColor: "rgba(0,0,255,0.1)",
+//        data: mang
+//    }]
+//  },
+//  options: {
+//    legend: {display: false},
+//    scales: {
+//        yAxes: [{ ticks: { min: 100000, max: 1000000}}],
+//    }
+//  }
+//});
+</script>
 

@@ -36,6 +36,7 @@
           <Property Name="SoLuong" Type="int" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaThongKe" Type="int" />
         </EntityType>
         <EntityType Name="ChiTietPhieuNhap">
           <Key>
@@ -61,6 +62,7 @@
           <Property Name="MaTinh" Type="int" />
           <Property Name="MaXa" Type="int" />
           <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MaThongKe" Type="int" />
         </EntityType>
         <EntityType Name="Huyen">
           <Key>
@@ -819,6 +821,7 @@
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaThongKe" Type="Int32" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="ChiTietDonDatHang" ToRole="SanPham" />
         </EntityType>
@@ -848,6 +851,7 @@
           <Property Name="MaTinh" Type="Int32" />
           <Property Name="MaXa" Type="Int32" />
           <Property Name="MaDDH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaThongKe" Type="Int32" />
           <NavigationProperty Name="ChiTietDonDatHangs" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.DonDatHang_Huyen" FromRole="DonDatHang" ToRole="Huyen" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.DonDatHang_Tinh" FromRole="DonDatHang" ToRole="Tinh" />
@@ -1026,6 +1030,7 @@
           <Property Name="MaBL" Type="Int32" />
           <Property Name="MaThanhVien" Type="Int32" />
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="MaSP" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan" FromRole="TraLoiBinhLuan" ToRole="BinhLuan" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien" FromRole="TraLoiBinhLuan" ToRole="ThanhVien" />
         </EntityType>
@@ -1390,6 +1395,7 @@
           <EntitySetMapping Name="ChiTietDonDatHangs">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietDonDatHang">
               <MappingFragment StoreEntitySet="ChiTietDonDatHang">
+                <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
                 <ScalarProperty Name="MaChiTietDDH1" ColumnName="MaChiTietDDH1" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
@@ -1413,6 +1419,7 @@
           <EntitySetMapping Name="DonDatHangs">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.DonDatHang">
               <MappingFragment StoreEntitySet="DonDatHang">
+                <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
                 <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
@@ -1571,6 +1578,7 @@
           <EntitySetMapping Name="TraLoiBinhLuans">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.TraLoiBinhLuan">
               <MappingFragment StoreEntitySet="TraLoiBinhLuan">
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
                 <ScalarProperty Name="MaBL" ColumnName="MaBL" />

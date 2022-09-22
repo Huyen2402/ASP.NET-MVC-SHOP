@@ -39,7 +39,7 @@ namespace WebsiteBanHang.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).ToList();
+            ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b=>b.NgayTao).ToList();
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
 
             return View(sp);
