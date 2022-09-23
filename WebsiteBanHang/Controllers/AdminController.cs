@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -21,72 +22,85 @@ namespace WebsiteBanHang.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            List<ThanhVien> listTV = db.ThanhViens.Where(n=>n.MaLoaiTV == 2).ToList();
+            List<ThanhVien> listTV = db.ThanhViens.Where(n => n.MaLoaiTV == 2).ToList();
             ViewBag.TongTV = listTV.Count();
             List<BinhLuan> listBl = db.BinhLuans.ToList();
             ViewBag.TongBL = listBl.Count();
-            
+
             ViewBag.TongTien = TongTien();
             List<DonDatHang> listDDH = db.DonDatHangs.ToList();
             ViewBag.TongDDH = listDDH.Count();
+
+            // Data chart
+            List<DataChart> data = db.DonDatHangs.Include("ChiTietDonDatHang")
+                .GroupBy(x => x.NgayDat.Value.Month)
+                .Select(x => new DataChart()
+                {
+                    Month = x.FirstOrDefault().NgayDat.Value.Month,
+                    Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
+                }).ToList();
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach (var item in data)
+            {
+                dataPoints.Add(new DataPoint("Tháng " + item.Month.ToString(), double.Parse(item.Total.ToString())));
+            }
+
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View();
         }
 
         public decimal? TongTien()
         {
-            List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.ToList();
-            decimal? total = 0;
-            for(int i=0; i < ct.Count; i++)
-            {
-                total += ct[i].SoLuong * ct[i].DonGia;
-            }
-            return total;
+            var tongtien = db.ChiTietDonDatHangs.Sum(n => n.DonGia * n.SoLuong).Value;
+            return tongtien;
         }
 
-        public JsonResult TongTienTheoThang(int? sl)
-        {
-            decimal? total = 0;
-            
-               
-                DateTime dateStart = DateTime.Now.AddDays(1);
-                DateTime dateEnd = DateTime.Now.AddYears(-1);
+        //public JsonResult TongTienTheoThang(int? sl)
+        //{
+        //    decimal? total = 0;
 
-                //List<DonDatHang> dhh = db.DonDatHangs.Where(u => Convert.ToDateTime(u.NgayDat).Month == month).ToList();
-                
-                List<DonDatHang> dhh = db.DonDatHangs.Where(s => (DbFunctions.TruncateTime(s.NgayDat.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayDat.Value) <= dateEnd)).ToList();
-                
-                if (dhh == null)
-                {
-                    total = 0;
-                }
-                else
-                {
-                    for (int i = 1; i <= sl; i++)
-                    {
-                        total = 0;
-                        List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaThongKe == i).ToList();
-                        
-                            for (int j = 0; j < ct.Count; j++)
-                            {
-                                total += ct[j].SoLuong * ct[j].DonGia;
-                            }
 
-                        
+        //    DateTime dateStart = DateTime.Now.AddDays(1);
+        //    DateTime dateEnd = DateTime.Now.AddYears(-1);
 
-                    }
-                    return Json(new { data = total }, JsonRequestBehavior.AllowGet);
-                }
-                
-            
-           
-     
-            return Json(new {data = total }, JsonRequestBehavior.AllowGet);
-           
-        }
+        //    //List<DonDatHang> dhh = db.DonDatHangs.Where(u => Convert.ToDateTime(u.NgayDat).Month == month).ToList();
+
+        //    List<DonDatHang> dhh = db.DonDatHangs.Where(s => (DbFunctions.TruncateTime(s.NgayDat.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayDat.Value) <= dateEnd)).ToList();
+
+        //    if (dhh == null)
+        //    {
+        //        total = 0;
+        //    }
+        //    else
+        //    {
+        //        for (int i = 1; i <= sl; i++)
+        //        {
+        //            total = 0;
+        //            List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaThongKe == i).ToList();
+
+        //            for (int j = 0; j < ct.Count; j++)
+        //            {
+        //                total += ct[j].SoLuong * ct[j].DonGia;
+        //            }
+
+
+
+        //        }
+        //        return Json(new { data = total }, JsonRequestBehavior.AllowGet);
+        //    }
+
+
+
+
+        //    return Json(new { data = total }, JsonRequestBehavior.AllowGet);
+
+        //}
 
         public ActionResult ThongKeBieuDo(int? time)
         {
-          
+
             return View();
         }
         public ActionResult XemSanPham()
@@ -95,7 +109,7 @@ namespace WebsiteBanHang.Controllers
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-            List<SanPham> list = db.SanPhams.Where(n=>n.DaXoa == false).ToList();
+            List<SanPham> list = db.SanPhams.Where(n => n.DaXoa == false).ToList();
             return View(list);
         }
 
@@ -134,20 +148,20 @@ namespace WebsiteBanHang.Controllers
                     var fileName = Path.GetFileName(HinhAnh[i].FileName);
                     //Get path
                     var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                    
+
                     //Check exitst
                     if (!System.IO.File.Exists(path))
                     {
                         //Add image into folder
                         HinhAnh[i].SaveAs(path);
-                       
+
 
 
                     }
 
-                    
+
                 }
-              
+
             }
 
             sp.HinhAnh = HinhAnh[0].FileName;
@@ -335,7 +349,7 @@ namespace WebsiteBanHang.Controllers
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n=>n.DaXoa == false).ToList();
+            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n => n.DaXoa == false).ToList();
             return View(listLSP);
         }
 
@@ -343,7 +357,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult SuaLoaiSanPham(int? MaLoaiSP)
         {
-            if(MaLoaiSP == null)
+            if (MaLoaiSP == null)
             {
                 Response.StatusCode = 404;
             }
@@ -355,7 +369,7 @@ namespace WebsiteBanHang.Controllers
                 {
                     Response.StatusCode = 404;
                 }
-                
+
                 return View(lsp);
             }
 
@@ -366,8 +380,8 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public ActionResult SuaLoaiSanPham(loaiSanPham lsp)
         {
-        loaiSanPham check = db.loaiSanPhams.SingleOrDefault(n=>n.MaLoaiSP == lsp.MaLoaiSP);
-            if(check == null)
+            loaiSanPham check = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == lsp.MaLoaiSP);
+            if (check == null)
             {
                 Response.StatusCode = 404;
             }
@@ -401,24 +415,24 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XoaloaiSanPham(int? MaLoaiSP)
         {
-            
-                loaiSanPham lsp = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == MaLoaiSP);
-                if (lsp == null)
-                {
-                    Response.StatusCode = 404;
-                }
-                else
-                {
-                    lsp.DaXoa = true;
-                    db.SaveChanges();
-                    
+
+            loaiSanPham lsp = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == MaLoaiSP);
+            if (lsp == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                lsp.DaXoa = true;
+                db.SaveChanges();
+
             }
             return RedirectToAction("XemLoaiSanPham", "Admin");
         }
 
         public ActionResult XemNguoiDung()
         {
-            List< ThanhVien> tv = db.ThanhViens.ToList();
+            List<ThanhVien> tv = db.ThanhViens.ToList();
 
             return View(tv);
         }
@@ -450,23 +464,23 @@ namespace WebsiteBanHang.Controllers
         }
 
 
-        
+
         public ActionResult KhoaNguoiDung(int? MaThanhVien)
         {
 
-            
-                ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == MaThanhVien);
-                if(check == null)
-                {
-                    Response.StatusCode = 404;
-                }
-                else
-                {
-                    check.DaKhoa = true;
-                    db.SaveChanges();
-                    
-                }
-            
+
+            ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == MaThanhVien);
+            if (check == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                check.DaKhoa = true;
+                db.SaveChanges();
+
+            }
+
             return RedirectToAction("XemNguoiDung", "Admin");
         }
         public ActionResult MoKhoaNguoiDung(int? MaThanhVien)
@@ -491,11 +505,11 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DonHangChoXacNhan()
         {
 
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n=>n.MaTinhTrangGiaoHang == 5).ToList();
-            
-            
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 5).ToList();
 
-            
+
+
+
 
             return View(listddh);
         }
@@ -503,21 +517,21 @@ namespace WebsiteBanHang.Controllers
         public ActionResult XemChiTietDonHang(string MaDDH)
         {
 
-            if(MaDDH == null)
+            if (MaDDH == null)
             {
                 Response.StatusCode = 404;
 
             }
             else
             {
-                List< ChiTietDonDatHang > ct = db.ChiTietDonDatHangs.Where(n=>n.MaDDH == MaDDH).ToList();
-                if(ct == null)
+                List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+                if (ct == null)
                 {
                     Response.StatusCode = 404;
                 }
                 else
                 {
-                   
+
                     return View(ct);
                 }
             }
@@ -526,22 +540,22 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult HuyDonHang(string MaDDH)
         {
-            
-            if( MaDDH == null)
+
+            if (MaDDH == null)
             {
                 Response.StatusCode = 404;
             }
             else
             {
                 List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
-                for(var i=0; i< listCT.Count(); i++)
+                for (var i = 0; i < listCT.Count(); i++)
                 {
                     db.ChiTietDonDatHangs.Remove(listCT[i]);
                 }
                 DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
                 db.DonDatHangs.Remove(ddh);
-                
-                
+
+
             }
             db.SaveChanges();
             return RedirectToAction("DonHangChoXacNhan");
@@ -556,7 +570,7 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
-                if(ddh == null)
+                if (ddh == null)
                 {
                     Response.StatusCode = 404;
 
@@ -584,7 +598,7 @@ namespace WebsiteBanHang.Controllers
         {
             DateTime dateStart = DateTime.Now.AddDays(-3);
             DateTime dateEnd = DateTime.Now;
-            List<BinhLuan> listBL =  db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd)).OrderByDescending(b=>b.NgayTao).ToList();
+            List<BinhLuan> listBL = db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd)).OrderByDescending(b => b.NgayTao).ToList();
             //List<BinhLuan> listBL = db.BinhLuans.ToList();
 
             return View(listBL);
@@ -626,9 +640,9 @@ namespace WebsiteBanHang.Controllers
             traloi.MaThanhVien = 1002;
             db.TraLoiBinhLuans.Add(traloi);
             db.SaveChanges();
-            
 
-            return RedirectToAction("TraLoiBinhLuan","Admin", new { MaBL = tlbl.MaBL });
+
+            return RedirectToAction("TraLoiBinhLuan", "Admin", new { MaBL = tlbl.MaBL });
         }
 
     }

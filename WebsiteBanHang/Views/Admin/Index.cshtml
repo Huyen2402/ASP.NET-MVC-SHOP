@@ -12,7 +12,7 @@
 <div class="col-md-3 market-update-gd">
     <div class="market-update-block clr-block-2">
         <div class="col-md-4 market-update-right">
-            
+
             <i class="fa fa-comment"></i>
         </div>
         <div class="col-md-8 market-update-left">
@@ -64,96 +64,25 @@
 </div>
 <div class="clearfix"> </div>
 
-<canvas id="myChart" style="width:100%;"></canvas>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-    const d = new Date();
-    mont = d.getMonth()+1;
-    var month = [];
-    for (var i = 1; i <= 12; i++) {
-       
-           text = "Tháng " + [i];
-            month.push(text);
+  window.onload = function () {
 
-        //if (i > 12) {
-        //    for (var p = 1; p <= mont; p++) {
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	title: {
+		text: "Doanh thu theo tháng"
+	},
+	data: [{
+		type: "column",
+		dataPoints:  @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart.render();
 
-        //        text = "Tháng " + [p];
-        //        month.push(text);
-        //    }
-        //}
-        //else {
-        //    text = "Tháng " + [i];
-        //    month.push(text);
-        //}
-      
-  
-    }
-    var totalMonth = [] ;
-   
-    for (var j = 1; j < 13; j++) {
-
-        $.ajax('/Admin/TongTienTheoThang?sl=' + j,
-            {
-                type: "GET",
-                dataType: 'json',
-
-                success: function (data, status, xhr) {
-                    totalMonth.push(data);
-                    var mang = [totalMonth[0].data, totalMonth[1].data, totalMonth[2].data, totalMonth[3].data, totalMonth[4].data, totalMonth[5].data,
-                        totalMonth[6].data, totalMonth[7].data, totalMonth[8].data, totalMonth[9].data, totalMonth[10].data, totalMonth[11].data];
-                    alert(mang);
-                    var yValues = [1668000, 38160000, 41508000, 51192000, 52296000, 53964000, 55068000, 36492000, 500000, 11352000, 13020000, 14808000, 26808000];
-                    console.log(mang)
-                    new Chart("myChart", {
-                        type: "line",
-                        data: {
-                            labels: month,
-                            datasets: [{
-                                fill: false,
-                                lineTension: 0,
-                                backgroundColor: "rgba(0,0,255,1.0)",
-                                borderColor: "rgba(0,0,255,0.1)",
-                                data: mang
-                            }]
-                        },
-                        options: {
-                            legend: { display: false },
-                            scales: {
-                                yAxes: [{ ticks: { min: 100000, max: 1500000 } }],
-                            }
-                        }
-                    });
-
-                },
-                error: function (jqXhr, textStatus, errorMessage) {
-                    console.log(data)
-                }
-            });
-
-    }
- 
-  
- 
-
-
-//new Chart("myChart", {
-//  type: "line",
-//  data: {
-//      labels: month,
-//    datasets: [{
-//      fill: false,
-//      lineTension: 0,
-//      backgroundColor: "rgba(0,0,255,1.0)",
-//        borderColor: "rgba(0,0,255,0.1)",
-//        data: mang
-//    }]
-//  },
-//  options: {
-//    legend: {display: false},
-//    scales: {
-//        yAxes: [{ ticks: { min: 100000, max: 1000000}}],
-//    }
-//  }
-//});
+}
 </script>
 

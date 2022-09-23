@@ -821,7 +821,6 @@
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaThongKe" Type="Int32" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="ChiTietDonDatHang" ToRole="SanPham" />
         </EntityType>
@@ -851,7 +850,6 @@
           <Property Name="MaTinh" Type="Int32" />
           <Property Name="MaXa" Type="Int32" />
           <Property Name="MaDDH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MaThongKe" Type="Int32" />
           <NavigationProperty Name="ChiTietDonDatHangs" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.DonDatHang_Huyen" FromRole="DonDatHang" ToRole="Huyen" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.DonDatHang_Tinh" FromRole="DonDatHang" ToRole="Tinh" />
@@ -1395,7 +1393,6 @@
           <EntitySetMapping Name="ChiTietDonDatHangs">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietDonDatHang">
               <MappingFragment StoreEntitySet="ChiTietDonDatHang">
-                <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
                 <ScalarProperty Name="MaChiTietDDH1" ColumnName="MaChiTietDDH1" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
@@ -1419,7 +1416,6 @@
           <EntitySetMapping Name="DonDatHangs">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.DonDatHang">
               <MappingFragment StoreEntitySet="DonDatHang">
-                <ScalarProperty Name="MaThongKe" ColumnName="MaThongKe" />
                 <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />

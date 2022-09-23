@@ -197,6 +197,8 @@
     <Compile Include="Models\ChiTietPhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataChart.cs" />
+    <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
