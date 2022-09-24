@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Antlr.Runtime;
+using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -33,10 +35,10 @@ namespace WebsiteBanHang.Controllers
 
             // Data chart
             List<DataChart> data = db.DonDatHangs.Include("ChiTietDonDatHang")
-                .GroupBy(x => x.NgayDat.Value.Month)
+                .GroupBy(x => x.NgayDat.Value.Month & x.NgayDat.Value.Year)
                 .Select(x => new DataChart()
                 {
-                    Month = x.FirstOrDefault().NgayDat.Value.Month,
+                    Month = (x.FirstOrDefault().NgayDat.Value.Month ),
                     Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
                 }).ToList();
 
@@ -57,46 +59,7 @@ namespace WebsiteBanHang.Controllers
             return tongtien;
         }
 
-        //public JsonResult TongTienTheoThang(int? sl)
-        //{
-        //    decimal? total = 0;
-
-
-        //    DateTime dateStart = DateTime.Now.AddDays(1);
-        //    DateTime dateEnd = DateTime.Now.AddYears(-1);
-
-        //    //List<DonDatHang> dhh = db.DonDatHangs.Where(u => Convert.ToDateTime(u.NgayDat).Month == month).ToList();
-
-        //    List<DonDatHang> dhh = db.DonDatHangs.Where(s => (DbFunctions.TruncateTime(s.NgayDat.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayDat.Value) <= dateEnd)).ToList();
-
-        //    if (dhh == null)
-        //    {
-        //        total = 0;
-        //    }
-        //    else
-        //    {
-        //        for (int i = 1; i <= sl; i++)
-        //        {
-        //            total = 0;
-        //            List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaThongKe == i).ToList();
-
-        //            for (int j = 0; j < ct.Count; j++)
-        //            {
-        //                total += ct[j].SoLuong * ct[j].DonGia;
-        //            }
-
-
-
-        //        }
-        //        return Json(new { data = total }, JsonRequestBehavior.AllowGet);
-        //    }
-
-
-
-
-        //    return Json(new { data = total }, JsonRequestBehavior.AllowGet);
-
-        //}
+       
 
         public ActionResult ThongKeBieuDo(int? time)
         {
@@ -174,53 +137,7 @@ namespace WebsiteBanHang.Controllers
 
             return RedirectToAction("XemSanPham", "Admin");
 
-            //    if (HinhAnh.ContentLength > 0 && HinhAnh1.ContentLength > 0 && HinhAnh2.ContentLength > 0 && HinhAnh3.ContentLength > 0)
-            //{
-            //    string fileName = Path.GetFileName(HinhAnh.FileName);
-            //    string fileName1 = Path.GetFileName(HinhAnh1.FileName);
-            //    string fileName2 = Path.GetFileName(HinhAnh2.FileName);
-            //    string fileName3 = Path.GetFileName(HinhAnh3.FileName);
-            //    string path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-            //    string path1 = Path.Combine(Server.MapPath("~/Content/images"), fileName1);
-            //    string path2 = Path.Combine(Server.MapPath("~/Content/images"), fileName2);
-            //    string path3 = Path.Combine(Server.MapPath("~/Content/images"), fileName3);
-            //    if (System.IO.File.Exists(path) && System.IO.File.Exists(path1) && System.IO.File.Exists(path2) && System.IO.File.Exists(path3))
-            //        {
-
-            //            ViewBag.Message = "File đã tồn tại";
-            //            return View();
-            //        }
-            //        else
-            //        {
-            //            HinhAnh.SaveAs(path);
-            //        HinhAnh1.SaveAs(path1);
-            //        HinhAnh2.SaveAs(path2);
-            //        HinhAnh3.SaveAs(path3);
-            //        sp.HinhAnh = fileName;
-            //        sp.HinhAnh1 = fileName1;
-            //        sp.HinhAnh2 = fileName2;
-            //        sp.HinhAnh3 = fileName3;
-
-            //    }
-
-
-            //        db.SanPhams.Add(sp);
-            //        db.SaveChanges();
-
-            //        return RedirectToAction("XemSanPham", "Admin");
-
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Message = "Có lỗi";
-            //    }
-
-
-
-
-
-
-
+           
 
         }
 
@@ -643,6 +560,52 @@ namespace WebsiteBanHang.Controllers
 
 
             return RedirectToAction("TraLoiBinhLuan", "Admin", new { MaBL = tlbl.MaBL });
+        }
+
+        public void InFileExcel()
+        {
+
+            string date = DateTime.Now.ToString();
+            List<ChiTietDonDatHang> listexcel = db.ChiTietDonDatHangs.ToList();
+
+            ExcelPackage ex = new ExcelPackage();
+            ExcelWorksheet ws = ex.Workbook.Worksheets.Add("Report");
+            ws.Cells["A1"].Value = "Tên cửa hàng";
+            ws.Cells["B1"].Value = "Huyền Cosmetic";
+            ws.Cells["A2"].Value = "Ngày tháng";
+            ws.Cells["B2"].Value = date;
+
+            ws.Cells["A3"].Value = "Phone";
+           
+            
+            ws.Cells["B3"].Value = "0356492230";
+
+            ws.Cells["A6"].Value = "MaDDH";
+            ws.Cells["B6"].Value = "MaSP";
+            ws.Cells["C6"].Value = "TenSP";
+            ws.Cells["D6"].Value = "SL";
+            ws.Cells["E6"].Value = "DonGia";
+            ws.Cells["F6"].Value = "MaChiTietDDH";
+
+            int rowSart = 7;
+            foreach (var item in listexcel)
+            {
+                ws.Cells[string.Format("A{0}", rowSart)].Value = item.MaDDH;
+                ws.Cells[string.Format("B{0}", rowSart)].Value = item.MaSP;
+                ws.Cells[string.Format("C{0}", rowSart)].Value = item.TenSP;
+                ws.Cells[string.Format("D{0}", rowSart)].Value = item.SoLuong;
+                ws.Cells[string.Format("E{0}", rowSart)].Value = item.DonGia;
+                ws.Cells[string.Format("F{0}", rowSart)].Value = item.MaChiTietDDH1;
+                rowSart++;
+            }
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Disposition", "attachment: filename="+ "InFileExcel.xlsx");
+            Response.BinaryWrite(ex.GetAsByteArray());
+            Response.End();
+
+
         }
 
     }

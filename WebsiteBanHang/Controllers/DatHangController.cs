@@ -8,7 +8,8 @@ using WebsiteBanHang.Models;
 using MoMo;
 using DemoVNPay.Others;
 using System.Configuration;
-
+using System.Net.Mail;
+using System.Net;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -269,5 +270,7 @@ namespace WebsiteBanHang.Controllers
             
             return RedirectToAction("XemGioHang","GioHang");
         }
+
+       
     }
 }
