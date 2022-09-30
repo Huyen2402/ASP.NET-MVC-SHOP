@@ -33,7 +33,7 @@ namespace WebsiteBanHang.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public JsonResult GetAllMessageChating(int UserID)
+        public JsonResult GetAllMessageChating(int UserID) //2
         {
             try
             {

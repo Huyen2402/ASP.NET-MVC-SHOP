@@ -32,10 +32,10 @@ namespace WebsiteBanHang.Controllers
             ViewBag.TongTien = TongTien();
             List<DonDatHang> listDDH = db.DonDatHangs.ToList();
             ViewBag.TongDDH = listDDH.Count();
-
+            int year = int.Parse(DateTime.Now.Year.ToString()) ;
             // Data chart
-            List<DataChart> data = db.DonDatHangs.Include("ChiTietDonDatHang")
-                .GroupBy(x => x.NgayDat.Value.Month & x.NgayDat.Value.Year)
+            List<DataChart> data = db.DonDatHangs.Where(x=>x.NgayDat.Value.Year == year)
+                .GroupBy(x => x.NgayDat.Value.Month )
                 .Select(x => new DataChart()
                 {
                     Month = (x.FirstOrDefault().NgayDat.Value.Month ),
@@ -68,10 +68,7 @@ namespace WebsiteBanHang.Controllers
         }
         public ActionResult XemSanPham()
         {
-            //if (Session["Quyen"].ToString() != "Admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+            
             List<SanPham> list = db.SanPhams.Where(n => n.DaXoa == false).ToList();
             return View(list);
         }
@@ -124,6 +121,10 @@ namespace WebsiteBanHang.Controllers
 
 
                 }
+                else
+                {
+                    return View(sp);
+                }
 
             }
 
@@ -131,7 +132,10 @@ namespace WebsiteBanHang.Controllers
             sp.HinhAnh1 = HinhAnh[1].FileName;
             sp.HinhAnh2 = HinhAnh[2].FileName;
             sp.HinhAnh3 = HinhAnh[3].FileName;
-
+            sp.LuotBinhLuan = 0;
+            sp.SoLanMua = 0;
+            sp.DaXoa = false;
+            sp.Moi = 1;
             db.SanPhams.Add(sp);
             db.SaveChanges();
 
@@ -228,7 +232,7 @@ namespace WebsiteBanHang.Controllers
                     check.HinhAnh3 = HinhAnh[3].FileName;
                 }
 
-                check.LuotBinhChon = sp.LuotBinhChon;
+               
                 check.LuotBinhLuan = sp.LuotBinhLuan;
                 check.DaXoa = sp.DaXoa;
                 check.TenSP = sp.TenSP;
@@ -236,7 +240,7 @@ namespace WebsiteBanHang.Controllers
                 check.NgayCapNhat = sp.NgayCapNhat;
                 check.DonGia = sp.DonGia;
                 check.SoLuongTon = sp.SoLuongTon;
-                check.LuotXem = sp.LuotXem;
+               
                 check.MaNSX = sp.MaNSX;
                 check.loaiSanPham = sp.loaiSanPham;
                 check.MaNCC = sp.MaNCC;
@@ -509,6 +513,11 @@ namespace WebsiteBanHang.Controllers
 
 
             return View(listddh);
+        }
+        public ActionResult DonHangThanhCong()
+        {
+            List<DonDatHang> listThanhCong = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 7).ToList();
+            return View(listThanhCong);
         }
 
         public ActionResult XemBinhLuan()

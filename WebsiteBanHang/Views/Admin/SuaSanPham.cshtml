@@ -5,7 +5,6 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>SuaSanPham</h2>
 
 
 @using (Html.BeginForm("SuaSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -13,7 +12,7 @@
 
 
     <div class="form-horizontal">
-        <h4>SanPham</h4>
+        <h2>Sửa Sản Phẩm</h2>
         <hr />
 
         @Html.HiddenFor(model => model.MaSP)
@@ -142,23 +141,9 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Lượt Xem</label>
+        
 
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Lượt Bình Chọn</label>
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <label class="control-label col-md-2">Lượt Bình Luận</label>

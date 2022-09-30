@@ -7,12 +7,12 @@
 
 <h2>Thêm Sản Phẩm</h2>
 
-@using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-addsp" }))
 {
 
 
 <div class="form-horizontal">
-    <h4>SanPham</h4>
+  
     <hr />
 
 
@@ -21,7 +21,8 @@
         <label class="col-md-2 control-label">Tên Sản Phẩm</label>
 
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control", @id = "TenSP", @required = "required" } })
+            <p style="color:red" id="error"></p>
 
         </div>
     </div>
@@ -29,8 +30,8 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Đơn giá</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
-
+            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control", @id = "Gia", @required = "required", @type = "number" } })
+            <p style="color:red" id="error1"></p>
         </div>
     </div>
 
@@ -98,31 +99,19 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Số Lượng Tồn</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">lượt Xem</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
+    
 
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Lượt Bình Chọn</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
-
-        </div>
-    </div>
+    
 
     <div class="form-group">
         <label class="col-md-2 control-label">Lượt Bình Luận</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="LuotBinhLuan" value="0" />
 
         </div>
     </div>
@@ -130,7 +119,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Số Lần Mua</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="SoLanMua" value="0" />
 
         </div>
     </div>
@@ -138,7 +127,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Mới</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="Moi" value="1" />
 
         </div>
     </div>
@@ -171,7 +160,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Đã Xóa</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DaXoa, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="DaXoa" value="0" />
 
         </div>
     </div>
@@ -180,7 +169,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Thêm Mới" class="btn btn-default" />
+            <input type="submit" value="Thêm Mới" class="btn btn-default" id="btn-add" />
         </div>
     </div>
 
@@ -193,6 +182,8 @@
         });
     </script>
 }
+
+
 
 <script>
 
@@ -230,6 +221,8 @@
 </script>
 
 <script>
+
+
     // Hiển thị ảnh preview (xem trước) khi người dùng chọn Ảnh
 
     //hình 1

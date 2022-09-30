@@ -170,6 +170,47 @@
     }
 </style>
 <script>
+    $(".ThemGioHang").click(function () {
+        var MaSP = $(this).attr("data-MaSP");
+        var strURL = $(this).attr("data-strURL");
+        $.ajax({
+
+
+            type: "get",
+
+            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+            contentType: "html",
+            statusCode: {
+                400: function (xhr) {
+
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Sản phẩm đã hết hàng',
+                        showConfirmButton: false,
+                        timer: 1500
+
+                    })
+                }
+            },
+            success: function (response) {
+                debugger
+
+
+                $("#GioHangPartial").html(response);
+
+
+            }
+
+        })
+
+
+
+
+    })
+
+
+
     $(document).ready(function () {
         $("#btn-BL").click(function () {
             var masp = $("#masp").val();

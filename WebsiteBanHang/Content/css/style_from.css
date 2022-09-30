@@ -79,7 +79,7 @@ i.fa-solid.fa-xmark {
  
     z-index: 1000;
     right: 0px;
-    top: 150px;
+    bottom:0;
     margin-top: 200px;
     -webkit-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;

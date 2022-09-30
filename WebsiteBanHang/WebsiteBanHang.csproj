@@ -476,6 +476,8 @@
     <Content Include="Content\Admin\fonts\FontAwesome.otf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -547,6 +549,9 @@
     <Content Include="Views\SanPham\ThemBinhLuan.cshtml" />
     <Content Include="Views\SanPham\BinhLuanPartialView.cshtml" />
     <Content Include="Views\GioHang\ThemSlPartialView.cshtml" />
+    <Content Include="Views\DatHang\ReturnUrl.cshtml" />
+    <Content Include="Views\DatHang\PaymentConfirm.cshtml" />
+    <Content Include="Views\Admin\DonHangThanhCong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -565,9 +570,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\DatHang\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

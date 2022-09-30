@@ -142,8 +142,9 @@ a.item_add {
 .header-left ul li a:hover{
 		color:  #EF5F21; 
 }
-.logo{
+.logo {
 	float: left;
+	
 }
 .head-top {
   padding: 1em 0;

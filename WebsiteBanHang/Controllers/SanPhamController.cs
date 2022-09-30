@@ -69,7 +69,7 @@ namespace WebsiteBanHang.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var listSP = db.SanPhams.Where(n => n.MaLoaiSP == MaLoaiSP && n.MaNSX == MaNSX).ToList();
+            var listSP = db.SanPhams.Where(n => n.MaLoaiSP == MaLoaiSP && n.MaNSX == MaNSX && n.DaXoa == false).ToList();
             if (listSP.Count() == 0)
             {
                 return HttpNotFound();
@@ -105,9 +105,12 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public JsonResult ThemBinhLuan(BinhLuan bl)
         {
+
             bl.NgayTao = DateTime.Now;
             bl.MaThanhVien = (Session["TaiKhoan"] as ThanhVien).MaThanhVien;
             db.BinhLuans.Add(bl);
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == bl.MaSP);
+            sp.LuotBinhLuan++;
             db.SaveChanges();
 
             return Json(new { status = true, TenThanhVien = (Session["TaiKhoan"] as ThanhVien).HoTen }, JsonRequestBehavior.AllowGet);

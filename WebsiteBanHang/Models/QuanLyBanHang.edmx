@@ -36,7 +36,6 @@
           <Property Name="SoLuong" Type="int" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaThongKe" Type="int" />
         </EntityType>
         <EntityType Name="ChiTietPhieuNhap">
           <Key>
@@ -62,7 +61,6 @@
           <Property Name="MaTinh" Type="int" />
           <Property Name="MaXa" Type="int" />
           <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="MaThongKe" Type="int" />
         </EntityType>
         <EntityType Name="Huyen">
           <Key>
@@ -139,8 +137,6 @@
           <Property Name="MoTa" Type="nvarchar(max)" />
           <Property Name="HinhAnh" Type="nvarchar(max)" />
           <Property Name="SoLuongTon" Type="int" />
-          <Property Name="LuotXem" Type="int" />
-          <Property Name="LuotBinhChon" Type="int" />
           <Property Name="LuotBinhLuan" Type="int" />
           <Property Name="SoLanMua" Type="int" />
           <Property Name="Moi" Type="int" />
@@ -151,7 +147,6 @@
           <Property Name="HinhAnh1" Type="nvarchar(max)" />
           <Property Name="HinhAnh2" Type="nvarchar(max)" />
           <Property Name="HinhAnh3" Type="nvarchar(max)" />
-          <Property Name="HinhAnh4" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -944,8 +939,6 @@
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SoLuongTon" Type="Int32" />
-          <Property Name="LuotXem" Type="Int32" />
-          <Property Name="LuotBinhChon" Type="Int32" />
           <Property Name="LuotBinhLuan" Type="Int32" />
           <Property Name="SoLanMua" Type="Int32" />
           <Property Name="Moi" Type="Int32" />
@@ -956,7 +949,6 @@
           <Property Name="HinhAnh1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="HinhAnh4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BinhLuans" Relationship="QuanLyBanHangModel.FK_BinhLuan_SanPham" FromRole="SanPham" ToRole="BinhLuan" />
           <NavigationProperty Name="ChiTietDonDatHangs" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="SanPham" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietPhieuNhaps" Relationship="QuanLyBanHangModel.FK_ChiTietPhieuNhap_SanPham" FromRole="SanPham" ToRole="ChiTietPhieuNhap" />
@@ -1503,7 +1495,6 @@
           <EntitySetMapping Name="SanPhams">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
-                <ScalarProperty Name="HinhAnh4" ColumnName="HinhAnh4" />
                 <ScalarProperty Name="HinhAnh3" ColumnName="HinhAnh3" />
                 <ScalarProperty Name="HinhAnh2" ColumnName="HinhAnh2" />
                 <ScalarProperty Name="HinhAnh1" ColumnName="HinhAnh1" />
@@ -1514,8 +1505,6 @@
                 <ScalarProperty Name="Moi" ColumnName="Moi" />
                 <ScalarProperty Name="SoLanMua" ColumnName="SoLanMua" />
                 <ScalarProperty Name="LuotBinhLuan" ColumnName="LuotBinhLuan" />
-                <ScalarProperty Name="LuotBinhChon" ColumnName="LuotBinhChon" />
-                <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
                 <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="MoTa" ColumnName="MoTa" />

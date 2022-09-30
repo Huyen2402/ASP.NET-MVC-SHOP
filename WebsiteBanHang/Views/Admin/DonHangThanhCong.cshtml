@@ -1,28 +1,23 @@
 ﻿
-@using WebsiteBanHang.Models
-@model List<DonDatHang>
-
 @{
-    ViewBag.Title = "DonHangDangGiao";
+    ViewBag.Title = "DonHangThanhCong";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-
-
 <div class="container mt-3">
-    <h2>Danh Sách Đơn Hàng Đang Giao </h2>
+    <h2>Danh Sách Đơn Hàng Giao Thành Công </h2>
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
-                <th>STT</th>
+                <th>Mã Đơn</th>
                 <th>Tên Người Mua</th>
                 <th>Thời Gian Đặt</th>
                 <th>Ưu Đãi</th>
                 <th>Tình Trạng GH</th>
                 <th>Hình Thức Thanh Toán</th>
-                <th>Tình Trạng TT</th>
                 
+
 
             </tr>
         </thead>
@@ -36,20 +31,7 @@
                     <td>@item.UuDai</td>
                     <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
                     <td>@item.HinhThucThanhToan</td>
-                    @if (@item.DaThanhToan == true)
-                    {
-                        <td>Đã Thanh Toán</td>
-                    }
-                    else
-                    {
-                        <td>Chưa Thanh Toán</td>
-                    }
-                
-
-
-
-
-
+                   
 
 
 
@@ -64,4 +46,6 @@
 
 
 </div>
+
+
 
