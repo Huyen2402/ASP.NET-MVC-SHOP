@@ -78,26 +78,26 @@
 
 
 
-                <a data-MaSP ="@Model.MaSP" data-strURL="@Request.Url.ToString()"@*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })"*@ class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
+                <a data-MaSP="@Model.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })"*@ class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
 
-</div>
+            </div>
 
-</div>
-<div class="clearfix">
+        </div>
+        <div class="clearfix">
 
-</div>
-<div id = "CMT" >
-<h1 > Bình luận</h1>
-<div>
-@if(Session["TaiKhoan"] != null)
-{
-<input type = "hidden" name = "MaSP" value = "@Model.MaSP" id = "masp" />
-<input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
-<p id = "divEmp" style="color:red;"></p>
-<div>
-                @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
-                    <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
-</div>
+        </div>
+        <div id="CMT">
+            <h1> Bình luận</h1>
+            <div>
+                @if (Session["TaiKhoan"] != null)
+                {
+                    <input type="hidden" name="MaSP" value="@Model.MaSP" id="masp" />
+                    <input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
+                    <p id="divEmp" style="color:red;"></p>
+                    <div>
+                        @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                        <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
+                    </div>
                 }
                 else
                 {
@@ -221,7 +221,7 @@
                     dataType: 'json',
                     data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
                     success: function (data, status, xhr) {
-                       
+
                         if (data.status) {
                             $("#noidung").val('');
 

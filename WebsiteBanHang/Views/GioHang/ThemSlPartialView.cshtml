@@ -81,115 +81,119 @@
     </div>
 
 
-<script>
+    <script>
 
-   
+        var check = $("#logout").length;
 
-    var val = 1;
-    $(".form-check-input").click(function () {
+        var val = 1;
+        $(".form-check-input").click(function () {
 
-        val = $(this).attr("id");
+            val = $(this).attr("id");
 
 
-    })
-
-    $("#btn-dathang").click(function () {
-        var url = "http://localhost:62979/DatHang/DatHang?id=" + val;
-        window.location.href = url;
-
-        
-    })
-
-    $(".slthem").click(function () {
-
-        var MaSP = $(this).attr("data-MaSP");
-     
-
-        $.ajax({
-            type: "get",
-
-            url: "http://localhost:62979/GioHang/ThemSl?MaSP=" + MaSP,
-            contentType: "html",
-
-            success: function (response) {
-                debugger
-
-                $("#test").html(response);
-
-            }
         })
 
-        $.ajax({
-            url: "http://localhost:62979/GioHang/CapNhatGioHang",
-            contentType: "html",
-
-            success: function (response) {
-                debugger
-
-                $("#GioHangPartial").html(response);
-
-
+        $("#btn-dathang").click(function () {
+            if (check) {
+                var url = "http://localhost:62979/DatHang/DatHang?id=" + val;
+                window.location.href = url;
+            } else {
+                alert("Vui lòng đăng nhập để thanh toán!");
             }
+
+
         })
-    })
 
-    $(".slgiam").click(function () {
+        $(".slthem").click(function () {
 
-        var MaSP = $(this).attr("data-MaSP");
-       
-        $.ajax({
-            type: "get",
-
-            url: "http://localhost:62979/GioHang/GiamSL?MaSP=" + MaSP,
-            contentType: "html",
-
-            success: function (response) {
-                debugger
-
-                $("#test").html(response);
+            var MaSP = $(this).attr("data-MaSP");
 
 
-            }
+            $.ajax({
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/ThemSl?MaSP=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#test").html(response);
+
+                }
+            })
+
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
         })
-        $.ajax({
-            url: "http://localhost:62979/GioHang/CapNhatGioHang",
-            contentType: "html",
 
-            success: function (response) {
-                debugger
+        $(".slgiam").click(function () {
 
-                $("#GioHangPartial").html(response);
+            var MaSP = $(this).attr("data-MaSP");
+
+            $.ajax({
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/GiamSL?MaSP=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#test").html(response);
 
 
-            }
+                }
+            })
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
         })
-    })
 
-    $(".close1").click(function () {
-        var MaSP = $(this).attr("data-MaSP");
-        $.ajax({
-            url: "http://localhost:62979/GioHang/XoaGioHang?MaSP=" + MaSP,
-            contentType: "html",
+        $(".close1").click(function () {
+            var MaSP = $(this).attr("data-MaSP");
+            $.ajax({
+                url: "http://localhost:62979/GioHang/XoaGioHang?MaSP=" + MaSP,
+                contentType: "html",
 
-            success: function (response) {
-                debugger
+                success: function (response) {
+                    debugger
 
-                $("#test").html(response);
+                    $("#test").html(response);
 
 
-            }
+                }
+            })
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
         })
-        $.ajax({
-            url: "http://localhost:62979/GioHang/CapNhatGioHang",
-            contentType: "html",
-
-            success: function (response) {
-                debugger
-
-                $("#GioHangPartial").html(response);
-
-
-            }
-        })
-    })
-</script>
+    </script>

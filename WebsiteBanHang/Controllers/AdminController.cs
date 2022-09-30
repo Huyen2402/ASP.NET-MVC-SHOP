@@ -13,6 +13,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Schema;
+using WebsiteBanHang.Extensions;
 using WebsiteBanHang.Models;
 
 namespace WebsiteBanHang.Controllers
@@ -136,6 +137,7 @@ namespace WebsiteBanHang.Controllers
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
+            sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
             db.SaveChanges();
 
