@@ -17,7 +17,6 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tinh()
         {
-            this.DonDatHangs = new HashSet<DonDatHang>();
             this.Huyens = new HashSet<Huyen>();
             this.ThanhViens = new HashSet<ThanhVien>();
         }
@@ -25,8 +24,6 @@ namespace WebsiteBanHang.Models
         public int MaTinh { get; set; }
         public string TenTinh { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Huyen> Huyens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
