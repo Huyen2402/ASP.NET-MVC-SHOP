@@ -24,6 +24,11 @@ namespace WebsiteBanHang
                url: "san-pham/{seo-keyword}-{id}",
                defaults: new { controller = "SanPham", action = "XemChitietSP", id = UrlParameter.Optional }
            );
+            routes.MapRoute(
+                name: "TrangChu",
+                url: "trang-chu",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

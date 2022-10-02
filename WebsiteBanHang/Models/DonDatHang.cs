@@ -17,7 +17,8 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DonDatHang()
         {
-            this.ChiTietDonDatHangs = new HashSet<ChiTietDonDatHang>();
+            this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
+            this.ChiTietDonDatHang1 = new HashSet<ChiTietDonDatHang>();
         }
     
         public Nullable<System.DateTime> NgayDat { get; set; }
@@ -32,6 +33,13 @@ namespace WebsiteBanHang.Models
         public string MaDDH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang1 { get; set; }
+        public virtual Huyen Huyen { get; set; }
+        public virtual Tinh Tinh { get; set; }
+        public virtual TinhTrangGiaoHang TinhTrangGiaoHang { get; set; }
+        public virtual ThanhVien ThanhVien { get; set; }
+        public virtual Xa Xa { get; set; }
     }
 }

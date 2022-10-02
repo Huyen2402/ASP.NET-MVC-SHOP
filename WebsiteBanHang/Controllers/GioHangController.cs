@@ -11,7 +11,7 @@ namespace WebsiteBanHang.Controllers
     public class GioHangController : Controller
     {
 
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: GioHang
         public ActionResult XemGioHang()
         {

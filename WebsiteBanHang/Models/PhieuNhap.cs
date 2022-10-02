@@ -17,7 +17,7 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhieuNhap()
         {
-            this.ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
+            this.ChiTietPhieuNhap = new HashSet<ChiTietPhieuNhap>();
         }
     
         public int MaPN { get; set; }
@@ -26,7 +26,7 @@ namespace WebsiteBanHang.Models
         public Nullable<bool> DaXoa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         public virtual NhaCungCap NhaCungCap { get; set; }
     }
 }

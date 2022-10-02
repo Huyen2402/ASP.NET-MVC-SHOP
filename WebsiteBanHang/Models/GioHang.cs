@@ -18,7 +18,7 @@ namespace WebsiteBanHang.Models
 
         public GioHang (int MaSP, int sl)
         {
-            using (QuanLyBanHangEntities db = new QuanLyBanHangEntities()) 
+            using (Entities db = new Entities()) 
             {
                 
                 this.MaSP = MaSP;
@@ -43,7 +43,7 @@ namespace WebsiteBanHang.Models
 
         public GioHang(int MaSP)
         {
-            using (QuanLyBanHangEntities db = new QuanLyBanHangEntities())
+            using (Entities db = new Entities())
             {
 
                 this.MaSP = MaSP;

@@ -22,6 +22,7 @@ namespace WebsiteBanHang.Models
         public int MaChiTietDDH1 { get; set; }
     
         public virtual DonDatHang DonDatHang { get; set; }
+        public virtual DonDatHang DonDatHang1 { get; set; }
         public virtual SanPham SanPham { get; set; }
     }
 }

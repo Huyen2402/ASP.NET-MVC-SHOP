@@ -9,7 +9,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class SearchController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: Search
         [HttpPost]
         public ActionResult SearchSP(string txbSearch)

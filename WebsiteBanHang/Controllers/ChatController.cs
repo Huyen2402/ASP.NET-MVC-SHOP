@@ -13,7 +13,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class ChatController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
 
         public ActionResult Index()
         {

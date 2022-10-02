@@ -13,7 +13,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class SanPhamController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: SanPham
         public ActionResult SanPhamStyle1Partial()
         {

@@ -20,7 +20,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class AdminController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
 
         // GET: Admin
         public ActionResult Index()
@@ -40,7 +40,7 @@ namespace WebsiteBanHang.Controllers
                 .Select(x => new DataChart()
                 {
                     Month = (x.FirstOrDefault().NgayDat.Value.Month ),
-                    Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
+                    Total = x.ToList().Sum(y => y.ChiTietDonDatHang.Sum(b => b.SoLuong * b.DonGia)).Value
                 }).ToList();
 
             List<DataPoint> dataPoints = new List<DataPoint>();

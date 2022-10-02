@@ -249,9 +249,6 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ThanhVien.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -464,13 +461,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\tinymce\CHANGELOG.md" />
     <Content Include="Content\tinymce\js\tinymce\langs\README.md" />
-    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QuanLyBanHang.edmx.diagram">
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\Admin\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Admin\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Admin\fonts\fontawesome-webfont.woff" />
@@ -478,6 +468,13 @@
     <Content Include="Content\Admin\fonts\FontAwesome.otf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QuanLyBanHang.edmx.diagram">
+      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

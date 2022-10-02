@@ -16,7 +16,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class DatHangController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: DatHang
         [HttpGet]
         public ActionResult DatHang(int id)

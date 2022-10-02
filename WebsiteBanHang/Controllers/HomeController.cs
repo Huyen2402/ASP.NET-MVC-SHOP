@@ -11,7 +11,7 @@ namespace WebsiteBanHang.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: Home
         public ActionResult Index()
         {

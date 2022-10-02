@@ -18,8 +18,8 @@ namespace WebsiteBanHang.Models
         public Nullable<int> FromUserId { get; set; }
         public Nullable<int> ToUserId { get; set; }
         public string Text { get; set; }
-        public Nullable<bool> Sent { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<bool> Sent { get; set; }
     
         public virtual ThanhVien ThanhVien { get; set; }
         public virtual ThanhVien ThanhVien1 { get; set; }
