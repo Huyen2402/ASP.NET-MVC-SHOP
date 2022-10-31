@@ -7,79 +7,115 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-
+@{ 
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) +1;
+    int Trang = 1;
+}
 
 <div class="container mt-3">
     <h2>Danh Sách Sản Phẩm</h2>
-
-    <table class="table table-light table-hover table-bordered  " style="z-index:99999;">
+    <table class="table table-hover">
         <thead>
-            <tr class="row">
-                <th class="col-1">STT</th>
-                <th class="col-7">Tên Sản Phẩm</th>
-                <th class="col-2">
+            <tr >
+                <th>STT</th>
+                <th >Tên Sản Phẩm</th>
+                <th >
 
                     Hình Ảnh
                 </th>
-                <th class="col-2">
-                Thao Tác
+                <th >
+                    Thao Tác
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="row">
-                    <td class="col-1">@item.MaSP</td>
-                    <td class="col-7">@item.TenSP</td>
-                    <td class="col-2"><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
-                    <td class="col-2"><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a>
+                if (soSP % soSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("item_sp Trang_"+Trang)">
+                    <td >@item.MaSP</td>
+                    <td style="width:700px">@item.TenSP</td>
+                    <td ><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
+                    <td >
+                        <a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a>
                         <a data-MaSP="@item.MaSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
                     </td>
-               
-                </tr>
-            }
 
+                </tr>
+
+                soSP++;
+            }
 
         </tbody>
     </table>
+
+    
+    <ul class="pagination justify-content-end">
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+        @for (int i = 1; i <= soTrangHienThi; i++)
+        {
+            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a class="page-link" href="javascript:void(0);">@i</a></li>
+
+        }
+
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+    </ul>
 </div>
+<style>
+    .item_sp {
+        display: none;
+    }
+</style>
 <script>
+
+    $('.Trang_1').show();
+    $('.page-item').click(function () {
+        $('.item_sp').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_'+@Url.Content("Trang")).show();
+    })
 
     $(".x").click(function () {
         Swal.fire({
             title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
-            
+
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#218838',
             cancelButtonColor: '#c82333',
             confirmButtonText: 'Xoá',
             cancelButtonText: 'Không'
-            
+
         }).then((result) => {
             if (result.isConfirmed) {
-               
-                
+
+
                 Swal.fire(
-                   
+
                     'Xoá thành công!',
                     'Your file has been deleted.',
                     'success'
-                   
-                   
-                    
+
+
+
                 )
-               
+
                 var ma = $(this).attr("data-MaSP");
                 var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
                 window.location.href = url;
-                
+
             }
-            
+
         })
     })
-    
+
 
 
 </script>

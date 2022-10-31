@@ -40,6 +40,7 @@ namespace WebsiteBanHang.Models
         public string HinhAnh2 { get; set; }
         public string HinhAnh3 { get; set; }
         public string SEOKeyword { get; set; }
+        public string MoTaNgan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }

@@ -249,6 +249,9 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThanhVien.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>

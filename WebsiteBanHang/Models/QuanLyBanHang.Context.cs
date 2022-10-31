@@ -14,14 +14,14 @@ namespace WebsiteBanHang.Models
     using System.Data.Entity.Infrastructure;
     
     public partial class Entities : DbContext
-   {
+    {
         public Entities()
             : base("name=Entities")
-       {
+        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-       {
+        {
             throw new UnintentionalCodeFirstException();
         }
     
@@ -38,6 +38,7 @@ namespace WebsiteBanHang.Models
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; }
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tinh> Tinhs { get; set; }
         public virtual DbSet<TinhTrangGiaoHang> TinhTrangGiaoHangs { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }

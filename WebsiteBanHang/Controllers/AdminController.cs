@@ -137,6 +137,7 @@ namespace WebsiteBanHang.Controllers
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
+            
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
             db.SaveChanges();
@@ -242,7 +243,7 @@ namespace WebsiteBanHang.Controllers
                 check.NgayCapNhat = sp.NgayCapNhat;
                 check.DonGia = sp.DonGia;
                 check.SoLuongTon = sp.SoLuongTon;
-               
+                check.MoTaNgan = sp.MoTaNgan;
                 check.MaNSX = sp.MaNSX;
                 check.loaiSanPham = sp.loaiSanPham;
                 check.MaNCC = sp.MaNCC;

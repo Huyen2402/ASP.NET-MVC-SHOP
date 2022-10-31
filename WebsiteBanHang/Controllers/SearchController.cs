@@ -14,7 +14,7 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public ActionResult SearchSP(string txbSearch)
         {
-            List<SanPham> listSearch = db.SanPhams.Where(s => s.TenSP.Contains(txbSearch)).ToList();
+            List<SanPham> listSearch = db.SanPhams.Where(s => s.TenSP.Contains(txbSearch) && s.DaXoa == false).ToList();
             return View(listSearch);
         }
 

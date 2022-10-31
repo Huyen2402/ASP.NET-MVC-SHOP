@@ -9,7 +9,7 @@
     List<TraLoiBinhLuan> list = ViewBag.list as List<TraLoiBinhLuan>;
 }
 
-<div class="container mt-3" style="padding-top:80px;">
+<div class="container mt-3" >
     <h2>Trả Lời Bình Luận</h2>
     <div id="TraLoi" class="form-control">
         <div>
@@ -21,7 +21,7 @@
 
         </div>
         <div>
-            <div id="cmtAdmin">
+            <div id="cmtAdmin" class="mb-4">
                 @if (list != null)
                 {
                     for (int i = 0; i < list.Count(); i++)
