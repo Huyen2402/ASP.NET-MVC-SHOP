@@ -117,7 +117,7 @@ namespace WebsiteBanHang.Controllers
             {
                 Session["TaiKhoan"] = tv;
                 Session["Quyen"] = "Admin";
-                return Content(" <script>window.location.href = 'http://localhost:62979/Admin/XemSanPham';</script>");
+                return Content(" <script>window.location.href = 'http://localhost:62979/Admin/Index';</script>");
             }
             return Content("Sai tài khoản hoặc mật khẩu");
         }

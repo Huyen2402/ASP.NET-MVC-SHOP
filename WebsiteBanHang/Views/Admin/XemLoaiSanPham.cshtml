@@ -8,7 +8,14 @@
 }
 
 
-
+@{ 
+    int soLSP = 1;
+    int TongLSP= Model.Count();
+    int soLSPHienThi = 6;
+    int soTrang = TongLSP / soLSPHienThi;
+    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
+    int Trang = 1;
+}
 
 
 
@@ -28,23 +35,52 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                if (soLSP % soLSPHienThi ==0)
+                {
+                    Trang++;
+                }
+                <tr class="@Url.Content(" itemLSP Trang_"+Trang)">
                     <td>@item.MaLoaiSP</td>
                     <td>@item.TenLoai</td>
-                    
+
                     <td>
                         <a href="@Url.Action("SuaLoaiSanPham","Admin", new { @MaLoaiSP = item.MaLoaiSP })" class="btn btn-warning">Chỉnh Sửa</a>
                         <a data-MaLSP="@item.MaLoaiSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
                     </td>
-                   
+
                 </tr>
+                soLSP++;
             }
 
 
         </tbody>
     </table>
+    <ul class="pagination justify-content-end">
+
+
+
+        @for (int i = 1; i <= kq; i++)
+        {
+            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a class="page-link">@i</a></li>
+
+        }
+
+
+    </ul>
 </div>
+<style>
+    .itemLSP{
+        display: none;
+    }
+</style>
+
 <script>
+    $(".Trang_1").show();
+    $('.page-item').click(function () {
+        $('.itemLSP').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_' + Trang).show();
+    })
 
     $(".x").click(function () {
         Swal.fire({

@@ -9,9 +9,16 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
+@{ 
+    int soUser = 1;
+    int TongUser = Model.Count();
+    int soUserHienThi = 6;
+    int soTrang = TongUser / soUserHienThi;
+    int kq = TongUser % soUserHienThi == 0 ? TongUser / soUserHienThi : (TongUser / soUserHienThi) + 1;
+    int Trang = 1;
+}
 
-
-<div class="container mt-3" >
+<div class="container mt-3">
     <h2>Danh Sách Người Dùng</h2>
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
@@ -27,7 +34,11 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                if (soUser % soUserHienThi ==0)
+                {
+                    Trang++;
+                }
+                <tr class="@Url.Content("itemUser Trang_"+Trang)">
                     <td>@item.MaThanhVien</td>
                     <td>@item.HoTen</td>
                     <td>@item.Email</td>
@@ -42,26 +53,52 @@
                     }
                     else
                     {
-                <td>
-                    <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-secondary unblock-user">Đã Khoá</a>
-                </td>
-                            }
+                        <td>
+                            <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-secondary unblock-user">Đã Khoá</a>
+                        </td>
+                    }
 
 
 
 
-                    </tr>
+                </tr>
+                soUser++;
             }
 
 
         </tbody>
     </table>
+
+    <ul class="pagination justify-content-end">
+       
+      
+
+        @for (int i = 1; i <= kq; i++)
+        {
+            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a class="page-link" >@i</a></li>
+
+        }
+
+       
+    </ul>
 </div>
+<style>
+    .itemUser {
+        display: none;
+    }
+
+</style>
 <script>
+    $(".Trang_1").show();
+   $('.page-item').click(function () {
+        $('.itemUser').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_'+Trang).show();
+    })
 
     $(".block-user").click(function () {
         $(this).text("Đã Khoá");
-        
+
         var matv = $(this).attr("data-MaThanhVien");
         console.log(matv);
         var url = "http://localhost:62979/Admin/KhoaNguoiDung?MaThanhVien=" + matv;
@@ -70,14 +107,14 @@
 
     $(".unblock-user").click(function () {
         $(this).text("Khoá");
-        
+
         var matv = $(this).attr("data-MaThanhVien");
         console.log(matv);
         var url = "http://localhost:62979/Admin/MoKhoaNguoiDung?MaThanhVien=" + matv;
         window.location.href = url;
     })
 
- 
+
 
 
 </script>

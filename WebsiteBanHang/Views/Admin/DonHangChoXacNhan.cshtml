@@ -6,48 +6,60 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
+@{
+    int soLSP = 1;
+    int TongLSP = Model.Count();
+    int soLSPHienThi = 6;
+    int soTrang = TongLSP / soLSPHienThi;
+    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
+    int Trang = 1;
+}
 
-
-<div class="container mt-3" >
+<div class="container mt-3">
     <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
-            <tr class="row">
-                <th class="col-1">STT</th>
-                <th class="col-1">Tên Người Mua</th>
-                <th class="col-2">Địa Chỉ</th>
-                <th class="col-1">Thời Gian Đặt</th>
-                <th class="col-1">Ưu Đãi</th>
-                <th class="col-1">Tình Trạng GH</th>
-                <th class="col-1">Hình Thức Thanh Toán</th>
-                <th class="col-1">Tình Trạng TT</th>
-                <th class="col-3">Thao Tác</th>
+            <tr >
+                <th >STT</th>
+                <th >Tên Người Mua</th>
+                <th >Địa Chỉ</th>
+                <th >Thời Gian Đặt</th>
+                <th >Ưu Đãi</th>
+                <th >Tình Trạng GH</th>
+                <th >Hình Thức Thanh Toán</th>
+                <th >Tình Trạng TT</th>
+                <th >Thao Tác</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="row ">
-                    <td class="col-1">@item.MaDDH</td>
-                    <td class="col-1">@item.ThanhVien.HoTen</td>
-                    <td class="col-2">@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
-                    <td class="col-1">@item.NgayDat</td>
-                    <td class="col-1">@item.UuDai</td>
-                    <td class="col-1">@item.TinhTrangGiaoHang.TenTinhTrang</td>
-                    <td class="col-1">@item.HinhThucThanhToan</td>
+
+                if (soLSP % soLSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("itemLSP Trang_"+Trang)">
+                    <td >@item.MaDDH</td>
+                    <td >@item.ThanhVien.HoTen</td>
+                    <td >@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
+                    <td >@item.NgayDat</td>
+                    <td >@item.UuDai</td>
+                    <td >@item.TinhTrangGiaoHang.TenTinhTrang</td>
+                    <td >@item.HinhThucThanhToan</td>
                     @if (@item.DaThanhToan == true)
                     {
-                        <td class="col-1">Đã Thanh Toán</td>
+                        <td >Đã Thanh Toán</td>
                     }
                     else
                     {
-                        <td class="col-1">Chưa Thanh Toán</td>
+                        <td >Chưa Thanh Toán</td>
                     }
 
 
 
-                    <td class="col-3">
+                    <td  style="width:300px">
                         <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
                         <a href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
                     </td>
@@ -58,12 +70,40 @@
 
 
                 </tr>
+                soLSP++;
             }
 
 
         </tbody>
-       
-    </table>
 
-    
+    </table>
+    <ul class="pagination justify-content-end">
+
+
+
+        @for (int i = 1; i <= kq; i++)
+        {
+            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a >@i</a></li>
+
+        }
+
+
+    </ul>
+
 </div>
+<style>
+    .itemLSP {
+        display: none;
+    }
+</style>
+
+<script>
+    $(".Trang_1").show();
+    $('.page-item').click(function () {
+        $('.itemLSP').hide();
+        var Trang = $(this).attr("data-Trang");
+       
+        $('.Trang_'+Trang).show();
+    })
+
+</script>
