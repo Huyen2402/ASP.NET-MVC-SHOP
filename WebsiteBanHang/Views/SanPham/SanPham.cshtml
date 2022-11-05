@@ -25,7 +25,13 @@
                 <div style="height:50px;">
                     <b><p class="tun">@item.TenSP</p></b>
                 </div>
-                <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="item_add ThemGioHang"><p class="number item_price"><i> </i>$@item.DonGia.Value</p></a>
+                @{
+                    decimal? number = item.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                }
+                <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="item_add ThemGioHang">
+                    <p class="number item_price"><i> </i>@GiaTien</p>
+                </a>
             </div>
 
 

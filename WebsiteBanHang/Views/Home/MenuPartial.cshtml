@@ -4,7 +4,7 @@
 <div class=" h_menu4">
     <ul class="memenu skyblue">
         <li class="showhide" style="display: none;"><span class="title">MENU</span><span class="icon1"></span><span class="icon2"></span></li>
-        <li class="active grid" style="display: inline;"><a class="color8" href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li class=" grid" style="display: inline;"><a class="color8" href="@Url.Action("Index", "Home")">Trang chủ</a></li>
         @foreach (var groupitem in Model.GroupBy(n => n.loaiSanPham))
         {
             if (groupitem != null)
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </li>*@
-        <li style="display: inline;"><a class="color4" href="blog.html">Giới thiệu</a></li>
-        <li style="display: inline;"><a class="color6" href="contact.html">Liên hệ</a></li>
+        <li style="display: inline;"><a class="color4" href="@Url.Action("Index","GioiThieu")">Giới thiệu</a></li>
+        <li style="display: inline;"><a class="color6" href="@Url.Action("Index","LienHe")">Liên hệ</a></li>
     </ul>
 </div>

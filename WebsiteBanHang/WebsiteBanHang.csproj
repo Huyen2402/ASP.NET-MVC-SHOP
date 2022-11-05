@@ -181,9 +181,11 @@
     <Compile Include="Controllers\DatHangController.cs" />
     <Compile Include="Controllers\DemoJQueryController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
+    <Compile Include="Controllers\GioiThieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JqueryController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\LienHeController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Extensions\ConstHelper.cs" />
@@ -554,6 +556,8 @@
     <Content Include="Views\DatHang\ReturnUrl.cshtml" />
     <Content Include="Views\DatHang\PaymentConfirm.cshtml" />
     <Content Include="Views\Admin\DonHangThanhCong.cshtml" />
+    <Content Include="Views\GioiThieu\Index.cshtml" />
+    <Content Include="Views\LienHe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

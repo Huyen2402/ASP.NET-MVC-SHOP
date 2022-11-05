@@ -18,8 +18,12 @@
                         @item.TenSP
                     </a>
                 </h6>
+                @{
+                    decimal? number = item.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                }
 
-                <span class=" price-in1">@item.DonGia đ</span>
+                <span class=" price-in1">@GiaTien </span>
             </div>
 
             <div class="clearfix"> </div>

@@ -1,9 +1,14 @@
-﻿<div id="GioHangPartial" class="cart box_1">
+﻿@{
+    decimal tongtien = ViewBag.TongTien;
+    string TongGiaTien = tongtien.ToString();
+}
+
+<div id="GioHangPartial" class="cart box_1">
     <a href="@Url.Action("XemGioHang","GioHang")">
         <h3>
             <div data-total="@ViewBag.TongTien" data-slide="@ViewBag.TongSoLuong" class="total">
-                
-                @ViewBag.TongTien VND (<span>@ViewBag.TongSoLuong</span>)
+
+                @TongGiaTien VND (<span>@ViewBag.TongSoLuong</span>)
             </div>
             <img src="~/Content/images/cart.png" alt="">
         </h3>

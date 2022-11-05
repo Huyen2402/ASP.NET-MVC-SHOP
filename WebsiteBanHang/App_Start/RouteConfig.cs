@@ -29,6 +29,16 @@ namespace WebsiteBanHang
                 url: "trang-chu",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "GioiThieu",
+                url: "gioi-thieu",
+                defaults: new { controller = "GioiThieu", action = "Index", id = UrlParameter.Optional }
+            );
+                routes.MapRoute(
+                name: "LienHe",
+                url: "lien-he",
+                defaults: new { controller = "LienHe", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

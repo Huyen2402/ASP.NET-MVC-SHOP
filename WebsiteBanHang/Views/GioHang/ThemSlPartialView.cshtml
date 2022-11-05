@@ -27,9 +27,12 @@
                             <li id="li_xemGH"><p class="slsp" id="slsp"> @item.SoLuong</p></li>
                             <a data-slgiam="@item.SoLuong" data-MaSP="@item.MaSP" class="btn sl slgiam" @*href="@Url.Action("GiamSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>-</a>
                         </ul>
-
+                        @{
+                            decimal? number = item.Dongia;
+                            string GiaTien = number.Value.ToString("#,##0");
+                        }
                         <div class="delivery">
-                            <p>Giá: @item.Dongia</p>
+                            <p>Giá: @GiaTien</p>
                             <span>Thời gian nhận hàng từ 5-7 ngày</span>
                             <div class="clearfix"></div>
                         </div>
@@ -42,12 +45,16 @@
 
 
     </div>
+@{ 
+    decimal tongtien = ViewBag.TongTien;
+    string TongGiaTien = tongtien.ToString("#,##0");
+}
     <div class="col-md-3 cart-total">
         <a class="continue" href="#">Thanh Toán</a>
         <div class="price-details">
             <h3>Chi Tiết</h3>
             <span>Tổng Tiền</span>
-            <span class="total1">@ViewBag.TongTien</span>
+            <span class="total1">@TongGiaTien</span>
             <span>Giảm Giá</span>
             <span class="total1">---</span>
             <span>Hình thức thanh toán:</span>
@@ -70,7 +77,7 @@
         </div>
         <ul class="total_price">
             <li class="last_price"> <h4>TỔNG</h4></li>
-            <li class="last_price"><span>@ViewBag.TongTien </span></li>
+            <li class="last_price"><span>@TongGiaTien </span></li>
             <div class="clearfix"> </div>
         </ul>
 

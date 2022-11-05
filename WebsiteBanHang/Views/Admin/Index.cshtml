@@ -41,9 +41,13 @@
         <div class="col-md-4 market-update-right">
             <i class="fa fa-usd"></i>
         </div>
+        @{ 
+            decimal tien = ViewBag.TongTien;
+            string TongTien = tien.ToString("#,##0");
+        }
         <div class="col-md-8 market-update-left">
             <h4>Tổng Tiền</h4>
-            <h3>@ViewBag.TongTien</h3>
+            <h3>@TongTien</h3>
             <p>Other hand, we denounce</p>
         </div>
         <div class="clearfix"> </div>

@@ -26,14 +26,20 @@
             </tr>
         </thead>
         <tbody>
+          
             @foreach (var item in Model)
             {
+                decimal? tien = item.DonGia;
+
+
+
                 <tr>
                     <td>@item.MaChiTietDDH1</td>
                     <td>@item.MaSP</td>
                     <td>@item.TenSP</td>
                     <td>@item.SoLuong</td>
-                    <td>@item.DonGia</td>
+                    
+                    <td>@tien.Value.ToString("#,##0")</td>
                     <input data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaDDH" />
 
 

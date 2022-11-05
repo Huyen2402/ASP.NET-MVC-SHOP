@@ -70,8 +70,12 @@
                     </div>
                     <div class="clearfix"> </div>
                 </div>
+                @{ 
+                    decimal? number = Model.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                }
 
-                <h5 class="item_price">@Model.DonGia đ</h5>
+            <h5 class="item_price">@GiaTien </h5>
                 <p>
                     @Html.Raw(Model.MoTa)
                 </p>
