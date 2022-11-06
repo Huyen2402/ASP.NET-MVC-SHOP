@@ -1,7 +1,18 @@
-﻿
+﻿@using WebsiteBanHang.Models
+@model List<DonDatHang>
+
 @{
     ViewBag.Title = "DonHangThanhCong";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+@{
+    int soLSP = 1;
+    int TongLSP = Model.Count();
+    int soLSPHienThi = 8;
+    int soTrang = TongLSP / soLSPHienThi;
+    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
+    int Trang = 1;
 }
 
 <div class="container mt-3">
@@ -16,7 +27,7 @@
                 <th>Ưu Đãi</th>
                 <th>Tình Trạng GH</th>
                 <th>Hình Thức Thanh Toán</th>
-                
+
 
 
             </tr>
@@ -24,28 +35,59 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                if (soLSP % soLSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("itemLSP Trang_"+Trang)">
                     <td>@item.MaDDH</td>
                     <td>@item.ThanhVien.HoTen</td>
                     <td>@item.NgayDat</td>
                     <td>@item.UuDai</td>
                     <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
                     <td>@item.HinhThucThanhToan</td>
-                   
+
 
 
 
 
                 </tr>
+                soLSP++;
             }
 
 
         </tbody>
 
     </table>
+    <ul class="pagination justify-content-end">
 
+
+
+        @for (int i = 1; i <= kq; i++)
+        {
+            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a>@i</a></li>
+
+        }
+
+
+    </ul>
 
 </div>
+<style>
+    .itemLSP {
+        display: none;
+    }
+</style>
+<script>
+    $(".Trang_1").show();
+    $('.page-item').click(function () {
+        $('.itemLSP').hide();
+        var Trang = $(this).attr("data-Trang");
+
+        $('.Trang_' + Trang).show();
+    })
+
+</script>
 
 
 

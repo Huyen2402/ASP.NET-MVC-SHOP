@@ -1,48 +1,43 @@
-﻿
-@using WebsiteBanHang.Models
+﻿@using WebsiteBanHang.Models
 @model List<DonDatHang>
 
-@{
-    ViewBag.Title = "DonHangDangGiao";
-    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
-}
 
 @{
-    int soLSP = 1;
-    int TongLSP = Model.Count();
-    int soLSPHienThi = 8;
-    int soTrang = TongLSP / soLSPHienThi;
-    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
-    int Trang = 1;
-}
 
+    ViewBag.Title = "DHDaNhan";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
 <div class="container mt-3">
-    <h2>Danh Sách Đơn Hàng Đang Giao </h2>
+    <div>
+        <a class="btn btn-danger">Đơn hàng chờ xác nhận</a>
+        <a class="btn btn-danger">Đơn hàng đang giao</a>
+        <a class="btn btn-danger">Đơn hàng đã nhận</a>
+    </div>
+    <h1 class="text-center">Đơn hàng của tôi</h1>
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
                 <th>Tên Người Mua</th>
+                <th>Địa Chỉ</th>
                 <th>Thời Gian Đặt</th>
                 <th>Ưu Đãi</th>
                 <th>Tình Trạng GH</th>
                 <th>Hình Thức Thanh Toán</th>
                 <th>Tình Trạng TT</th>
-
-
+                <th>Thao Tác</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                if (soLSP % soLSPHienThi == 0)
-                {
-                    Trang++;
-                }
-                <tr class=" @Url.Content("itemLSP Trang_"+Trang)">
+
+
+                <tr>
                     <td>@item.MaDDH</td>
                     <td>@item.ThanhVien.HoTen</td>
+                    <td>@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
                     <td>@item.NgayDat</td>
                     <td>@item.UuDai</td>
                     <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
@@ -58,7 +53,10 @@
 
 
 
-
+                    <td style="width:300px">
+                        <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
+                        <a href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ Đơn</a>
+                    </td>
 
 
 
@@ -66,40 +64,13 @@
 
 
                 </tr>
-                soLSP++;
+
             }
 
 
         </tbody>
 
+
     </table>
-    <ul class="pagination justify-content-end">
-
-
-
-        @for (int i = 1; i <= kq; i++)
-        {
-            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a>@i</a></li>
-
-        }
-
-
-    </ul>
-
 </div>
-<style>
-    .itemLSP {
-        display: none;
-    }
-</style>
-<script>
-    $(".Trang_1").show();
-    $('.page-item').click(function () {
-        $('.itemLSP').hide();
-        var Trang = $(this).attr("data-Trang");
-
-        $('.Trang_' + Trang).show();
-    })
-
-</script>
 

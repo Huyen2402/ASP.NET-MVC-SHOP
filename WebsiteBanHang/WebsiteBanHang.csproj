@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DatHangController.cs" />
     <Compile Include="Controllers\DemoJQueryController.cs" />
+    <Compile Include="Controllers\DonHangController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\GioiThieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -558,6 +559,9 @@
     <Content Include="Views\Admin\DonHangThanhCong.cshtml" />
     <Content Include="Views\GioiThieu\Index.cshtml" />
     <Content Include="Views\LienHe\Index.cshtml" />
+    <Content Include="Views\DonHang\Index.cshtml" />
+    <Content Include="Views\DonHang\DHDangVanChuyen.cshtml" />
+    <Content Include="Views\DonHang\DHDaNhan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
