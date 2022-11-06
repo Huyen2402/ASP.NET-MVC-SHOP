@@ -8,11 +8,10 @@
     Layout = "~/Views/Layout/SearchLayout.cshtml";
 }
 <div class="container mt-3">
-    <div>
-        <a class="btn btn-danger">Đơn hàng chờ xác nhận</a>
-        <a class="btn btn-danger">Đơn hàng đang giao</a>
-        <a class="btn btn-danger">Đơn hàng đã nhận</a>
-    </div>
+    <a href="@Url.Action("Index", "DonHang")" class=" btn btn-outline-dark">Đơn hàng chờ xác nhận</a>
+
+    <a href="@Url.Action("DHDangVanChuyen", "DonHang")" class="btn btn-outline-dark">Đơn hàng đang giao</a>
+    <a href="@Url.Action("DHDaNhan", "DonHang")" class="active btn btn-outline-dark">Đơn hàng đã nhận</a>
     <h1 class="text-center">Đơn hàng của tôi</h1>
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
@@ -54,8 +53,8 @@
 
 
                     <td style="width:300px">
-                        <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
-                        <a href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ Đơn</a>
+                        <a href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
+
                     </td>
 
 

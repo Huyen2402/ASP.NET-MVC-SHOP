@@ -1,20 +1,23 @@
 ﻿@using WebsiteBanHang.Models
 @model List<DonDatHang>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/SearchLayout.cshtml";
+
+    List<ChiTietDonDatHang> listChiTiet = ViewBag.listChiTiet as List<ChiTietDonDatHang>;
+    
 }
 
 
-<div class="container mt-3">
-    <div>
-        <a class="btn btn-danger">Đơn hàng chờ xác nhận</a>
-        <a href="@Url.Action("DHDangVanChuyen","DonHang")" class="btn btn-danger">Đơn hàng đang giao</a>
-        <a class="btn btn-danger">Đơn hàng đã nhận</a>
-    </div>
+<div id="Donhang" class="container mt-3">
+    <a href="@Url.Action("Index", "DonHang")" class="active btn btn-outline-dark">Đơn hàng chờ xác nhận</a>
+
+    <a href="@Url.Action("DHDangVanChuyen", "DonHang")" class="btn btn-outline-dark">Đơn hàng đang giao</a>
+    <a href="@Url.Action("DHDaNhan", "DonHang")" class="btn btn-outline-dark">Đơn hàng đã nhận</a>
     <h1 class="text-center">Đơn hàng của tôi</h1>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="DonHang" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
@@ -33,7 +36,7 @@
             {
 
 
-                <tr>
+                <tr class="Donhang">
                     <td>@item.MaDDH</td>
                     <td>@item.ThanhVien.HoTen</td>
                     <td>@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
@@ -53,8 +56,8 @@
 
 
                     <td style="width:300px">
-                        <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
-                        <a href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ Đơn</a>
+                        <a data-idDDh="@item.MaDDH" href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary XemChiTiet">Xem Chi Tiết</a>
+                        <a data-idDDh="@item.MaDDH" @*href="@Url.Action("HuyDonHang","DonHang", new { @MaDDH = item.MaDDH })"*@ class="btn btn-danger HuyDonHang">Huỷ Đơn</a>
                     </td>
 
 
@@ -70,6 +73,47 @@
         </tbody>
 
 
-</table>
+    </table>
 </div>
+
+
+
+<script>
+    $(".HuyDonHang").click(function () {
+       
+        Swal.fire({
+            title: 'Bạn có chắc muốn huỷ đơn hàng này không?',
+            text: "Nếu huỷ đơn hàng này dữ liệu sẽ không còn!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, hãy xoá!',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id = $(this).attr("data-idDDh");
+                $(this).addClass("Xoa");
+                $.ajax('/DonHang/HuyDonHang?MaDDH='+id,
+                    {
+                        type: "GET",
+                        dataType: 'json',
+                       
+                        success: function (data, status, xhr) {
+
+                            if (data.status) {
+                            
+                                $(".Xoa").parent().parent().remove();
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            console.log(data)
+                        }
+                    });
+            }
+        })
+    })
+
+   
+</script>
 

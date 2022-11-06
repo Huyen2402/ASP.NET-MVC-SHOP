@@ -562,6 +562,8 @@
     <Content Include="Views\DonHang\Index.cshtml" />
     <Content Include="Views\DonHang\DHDangVanChuyen.cshtml" />
     <Content Include="Views\DonHang\DHDaNhan.cshtml" />
+    <Content Include="Views\DonHang\buttonDonHangPartial.cshtml" />
+    <Content Include="Views\DonHang\XemChiTietDonHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

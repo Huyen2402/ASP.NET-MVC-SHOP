@@ -1,0 +1,64 @@
+﻿@using WebsiteBanHang.Models
+@model List<ChiTietDonDatHang>
+
+
+@{
+    ViewBag.Title = "XemChiTietDonHang";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
+
+<div id="chitiet" class="container mt-3">
+
+    <h1 class="text-center">Chi tiết đơn hàng</h1>
+
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã SP</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Đơn giá</th>
+                @*<th>Thao Tác</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                decimal? tien = item.DonGia;
+
+
+
+                <tr>
+                    <td>@item.MaChiTietDDH1</td>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td>@item.SoLuong</td>
+
+                    <td>@tien.Value.ToString("#,##0")</td>
+                    <input data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaDDH" />
+
+
+
+
+                    @*<td>
+                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
+                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ</a>
+                        </td>*@
+
+
+
+
+
+
+                </tr>
+
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
