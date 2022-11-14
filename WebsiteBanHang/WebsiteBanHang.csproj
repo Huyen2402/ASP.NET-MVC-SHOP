@@ -339,6 +339,8 @@
     <Content Include="Content\css\DangNhap.css" />
     <Content Include="Content\css\flexslider.css" />
     <Content Include="Content\css\memenu.css" />
+    <Content Include="Content\css\style-liberty.css" />
+    <Content Include="Content\css\style-starter.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style_from.css" />
     <Content Include="Content\images\1.jpg" />
@@ -351,6 +353,12 @@
     <Content Include="Content\images\cart.png" />
     <Content Include="Content\images\close_1.png" />
     <Content Include="Content\images\co.png" />
+    <Content Include="Content\images\grid1.jpg" />
+    <Content Include="Content\images\grid2.jpg" />
+    <Content Include="Content\images\grid3.jpg" />
+    <Content Include="Content\images\grid4.jpg" />
+    <Content Include="Content\images\grid5.jpg" />
+    <Content Include="Content\images\grid6.jpg" />
     <Content Include="Content\images\img-sprite.png" />
     <Content Include="Content\images\lo.png" />
     <Content Include="Content\images\lo1.png" />
@@ -564,6 +572,8 @@
     <Content Include="Views\DonHang\DHDaNhan.cshtml" />
     <Content Include="Views\DonHang\buttonDonHangPartial.cshtml" />
     <Content Include="Views\DonHang\XemChiTietDonHang.cshtml" />
+    <Content Include="Views\Home\ProductFlashSale.cshtml" />
+    <Content Include="Views\Home\SanPhamGoiY.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

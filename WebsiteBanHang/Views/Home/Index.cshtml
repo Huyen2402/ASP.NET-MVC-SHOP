@@ -13,6 +13,7 @@
 }
 
 
+
 <input type="hidden" value="@Session["idKH"]" id="UserID" />
 <div class="container">
     <div id="chat">
@@ -31,11 +32,158 @@
                 <img src="~/Content/images/loading.gif" class="loading-send btn bt_bg btn-sm" style="display:none;" />
             </div>
         </div>
+
     </div>
-    @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", listDT)
-    @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", listLT)
+
+    <div id="carousel-shop" class="container row mt-4">
+        <div class="col-8">
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://cf.shopee.vn/file/5b5de1582d99cbbe75a8f9a5c4dae1c2_xxhdpi" alt="Los Angeles" class="d-block" style="width:100%">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cf.shopee.vn/file/de333f446f88895d51792dbd664702ce_xxhdpi" alt="Chicago" class="d-block" style="width:100%">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cf.shopee.vn/file/3a0f85b0c33d501b0ac1a950e11ae5ec_xxhdpi" alt="New York" class="d-block" style="width:100%">
+
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <img src="https://cf.shopee.vn/file/f966bd52777b25fb78c96f19b1ae7981_xhdpi" alt="Alternate Text" />
+            </div>
+            <div class="row">
+                <img src="https://cf.shopee.vn/file/1b8c384a76da24669699dfe18dfd704f_xhdpi" alt="Alternate Text" />
+            </div>
+        </div>
+    </div>
+
+    <div class="grids-hny-2-mian py-5">
+        <div class="container py-lg-5">
+            <div style="margin: 8px auto; display: block; text-align:center;">
+
+                <!---728x90--->
 
 
+            </div>
+            <h3 class="hny-title mb-0 text-center">Danh Mục </h3>
+
+            <div style="margin: 8px auto; display: block; text-align:center;">
+
+                <!---728x90--->
+
+            </div>
+            <div class="welcome-grids row mt-5">
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="ecommerce.html">
+                            <img src="Content/images/grid1.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center"><a href="ecommerce.html">Hand Bags</a></h4>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="ecommerce.html">
+                            <img src="Content/images/grid3.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center">
+                        <a href="ecommerce.html">
+                            Watches
+                        </a>
+                    </h4>
+
+
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="#URL">
+                            <img src="Content/images/grid2.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center"><a href="ecommerce.html">Shoes</a></h4>
+
+
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="ecommerce.html">
+                            <img src="Content/images/grid4.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center"> <a href="ecommerce.html">Suits</a></h4>
+
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="ecommerce.html">
+                            <img src="Content/images/grid5.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center">
+                        <a href="ecommerce.html">
+                            Accessories
+                        </a>
+                    </h4>
+
+
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                    <div class="boxhny13">
+                        <a href="ecommerce.html">
+                            <img src="Content/images/grid6.jpg" class="img-fluid" alt="">
+
+                        </a>
+                    </div>
+                    <h4 class="text-center">
+                        <a href="ecommerce.htmlL">
+                            Fragrances
+                        </a>
+                    </h4>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Html.Action("ProductFlashSale", "Home")
+
+
+    <div class="row">
+        <img src="https://cf.shopee.vn/file/ece0fd6e7be830c3bc3ed1e537aab05f" alt="Alternate Text" />
+    </div>
+
+    @Html.Action("SanPhamGoiY", "Home")
 
 </div>
 <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>

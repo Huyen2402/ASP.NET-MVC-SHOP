@@ -4,15 +4,16 @@
 
 <div class="header-top">
     <div class="container">
+       
         <div class="search">
-            @using (Html.BeginForm("SearchSP","Search"))
+            @using (Html.BeginForm("SearchSP", "Search"))
             {
                 <input name="txbSearch" type="text" value="">
                 <input name="btnSearch" type="submit" value="Tìm">
             }
         </div>
         <div class="header-left">
-            
+
             <ul>
                 @if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
                 {
@@ -23,7 +24,7 @@
                         <a class="lock" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a>
                     </li>
                     <li><a class="lock" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
-                    
+
 
                 }
                 else
@@ -35,7 +36,7 @@
                 </li>
             </ul>
             @Html.Action("GioHangPartial", "GioHang");
-            
+
             @*<div class="cart box_1">
                 <a href="checkout.html">
                     <h3>

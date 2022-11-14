@@ -184,7 +184,22 @@ namespace WebsiteBanHang.Controllers
 
         }
 
-     
+        public ActionResult ProductFlashSale()
+        {
+
+            List<SanPham> listSP = db.SanPhams.Take(6).ToList();
+            return PartialView(listSP);
+        }
+
+        public ActionResult SanPhamGoiY()
+        {
+
+            List<SanPham> listSP = db.SanPhams.Where(n=>n.DaXoa == false).Take(20).ToList();
+            return PartialView(listSP);
+        }
+
+
+
 
 
     }

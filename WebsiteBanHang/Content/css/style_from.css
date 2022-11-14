@@ -134,3 +134,13 @@ i.fa-solid.fa-xmark {
     max-width: 250px;
     margin-left: 30px;
 }
+#carousel-shop, .flash-sale {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.spgoiy {
+    background: antiquewhite;
+    width:270px!important;
+    height: 370px!important;
+}
