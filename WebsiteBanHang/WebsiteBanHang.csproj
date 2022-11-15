@@ -189,6 +189,7 @@
     <Compile Include="Controllers\LienHeController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Extensions\ConstHelper.cs" />
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -250,6 +251,9 @@
       <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\SanPham.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shop.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThanhVien.cs">
@@ -571,6 +575,7 @@
     <Content Include="Views\DonHang\XemChiTietDonHang.cshtml" />
     <Content Include="Views\Home\ProductFlashSale.cshtml" />
     <Content Include="Views\Home\SanPhamGoiY.cshtml" />
+    <Content Include="Views\Shop\XemShop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

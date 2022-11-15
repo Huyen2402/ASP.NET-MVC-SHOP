@@ -150,6 +150,16 @@
           <Property Name="HinhAnh3" Type="nvarchar(max)" />
           <Property Name="SEOKeyword" Type="nvarchar" MaxLength="500" />
           <Property Name="MoTaNgan" Type="nvarchar(max)" />
+          <Property Name="MaShop" Type="int" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="MaShop" />
+          </Key>
+          <Property Name="MaShop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenShop" Type="varchar" MaxLength="255" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="avt" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tinh">
           <Key>
@@ -445,6 +455,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SanPham_Shop">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TinhtoHuyen">
           <End Role="Tinh" Type="Self.Tinh" Multiplicity="0..1" />
           <End Role="Huyen" Type="Self.Huyen" Multiplicity="*" />
@@ -545,6 +567,7 @@
           <EntitySet Name="NhaSanXuat" EntityType="Self.NhaSanXuat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuNhap" EntityType="Self.PhieuNhap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tinh" EntityType="Self.Tinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="Self.TinhTrangGiaoHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
@@ -630,6 +653,10 @@
             <End Role="NhaSanXuat" EntitySet="NhaSanXuat" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
+          <AssociationSet Name="FK_SanPham_Shop" Association="Self.FK_SanPham_Shop">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
           <AssociationSet Name="FK_TinhtoHuyen" Association="Self.FK_TinhtoHuyen">
             <End Role="Tinh" EntitySet="Tinh" />
             <End Role="Huyen" EntitySet="Huyen" />
@@ -677,6 +704,7 @@
           <EntitySet Name="NhaSanXuat" EntityType="QuanLyBanHangModel.NhaSanXuat" />
           <EntitySet Name="PhieuNhap" EntityType="QuanLyBanHangModel.PhieuNhap" />
           <EntitySet Name="SanPham" EntityType="QuanLyBanHangModel.SanPham" />
+          <EntitySet Name="Shop" EntityType="QuanLyBanHangModel.Shop" />
           <EntitySet Name="Tinh" EntityType="QuanLyBanHangModel.Tinh" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="QuanLyBanHangModel.TinhTrangGiaoHang" />
           <EntitySet Name="ThanhVien" EntityType="QuanLyBanHangModel.ThanhVien" />
@@ -776,6 +804,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SanPham_NhaSanXuat" Association="QuanLyBanHangModel.FK_SanPham_NhaSanXuat">
             <End Role="NhaSanXuat" EntitySet="NhaSanXuat" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_Shop" Association="QuanLyBanHangModel.FK_SanPham_Shop">
+            <End Role="Shop" EntitySet="Shop" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
           <AssociationSet Name="FK_ThanhVientoTinh" Association="QuanLyBanHangModel.FK_ThanhVientoTinh">
@@ -965,12 +997,24 @@
           <Property Name="HinhAnh3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SEOKeyword" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MoTaNgan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaShop" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_BinhLuan_SanPham" FromRole="SanPham" ToRole="BinhLuan" />
           <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="SanPham" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietPhieuNhap" Relationship="QuanLyBanHangModel.FK_ChiTietPhieuNhap_SanPham" FromRole="SanPham" ToRole="ChiTietPhieuNhap" />
           <NavigationProperty Name="loaiSanPham" Relationship="QuanLyBanHangModel.FK_SanPham_LoaiSanPham" FromRole="SanPham" ToRole="loaiSanPham" />
           <NavigationProperty Name="NhaCungCap" Relationship="QuanLyBanHangModel.FK_SanPham_NhaCungCap" FromRole="SanPham" ToRole="NhaCungCap" />
           <NavigationProperty Name="NhaSanXuat" Relationship="QuanLyBanHangModel.FK_SanPham_NhaSanXuat" FromRole="SanPham" ToRole="NhaSanXuat" />
+          <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="SanPham" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="Shop">
+          <Key>
+            <PropertyRef Name="MaShop" />
+          </Key>
+          <Property Name="MaShop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenShop" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="avt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="Tinh">
           <Key>
@@ -1335,6 +1379,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SanPham_Shop">
+          <End Type="QuanLyBanHangModel.Shop" Role="Shop" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.SanPham" Role="SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ThanhVientoTinh">
           <End Type="QuanLyBanHangModel.Tinh" Role="Tinh" Multiplicity="0..1" />
           <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="*" />
@@ -1514,6 +1570,7 @@
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
                 <ScalarProperty Name="MoTaNgan" ColumnName="MoTaNgan" />
                 <ScalarProperty Name="SEOKeyword" ColumnName="SEOKeyword" />
                 <ScalarProperty Name="HinhAnh3" ColumnName="HinhAnh3" />
@@ -1533,6 +1590,16 @@
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shop">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.Shop">
+              <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="avt" ColumnName="avt" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TenShop" ColumnName="TenShop" />
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

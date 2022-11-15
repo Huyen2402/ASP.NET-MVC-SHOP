@@ -240,3 +240,21 @@ i.fa-solid.fa-xmark {
     .icon + .icon {
         padding-left: 10px;
     }
+
+#infor-shop {
+    margin-top: 35px;
+}
+.item-infor {
+    min-width: 90px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-left: 1px solid rgba(0,0,0,.09);
+    text-align: center;
+    padding: 0 0.625rem ;
+    font-size: 13px;
+}
+.card-shop {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 15px 0
+}

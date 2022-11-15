@@ -8,13 +8,98 @@
     Layout = "~/Views/Layout/SearchLayout.cshtml";
     int SlSPTrenTrang = 7;
     int Trang = 1;
-    int DemSLSPTrenTrang =1;
+    int DemSLSPTrenTrang = 1;
     int count = Model.Count;
-    int tongTrang = count/ SlSPTrenTrang;
+    int tongTrang = count / SlSPTrenTrang;
+    List<Shop> listshop = ViewBag.listshop as List<Shop>;
 }
 
 
-<div class="content-top-bottom">
+<div id="carousel-shop" class="container row mt-4">
+    <div class="col-8">
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://cf.shopee.vn/file/5b5de1582d99cbbe75a8f9a5c4dae1c2_xxhdpi" alt="Los Angeles" class="d-block" style="width:100%">
+
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cf.shopee.vn/file/de333f446f88895d51792dbd664702ce_xxhdpi" alt="Chicago" class="d-block" style="width:100%">
+
+                </div>
+                <div class="carousel-item">
+                    <img src="https://cf.shopee.vn/file/3a0f85b0c33d501b0ac1a950e11ae5ec_xxhdpi" alt="New York" class="d-block" style="width:100%">
+
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row">
+            <img src="https://cf.shopee.vn/file/f966bd52777b25fb78c96f19b1ae7981_xhdpi" alt="Alternate Text" />
+        </div>
+        <div class="row">
+            <img src="https://cf.shopee.vn/file/1b8c384a76da24669699dfe18dfd704f_xhdpi" alt="Alternate Text" />
+        </div>
+    </div>
+</div>
+
+
+<div class="content-top-bottom flash-sale">
+   
+        @if (listshop.Count() > 0)
+        {
+            <h2>Danh sách tìm Shop</h2>
+            foreach (var item in listshop)
+            {
+                if (DemSLSPTrenTrang % SlSPTrenTrang == 0)
+                {
+                    Trang++;
+                }
+
+          
+                    <div class="row card-shop " >
+                        <a href="@Url.Action("XemShop","Shop", new {@MaShop=item.MaShop})" class="b-link-stripe b-animate-go col-2  thickbox">
+                            <img class="img-responsive rounded-circle" src="@Url.Content("~/Content/images/"+item.avt)" alt="">
+
+                        </a>
+                        <p style="font-size:20px" class="col-4 mx-auto d-block"><b>@item.TenShop</b></p>
+                        <div class="col-5 mx-auto d-block" id="infor-shop">
+                            <div class="row">
+
+                                <div class="col-3 item-infor mx-auto d-block">152 Sản Phẩm</div>
+                                <div class="col-3 item-infor">5.0 Đánh Giá</div>
+                                <div class="col-3 item-infor">100% Tỷ Lệ Phản Hồi</div>
+                                <div class="col-3 item-infor">Trong Vài Giờ</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                DemSLSPTrenTrang++;
+            }
+        }
+
+    
+
+
+</div>
+<div class="clearfix"></div>
+<div class="content-top-bottom flash-sale">
     <h2>Danh sách tìm kiếm sản phẩm</h2>
     @foreach (var item in Model)
     {
@@ -38,13 +123,13 @@
         DemSLSPTrenTrang++;
     }
 
-        
+
 </div>
 <div class="clearfix"> </div>
 
 <nav class="in">
     <ul class="pagination justify-content-end">
-        
+
         @if (count % SlSPTrenTrang == 0)
         {
             for (var i = 1; i <= tongTrang; i++)
@@ -59,17 +144,18 @@
             {
                 <li class="page-item "><a class="page-link test linkPage" data-page="Trang_@Url.Content(i.ToString())" href="#">@i</a></li>
 
-                
+
             }
         }
-        
+
     </ul>
 </nav>
 <style>
-    .itemSearch{
+    .itemSearch {
         display: none;
     }
-    .Trang_1{
+
+    .Trang_1 {
         display: block;
     }
 </style>
@@ -80,7 +166,7 @@
         var s = $(this).attr('data-page');
         //var s = $(this).data("page");
         // show ra sp cua trnag do
-       
+
         $('.'+@Url.Content("s")).show();
 
 

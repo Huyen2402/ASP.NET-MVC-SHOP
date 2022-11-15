@@ -10,7 +10,7 @@
 
                 {
 
-                    <article class="card col-4">
+                    <article class="card col-4" >
                         <header  class="card__thumb">
                             <a  href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})"><img style="width:200px"  src="@Url.Content("~/Content/images/"+item.HinhAnh)" /></a>
                         </header>
@@ -20,15 +20,15 @@
                             <span class="card__date__month">Jan</span>
                         </date>
                         <div class="card__body">
-                            <div class="card__category"><a href="#">pet</a></div>
+                            @*<div class="card__category"><a href="#">pet</a></div>*@
                             <h6 class="card__title"><a class="card__title__a" href="#">@item.TenSP</a></h6>
                            
                            
                             <p class="card__description">@item.MoTaNgan</p>
                         </div>
                         <footer class="card__footer">
-                            <span class="icon ion-clock"></span> 10 mins ago
-                            <span class="icon ion-chatbox"></span><a href="#"> 145 comments</a>
+                            <span class="icon ion-clock"></span> @item.NgayCapNhat
+                            <span class="icon ion-chatbox">@item.LuotBinhLuan bình luận</span><a href="#"></a>
                         </footer>
                     </article>
 

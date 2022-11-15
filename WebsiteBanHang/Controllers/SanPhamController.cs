@@ -57,7 +57,7 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        public ActionResult SanPham(int? MaLoaiSP, int? MaNSX, int? page)
+        public ActionResult SanPham(int? MaLoaiSP, int? MaNSX, int? page, int? MaShop)
 
         {
             //if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
@@ -69,7 +69,7 @@ namespace WebsiteBanHang.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var listSP = db.SanPhams.Where(n => n.MaLoaiSP == MaLoaiSP && n.MaNSX == MaNSX && n.DaXoa == false).ToList();
+            var listSP = db.SanPhams.Where(n => n.MaLoaiSP == MaLoaiSP && n.MaNSX == MaNSX && n.DaXoa == false && n.MaShop == MaShop).ToList();
             if (listSP.Count() == 0)
             {
                 return HttpNotFound();
@@ -82,11 +82,11 @@ namespace WebsiteBanHang.Controllers
             {
                 pageNumber = page.Value;
             }
-
+           
             ViewBag.MaLoaiSP = MaLoaiSP;
             ViewBag.MaNSX = MaNSX;
 
-
+            ViewBag.shop = db.Shops.SingleOrDefault(n=>n.MaShop == MaShop);
             return View(listSP.OrderBy(n => n.MaSP).ToPagedList(pageNumber, pageSize));
         }
 
@@ -97,8 +97,9 @@ namespace WebsiteBanHang.Controllers
             return PartialView(listNoiBat);
         }
 
-        public ActionResult Menu2PartialView()
+        public ActionResult Menu2PartialView(int? MaShop)
         {
+            ViewBag.MaShop = MaShop;    
             List<SanPham> listSP = db.SanPhams.Where(n => n.DaXoa == false).ToList();
             return PartialView(listSP);
         }
