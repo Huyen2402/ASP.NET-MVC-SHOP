@@ -137,6 +137,12 @@ namespace WebsiteBanHang.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
+        [AllowAnonymous]
+        public JsonResult GetNotiComment()
+        {
+            var listComment = db.BinhLuans.Where(n=>n.DaXem==false).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaThanhVien, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
+            return Json(listComment, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

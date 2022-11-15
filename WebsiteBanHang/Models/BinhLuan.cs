@@ -25,6 +25,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaThanhVien { get; set; }
         public Nullable<int> MaSP { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
+        public Nullable<bool> DaXem { get; set; }
     
         public virtual SanPham SanPham { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }

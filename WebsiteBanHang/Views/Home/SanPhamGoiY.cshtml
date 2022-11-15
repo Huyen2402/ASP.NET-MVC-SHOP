@@ -2,30 +2,40 @@
 @model IEnumerable<SanPham>
 
 
-<div class="content-top container flash-sale">
+    <div class="content-top container flash-sale">
+        <div>
+            <h1>Sản Phẩm Gợi Ý</h1>
+            <div class="grid-in row">
+                @foreach (var item in Model)
 
-    <h1>Sản Phẩm Gợi Ý</h1>
-    <div  class="grid-in ">
-        @foreach (var item in Model)
-        {
+                {
 
+                    <article class="card col-4">
+                        <header  class="card__thumb">
+                            <a  href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})"><img style="width:200px"  src="@Url.Content("~/Content/images/"+item.HinhAnh)" /></a>
+                        </header>
+                        <date class="card__date">
+                            <span class="card__date__day">11</span>
+                            <br />
+                            <span class="card__date__month">Jan</span>
+                        </date>
+                        <div class="card__body">
+                            <div class="card__category"><a href="#">pet</a></div>
+                            <h6 class="card__title"><a class="card__title__a" href="#">@item.TenSP</a></h6>
+                           
+                           
+                            <p class="card__description">@item.MoTaNgan</p>
+                        </div>
+                        <footer class="card__footer">
+                            <span class="icon ion-clock"></span> 10 mins ago
+                            <span class="icon ion-chatbox"></span><a href="#"> 145 comments</a>
+                        </footer>
+                    </article>
 
-            <div class="col-3 col-xs-12 grid-top spgoiy  mb-4"  >
-                <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
-                    
-                </a>
-
-
-                <p><a href="single.html">@item.TenSP</a></p>
-                <p><b>@item.DonGia</b></p>
+                }
             </div>
-
-
-
-        }
-    </div>
-    <div class="clearfix"></div>
-</div>
-
+        </div>
+        </div>
+        <div class="clearfix"></div>
+  
 

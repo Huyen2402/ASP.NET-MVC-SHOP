@@ -620,5 +620,23 @@ namespace WebsiteBanHang.Controllers
 
         }
 
+        public JsonResult UpdateStatusComment(int? MaBL)
+        {
+            if(MaBL == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                BinhLuan bl = db.BinhLuans.SingleOrDefault(n => n.MaBL == MaBL);
+                bl.DaXem = true;
+                db.SaveChanges();
+              
+                return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+           
+        }
+
     }
 }
