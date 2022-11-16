@@ -2,6 +2,11 @@
 @model List<GioHang>
 
 
+@{ 
+    List<ChiTietGiamGia> list = ViewBag.list as List<ChiTietGiamGia>;
+    List<GiamGia> listgg = ViewBag.listgg as List<GiamGia>;
+}
+
 @{
     ViewBag.Title = "XemGioHang";
     Layout = "~/Views/Layout/HomeLayout.cshtml";

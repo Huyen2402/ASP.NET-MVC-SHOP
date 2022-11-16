@@ -4,6 +4,9 @@
 
 @{
     List<GioHang> listGioHang = ViewBag.listGioHang as List<GioHang>;
+    List<ChiTietGiamGia> list = ViewBag.list as List<ChiTietGiamGia>;
+    List<GiamGia> listgg = ViewBag.listgg as List<GiamGia>;
+
 }
 <h1>Giỏ hàng của bạn (@ViewBag.TongSoLuong)</h1>
 
@@ -49,46 +52,97 @@
     decimal tongtien = ViewBag.TongTien;
     string TongGiaTien = tongtien.ToString("#,##0");
 }
-    <div class="col-md-3 cart-total">
-        <a class="continue" href="#">Thanh Toán</a>
-        <div class="price-details">
-            <h3>Chi Tiết</h3>
-            <span>Tổng Tiền</span>
-            <span class="total1">@TongGiaTien</span>
-            <span>Giảm Giá</span>
-            <span class="total1">---</span>
-            <span>Hình thức thanh toán:</span>
-            <span class="total1">
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="1" name="optradio" value="option1" checked>
-                    <label class="form-check-label" for="1">Thanh Toán Khi Nhận Hàng</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="2" name="optradio" value="option2">
-                    <label class="form-check-label" for="2">Ví MoMo</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="3" name="optradio" value="option3">
-                    <label for="3" class="form-check-label">VN Pay</label>
-                </div>
-            </span>
-
-            <div class="clearfix"></div>
-        </div>
-        <ul class="total_price">
-            <li class="last_price"> <h4>TỔNG</h4></li>
-            <li class="last_price"><span>@TongGiaTien </span></li>
-            <div class="clearfix"> </div>
-        </ul>
-
+<div class="col-md-3 cart-total">
+    <a class="continue" href="#">Thanh Toán</a>
+    <div class="price-details">
+        <h3>Chi Tiết</h3>
+        <span>Tổng Tiền</span>
+        <span id="tong" class="total1">@TongGiaTien</span>
+        <span>Giảm Giá</span>
+        <span class="total1">---</span>
+        <span>Hình thức thanh toán:</span>
+        <span class="total1">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="1" name="optradio" value="option1" checked>
+                <label class="form-check-label" for="1">Thanh Toán Khi Nhận Hàng</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="2" name="optradio" value="option2">
+                <label class="form-check-label" for="2">Ví MoMo</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="3" name="optradio" value="option3">
+                <label for="3" class="form-check-label">VN Pay</label>
+            </div>
+        </span>
 
         <div class="clearfix"></div>
-        <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
-
     </div>
+    <div class="price-details">
+        <h3>MÃ KHUYẾN MÃI</h3>
+
+        <span>Mã:</span>
+        <span class="total1">
+            <select name="cars" id="cars">
+                @foreach (var i in list)
+                {
+                    foreach (var j in listgg)
+                    {
+
+                        if (i.MaGiamGia == j.MaGiamGia)
+                        {
+
+                            <option id="@j.MaGiamGia" value="@j.SoTien">@j.TenGiamGia</option>
+
+
+
+                        }
+
+                    }
+                }
+            </select>
+
+            </span>
+
+        <div class="clearfix"></div>
+      
+    </div>
+
+    <ul class="total_price">
+        <li class="last_price"> <h4>TỔNG</h4></li>
+        <li class="last_price"><span>@TongGiaTien </span></li>
+        <div class="clearfix"> </div>
+    </ul>
+
+
+    <div class="clearfix"></div>
+    <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
+
+</div>
 
 
     <script>
+        $('select').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected = optionSelected.val();
+            var textSelected = optionSelected.text();
+            alert(valueSelected)
+            alert(textSelected)
+            var tien = @tongtien;
+            alert(tien)
+            var um = tien - valueSelected;
+            alert(um)
+          /*  $("#tong").remove()*/
+            $("#tong").prepend(
+                '<div class="form-control " id="binhluan">' +
+                '<div>' +
+                '<label id="TenBL">' + um + '</label>' +
+               
+                '</div>'
+            );
+
+
+        });
 
         var check = $("#logout").length;
 

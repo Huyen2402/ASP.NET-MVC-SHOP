@@ -205,12 +205,18 @@
     <Compile Include="Models\ChiTietDonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChiTietGiamGia.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChiTietPhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DonDatHang.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiamGia.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GioHang.cs" />

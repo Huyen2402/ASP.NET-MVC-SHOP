@@ -325,6 +325,7 @@ namespace WebsiteBanHang.Controllers
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
                     ddh.MaTinhTrangGiaoHang = 5;
+                    
                     if (listGioHang != null)
                     {
                         decimal total = 0;

@@ -26,14 +26,15 @@ namespace WebsiteBanHang.Controllers
         }
 
         [HttpGet]
-        public ActionResult XemChitietSP(int? id)
+        public ActionResult XemChitietSP(int? id, int? MaShop)
         {
+           ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             int? masp = id;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == id && n.DaXoa == false);
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == id && n.DaXoa == false && n.MaShop == MaShop);
             if (sp == null)
             {
                 return HttpNotFound();
@@ -41,10 +42,14 @@ namespace WebsiteBanHang.Controllers
 
             ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b=>b.NgayTao).ToList();
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
+            ViewBag.listGiamGia = db.GiamGias.ToList();
+            ViewBag.shop = db.Shops.SingleOrDefault(n=>n.MaShop == MaShop);
 
             return View(sp);
 
         }
+
+       
 
 
         [HttpPost]
@@ -126,5 +131,37 @@ namespace WebsiteBanHang.Controllers
 
             return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
-    }
+
+        [HttpGet]
+        public JsonResult LuuGiamGia(int? MaGiamGia)
+        {
+            if (MaGiamGia == null)
+            {
+                Response.StatusCode = 404;
+            }
+            else
+            {
+                GiamGia gg = db.GiamGias.SingleOrDefault(n => n.MaGiamGia == MaGiamGia);
+                if (gg == null)
+                {
+                    Response.StatusCode = 404;
+                }
+                else
+                {
+                    ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+                    ChiTietGiamGia ctgg = new ChiTietGiamGia();
+                    ctgg.MaGiamGia = MaGiamGia;
+                    ctgg.MaThanhVien = tv.MaThanhVien;
+                    db.ChiTietGiamGias.Add(ctgg);
+                    db.SaveChanges();
+                    ViewBag.user = Session["TaiKhoan"];
+                    ViewBag.listCTGG = db.ChiTietGiamGias.ToList();
+
+                    return Json(new { status = true}, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+    
+}
 }

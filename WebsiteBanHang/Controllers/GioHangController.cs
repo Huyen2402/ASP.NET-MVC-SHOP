@@ -15,10 +15,21 @@ namespace WebsiteBanHang.Controllers
         // GET: GioHang
         public ActionResult XemGioHang()
         {
-            List<GioHang> listGioHang = SessionGioHang();
-            ViewBag.TongSoLuong = TongSL();
-            ViewBag.TongTien = TongTien();
-            return View(listGioHang);
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            if (tv != null)
+            {
+                ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+
+                ViewBag.listgg = db.GiamGias.ToList();
+                List<GioHang> listGioHang = SessionGioHang();
+                ViewBag.TongSoLuong = TongSL();
+                ViewBag.TongTien = TongTien();
+                return View(listGioHang);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult GioHangPartial()
@@ -191,6 +202,10 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult ThemSlPartialView()
         {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+
+            ViewBag.listgg = db.GiamGias.ToList();
             ViewBag.TongSoLuong = TongSL();
             ViewBag.TongTien = TongTien();
             ViewBag.listGioHang = Session["GioHang"];

@@ -4,18 +4,20 @@
 
 @{
     ViewBag.Title = "XemChitietSP";
-    Layout = "~/Views/Layout/ProductLayout.cshtml";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
 
     List<BinhLuan> ListBL = ViewBag.ListBL as List<BinhLuan>;
     List<TraLoiBinhLuan> ListTL = ViewBag.ListTL as List<TraLoiBinhLuan>;
+    List<GiamGia> listGiamGia = ViewBag.listGiamGia as List<GiamGia>;
+    ThanhVien user = ViewBag.user as ThanhVien;
+    List<ChiTietGiamGia> listCTGG = ViewBag.listCTGG as List<ChiTietGiamGia>;
+    Shop shop = ViewBag.shop as Shop;
 }
 
 
 
 <div id="XemChiTietSP">
-    <div class="col-md-9 product-price1">
-
-
+    <div class="row product-price1 card-shop mt-4">
 
         <div class="col-md-5 single-top">
             <div class="flexslider">
@@ -70,12 +72,91 @@
                     </div>
                     <div class="clearfix"> </div>
                 </div>
-                @{ 
+                @{
                     decimal? number = Model.DonGia;
                     string GiaTien = number.Value.ToString("#,##0");
                 }
 
-            <h5 class="item_price">@GiaTien </h5>
+                @*<div class="div-price">
+                        <del>@GiaTien</del>
+                        <h5 class="item_price">@GiaTien </h5>
+                    </div>*@
+                <div class="flex flex-column _38g6so">
+                    <div class="flex items-center">
+                        <div class="flex items-center _34BHKe">
+                            <div class="_2yjfFH">₫220.000</div>
+                            <div class="flex items-center">
+                                <div class="_2Shl1j">₫@GiaTien</div>
+                                <div class="_3PlIlX">19% giảm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="_3rFQYx">
+                    <div class="flex flex-column">
+                        <div aria-haspopup="true" aria-expanded="false" id="miniVoucherPopoverLabel" class="VrhRS0 _2o5GCQ OjT2aQ" tabindex="0" style="position: relative;">
+                            <div class="mini-vouchers _1fCsRQ">
+                                <div class="mini-vouchers__label">Mã giảm giá của Shop</div><div class="mini-vouchers__wrapper flex flex-auto flex-no-overflow">
+                                    <div class="mini-vouchers__vouchers flex flex-auto flex-no-overflow">
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class="">
+                                                <span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫10k</span>
+                                            </div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫15k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫5k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫20k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫30k</span></div>
+                                        </div>
+                                        <div class="mini-vouchers__mask"></div>
+                                    </div>
+                                    <div id="ok" class="mini-vouchers__show-all">
+                                        Xem tất cả
+                                    </div>
+                                    <div id="hihi" class="scroller">
+                                        <h1>Tất cả mã giảm giá</h1>
+                                        @foreach (var km in listGiamGia)
+
+                                        {
+
+                                            <div class="card">
+                                                <div class="card-body row">
+                                                    <div class="col-3">
+                                                        <img class="img-responsive rounded-circle" src="@Url.Content("~/Content/images/"+shop.avt)" alt="Alternate Text" />
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h5>Giảm @km.SoTien₫</h5>
+                                                        <h6>Đơn tối thiểu @km.ToiThieu₫</h6>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <a data-KM="@km.MaGiamGia" class="btn btn-danger luuKM">Lưu</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        }
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
                 <p>
                     @Html.Raw(Model.MoTa)
                 </p>
@@ -89,195 +170,260 @@
         </div>
         <div class="clearfix">
 
+
         </div>
-        <div id="CMT">
-            <h1> Bình luận</h1>
-            <div>
-                @if (Session["TaiKhoan"] != null)
-                {
-                    <input type="hidden" name="MaSP" value="@Model.MaSP" id="masp" />
-                    <input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
-                    <p id="divEmp" style="color:red;"></p>
-                    <div>
-                        @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
-                        <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
-                    </div>
-                }
-                else
-                {
-                    <h3>Dui lòng đăng nhập để gửi bình luận</h3>
-                }
-            </div>
-            <div class="clearfix"> </div>
 
-
-            <div id="container-binhluan">
-                @foreach (var item in ListBL)
-                {
-                    <div class="form-control binhluan" id="binhluan">
+        <div class="col-7">
+            <div id="CMT">
+                <h1> Bình luận</h1>
+                <div>
+                    @if (Session["TaiKhoan"] != null)
+                    {
+                        <input type="hidden" name="MaSP" value="@Model.MaSP" id="masp" />
+                        <input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
+                        <p id="divEmp" style="color:red;"></p>
                         <div>
-                            <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                            @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                            <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
                         </div>
-                        <div id="ndBL" class="noidungbinhluan" data-mabl="@item.MaBL">
-                            @item.NoiDungBL
-                        </div>
+                    }
+                    else
+                    {
+                        <h3>Dui lòng đăng nhập để gửi bình luận</h3>
+                    }
+                </div>
+                <div class="clearfix"> </div>
 
-                        @if (ListTL != null)
-                        {
-                            foreach (var tl in ListTL)
+
+                <div id="container-binhluan">
+                    @foreach (var item in ListBL)
+                    {
+                        <div class="form-control binhluan" id="binhluan">
+                            <div>
+                                <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                            </div>
+                            <div id="ndBL" class="noidungbinhluan" data-mabl="@item.MaBL">
+                                @item.NoiDungBL
+                            </div>
+
+                            @if (ListTL != null)
                             {
-                                if (tl.MaBL == item.MaBL)
+                                foreach (var tl in ListTL)
                                 {
-                                    <div id="TraLoiBL">
-                                        <div class="form-control " id="TLbinhluan">
-                                            <div>
-                                                <label id="TenBL">@tl.ThanhVien.HoTen</label>
-                                            </div>
-                                            <div id="ndBL">
-                                                @tl.NoiDungTraLoi
+                                    if (tl.MaBL == item.MaBL)
+                                    {
+                                        <div id="TraLoiBL">
+                                            <div class="form-control " id="TLbinhluan">
+                                                <div>
+                                                    <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                                </div>
+                                                <div id="ndBL">
+                                                    @tl.NoiDungTraLoi
+                                                </div>
+
                                             </div>
 
                                         </div>
-
-                                    </div>
+                                    }
                                 }
                             }
-                        }
-                    </div>
-                }
-                <b id="loadMore">Hịn thêm thì click dô</b>
+                        </div>
+                    }
+                    <b id="loadMore">Hịn thêm thì click dô</b>
+                </div>
             </div>
         </div>
+
     </div>
+
+
+
+
+
+    <div class="content-top-bottom mt-4 mb-4">
+
+
+
+        <div class="row card-shop ">
+            <a href="@Url.Action("XemShop","Shop", new {@MaShop=shop.MaShop})" class="b-link-stripe b-animate-go col-2  thickbox">
+                <img class="img-responsive rounded-circle" src="@Url.Content("~/Content/images/"+shop.avt)" alt="">
+
+            </a>
+            <p style="font-size:20px" class="col-4 mx-auto d-block"><b>@shop.TenShop</b></p>
+            <div class="col-5 mx-auto d-block" id="infor-shop">
+                <div class="row">
+
+                    <div class="col-3 item-infor mx-auto d-block">152 Sản Phẩm</div>
+                    <div class="col-3 item-infor">5.0 Đánh Giá</div>
+                    <div class="col-3 item-infor">100% Tỷ Lệ Phản Hồi</div>
+                    <div class="col-3 item-infor">Trong Vài Giờ</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="clearfix">
+
+
+    </div>
+
+   
+
 </div>
 
-<style>
-    #HienThiThem {
-        color: blue;
-        text-decoration: blue;
-        text-decoration-line: none;
-        text-decoration-line: underline;
-        font-size: 12px;
-        padding: 4px;
-    }
 
-        #HienThiThem:hover {
-            cursor: pointer;
+    <style>
+
+
+
+        #HienThiThem {
+            color: blue;
+            text-decoration: blue;
+            text-decoration-line: none;
+            text-decoration-line: underline;
+            font-size: 12px;
+            padding: 4px;
         }
 
-    .itemSearch {
-        display: none;
-    }
-
-    .Trang_1 {
-        display: block;
-    }
-</style>
-<script>
-    $(".ThemGioHang").click(function () {
-        var MaSP = $(this).attr("data-MaSP");
-        var strURL = $(this).attr("data-strURL");
-        $.ajax({
-
-
-            type: "get",
-
-            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
-            contentType: "html",
-            statusCode: {
-                400: function (xhr) {
-
-                    Swal.fire({
-
-                        icon: 'error',
-                        title: 'Sản phẩm đã hết hàng',
-                        showConfirmButton: false,
-                        timer: 1500
-
-                    })
-                }
-            },
-            success: function (response) {
-                debugger
-
-
-                $("#GioHangPartial").html(response);
-
-
+            #HienThiThem:hover {
+                cursor: pointer;
             }
+
+        .itemSearch {
+            display: none;
+        }
+
+        .Trang_1 {
+            display: block;
+        }
+    </style>
+    <script>
+        $(".ThemGioHang").click(function () {
+            var MaSP = $(this).attr("data-MaSP");
+            var strURL = $(this).attr("data-strURL");
+            $.ajax({
+
+
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+                contentType: "html",
+                statusCode: {
+                    400: function (xhr) {
+
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Sản phẩm đã hết hàng',
+                            showConfirmButton: false,
+                            timer: 1500
+
+                        })
+                    }
+                },
+                success: function (response) {
+                    debugger
+
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+
+            })
+
+
+
 
         })
 
+        $(".luuKM").click(function () {
+            var maGiamGia = $(this).attr("data-KM");
+            var pt = $(this).parent().parent();
+            alert(maGiamGia)
 
-
-
-    })
-
-
-
-    $(document).ready(function () {
-        $("#btn-BL").click(function () {
-            var masp = $("#masp").val();
-            var noidung = $("#noidung").val();
-            $.ajax('/SanPham/ThemBinhLuan',
-                {
-                    type: "POST",
-                    dataType: 'json',
-                    data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
-                    success: function (data, status, xhr) {
-
-                        if (data.status) {
-                            $("#noidung").val('');
-
-                            alert("Thành công")
-
-                            $("#container-binhluan").prepend(
-                                '<div class="form-control " id="binhluan">' +
-                                '<div>' +
-                                '<label id="TenBL">' + data.TenThanhVien + '</label>' +
-                                '</div>' +
-                                '<div id="ndBL">'
-                                + noidung +
-                                '</div>' +
-                                '</div>'
-                            );
-                        }
-                    },
-                    error: function (jqXhr, textStatus, errorMessage) {
-                        console.log(data)
+            console.log(pt)
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
+                success: function (status) {
+                    if (status) {
+                        pt.remove()
                     }
-                });
-        });
-        $(".binhluan").hide();
-        $(".binhluan").slice(0, 4).show();
-        $("#loadMore").on("click", function (e) {
-            e.preventDefault();
-            $(".binhluan:hidden").slice(0, 4).slideDown();
-            if ($(".binhluan:hidden").length == 0) {
-                $("#loadMore").text("Hết gòi bà dà");
-            }
-        });
+                }
 
-        $(".noidungbinhluan").click(function () {
-            var noidung = window.prompt("Nhập nội dung bình luận");
-            var mabl = $(this).attr("data-mabl")
-            if (noidung) {
-                $.ajax('/SanPham/SuaBinhLuan',
+            })
+        })
+
+        $(document).ready(function () {
+            $("#btn-BL").click(function () {
+                var masp = $("#masp").val();
+                var noidung = $("#noidung").val();
+                $.ajax('/SanPham/ThemBinhLuan',
                     {
                         type: "POST",
                         dataType: 'json',
-                        data: { MaBL: mabl, noidung: noidung },
+                        data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
                         success: function (data, status, xhr) {
+
                             if (data.status) {
-                                $('body').find('[data-mabl=' + mabl + ']').html(noidung);
+                                $("#noidung").val('');
+
+                                alert("Thành công")
+
+                                $("#container-binhluan").prepend(
+                                    '<div class="form-control " id="binhluan">' +
+                                    '<div>' +
+                                    '<label id="TenBL">' + data.TenThanhVien + '</label>' +
+                                    '</div>' +
+                                    '<div id="ndBL">'
+                                    + noidung +
+                                    '</div>' +
+                                    '</div>'
+                                );
                             }
                         },
                         error: function (jqXhr, textStatus, errorMessage) {
                             console.log(data)
                         }
                     });
-            }
-        })
-    });
-</script>
+            });
+            $(".binhluan").hide();
+            $(".binhluan").slice(0, 4).show();
+            $("#loadMore").on("click", function (e) {
+                e.preventDefault();
+                $(".binhluan:hidden").slice(0, 4).slideDown();
+                if ($(".binhluan:hidden").length == 0) {
+                    $("#loadMore").text("Hết gòi bà dà");
+                }
+            });
+
+            $(".noidungbinhluan").click(function () {
+                var noidung = window.prompt("Nhập nội dung bình luận");
+                var mabl = $(this).attr("data-mabl")
+                if (noidung) {
+                    $.ajax('/SanPham/SuaBinhLuan',
+                        {
+                            type: "POST",
+                            dataType: 'json',
+                            data: { MaBL: mabl, noidung: noidung },
+                            success: function (data, status, xhr) {
+                                if (data.status) {
+                                    $('body').find('[data-mabl=' + mabl + ']').html(noidung);
+                                }
+                            },
+                            error: function (jqXhr, textStatus, errorMessage) {
+                                console.log(data)
+                            }
+                        });
+                }
+            })
+        });
+    </script>
 
