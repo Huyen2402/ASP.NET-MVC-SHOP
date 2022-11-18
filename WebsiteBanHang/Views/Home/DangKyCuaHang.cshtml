@@ -1,0 +1,212 @@
+﻿@model WebsiteBanHang.Models.Shop
+
+@{
+    ViewBag.Title = "DangKyCuaHang";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+
+<div class="flash-sale">
+
+    @using (Html.BeginForm("DangKyCuaHang", "Home", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-DangKyCuaHang", @name = "form"}))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 class="text-center">Đăng ký thông tin cửa hàng</h4>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên Cửa Hàng</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenShop, new { htmlAttributes = new { @require = true, @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenShop, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Avt Cửa Hàng</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.avt, new { htmlAttributes = new { @require = true, @type = "file", @class = "form-control", @name = "avt", @id = "avt" } })
+                @Html.ValidationMessageFor(model => model.avt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tài Khoản</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @require = true, @type = "email", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Mật Khẩu</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @require = true, @type = "password", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tỉnh</label>
+            <div class="col-md-10">
+
+                @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh" })
+                @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Huyện</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaHuyen", new SelectList(""), "", new { @class = "form-select", @id = "idHuyen" })
+                @Html.ValidationMessageFor(model => model.MaHuyen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Xã</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
+                @Html.ValidationMessageFor(model => model.MaXa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Địa Chỉ</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @require = true, @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">SDT</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @require = true, @type = "phone", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="createShop" type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <p style="color:red">@ViewBag.Error</p>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+    $("#idTinh").change(function () {
+        var idTinh = $(this).val();
+        $.ajax({
+            type: "post",
+
+            url: "http://localhost:62979/Home/LayHuyen?idTinh=" + idTinh,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idHuyen").empty();
+                $("#idHuyen").append(response);
+            }
+        })
+
+    })
+
+
+    $("#idHuyen").change(function () {
+        var idHuyen = $(this).val();
+        $.ajax({
+            type: "post",
+
+            url: "http://localhost:62979/Home/LayXa?idHuyen=" + idHuyen,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idXa").empty();
+                $("#idXa").append(response);
+            }
+        })
+
+    })
+
+    $("#form-DangKyCuaHang").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+
+        $.ajax({
+
+            type: "POST",
+            url: "http://localhost:62979/Home/DangKyCuaHang",
+            data: form.serialize(), // serializes the form's elements.
+
+            success: function (status, data) {
+                console.log(data)
+                console.log(status)
+                if (status.status == true) {
+                    Swal.fire(
+                        'Yêu Cầu Đăng Ký Thành Công',
+                        'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
+                        'success'
+                    )
+                }
+                else {
+                    console.log(data.text)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: status.text,
+                        footer: '<a href="">Why do I have this issue?</a>'
+                    })
+                }
+
+
+            }
+        });
+    })
+    //$("#form-DangKyCuaHang").submit(function (e) {
+    //    e.preventDefault();
+
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "http://localhost:62979/Home/DangKyCuaHang",
+    //        datatype: "JSON",
+
+    //        success: function (status) {
+    //            if (status == true) {
+    //                Swal.fire(
+    //                    'Yêu Cầu Đăng Ký Thành Công',
+    //                    'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
+    //                    'success'
+    //                )
+
+    //            }
+    //            else {
+    //                Swal.fire({
+    //                    icon: 'error',
+    //                    title: 'Oops...',
+    //                    text: 'Something went wrong!',
+    //                    footer: '<a href="">Why do I have this issue?</a>'
+    //                })
+    //            }
+    //        }
+    //    })
+    //});
+
+</script>

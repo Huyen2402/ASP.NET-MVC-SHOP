@@ -15,9 +15,17 @@ namespace WebsiteBanHang.Controllers
     {
         Entities db = new Entities();
         // GET: SanPham
-        public ActionResult SanPhamStyle1Partial()
+        public ActionResult SanPhamStyle1Partial(int? MaLSP)
         {
-            return PartialView();
+
+            if (MaLSP == null)
+            {
+                Response.StatusCode = 404;
+            }
+
+            List<SanPham> listSP = db.SanPhams.Where(m => m.MaLoaiSP == MaLSP && m.DaXoa == false).ToList();
+          
+            return PartialView(listSP);
         }
 
         public ActionResult SanPhamStyle2Partial()
@@ -28,7 +36,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult XemChitietSP(int? id, int? MaShop)
         {
-           ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             int? masp = id;
             if (id == null)
             {
@@ -40,16 +48,16 @@ namespace WebsiteBanHang.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b=>b.NgayTao).ToList();
+            ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b => b.NgayTao).ToList();
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
             ViewBag.listGiamGia = db.GiamGias.ToList();
-            ViewBag.shop = db.Shops.SingleOrDefault(n=>n.MaShop == MaShop);
+            ViewBag.shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
 
             return View(sp);
 
         }
 
-       
+
 
 
         [HttpPost]
@@ -87,11 +95,11 @@ namespace WebsiteBanHang.Controllers
             {
                 pageNumber = page.Value;
             }
-           
+
             ViewBag.MaLoaiSP = MaLoaiSP;
             ViewBag.MaNSX = MaNSX;
 
-            ViewBag.shop = db.Shops.SingleOrDefault(n=>n.MaShop == MaShop);
+            ViewBag.shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
             return View(listSP.OrderBy(n => n.MaSP).ToPagedList(pageNumber, pageSize));
         }
 
@@ -104,7 +112,7 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult Menu2PartialView(int? MaShop)
         {
-            ViewBag.MaShop = MaShop;    
+            ViewBag.MaShop = MaShop;
             List<SanPham> listSP = db.SanPhams.Where(n => n.DaXoa == false).ToList();
             return PartialView(listSP);
         }
@@ -152,16 +160,23 @@ namespace WebsiteBanHang.Controllers
                     ChiTietGiamGia ctgg = new ChiTietGiamGia();
                     ctgg.MaGiamGia = MaGiamGia;
                     ctgg.MaThanhVien = tv.MaThanhVien;
+                    gg.SL--;
                     db.ChiTietGiamGias.Add(ctgg);
                     db.SaveChanges();
                     ViewBag.user = Session["TaiKhoan"];
                     ViewBag.listCTGG = db.ChiTietGiamGias.ToList();
 
-                    return Json(new { status = true}, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
         }
-    
-}
+        public ActionResult ListSanPham(int? MaLSP)
+        {
+            ViewBag.MaLSP = MaLSP;
+            return View();
+         
+        }
+
+    }
 }

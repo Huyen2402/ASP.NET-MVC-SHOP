@@ -17,6 +17,7 @@ namespace WebsiteBanHang.Models
         public int MaCTGiamGia { get; set; }
         public Nullable<int> MaGiamGia { get; set; }
         public Nullable<int> MaThanhVien { get; set; }
+        public Nullable<bool> DaSuDung { get; set; }
     
         public virtual GiamGia GiamGia { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }

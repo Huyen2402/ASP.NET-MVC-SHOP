@@ -582,6 +582,11 @@
     <Content Include="Views\Home\ProductFlashSale.cshtml" />
     <Content Include="Views\Home\SanPhamGoiY.cshtml" />
     <Content Include="Views\Shop\XemShop.cshtml" />
+    <Content Include="Views\SanPham\ListSanPham.cshtml" />
+    <Content Include="Views\Home\DangKyCuaHang.cshtml" />
+    <Content Include="Views\Home\DangNhapCuaHang.cshtml" />
+    <Content Include="Views\Layout\ShopLayout.cshtml" />
+    <Content Include="Views\Shop\CheckAvtShop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

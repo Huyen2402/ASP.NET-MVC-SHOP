@@ -1,5 +1,5 @@
 ﻿@using WebsiteBanHang.Models;
-@model IEnumerable<SanPham>
+@model List<SanPham>
 
 
 <div class="content-top">
@@ -11,8 +11,8 @@
 
             
                 <div class="col-3 col-xs-12 grid-top ">
-                    <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
-                        <img   class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
+                    <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP, @MaShop = item.MaShop})" class="b-link-stripe b-animate-go  thickbox">
+                        <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
                         <div class="b-wrapper">
                             <h3 class="b-animate b-from-left    b-delay03 ">
                                 <span>@item.MoTaNgan</span>

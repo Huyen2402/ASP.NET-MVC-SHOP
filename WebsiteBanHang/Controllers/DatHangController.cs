@@ -19,17 +19,12 @@ namespace WebsiteBanHang.Controllers
         Entities db = new Entities();
         // GET: DatHang
         [HttpGet]
-        public ActionResult DatHang(int id)
+        public ActionResult DatHang(int id, decimal ThanhTien)
         {
            
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
-           // decimal total = 0;
-           //for(int i = 0; i < listGioHang.Count(); i++)
-           // {
-           //     decimal price = listGioHang[i].ThanhTien ;
-           //     total += price;
-           // }
 
+          
             
             if (Session["idKH"] != null)
             {
@@ -96,7 +91,7 @@ namespace WebsiteBanHang.Controllers
                                 decimal price = listGioHang[i].ThanhTien;
                                 total = total + price;
                             }
-                            string tongiten = total.ToString();
+                            string tongiten = ThanhTien.ToString();
 
 
                             //ddh.HinhThucThanhToan = "MoMo";
@@ -111,7 +106,7 @@ namespace WebsiteBanHang.Controllers
                             string returnUrl = "http://localhost:62979/DatHang/ReturnUrl";
                             string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
-                            string amount = tongiten;
+                            string amount = ThanhTien.ToString();
                             string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
                             string requestId = DateTime.Now.Ticks.ToString();
                             string extraData = "";
@@ -150,43 +145,6 @@ namespace WebsiteBanHang.Controllers
 
             };
 
-                            //ddh.MaDDH = orderid;
-                            //ddh.UuDai = 0;
-                            //ddh.MaKH = iduser;
-                            //ddh.MaTinh = (int)Session["MaTinh"];
-                            //ddh.MaHuyen = (int)Session["MaHuyen"];
-                            //ddh.MaXa = (int)Session["MaXa"];
-                            //db.DonDatHangs.Add(ddh);
-                            //for (var i = 0; i < listGioHang.Count(); i++)
-                            //{
-                            //    ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
-                            //    ct.MaDDH = ddh.MaDDH;
-
-                            //    ct.MaSP = listGioHang[i].MaSP;
-                            //    ct.TenSP = listGioHang[i].TenSP;
-                            //    ct.SoLuong = listGioHang[i].SoLuong;
-                            //    ct.DonGia = listGioHang[i].Dongia;
-                            //    db.ChiTietDonDatHangs.Add(ct);
-
-                            //    if (ct != null)
-                            //    {
-                            //        SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
-                            //        spsl.SoLuongTon--;
-                            //        spsl.SoLanMua++;
-                            //    }
-
-
-
-                            //}
-                            //db.SaveChanges();
-                            //Session["GioHang"] = null;
-
-
-
-
-
-
 
                             string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
 
@@ -208,7 +166,7 @@ namespace WebsiteBanHang.Controllers
                             for (int i = 0; i < listGioHang.Count(); i++)
                             {
                                 decimal price = listGioHang[i].ThanhTien;
-                                total = (total + price) * 100;
+                                total = (ThanhTien) * 100;
                             }
                             string tongiten = total.ToString();
                             //ddh.HinhThucThanhToan = "VNPay";
@@ -238,38 +196,7 @@ namespace WebsiteBanHang.Controllers
                             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
                             pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
 
-                            //ddh.MaDDH = DateTime.Now.Ticks.ToString();
-                            //ddh.UuDai = 0;
-                            //ddh.MaKH = iduser;
-                            //ddh.MaTinh = (int)Session["MaTinh"];
-                            //ddh.MaHuyen = (int)Session["MaHuyen"];
-                            //ddh.MaXa = (int)Session["MaXa"];
-                            //db.DonDatHangs.Add(ddh);
-                            //for (var i = 0; i < listGioHang.Count(); i++)
-                            //{
-                            //    ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
-                            //    ct.MaDDH = ddh.MaDDH;
-
-                            //    ct.MaSP = listGioHang[i].MaSP;
-                            //    ct.TenSP = listGioHang[i].TenSP;
-                            //    ct.SoLuong = listGioHang[i].SoLuong;
-                            //    ct.DonGia = listGioHang[i].Dongia;
-                            //    db.ChiTietDonDatHangs.Add(ct);
-
-                            //    if (ct != null)
-                            //    {
-                            //        SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
-                            //        spsl.SoLuongTon--;
-                            //        spsl.SoLanMua++;
-                            //    }
-
-
-
-                            //}
-
-                            //db.SaveChanges();
-                            //Session["GioHang"] = null;
+                         
 
                             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 

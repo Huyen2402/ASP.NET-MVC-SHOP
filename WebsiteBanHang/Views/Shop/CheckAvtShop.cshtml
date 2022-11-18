@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "CheckAvtShop";
+    Layout = "~/Views/Layout/ShopLayout.cshtml";
+    int MaShop = ViewBag.MaShop;
+}
+
+@using (Html.BeginForm("UpAvt", "Shop", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-UpAvt", @name = "upavt" }))
+{
+    <!--   con = Container  for items in the form-->
+    <div class="con" style="justify-content:center">
+        <!--     Start  header Content  -->
+        <header class="head-form">
+            <h2>CẬP NHẬT ẢNH ĐẠI DIỆN CỦA CỬA HÀNG</h2>
+            <!--     A welcome message or an explanation of the login form -->
+
+        </header>
+        <!--     End  header Content  -->
+        <br>
+        <div class="field-set">
+            <input type="hidden" name="MaShop" value="@MaShop" />
+            <!--   user name -->
+            <img class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
+            <input name="avt" class="form-input" id="avt" type="file" required>
+
+
+
+            <br>
+
+            <!--   Password -->
+
+            <br>
+            <!--        buttons -->
+            <!--      button LogIn -->
+            <button class="log-in mx-auto d-block"> Log In </button>
+        </div>
+
+
+
+        <!--   End Conrainer  -->
+    </div>
+
+    <!-- End Form -->
+}
+    <style>
+        img {
+            border-radius: 50%;
+        }
+    </style>
+

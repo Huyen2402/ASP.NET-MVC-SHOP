@@ -24,8 +24,19 @@ namespace WebsiteBanHang.Models
         public string TenShop { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
         public string avt { get; set; }
+        public string TaiKhoan { get; set; }
+        public string Pass { get; set; }
+        public Nullable<int> MaTinh { get; set; }
+        public Nullable<int> MaHuyen { get; set; }
+        public Nullable<int> MaXa { get; set; }
+        public Nullable<int> SDT { get; set; }
+        public string DiaChi { get; set; }
+        public Nullable<bool> XacNhan { get; set; }
     
+        public virtual Huyen Huyen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
+        public virtual Tinh Tinh { get; set; }
+        public virtual Xa Xa { get; set; }
     }
 }

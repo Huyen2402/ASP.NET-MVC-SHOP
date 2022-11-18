@@ -19,6 +19,7 @@ namespace WebsiteBanHang.Models
         {
             this.DonDatHang = new HashSet<DonDatHang>();
             this.Huyen = new HashSet<Huyen>();
+            this.Shop = new HashSet<Shop>();
             this.ThanhVien = new HashSet<ThanhVien>();
         }
     
@@ -29,6 +30,8 @@ namespace WebsiteBanHang.Models
         public virtual ICollection<DonDatHang> DonDatHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Huyen> Huyen { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Shop> Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThanhVien> ThanhVien { get; set; }
     }

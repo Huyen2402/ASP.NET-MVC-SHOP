@@ -57,9 +57,10 @@
     <div class="price-details">
         <h3>Chi Tiết</h3>
         <span>Tổng Tiền</span>
-        <span id="tong" class="total1">@TongGiaTien</span>
+       
+        <span id="tong" class="total1"><p class="TienBanDau">@TongGiaTien</p></span>
         <span>Giảm Giá</span>
-        <span class="total1">---</span>
+        <span  class="total1 discount">---</span>
         <span>Hình thức thanh toán:</span>
         <span class="total1">
             <div class="form-check">
@@ -110,34 +111,36 @@
 
     <ul class="total_price">
         <li class="last_price"> <h4>TỔNG</h4></li>
-        <li class="last_price"><span>@TongGiaTien </span></li>
+        <li class="last_price discount"><span class="TienBanDau">@TongGiaTien </span></li>
         <div class="clearfix"> </div>
     </ul>
 
 
     <div class="clearfix"></div>
     <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
-
+  
 </div>
 
 
-    <script>
+<script>
+    var um = @tongtien
         $('select').change(function () {
             var optionSelected = $(this).find("option:selected");
             var valueSelected = optionSelected.val();
             var textSelected = optionSelected.text();
-            alert(valueSelected)
-            alert(textSelected)
+
             var tien = @tongtien;
-            alert(tien)
-            var um = tien - valueSelected;
-            alert(um)
-          /*  $("#tong").remove()*/
-            $("#tong").prepend(
-                '<div class="form-control " id="binhluan">' +
+
+            um = tien - valueSelected;
+
+            /*  $("#tong").remove()*/
+            $(".TienBanDau").remove();
+            $("#tong").html('  <del>' + tien +'</del>')
+            $(".discount").html(
+
                 '<div>' +
                 '<label id="TenBL">' + um + '</label>' +
-               
+
                 '</div>'
             );
 
@@ -156,7 +159,7 @@
 
         $("#btn-dathang").click(function () {
             if (check) {
-                var url = "http://localhost:62979/DatHang/DatHang?id=" + val;
+                var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien="+ um;
                 window.location.href = url;
             } else {
                 alert("Vui lòng đăng nhập để thanh toán!");
@@ -257,4 +260,4 @@
                 }
             })
         })
-    </script>
+</script>

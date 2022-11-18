@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebsiteBanHang.Models;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc;
+using System.IO;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -34,8 +35,8 @@ namespace WebsiteBanHang.Controllers
        
         public ActionResult MenuPartial()
         {
-            var listSP = db.SanPhams.Where(n=>n.DaXoa == false).ToList();
-            return PartialView(listSP);
+            var listLSP = db.loaiSanPhams.Where(n=>n.DaXoa == false).ToList();
+            return PartialView(listLSP);
         }
 
         [HttpGet]
@@ -198,7 +199,138 @@ namespace WebsiteBanHang.Controllers
             return PartialView(listSP);
         }
 
+        [HttpGet]
+        public ActionResult DangKyCuaHang()
+        {
 
+            ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
+            ViewBag.MaHuyen = new SelectList(db.Huyens, "MaHuyen", "TenHuyen");
+            ViewBag.MaXa = new SelectList(db.Xas, "MaXa", "TenXa");
+            return View();
+        }
+
+        public JsonResult DangKyCuaHang(Shop shop)
+        {
+            ViewBag.Error = "";
+
+            if (shop != null)
+            {
+                Shop checkTK = db.Shops.SingleOrDefault(n => n.TaiKhoan.Equals(shop.TaiKhoan));
+                Shop checkName = db.Shops.SingleOrDefault(n => n.TenShop.Equals(shop.TenShop));
+               
+               if (checkTK == null && checkName == null)
+                {
+                    shop.NgayTao = (DateTime)DateTime.Now;
+                    shop.XacNhan = false;
+                    db.Shops.Add(shop);
+                    db.SaveChanges();
+                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+                }
+               else if(checkTK != null)
+                {
+                    return Json(new { status = false, text = "Tên tài khoản đã tồn tại" }, JsonRequestBehavior.AllowGet);
+                }
+               else if(checkName != null)
+                {
+                    return Json(new { status = false, text = "Tên cửa hàng đã tồn tại" }, JsonRequestBehavior.AllowGet);
+                }
+              
+               
+               
+                
+            }
+          
+                return Json(new { status = false, text = "Có lỗi xảy ra" }, JsonRequestBehavior.AllowGet);
+            
+        }
+
+        public ActionResult DangNhapCuaHang()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DangNhapCuaHang(string TaiKhoan, string Pass)
+        {
+
+            Shop checkShop = db.Shops.SingleOrDefault(n => n.TaiKhoan.Equals(TaiKhoan) && n.Pass.Equals(Pass));
+            if (checkShop == null){
+                Response.StatusCode = 404;
+            }
+    
+            Session["CuaHang"] = checkShop;
+          
+            return RedirectToAction("CheckAvtShop", "Shop", new {@MaShop = checkShop.MaShop});
+        }
+
+
+        //[HttpPost]
+        //public JsonResult DangKyCuaHang(Shop s, HttpPostedFileBase avt)
+        //{
+
+        //    ViewBag.listTK = db.Shops.ToList();
+        //    ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
+        //    ViewBag.MaHuyen = new SelectList(db.Huyens, "MaHuyen", "TenHuyen");
+        //    ViewBag.MaXa = new SelectList(db.Xas, "MaXa", "TenXa");
+        //    if (avt != null && avt.ContentLength > 0)
+        //    {
+        //        //Get file name
+        //        var fileName = Path.GetFileName(avt.FileName);
+        //        //Get path
+        //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+
+        //        //Check exitst
+        //        if (!System.IO.File.Exists(path))
+        //        {
+        //            //Add image into folder
+        //            avt.SaveAs(path);
+        //            s.avt = avt.FileName;
+        //            DateTime localDate = DateTime.Now;
+                   
+        //            s.NgayTao = localDate;
+        //            //newshop.avt = avt.FileName;
+        //            //newshop.SDT = s.SDT;
+        //            //newshop.MaHuyen = s.MaHuyen;
+        //            //newshop.MaXa = s.MaXa;
+        //            //newshop.MaTinh = s.MaTinh;
+        //            //newshop.DiaChi = s.DiaChi;
+        //            //newshop.TaiKhoan = s.TaiKhoan;
+        //            //newshop.Pass = s.Pass;
+        //            //newshop.TenShop = s.TenShop;
+                    
+        //            db.Shops.Add(s);
+        //            db.SaveChanges();
+
+        //            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+        //        }
+        //        DateTime localDate1 = DateTime.Now;
+
+        //        s.NgayTao = localDate1;
+        //        //newshop.avt = avt.FileName;
+        //        //newshop.SDT = s.SDT;
+        //        //newshop.MaHuyen = s.MaHuyen;
+        //        //newshop.MaXa = s.MaXa;
+        //        //newshop.MaTinh = s.MaTinh;
+        //        //newshop.DiaChi = s.DiaChi;
+        //        //newshop.TaiKhoan = s.TaiKhoan;
+        //        //newshop.Pass = s.Pass;
+        //        //newshop.TenShop = s.TenShop;
+
+        //        db.Shops.Add(s);
+        //        db.SaveChanges();
+
+        //        return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+
+
+        //    }
+
+
+        //    return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+
+
+
+
+
+        //}
 
 
 
