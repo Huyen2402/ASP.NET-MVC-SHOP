@@ -71,6 +71,7 @@
           <Property Name="MaTinh" Type="int" />
           <Property Name="MaXa" Type="int" />
           <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MaShop" Type="int" />
         </EntityType>
         <EntityType Name="GiamGia">
           <Key>
@@ -344,6 +345,18 @@
             </Principal>
             <Dependent Role="ChiTietGiamGia">
               <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonDatHan__MaSho__75435199">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="DonDatHang">
+              <PropertyRef Name="MaShop" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -699,6 +712,10 @@
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="ChiTietGiamGia" EntitySet="ChiTietGiamGia" />
           </AssociationSet>
+          <AssociationSet Name="FK__DonDatHan__MaSho__75435199" Association="Self.FK__DonDatHan__MaSho__75435199">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="DonDatHang" EntitySet="DonDatHang" />
+          </AssociationSet>
           <AssociationSet Name="FK__Shop__MaHuyen__002AF460" Association="Self.FK__Shop__MaHuyen__002AF460">
             <End Role="Huyen" EntitySet="Huyen" />
             <End Role="Shop" EntitySet="Shop" />
@@ -890,6 +907,10 @@
             <End Role="Xa" EntitySet="Xa" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
           </AssociationSet>
+          <AssociationSet Name="FK__DonDatHan__MaSho__75435199" Association="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="DonDatHang" EntitySet="DonDatHang" />
+          </AssociationSet>
           <AssociationSet Name="FK__Shop__MaHuyen__002AF460" Association="QuanLyBanHangModel.FK__Shop__MaHuyen__002AF460">
             <End Role="Huyen" EntitySet="Huyen" />
             <End Role="Shop" EntitySet="Shop" />
@@ -1033,6 +1054,7 @@
           <Property Name="MaTinh" Type="Int32" />
           <Property Name="MaXa" Type="Int32" />
           <Property Name="MaDDH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MaShop" Type="Int32" />
           <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietDonDatHang1" Relationship="QuanLyBanHangModel.DonDatHang_ChiTietDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.DonDatHang_Huyen" FromRole="DonDatHang" ToRole="Huyen" />
@@ -1040,6 +1062,7 @@
           <NavigationProperty Name="TinhTrangGiaoHang" Relationship="QuanLyBanHangModel.DonDatHang_TTGiaoHang" FromRole="DonDatHang" ToRole="TinhTrangGiaoHang" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.DonDatHang_ThanhVien" FromRole="DonDatHang" ToRole="ThanhVien" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.DonDatHang_Xa" FromRole="DonDatHang" ToRole="Xa" />
+          <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="DonDatHang" ToRole="Shop" />
         </EntityType>
         <EntityType Name="GiamGia">
           <Key>
@@ -1178,6 +1201,7 @@
           <Property Name="SDT" Type="Int32" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="XacNhan" Type="Boolean" />
+          <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="Shop" ToRole="DonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK__Shop__MaHuyen__002AF460" FromRole="Shop" ToRole="Huyen" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK__Shop__MaTinh__7F36D027" FromRole="Shop" ToRole="Tinh" />
@@ -1459,6 +1483,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DonDatHan__MaSho__75435199">
+          <End Type="QuanLyBanHangModel.Shop" Role="Shop" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.DonDatHang" Role="DonDatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="DonDatHang">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Shop__MaHuyen__002AF460">
           <End Type="QuanLyBanHangModel.Huyen" Role="Huyen" Multiplicity="0..1" />
           <End Type="QuanLyBanHangModel.Shop" Role="Shop" Multiplicity="*" />
@@ -1723,6 +1759,7 @@
           <EntitySetMapping Name="DonDatHang">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.DonDatHang">
               <MappingFragment StoreEntitySet="DonDatHang">
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
                 <ScalarProperty Name="MaDDH" ColumnName="MaDDH" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />

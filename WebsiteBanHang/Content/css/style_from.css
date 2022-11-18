@@ -570,3 +570,23 @@ svg:not(:root) {
         -webkit-transition-delay: 0.35s;
         transition-delay: 0.35s;
     }
+
+#dky-ch{
+    max-width:600px
+}
+#createShop {
+    width: 100%;
+   
+    color: #FFF;
+    font-size: 1em;
+    background: #EF5F21;
+    border: none;
+    outline: none;
+    padding: 0.5em;
+}
+.color-ali{
+    background-color:aliceblue;
+}
+.color-wh{
+    background-color: white;
+}

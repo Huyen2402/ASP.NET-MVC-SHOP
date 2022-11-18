@@ -31,6 +31,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaTinh { get; set; }
         public Nullable<int> MaXa { get; set; }
         public string MaDDH { get; set; }
+        public Nullable<int> MaShop { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
@@ -41,5 +42,6 @@ namespace WebsiteBanHang.Models
         public virtual TinhTrangGiaoHang TinhTrangGiaoHang { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
         public virtual Xa Xa { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

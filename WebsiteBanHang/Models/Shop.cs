@@ -17,6 +17,7 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shop()
         {
+            this.DonDatHang = new HashSet<DonDatHang>();
             this.SanPham = new HashSet<SanPham>();
         }
     
@@ -33,6 +34,8 @@ namespace WebsiteBanHang.Models
         public string DiaChi { get; set; }
         public Nullable<bool> XacNhan { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonDatHang> DonDatHang { get; set; }
         public virtual Huyen Huyen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }

@@ -25,13 +25,15 @@ namespace WebsiteBanHang.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            Shop s = Session["CuaHang"] as Shop;
+
             List<ThanhVien> listTV = db.ThanhViens.Where(n => n.MaLoaiTV == 2).ToList();
             ViewBag.TongTV = listTV.Count();
-            List<BinhLuan> listBl = db.BinhLuans.ToList();
+            List<BinhLuan> listBl = db.BinhLuans.Where(n=>n.SanPham.MaShop == s.MaShop).ToList();
             ViewBag.TongBL = listBl.Count();
 
-            ViewBag.TongTien = TongTien();
-            List<DonDatHang> listDDH = db.DonDatHangs.ToList();
+            ViewBag.TongTien = TongTien(s.MaShop);
+            List<DonDatHang> listDDH = db.DonDatHangs.Where(x=>x.MaShop == s.MaShop).ToList();
             ViewBag.TongDDH = listDDH.Count();
             int year = int.Parse(DateTime.Now.Year.ToString()) ;
             // Data chart
@@ -54,9 +56,9 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        public decimal? TongTien()
+        public decimal? TongTien(int? MaShop)
         {
-            var tongtien = db.ChiTietDonDatHangs.Sum(n => n.DonGia * n.SoLuong).Value;
+            var tongtien = db.ChiTietDonDatHangs.Where(n=>n.DonDatHang.MaShop == MaShop).Sum(n => n.DonGia * n.SoLuong).Value;
             return tongtien;
         }
 
@@ -69,8 +71,8 @@ namespace WebsiteBanHang.Controllers
         }
         public ActionResult XemSanPham()
         {
-            
-            List<SanPham> list = db.SanPhams.Where(n => n.DaXoa == false).ToList();
+            Shop s = Session["CuaHang"] as Shop;
+            List<SanPham> list = db.SanPhams.Where(n => n.DaXoa == false && n.MaShop == s.MaShop).ToList();
             return View(list);
         }
 
@@ -78,7 +80,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult ThemSanPham()
         {
-
+           
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
             ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
@@ -91,7 +93,7 @@ namespace WebsiteBanHang.Controllers
         [ValidateInput(false)]
         public ActionResult ThemSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
         {
-
+            Shop s = Session["CuaHang"] as Shop;
             // list nhà cung cấp
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
@@ -137,7 +139,7 @@ namespace WebsiteBanHang.Controllers
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
-            
+            sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
             db.SaveChanges();
@@ -152,7 +154,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult SuaSanPham(int? MaSP)
         {
-
+            Shop s = Session["CuaHang"] as Shop;
 
             if (MaSP == null)
             {
@@ -161,7 +163,7 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 // tìm sản phẩm co trong csdl không ?
-                SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+                SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP && n.MaShop == s.MaShop);
                 // nếu có thì trả ra
                 if (sp == null)
                 {
@@ -189,11 +191,12 @@ namespace WebsiteBanHang.Controllers
         [ValidateInput(false)]
         public ActionResult SuaSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
         {
+            Shop s = Session["CuaHang"] as Shop;
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
             ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
 
-            SanPham check = db.SanPhams.SingleOrDefault(n => n.MaSP == sp.MaSP);
+            SanPham check = db.SanPhams.SingleOrDefault(n => n.MaSP == sp.MaSP && n.MaShop == s.MaShop);
             if (check != null)
             {
                 for (int i = 0; i < HinhAnh.Length; i++)
@@ -258,7 +261,8 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XoaSanPham(int MaSP)
         {
-            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            Shop s = Session["CuaHang"] as Shop;
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP && n.MaShop == s.MaShop);
             if (sp != null)
             {
                 sp.DaXoa = true;
@@ -273,7 +277,8 @@ namespace WebsiteBanHang.Controllers
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n => n.DaXoa == false).ToList();
+       
+            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n => n.DaXoa == false ).ToList();
             return View(listLSP);
         }
 
@@ -428,8 +433,8 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult DonHangChoXacNhan()
         {
-
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 5).ToList();
+            Shop s = Session["CuaHang"] as Shop;
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 5 && n.MaShop == s.MaShop).ToList();
 
 
 
@@ -440,7 +445,7 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XemChiTietDonHang(string MaDDH)
         {
-
+            Shop s = Session["CuaHang"] as Shop;
             if (MaDDH == null)
             {
                 Response.StatusCode = 404;
@@ -448,7 +453,7 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+                List<ChiTietDonDatHang> ct = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH && n.DonDatHang.MaShop == s.MaShop).ToList();
                 if (ct == null)
                 {
                     Response.StatusCode = 404;
@@ -511,23 +516,25 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult DonHangDangGiao()
         {
-
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 6).ToList();
+            Shop s = Session["CuaHang"] as Shop;
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 6 && n.MaShop == s.MaShop).ToList();
 
 
             return View(listddh);
         }
         public ActionResult DonHangThanhCong()
         {
-            List<DonDatHang> listThanhCong = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 7).ToList();
+            Shop s = Session["CuaHang"] as Shop;
+            List<DonDatHang> listThanhCong = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 7 && n.MaShop == s.MaShop).ToList();
             return View(listThanhCong);
         }
 
         public ActionResult XemBinhLuan()
         {
+            Shop sh = Session["CuaHang"] as Shop;
             DateTime dateStart = DateTime.Now.AddDays(-3);
             DateTime dateEnd = DateTime.Now;
-            List<BinhLuan> listBL = db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd)).OrderByDescending(b => b.NgayTao).ToList();
+            List<BinhLuan> listBL = db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd) && s.SanPham.MaShop == sh.MaShop).OrderByDescending(b => b.NgayTao).ToList();
             //List<BinhLuan> listBL = db.BinhLuans.ToList();
 
             return View(listBL);
@@ -622,13 +629,14 @@ namespace WebsiteBanHang.Controllers
 
         public JsonResult UpdateStatusComment(int? MaBL)
         {
-            if(MaBL == null)
+            Shop s = Session["CuaHang"] as Shop;
+            if (MaBL == null)
             {
                 Response.StatusCode = 404;
             }
             else
             {
-                BinhLuan bl = db.BinhLuans.SingleOrDefault(n => n.MaBL == MaBL);
+                BinhLuan bl = db.BinhLuans.SingleOrDefault(n => n.MaBL == MaBL && n.SanPham.MaShop == s.MaShop);
                 bl.DaXem = true;
                 db.SaveChanges();
               
@@ -636,6 +644,11 @@ namespace WebsiteBanHang.Controllers
             }
             return Json(new { status = false }, JsonRequestBehavior.AllowGet);
            
+        }
+        public ActionResult DangXuat()
+        {
+            Session["CuaHang"] = null;
+            return RedirectToAction("DangNhapCuaHang", "Home");
         }
 
     }
