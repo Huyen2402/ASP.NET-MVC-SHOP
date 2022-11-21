@@ -4,23 +4,17 @@
 @{
     ViewBag.Title = "TraLoiBinhLuan";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
-}
-
-@{ 
-    int SoBinhLuan = 1;
-    int SoBinhLuanTrenTrang = 6;
-    int Trang = 1;
-    int TongSoLuongBinhLuan = Model.Count;
-    int SLTrang = TongSoLuongBinhLuan / SoBinhLuanTrenTrang;
+    int i = 1;
 }
 
 
 
 
-<div class="container mt-3" >
+
+
  
     <h2>Bình Luận Gần Đây </h2><p>(Bình luận trong 3 ngày gần nhất)</p>
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
@@ -36,23 +30,19 @@
 
             @foreach (var item in Model)
             {
-                if (SoBinhLuan % SoBinhLuanTrenTrang == 0)
-                {
-                    Trang++;
-                }
-                <tr class="@Url.Content("itemSearch Trang_"+Trang)">
-                    <td>@item.MaBL</td>
+                <tr >
+                    <td>@i</td>
                     <td class="col-4">@item.SanPham.TenSP</td>
                     <td><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
                     <td>@item.NoiDungBL</td>
 
                     <td>
                         <a href="@Url.Action("TraLoiBinhLuan", "Admin", new { @MaBL = item.MaBL , @MaSP = item.MaSP })" class="btn btn-warning">Trả Lời</a>
-                        <a id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Bỏ Qua</a>
+                        <a id="x" data-MaBL="@item.MaBL" @*href="@Url.Action("BoQuaBL", "Admin", new { @MaBL = item.MaBL })"*@ class="btn btn-danger x">Bỏ Qua</a>
                     </td>
 
                 </tr>
-                SoBinhLuan++;
+                i++;
             }
 
 
@@ -60,30 +50,8 @@
         </tbody>
     </table>
 
-    <nav class="in">
-        <ul class="pagination justify-content-end">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            @if (TongSoLuongBinhLuan % SoBinhLuanTrenTrang == 0)
-            {
-                for (var i = 1; i <= SLTrang; i++)
-                {
-                    <li class="page-item "><a data-page="Trang_@Url.Content(i.ToString())" class="page-link test linkPage" href="#">@i</a></li>
+    
 
-                }
-            }
-            else
-            {
-                for (var i = 1; i <= (SLTrang + 1); i++)
-                {
-                    <li class="page-item "><a class="page-link test linkPage" data-page="Trang_@Url.Content(i.ToString())" href="#">@i</a></li>
-
-
-                }
-            }
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-</div>
 
 <style>
     .itemSearch {
@@ -94,7 +62,26 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('#example').DataTable();
 
+        $(".x").click(function () {
+            var MaBL = $(this).attr("data-MaBL");
+            var xoa = $(this).parent().parent();
+            alert(MaBL)
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/Admin/BoQuaBL?MaBL=" + MaBL,
+                success: function (status) {
+                    if (status) {
+                        xoa.remove()
+                    }
+                }
+
+            })
+        })
+    })
     $(".Trang_1").show();
        $('.linkPage').click(function () {
         $('.itemSearch').hide();

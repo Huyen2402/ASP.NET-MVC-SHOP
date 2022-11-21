@@ -1,108 +1,96 @@
 ﻿@using WebsiteBanHang.Models;
 @model IEnumerable<loaiSanPham>
 
-<!--<div class="grids-hny-2-mian py-5">
-    <div class="container py-lg-5">
-        <div style="margin: 8px auto; display: block; text-align:center;">
-            -728x90-
-        </div>
-        <h3 class="hny-title mb-0 text-center">Danh Mục </h3>
 
-        <div style="margin: 8px auto; display: block; text-align:center;">
-            -728x90-
-        </div>
-        <div class="welcome-grids row mt-5">-->
-            @*@foreach (var item in Model)
-        {
-            <div class="col-lg-2 col-md-4 col-6 welcome-image">
-                <div class="boxhny13">
-                    <a href="ecommerce.html">
-                        <img src="@Url.Content("~/Content/images/"+item.HinhAnh)" class="img-fluid" alt="">
 
-                    </a>
-                </div>
-                <h4 class="text-center"><a href="ecommerce.html">@item.TenLoai</a></h4>
+
+<div class="grids-hny-2-mian py-5">
+    <div style="margin: 8px auto; display: block; text-align:center;">
+
+    </div>
+    <h3 class="hny-title mb-0 text-center">Danh Mục </h3>
+
+    <div style="margin: 8px auto; display: block; text-align:center;">
+
+    </div>
+    @*<div class="container py-lg-5">
+            <div style="margin: 8px auto; display: block; text-align:center;">
 
             </div>
-        }*@
-            <!--@foreach (var item in Model)
-            {
-                <figure class="snip1577">
-                    <img src="@Url.Action("~/Content/images/"+item)" alt="sample99" />
+            <h3 class="hny-title mb-0 text-center">Danh Mục </h3>
+
+            <div style="margin: 8px auto; display: block; text-align:center;">
+
+            </div>
+            <div class="welcome-grids row mt-5">
+
+                @foreach (var item in Model)
+
+                {
+
+                    <div class="@Url.Content("col-3 welcome-image")">
+
+                        <figure class="snip1577 boxhny13 ">
+                            <img src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="sample99" />
+                            <figcaption>
+                                <h3>@item.TenLoai</h3>
+                                <h4>Luxery</h4>
+                            </figcaption>
+                            <a href="@Url.Action("ListSanPham","SanPham", new {@MaLSP = item.MaLoaiSP})"></a>
+                        </figure>
+                        <h4 class="text-center"><a href="ecommerce.html">@item.TenLoai</a></h4>
+
+                    </div>
+
+                }
+
+
+
+            </div>
+
+        </div>*@
+
+    <div class="owl-carousel owl-theme">
+
+        @foreach (var item in Model)
+
+        {
+            <div class="item m-3">
+
+                <figure class="snip1577 boxhny13 ">
+                    <img src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="sample99" />
                     <figcaption>
-                        <h3>Bodrum Salvador</h3>
+                        <h3>@item.TenLoai</h3>
                         <h4>Luxery</h4>
                     </figcaption>
-                    <a href="#"></a>
+                    <a href="@Url.Action("ListSanPham","SanPham", new {@MaLSP = item.MaLoaiSP})"></a>
                 </figure>
-            }
-
-            <figure class="snip1577 hover">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample109.jpg" alt="sample109" />
-                <figcaption>
-                    <h3>Jason Response</h3>
-                    <h4>Classic</h4>
-                </figcaption>
-                <a href="#"></a>
-            </figure>
-            <figure class="snip1577">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample117.jpg" alt="sample117" />
-                <figcaption>
-                    <h3>Piff Jenkins</h3>
-                    <h4>Vintage</h4>
-                </figcaption>
-                <a href="#"></a>
-            </figure>
-
-
-        </div>
-        
-    </div>
-   
-
-</div>-->
-<div class="grids-hny-2-mian py-5">
-    <div class="container py-lg-5">
-        <div style="margin: 8px auto; display: block; text-align:center;">
-
-        </div>
-        <h3 class="hny-title mb-0 text-center">Danh Mục </h3>
-
-        <div style="margin: 8px auto; display: block; text-align:center;">
-
-        </div>
-        <div class="welcome-grids row mt-5">
-            @foreach (var item in Model)
-            {
-                <div class="col-3 welcome-image">
-
-                    <figure class="snip1577 boxhny13 ">
-                        <img src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="sample99" />
-                        <figcaption>
-                            <h3>@item.TenLoai</h3>
-                            <h4>Luxery</h4>
-                        </figcaption>
-                        <a href="@Url.Action("ListSanPham","SanPham", new {@MaLSP = item.MaLoaiSP})"></a>
-                    </figure>
-                    <h4 class="text-center"><a href="ecommerce.html">@item.TenLoai</a></h4>
-
-                </div>
-
-            }
-
-
-
             </div>
+        }
 
     </div>
-
 
 </div>
+<style>
+  
+   
+</style>
 
 <script>
-    $(".hover").mouseleave(
-        function () {
-            $(this).removeClass("hover");
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 130,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
+            }
         }
-    );
+    })
 </script>

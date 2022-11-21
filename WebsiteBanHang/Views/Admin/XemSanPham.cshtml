@@ -5,120 +5,127 @@
 @{
     ViewBag.Title = "XemSanPham";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
 }
 
-@{ 
+@*@{ 
     int soSP = 1;
     int tongSoSP = Model.Count();
     int soSPHienThi = 6;
     int soTrang = (tongSoSP / soSPHienThi);
     int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) +1;
     int Trang = 1;
-}
+}*@
+<table id="example" class="table table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Sản Phẩm</th>
+            <th>
 
-<div class="container mt-3">
-    <h2>Danh Sách Sản Phẩm</h2>
-    <table class="table table-hover">
-        <thead>
-            <tr >
-                <th>STT</th>
-                <th >Tên Sản Phẩm</th>
-                <th >
-
-                    Hình Ảnh
-                </th>
-                <th >
-                    Thao Tác
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                if (soSP % (soSPHienThi+1) == 0)
-                {
-                    Trang++;
-                }
-                <tr class=" @Url.Content("item_sp Trang_"+Trang)">
-                    <td >@item.MaSP</td>
-                    <td style="width:700px">@item.TenSP</td>
-                    <td ><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
-                    <td >
-                        <a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a>
-                        <a data-MaSP="@item.MaSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
-                    </td>
-
-                </tr>
-
-                soSP++;
-            }
-
-        </tbody>
-    </table>
-
-    
-    <ul class="pagination justify-content-end">
-      
-        @for (int i = 1; i <= soTrangHienThi; i++)
+                Hình Ảnh
+            </th>
+            <th>
+                Thao Tác
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a class="page-link" href="javascript:void(0);">@i</a></li>
+           
+            <tr>
+                <td>@i</td>
+                <td>@item.TenSP</td>
+                <td >
+                <img style="width:150px;"  src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })">Chỉnh Sửa</a>
+                   
+                    <a data-MaSP="@item.MaSP" id="x" 
+                        class="btn btn-danger x">Xoá</a>
+                        </td>
 
+                    </tr>
+            i++;
         }
 
-       
-    </ul>
-</div>
-<style>
-    .item_sp {
-        display: none;
-    }
-</style>
-<script>
-
-    $('.Trang_1').show();
-    $('.page-item').click(function () {
-        $('.item_sp').hide();
-        var Trang = $(this).attr("data-Trang");
-        $('.Trang_'+@Url.Content("Trang")).show();
-    })
-
-    $(".x").click(function () {
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
-
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#218838',
-            cancelButtonColor: '#c82333',
-            confirmButtonText: 'Xoá',
-            cancelButtonText: 'Không'
-
-        }).then((result) => {
-            if (result.isConfirmed) {
 
 
-                Swal.fire(
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>
 
-                    'Xoá thành công!',
-                    'Your file has been deleted.',
-                    'success'
+                        Hình Ảnh
+                    </th>
+                    <th>
+                        Thao Tác
+                    </th>
 
+                </tr>
+            </tfoot>
+        </table>
 
-
-                )
-
-                var ma = $(this).attr("data-MaSP");
-                var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
-                window.location.href = url;
-
+        <style>
+            .item_sp {
+                display: none;
             }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+                $(".x").click(function () {
+                    Swal.fire({
+                        title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
 
-        })
-    })
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#218838',
+                        cancelButtonColor: '#c82333',
+                        confirmButtonText: 'Xoá',
+                        cancelButtonText: 'Không'
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+
+                            Swal.fire(
+
+                                'Xoá thành công!',
+                                'Your file has been deleted.',
+                                'success'
 
 
 
-</script>
+                            )
+
+                            var ma = $(this).attr("data-MaSP");
+                            var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
+                            window.location.href = url;
+
+                        }
+
+                    })
+                })
+
+            });
+            $('.Trang_1').show();
+            $('.page-item').click(function () {
+                $('.item_sp').hide();
+                var Trang = $(this).attr("data-Trang");
+                $('.Trang_'+@Url.Content("Trang")).show();
+            })
+
+           
+
+
+
+        </script>
 
 
 

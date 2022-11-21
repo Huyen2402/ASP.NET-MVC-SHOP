@@ -4,21 +4,15 @@
 @{
     ViewBag.Title = "DonHangChoXacNhan";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
 }
 
-@{
-    int soLSP = 1;
-    int TongLSP = Model.Count();
-    int soLSPHienThi = 6;
-    int soTrang = TongLSP / soLSPHienThi;
-    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
-    int Trang = 1;
-}
 
-<div class="container mt-3">
+
+
     <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr >
                 <th >STT</th>
@@ -36,12 +30,8 @@
             @foreach (var item in Model)
             {
 
-                if (soLSP % soLSPHienThi == 0)
-                {
-                    Trang++;
-                }
-                <tr class=" @Url.Content("itemLSP Trang_"+Trang)">
-                    <td >@item.MaDDH</td>
+                <tr >
+                    <td >@i</td>
                     <td >@item.ThanhVien.HoTen</td>
                     <td >@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
                     <td >@item.NgayDat</td>
@@ -70,27 +60,16 @@
 
 
                 </tr>
-                soLSP++;
+                i++;
             }
 
 
         </tbody>
 
     </table>
-    <ul class="pagination justify-content-end">
 
 
 
-        @for (int i = 1; i <= kq; i++)
-        {
-            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a >@i</a></li>
-
-        }
-
-
-    </ul>
-
-</div>
 <style>
     .itemLSP {
         display: none;
@@ -98,6 +77,9 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    })
     $(".Trang_1").show();
     $('.page-item').click(function () {
         $('.itemLSP').hide();

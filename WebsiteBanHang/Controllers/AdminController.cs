@@ -534,7 +534,7 @@ namespace WebsiteBanHang.Controllers
             Shop sh = Session["CuaHang"] as Shop;
             DateTime dateStart = DateTime.Now.AddDays(-3);
             DateTime dateEnd = DateTime.Now;
-            List<BinhLuan> listBL = db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd) && s.SanPham.MaShop == sh.MaShop).OrderByDescending(b => b.NgayTao).ToList();
+            List<BinhLuan> listBL = db.BinhLuans.Where(s => s.DaXem == false && s.SanPham.MaShop == sh.MaShop).OrderByDescending(b => b.NgayTao).ToList();
             //List<BinhLuan> listBL = db.BinhLuans.ToList();
 
             return View(listBL);
@@ -649,6 +649,18 @@ namespace WebsiteBanHang.Controllers
         {
             Session["CuaHang"] = null;
             return RedirectToAction("DangNhapCuaHang", "Home");
+        }
+
+        public JsonResult BoQuaBL(int? MaBL)
+        {
+            if(MaBL == null)
+            {
+                Response.StatusCode = 404;
+            }
+            BinhLuan bl = db.BinhLuans.SingleOrDefault(n => n.MaBL == MaBL);
+            bl.DaXem = true;
+            db.SaveChanges();
+            return Json(new {status = true}, JsonRequestBehavior.AllowGet);
         }
 
     }

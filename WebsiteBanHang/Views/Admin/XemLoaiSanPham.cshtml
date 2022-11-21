@@ -20,14 +20,15 @@
 
 
 
-<div class="container mt-3">
+
     <h2>Danh Sách Loại Sản Phẩm</h2>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên loại Sản Phẩm</th>
+                <th>Tên Loại Sản Phẩm</th>
+                <th>Hình Ảnh</th>
                 <th>Thao Tác</th>
 
             </tr>
@@ -42,8 +43,11 @@
                 <tr class="@Url.Content(" itemLSP Trang_"+Trang)">
                     <td>@item.MaLoaiSP</td>
                     <td>@item.TenLoai</td>
-
                     <td>
+                        <img style="width:150px" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
+                    </td>
+                    <td>
+
                         <a href="@Url.Action("SuaLoaiSanPham","Admin", new { @MaLoaiSP = item.MaLoaiSP })" class="btn btn-warning">Chỉnh Sửa</a>
                         <a data-MaLSP="@item.MaLoaiSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
                     </td>
@@ -55,19 +59,8 @@
 
         </tbody>
     </table>
-    <ul class="pagination justify-content-end">
+  
 
-
-
-        @for (int i = 1; i <= kq; i++)
-        {
-            <li data-Trang="@i" class=" @Url.Content("page-item Trang_"+i)"><a class="page-link">@i</a></li>
-
-        }
-
-
-    </ul>
-</div>
 <style>
     .itemLSP{
         display: none;
@@ -75,6 +68,9 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
     $(".Trang_1").show();
     $('.page-item').click(function () {
         $('.itemLSP').hide();
