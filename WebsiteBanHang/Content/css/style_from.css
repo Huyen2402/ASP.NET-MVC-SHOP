@@ -590,3 +590,8 @@ svg:not(:root) {
 .color-wh{
     background-color: white;
 }
+
+.shop-gio-hang {
+    border-bottom: 1px solid rgba(0,0,0,.09);
+    margin-bottom: 32px;
+}

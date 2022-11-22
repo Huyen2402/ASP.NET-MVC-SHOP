@@ -22,6 +22,8 @@ namespace WebsiteBanHang.Controllers
 
                 ViewBag.listgg = db.GiamGias.ToList();
                 List<GioHang> listGioHang = SessionGioHang();
+                List<ShopGioHang> listShopGioHang = SessionShopGioHang();
+                ViewBag.listShopGioHang = listShopGioHang;
                 ViewBag.TongSoLuong = TongSL();
                 ViewBag.TongTien = TongTien();
                 return View(listGioHang);
@@ -38,8 +40,17 @@ namespace WebsiteBanHang.Controllers
             ViewBag.TongTien = TongTien();
             return PartialView();
         }
-        
 
+        public List<ShopGioHang> SessionShopGioHang()
+        {
+            List<ShopGioHang> listShopGioHang = (List<ShopGioHang>)Session["ShopGioHang"];
+            if (listShopGioHang == null)
+            {
+                listShopGioHang = new List<ShopGioHang>();
+                Session["ShopGioHang"] = listShopGioHang;
+            }
+            return listShopGioHang;
+        }
         public List<GioHang> SessionGioHang()
         {
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
@@ -50,7 +61,7 @@ namespace WebsiteBanHang.Controllers
             }
             return listGioHang;
         }
-
+       
         public ActionResult ThemGioHang(int? MaSP, string strURL)
         {
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
@@ -62,8 +73,9 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 //List<GioHang> listGioHang = SessionGioHang();
+                List<ShopGioHang> listShopGioHang = (List<ShopGioHang>)Session["ShopGioHang"];
                 List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
-               
+
                 if (listGioHang != null)
                 {
                     // check sản phẩm đã tồn tại hay chưa?
@@ -79,7 +91,7 @@ namespace WebsiteBanHang.Controllers
                     }
                     else
                     {
-                        
+
                         GioHang newgh = new GioHang((int)MaSP);
                         if (newgh.SoLuong < sp.SoLuongTon)
                         {
@@ -95,7 +107,8 @@ namespace WebsiteBanHang.Controllers
 
                         }
                     }
-                   
+
+
                 }
                 else
                 {
@@ -115,11 +128,13 @@ namespace WebsiteBanHang.Controllers
 
                     }
                 }
-                
+
             }
 
-           
+
+
         }
+      
 
         public int TongSL()
         {
@@ -204,7 +219,8 @@ namespace WebsiteBanHang.Controllers
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
-
+           
+            ViewBag.listShop = db.Shops.ToList();
             ViewBag.listgg = db.GiamGias.ToList();
             ViewBag.TongSoLuong = TongSL();
             ViewBag.TongTien = TongTien();

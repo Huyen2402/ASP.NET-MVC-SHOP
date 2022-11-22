@@ -5,6 +5,7 @@
 @{ 
     List<ChiTietGiamGia> list = ViewBag.list as List<ChiTietGiamGia>;
     List<GiamGia> listgg = ViewBag.listgg as List<GiamGia>;
+    List<Shop> listShop = ViewBag.listShop as List<Shop>;
 }
 
 @{
@@ -12,7 +13,7 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
-<div id="hihi" class="container">
+<div id="hihi" class="container color-wh">
 
     @if (Model.Count == 0)
     {

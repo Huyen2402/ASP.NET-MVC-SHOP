@@ -122,6 +122,7 @@ namespace WebsiteBanHang.Controllers
 
             bl.NgayTao = DateTime.Now;
             bl.MaThanhVien = (Session["TaiKhoan"] as ThanhVien).MaThanhVien;
+            bl.DaXem = false;
             db.BinhLuans.Add(bl);
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == bl.MaSP);
             sp.LuotBinhLuan++;
