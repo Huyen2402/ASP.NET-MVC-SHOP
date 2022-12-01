@@ -218,7 +218,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult ThemSlPartialView()
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
-            ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+            ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien && n.DaSuDung == false).ToList();
            
             ViewBag.listShop = db.Shops.ToList();
             ViewBag.listgg = db.GiamGias.ToList();

@@ -29,7 +29,7 @@
         foreach (var sp in listGioHang)
         {
 
-            if (/*sp.TenShop.Equals(item.Key)*/ sp.MaShop == item.Key)
+            if (sp.MaShop == item.Key)
             {
 
 
@@ -121,7 +121,10 @@
                         if (i.MaGiamGia == j.MaGiamGia)
                         {
 
-                            <option id="@j.MaGiamGia" value="@j.SoTien">@j.TenGiamGia</option>
+                            <option data-CTGG="@i.MaCTGiamGia" id="@j.MaGiamGia" value="@j.SoTien">
+                                @j.TenGiamGia
+
+                            </option>
 
 
 
@@ -129,10 +132,11 @@
 
                     }
                 }
+
             </select>
 
         </span>
-
+        <div id="add-value"></div>
         <div class="clearfix"></div>
 
     </div>
@@ -180,11 +184,11 @@
             console.log("tongTien" + tongTien)
             console.log(mang)
             $(".TienBanDau").remove();
-            $("#tong").html('  <del>' + tongTien + '</del>')
+            $("#tong").html('<label id="TenBL">' + tongTien + '</label>')
             $(".discount").html(
 
                 '<div>' +
-                '<label id="TenBL">' + tongTien + '</label>' +
+                '<label id="TenBL">' + 0 + '</label>' +
 
                 '</div>'
             );
@@ -194,8 +198,9 @@
         $('select').change(function () {
             var optionSelected = $(this).find("option:selected");
             var valueSelected = optionSelected.val();
-            var textSelected = optionSelected.text();
-
+            var textSelected = optionSelected.attr("data-CTGG");
+            $("#add-value").html(' <input type="hidden" id="MaCTGiamGia" name="MaCTGiamGia" value="' + textSelected +'" /> ');
+            console.log(textSelected)
             var tien1 = tongTien;
 
             um = tien1 - valueSelected;
@@ -214,8 +219,10 @@
 
         });
             $("#btn-dathang").click(function () {
+                value = $("#MaCTGiamGia").val();
+                console.log("Value:" + value)
                 if (check) {
-                    var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop;
+                    var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
                     window.location.href = url;
                 } else {
                     alert("Vui lòng đăng nhập để thanh toán!");

@@ -19,7 +19,7 @@ namespace WebsiteBanHang.Controllers
         Entities db = new Entities();
         // GET: DatHang
         [HttpGet]
-        public ActionResult DatHang(int id, decimal ThanhTien, int MaShop)
+        public ActionResult DatHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
         {
            
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
@@ -39,6 +39,8 @@ namespace WebsiteBanHang.Controllers
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
                     ddh.MaTinhTrangGiaoHang = 5;
+                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == MaCTGiamGia);
+                    ctgg.DaSuDung = true;
                     if (id == 1)
                     {
                         ddh.MaDDH = DateTime.Now.Ticks.ToString();
@@ -103,7 +105,7 @@ namespace WebsiteBanHang.Controllers
                             string accessKey = "hWtILE8L8yb1vzVz";
                             string serectkey = "ktQfGrAtjnGWlAUo6Ea2SP7fVhBbzrhK";
                             string orderInfo = "Huyền Cosmetic";
-                            string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop="+MaShop;
+                            string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop="+MaShop + "&MaCTGiamGia=" + MaCTGiamGia;
                             string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
                             string amount = ThanhTien.ToString();
@@ -174,7 +176,7 @@ namespace WebsiteBanHang.Controllers
 
                             string url = ConfigurationManager.AppSettings["Url"];
                             //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
-                            string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop="+MaShop;
+                            string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop="+ MaShop + "&MaCTGiamGia=" + MaCTGiamGia;
                             string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
                             string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
 
@@ -221,7 +223,7 @@ namespace WebsiteBanHang.Controllers
             
         }
 
-        public ActionResult ReturnUrl(int MaShop)
+        public ActionResult ReturnUrl(int MaShop, int MaCTGiamGia)
         {
             string param = Request.QueryString.ToString().Substring(0, Request.QueryString.ToString().IndexOf("signature") - 1);
             param = Server.UrlDecode(param);
@@ -248,6 +250,8 @@ namespace WebsiteBanHang.Controllers
                 }
                 else
                 {
+                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n=>n.MaCTGiamGia == MaCTGiamGia);
+                    ctgg.DaSuDung = true;
                     DonDatHang ddh = new DonDatHang();
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
@@ -310,7 +314,7 @@ namespace WebsiteBanHang.Controllers
             }
             return View();
         }
-        public ActionResult PaymentConfirm(int MaShop)
+        public ActionResult PaymentConfirm(int MaShop, int MaCTGiamGia)
         {
             if (Request.QueryString.Count > 0)
             {
@@ -348,6 +352,8 @@ namespace WebsiteBanHang.Controllers
                         }
                         else
                         {
+                            ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == MaCTGiamGia);
+                            ctgg.DaSuDung = true;
                             DonDatHang ddh = new DonDatHang();
                             string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                             ddh.NgayDat = DateTime.Parse(ngay);

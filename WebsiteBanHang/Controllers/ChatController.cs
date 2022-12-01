@@ -17,12 +17,13 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult Index()
         {
+            Shop shop = Session["CuaHang"] as Shop;
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             IEnumerable<ThanhVien> listTV = db.ThanhViens.ToList();
             List<Chat> messages = new List<Chat>();
             foreach (ThanhVien item in listTV)
             {
-                Chat chat = db.Chats.Where(x => x.FromUserId == item.MaThanhVien && x.FromUserId != tv.MaThanhVien).ToList().LastOrDefault();
+                Chat chat = db.Chats.Where(x => x.FromUserId == item.MaThanhVien && x.FromUserId != shop.MaShop).ToList().LastOrDefault();
                 if (chat != null)
                 {
                     messages.Add(chat);
@@ -59,6 +60,7 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public JsonResult Send(int FromUserId, int ToUserId, string Text, string SIde)
         {
+            Shop shop = Session["CuaHang"] as Shop;
             if (SIde == "Client")
             {
                 Chat chat = db.Chats.ToList().LastOrDefault();
@@ -85,7 +87,7 @@ namespace WebsiteBanHang.Controllers
             {
                 Chat Chat = new Chat();
 
-                Chat.FromUserId = FromUserId;
+                Chat.FromUserId = shop.MaShop;
                 Chat.ToUserId = ToUserId;
                 Chat.Text = Text;
                 Chat.CreatedDate = DateTime.Now;
@@ -115,21 +117,23 @@ namespace WebsiteBanHang.Controllers
 
                 listChat = db.Chats.Where(x => x.FromUserId == WithUserId || x.ToUserId == WithUserId).OrderBy(x => x.CreatedDate).ToList();
 
-                ViewBag.HoTen = db.ThanhViens.Find(WithUserId).HoTen;
+                ViewBag.TenShop = db.Shops.Find(WithUserId).TenShop;
                 return View(listChat);
 
             }
-            ViewBag.HoTen = db.ThanhViens.Find(WithUserId).HoTen;
+
+            ViewBag.TenShop = db.Shops.Find(WithUserId).TenShop;
             return View();
         }
 
         [AllowAnonymous]
         public JsonResult GetNotiMessage()
         {
+            Shop shop = Session["CuaHang"] as Shop;
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             try
             {
-                var listMessage = db.Chats.Where(x => x.Sent == false && x.FromUserId != tv.MaThanhVien).ToList().Select(x => new { ID = x.Id, FromUserID = x.FromUserId, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
+                var listMessage = db.Chats.Where(x => x.Sent == false && x.FromUserId != shop.MaShop ).ToList().Select(x => new { ID = x.Id, FromUserID = x.FromUserId, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
                 return Json(listMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
@@ -140,7 +144,8 @@ namespace WebsiteBanHang.Controllers
         [AllowAnonymous]
         public JsonResult GetNotiComment()
         {
-            var listComment = db.BinhLuans.Where(n=>n.DaXem==false).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaThanhVien, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
+            Shop shop = Session["CuaHang"] as Shop;
+            var listComment = db.BinhLuans.Where(n=>n.DaXem==false && n.SanPham.MaShop == shop.MaShop).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaThanhVien, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
             return Json(listComment, JsonRequestBehavior.AllowGet);
         }
 

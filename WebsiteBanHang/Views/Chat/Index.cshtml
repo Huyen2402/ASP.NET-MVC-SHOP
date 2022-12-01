@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Chat";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    Shop s = Session["CuaHang"] as Shop;
 }
 
 <h2>Danh Sách Khách Hàng</h2>
@@ -53,7 +54,7 @@
                         }
                     }
                     <td>
-                        <a class="btn btn-primary btnEdit" href="@Url.Action("Chating","Chat",new { WithUserID=item.FromUserId, ChatId=item.Id})">Xem</a>
+                        <a class="btn btn-primary btnEdit" href="@Url.Action("Chating","Chat",new { WithUserID=s.MaShop, ChatId=item.Id})">Xem</a>
                     </td>
                 </tr>
             }
