@@ -525,7 +525,7 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XemBinhLuan()
         {
-            DateTime dateStart = DateTime.Now.AddDays(-3);
+            DateTime dateStart = DateTime.Now.AddDays(-45);
             DateTime dateEnd = DateTime.Now;
             List<BinhLuan> listBL = db.BinhLuans.Where(s => (DbFunctions.TruncateTime(s.NgayTao.Value) >= dateStart && DbFunctions.TruncateTime(s.NgayTao.Value) <= dateEnd)).OrderByDescending(b => b.NgayTao).ToList();
             //List<BinhLuan> listBL = db.BinhLuans.ToList();

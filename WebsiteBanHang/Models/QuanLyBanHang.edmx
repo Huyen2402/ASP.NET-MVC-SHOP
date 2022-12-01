@@ -26,6 +26,17 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="Sent" Type="bit" />
         </EntityType>
+        <EntityType Name="Chat2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserId" Type="int" />
+          <Property Name="ToUserId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Sent" Type="bit" />
+          <Property Name="Text" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="ChiTietDonDatHang">
           <Key>
             <PropertyRef Name="MaChiTietDDH1" />
@@ -294,6 +305,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Chat2__FromUserI__22CEE931">
+          <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+          <End Role="Chat2" Type="Self.Chat2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="Chat2">
+              <PropertyRef Name="FromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chat2__ToUserId__23C30D6A">
+          <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="0..1" />
+          <End Role="Chat2" Type="Self.Chat2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="Chat2">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BinhLuan_SanPham">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="*" />
@@ -543,6 +578,7 @@
         <EntityContainer Name="QuanLyBanHangModelStoreContainer">
           <EntitySet Name="BinhLuan" EntityType="Self.BinhLuan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chat2" EntityType="Self.Chat2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="Self.ChiTietDonDatHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="Self.ChiTietPhieuNhap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonDatHang" EntityType="Self.DonDatHang" Schema="dbo" store:Type="Tables" />
@@ -587,6 +623,14 @@
           <AssociationSet Name="DonDatHang_Xa" Association="Self.DonDatHang_Xa">
             <End Role="Xa" EntitySet="Xa" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chat2__FromUserI__22CEE931" Association="Self.FK__Chat2__FromUserI__22CEE931">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="Chat2" EntitySet="Chat2" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chat2__ToUserId__23C30D6A" Association="Self.FK__Chat2__ToUserId__23C30D6A">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="Chat2" EntitySet="Chat2" />
           </AssociationSet>
           <AssociationSet Name="FK_BinhLuan_SanPham" Association="Self.FK_BinhLuan_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -673,9 +717,10 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyBanHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QuanLyBanHangEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BinhLuan" EntityType="QuanLyBanHangModel.BinhLuan" />
           <EntitySet Name="Chat" EntityType="QuanLyBanHangModel.Chat" />
+          <EntitySet Name="Chat2" EntityType="QuanLyBanHangModel.Chat2" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="QuanLyBanHangModel.ChiTietDonDatHang" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" />
           <EntitySet Name="DonDatHang" EntityType="QuanLyBanHangModel.DonDatHang" />
@@ -712,6 +757,14 @@
           <AssociationSet Name="FK_Chat_ThanhVien1" Association="QuanLyBanHangModel.FK_Chat_ThanhVien1">
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="Chat" EntitySet="Chat" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chat2__FromUserI__22CEE931" Association="QuanLyBanHangModel.FK__Chat2__FromUserI__22CEE931">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="Chat2" EntitySet="Chat2" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Chat2__ToUserId__23C30D6A" Association="QuanLyBanHangModel.FK__Chat2__ToUserId__23C30D6A">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="Chat2" EntitySet="Chat2" />
           </AssociationSet>
           <AssociationSet Name="ChiTietDonDatHangtoDonDatHang" Association="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang">
             <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -827,6 +880,19 @@
           <Property Name="Sent" Type="Boolean" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="Chat" ToRole="ThanhVien" />
           <NavigationProperty Name="ThanhVien1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="Chat" ToRole="ThanhVien" />
+        </EntityType>
+        <EntityType Name="Chat2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserId" Type="Int32" />
+          <Property Name="ToUserId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Sent" Type="Boolean" />
+          <Property Name="Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK__Chat2__FromUserI__22CEE931" FromRole="Chat2" ToRole="ThanhVien" />
+          <NavigationProperty Name="ThanhVien1" Relationship="QuanLyBanHangModel.FK__Chat2__ToUserId__23C30D6A" FromRole="Chat2" ToRole="ThanhVien" />
         </EntityType>
         <EntityType Name="ChiTietDonDatHang">
           <Key>
@@ -1029,6 +1095,8 @@
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_BinhLuan_TThanhVien" FromRole="ThanhVien" ToRole="BinhLuan" />
           <NavigationProperty Name="Chat" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="ThanhVien" ToRole="Chat" />
           <NavigationProperty Name="Chat1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="ThanhVien" ToRole="Chat" />
+          <NavigationProperty Name="Chat2" Relationship="QuanLyBanHangModel.FK__Chat2__FromUserI__22CEE931" FromRole="ThanhVien" ToRole="Chat2" />
+          <NavigationProperty Name="Chat21" Relationship="QuanLyBanHangModel.FK__Chat2__ToUserId__23C30D6A" FromRole="ThanhVien" ToRole="Chat2" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.DonDatHang_ThanhVien" FromRole="ThanhVien" ToRole="DonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK_ThanhVientoHuyen" FromRole="ThanhVien" ToRole="Huyen" />
           <NavigationProperty Name="KhachHang" Relationship="QuanLyBanHangModel.FK_KhachHang_ToTable" FromRole="ThanhVien" ToRole="KhachHang" />
@@ -1117,6 +1185,30 @@
               <PropertyRef Name="MaThanhVien" />
             </Principal>
             <Dependent Role="Chat">
+              <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chat2__FromUserI__22CEE931">
+          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.Chat2" Role="Chat2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="Chat2">
+              <PropertyRef Name="FromUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Chat2__ToUserId__23C30D6A">
+          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.Chat2" Role="Chat2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="Chat2">
               <PropertyRef Name="ToUserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1391,12 +1483,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QuanLyBanHangModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="QuanLyBanHangModelStoreContainer" CdmEntityContainer="QuanLyBanHangEntities">
           <EntitySetMapping Name="BinhLuan">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.BinhLuan">
               <MappingFragment StoreEntitySet="BinhLuan">
@@ -1414,6 +1506,18 @@
                 <ScalarProperty Name="Sent" ColumnName="Sent" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+                <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chat2">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.Chat2">
+              <MappingFragment StoreEntitySet="Chat2">
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Sent" ColumnName="Sent" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
                 <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -245,7 +245,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub" style="display: none;">
                                 <li><a href="@Url.Action("XemNguoiDung", "Admin")">Xem Người Dùng</a></li>
-                                <li><a href="@Url.Action("ThemNguoiDung", "Admin")">Thêm Người Dùng</a></li>
+                                @*<li><a href="@Url.Action("ThemNguoiDung", "Admin")">Thêm Người Dùng</a></li>*@
                                 <li><a href="@Url.Action("Index", "Chat")">Chat</a></li>
 
                             </ul>
@@ -732,6 +732,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </section>
         <!--main content end-->
     </section>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: -50px;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+            display: none;
+        }
+    </style>
     <script src="~/Content/Admin/js/bootstrap.js"></script>
     <script src="~/Content/Admin/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="~/Content/Admin/js/scripts.js"></script>

@@ -121,6 +121,7 @@ i.fa-solid.fa-xmark {
     padding: 4px;
     font-size: 12px;
     margin-bottom: 12px;
+   
     max-width: 250px;
    
 }
@@ -128,7 +129,7 @@ i.fa-solid.fa-xmark {
     border: 1px;
     background-color: dodgerblue;
     border-radius: 4px;
-    
+    margin-bottom: 12px;
     padding: 4px;
     font-size: 12px;
     max-width: 250px;

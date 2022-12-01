@@ -13,16 +13,16 @@ namespace WebsiteBanHang.Controllers
 {
     public class ChatController : Controller
     {
-        Entities db = new Entities();
-
+       public Entities db = new Entities();
+       
         public ActionResult Index()
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             IEnumerable<ThanhVien> listTV = db.ThanhViens.ToList();
-            List<Chat> messages = new List<Chat>();
+            List<Chat2> messages = new List<Chat2>();
             foreach (ThanhVien item in listTV)
             {
-                Chat chat = db.Chats.Where(x => x.FromUserId == item.MaThanhVien && x.FromUserId != tv.MaThanhVien).ToList().LastOrDefault();
+                Chat2 chat = db.Chat2.Where(x => x.FromUserId == item.MaThanhVien && x.FromUserId != tv.MaThanhVien).ToList().LastOrDefault();
                 if (chat != null)
                 {
                     messages.Add(chat);
@@ -37,7 +37,7 @@ namespace WebsiteBanHang.Controllers
         {
             try
             {
-                IEnumerable<Chat> listMessage1 = db.Chats.Where(x => x.FromUserId == UserID || x.ToUserId == UserID).OrderBy(x => x.CreatedDate).ToList();
+                IEnumerable<Chat2> listMessage1 = db.Chat2.Where(x => x.FromUserId == UserID || x.ToUserId == UserID).OrderBy(x => x.CreatedDate).ToList();
                 var listMessage = listMessage1.Select(x =>
                 new
                 {
@@ -61,20 +61,21 @@ namespace WebsiteBanHang.Controllers
         {
             if (SIde == "Client")
             {
-                Chat chat = db.Chats.ToList().LastOrDefault();
+                Chat2 chat = db.Chat2.ToList().LastOrDefault();
                 if (chat != null && !chat.Sent.Value)
                 {
                     chat.Sent = true;
                     db.SaveChanges();
+                   
                 }
-                Chat Chat = new Chat();
+                Chat2 Chat = new Chat2();
                 Chat.Sent = false;
                 Chat.FromUserId = FromUserId;
                 Chat.ToUserId = ToUserId;
                 Chat.Text = Text;
                 Chat.CreatedDate = DateTime.Now;
 
-                db.Chats.Add(Chat);
+                db.Chat2.Add(Chat);
                 db.SaveChanges();
                 return Json(new
                 {
@@ -83,7 +84,7 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                Chat Chat = new Chat();
+                Chat2 Chat = new Chat2();
 
                 Chat.FromUserId = FromUserId;
                 Chat.ToUserId = ToUserId;
@@ -91,7 +92,7 @@ namespace WebsiteBanHang.Controllers
                 Chat.CreatedDate = DateTime.Now;
                 Chat.Sent = true;
 
-                db.Chats.Add(Chat);
+                db.Chat2.Add(Chat);
                 db.SaveChanges();
                 return Json(new
                 {
@@ -102,18 +103,18 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult Chating(int WithUserId, int ChatId = 0)
         {
-            IEnumerable<Chat> listChat;
+            IEnumerable<Chat2> listChat;
             if (ChatId != 0)
             {
                 //Update Sent
-                Chat chat = db.Chats.Find(ChatId);
+                Chat2 chat = db.Chat2.Find(ChatId);
                 if (!chat.Sent.Value)
                 {
                     chat.Sent = true;
                     db.SaveChanges();
                 }
-
-                listChat = db.Chats.Where(x => x.FromUserId == WithUserId || x.ToUserId == WithUserId).OrderBy(x => x.CreatedDate).ToList();
+              
+                listChat = db.Chat2.Where(x => x.FromUserId == WithUserId || x.ToUserId == WithUserId).OrderBy(x => x.CreatedDate).ToList();
 
                 ViewBag.HoTen = db.ThanhViens.Find(WithUserId).HoTen;
                 return View(listChat);
@@ -129,7 +130,7 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             try
             {
-                var listMessage = db.Chats.Where(x => x.Sent == false && x.FromUserId != tv.MaThanhVien).ToList().Select(x => new { ID = x.Id, FromUserID = x.FromUserId, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
+                var listMessage = db.Chat2.Where(x => x.Sent == false && x.FromUserId != tv.MaThanhVien).ToList().Select(x => new { ID = x.Id, FromUserID = x.FromUserId, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
                 return Json(listMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
