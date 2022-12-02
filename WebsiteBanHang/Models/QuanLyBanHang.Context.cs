@@ -27,6 +27,7 @@ namespace WebsiteBanHang.Models
     
         public virtual DbSet<BinhLuan> BinhLuans { get; set; }
         public virtual DbSet<Chat> Chats { get; set; }
+        public virtual DbSet<ChatwithShop> ChatwithShops { get; set; }
         public virtual DbSet<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
         public virtual DbSet<ChiTietGiamGia> ChiTietGiamGias { get; set; }
         public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }

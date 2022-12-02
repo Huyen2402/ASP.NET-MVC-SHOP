@@ -1,5 +1,5 @@
 ﻿@using WebsiteBanHang.Models
-@model List<Chat>
+@model List<ChatwithShop>
 
 @{
     ViewBag.Title = "Chat";
@@ -29,32 +29,32 @@
                     <td>
                         <b>@Html.DisplayFor(modelItem => item.Text)</b>
                     </td>
-                    @if (DateTime.Now.Subtract(item.CreatedDate.Value).TotalDays <= 31)
+                    @if (DateTime.Now.Subtract(item.NgayTao.Value).TotalDays <= 31)
                     {
-                        if (DateTime.Now.Subtract(item.CreatedDate.Value).TotalHours <= 24)
+                        if (DateTime.Now.Subtract(item.NgayTao.Value).TotalHours <= 24)
                         {
-                            if (DateTime.Now.Subtract(item.CreatedDate.Value).TotalMinutes <= 60)
+                            if (DateTime.Now.Subtract(item.NgayTao.Value).TotalMinutes <= 60)
                             {
                                 <td>
-                                    @DateTime.Now.Subtract(item.CreatedDate.Value).Minutes phút trước
+                                    @DateTime.Now.Subtract(item.NgayTao.Value).Minutes phút trước
                                 </td>
                             }
                             else
                             {
                                 <td>
-                                    @DateTime.Now.Subtract(item.CreatedDate.Value).Hours giờ @DateTime.Now.Subtract(item.CreatedDate.Value).Minutes phút trước
+                                    @DateTime.Now.Subtract(item.NgayTao.Value).Hours giờ @DateTime.Now.Subtract(item.NgayTao.Value).Minutes phút trước
                                 </td>
                             }
                         }
                         else
                         {
                             <td>
-                                @DateTime.Now.Subtract(item.CreatedDate.Value).Days ngày trước
+                                @DateTime.Now.Subtract(item.NgayTao.Value).Days ngày trước
                             </td>
                         }
                     }
                     <td>
-                        <a class="btn btn-primary btnEdit" href="@Url.Action("Chating","Chat",new { WithUserID=s.MaShop, ChatId=item.Id})">Xem</a>
+                        <a class="btn btn-primary btnEdit" href="@Url.Action("Chating","Chat",new { WithUserID=item.MaThanhVien})">Xem</a>
                     </td>
                 </tr>
             }

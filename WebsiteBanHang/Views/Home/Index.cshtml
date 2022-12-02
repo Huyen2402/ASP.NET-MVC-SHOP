@@ -90,6 +90,36 @@
     @Html.Action("SanPhamGoiY", "Home")
 
 </div>
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    .scroller {
+        width: 300px;
+        height: 100px;
+        overflow-y: scroll;
+        scrollbar-color: rebeccapurple green;
+        scrollbar-width: thin;
+    }
+
+    #nhan {
+        margin-bottom: 12px;
+    }
+</style>
 <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
 <script src="~/signalr/hubs" type="text/javascript"></script>
 <script>
@@ -146,7 +176,7 @@
                         }
                     }
                 })
-                $("#body-chat").animate({ scrollTop: 2000000 });
+                $("#body-chat").animate({ scrollTop: 2000000 }) ;
                
             }
         }

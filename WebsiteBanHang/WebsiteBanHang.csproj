@@ -202,6 +202,9 @@
     <Compile Include="Models\Chat.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChatwithShop.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChiTietDonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -590,6 +593,7 @@
     <Content Include="Views\Home\DangNhapCuaHang.cshtml" />
     <Content Include="Views\Layout\ShopLayout.cshtml" />
     <Content Include="Views\Shop\CheckAvtShop.cshtml" />
+    <Content Include="Views\Chat\ChatWithShop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

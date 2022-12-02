@@ -27,6 +27,18 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="Sent" Type="bit" />
         </EntityType>
+        <EntityType Name="ChatwithShop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaShop" Type="int" Nullable="false" />
+          <Property Name="MaThanhVien" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="500" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="DaXem" Type="bit" />
+          <Property Name="Client" Type="bit" />
+        </EntityType>
         <EntityType Name="ChiTietDonDatHang">
           <Key>
             <PropertyRef Name="MaChiTietDDH1" />
@@ -321,6 +333,30 @@
             </Principal>
             <Dependent Role="DonDatHang">
               <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChatwithS__MaSho__1492AB17">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+          <End Role="ChatwithShop" Type="Self.ChatwithShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="ChatwithShop">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChatwithS__MaTha__1586CF50">
+          <End Role="ThanhVien" Type="Self.ThanhVien" Multiplicity="1" />
+          <End Role="ChatwithShop" Type="Self.ChatwithShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="ChatwithShop">
+              <PropertyRef Name="MaThanhVien" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -657,6 +693,7 @@
         <EntityContainer Name="QuanLyBanHangModelStoreContainer">
           <EntitySet Name="BinhLuan" EntityType="Self.BinhLuan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatwithShop" EntityType="Self.ChatwithShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="Self.ChiTietDonDatHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietGiamGia" EntityType="Self.ChiTietGiamGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="Self.ChiTietPhieuNhap" Schema="dbo" store:Type="Tables" />
@@ -703,6 +740,14 @@
           <AssociationSet Name="DonDatHang_Xa" Association="Self.DonDatHang_Xa">
             <End Role="Xa" EntitySet="Xa" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChatwithS__MaSho__1492AB17" Association="Self.FK__ChatwithS__MaSho__1492AB17">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ChatwithShop" EntitySet="ChatwithShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChatwithS__MaTha__1586CF50" Association="Self.FK__ChatwithS__MaTha__1586CF50">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="ChatwithShop" EntitySet="ChatwithShop" />
           </AssociationSet>
           <AssociationSet Name="FK__ChiTietGi__MaGia__673F4B05" Association="Self.FK__ChiTietGi__MaGia__673F4B05">
             <End Role="GiamGia" EntitySet="GiamGia" />
@@ -820,6 +865,7 @@
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BinhLuan" EntityType="QuanLyBanHangModel.BinhLuan" />
           <EntitySet Name="Chat" EntityType="QuanLyBanHangModel.Chat" />
+          <EntitySet Name="ChatwithShop" EntityType="QuanLyBanHangModel.ChatwithShop" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="QuanLyBanHangModel.ChiTietDonDatHang" />
           <EntitySet Name="ChiTietGiamGia" EntityType="QuanLyBanHangModel.ChiTietGiamGia" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" />
@@ -858,6 +904,14 @@
           <AssociationSet Name="FK_Chat_ThanhVien1" Association="QuanLyBanHangModel.FK_Chat_ThanhVien1">
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="Chat" EntitySet="Chat" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChatwithS__MaSho__1492AB17" Association="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ChatwithShop" EntitySet="ChatwithShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChatwithS__MaTha__1586CF50" Association="QuanLyBanHangModel.FK__ChatwithS__MaTha__1586CF50">
+            <End Role="ThanhVien" EntitySet="ThanhVien" />
+            <End Role="ChatwithShop" EntitySet="ChatwithShop" />
           </AssociationSet>
           <AssociationSet Name="ChiTietDonDatHangtoDonDatHang" Association="QuanLyBanHangModel.ChiTietDonDatHangtoDonDatHang">
             <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -1002,6 +1056,20 @@
           <Property Name="Sent" Type="Boolean" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="Chat" ToRole="ThanhVien" />
           <NavigationProperty Name="ThanhVien1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="Chat" ToRole="ThanhVien" />
+        </EntityType>
+        <EntityType Name="ChatwithShop">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaShop" Type="Int32" Nullable="false" />
+          <Property Name="MaThanhVien" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="DaXem" Type="Boolean" />
+          <Property Name="Client" Type="Boolean" />
+          <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17" FromRole="ChatwithShop" ToRole="Shop" />
+          <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaTha__1586CF50" FromRole="ChatwithShop" ToRole="ThanhVien" />
         </EntityType>
         <EntityType Name="ChiTietDonDatHang">
           <Key>
@@ -1201,6 +1269,7 @@
           <Property Name="SDT" Type="Int32" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="XacNhan" Type="Boolean" />
+          <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17" FromRole="Shop" ToRole="ChatwithShop" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="Shop" ToRole="DonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK__Shop__MaHuyen__002AF460" FromRole="Shop" ToRole="Huyen" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
@@ -1245,6 +1314,7 @@
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_BinhLuan_TThanhVien" FromRole="ThanhVien" ToRole="BinhLuan" />
           <NavigationProperty Name="Chat" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="ThanhVien" ToRole="Chat" />
           <NavigationProperty Name="Chat1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="ThanhVien" ToRole="Chat" />
+          <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaTha__1586CF50" FromRole="ThanhVien" ToRole="ChatwithShop" />
           <NavigationProperty Name="ChiTietGiamGia" Relationship="QuanLyBanHangModel.FK__ChiTietGi__MaTha__68336F3E" FromRole="ThanhVien" ToRole="ChiTietGiamGia" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.DonDatHang_ThanhVien" FromRole="ThanhVien" ToRole="DonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK_ThanhVientoHuyen" FromRole="ThanhVien" ToRole="Huyen" />
@@ -1336,6 +1406,30 @@
             </Principal>
             <Dependent Role="Chat">
               <PropertyRef Name="ToUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChatwithS__MaSho__1492AB17">
+          <End Type="QuanLyBanHangModel.Shop" Role="Shop" Multiplicity="1" />
+          <End Type="QuanLyBanHangModel.ChatwithShop" Role="ChatwithShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="ChatwithShop">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChatwithS__MaTha__1586CF50">
+          <End Type="QuanLyBanHangModel.ThanhVien" Role="ThanhVien" Multiplicity="1" />
+          <End Type="QuanLyBanHangModel.ChatwithShop" Role="ChatwithShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThanhVien">
+              <PropertyRef Name="MaThanhVien" />
+            </Principal>
+            <Dependent Role="ChatwithShop">
+              <PropertyRef Name="MaThanhVien" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1720,6 +1814,19 @@
                 <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
                 <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatwithShop">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.ChatwithShop">
+              <MappingFragment StoreEntitySet="ChatwithShop">
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="DaXem" ColumnName="DaXem" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

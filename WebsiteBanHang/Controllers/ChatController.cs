@@ -18,12 +18,12 @@ namespace WebsiteBanHang.Controllers
         public ActionResult Index()
         {
             Shop shop = Session["CuaHang"] as Shop;
-            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            //ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             IEnumerable<ThanhVien> listTV = db.ThanhViens.ToList();
-            List<Chat> messages = new List<Chat>();
+            List<ChatwithShop> messages = new List<ChatwithShop>();
             foreach (ThanhVien item in listTV)
             {
-                Chat chat = db.Chats.Where(x => x.FromUserId == item.MaThanhVien && x.FromUserId != shop.MaShop).ToList().LastOrDefault();
+                ChatwithShop chat = db.ChatwithShops.Where(x => x.MaThanhVien == item.MaThanhVien && x.MaShop != shop.MaShop).ToList().LastOrDefault();
                 if (chat != null)
                 {
                     messages.Add(chat);
@@ -36,18 +36,48 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public JsonResult GetAllMessageChating(int UserID) //2
         {
+            Shop shop = Session["CuaHang"] as Shop;
             try
             {
-                IEnumerable<Chat> listMessage1 = db.Chats.Where(x => x.FromUserId == UserID || x.ToUserId == UserID).OrderBy(x => x.CreatedDate).ToList();
+                IEnumerable<ChatwithShop> listMessage1 = db.ChatwithShops.Where(x => x.MaThanhVien == UserID && x.MaShop == shop.MaShop).OrderBy(x => x.NgayTao).ToList();
                 var listMessage = listMessage1.Select(x =>
                 new
                 {
-                    Id = x.Id,
-                    FromUserID = x.FromUserId,
+                    Id = x.ID,
+                    FromUserID = x.MaShop,
                     Text = x.Text,
-                    CreatedDate = x.CreatedDate.Value,
-                    FromUserName = x.ThanhVien.HoTen
-                });
+                    CreatedDate = x.NgayTao.Value,
+                    FromUserName = x.ThanhVien.HoTen,
+                    Client = x.Client,
+                    TenShop = shop.TenShop
+                }) ;
+                return Json(listMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult GetAllMessageChatingWithShop(int UserID) //2
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            try
+            {
+                IEnumerable<ChatwithShop> listMessage1 = db.ChatwithShops.Where(x => x.MaShop == UserID && x.MaThanhVien == tv.MaThanhVien ).OrderBy(x => x.NgayTao).ToList();
+                var listMessage = listMessage1.Select(x =>
+                new
+                {
+                    Id = x.ID,
+                    FromUserID = x.MaShop,
+                    Text = x.Text,
+                    CreatedDate = x.NgayTao.Value,
+                    FromUserName = x.Shop.TenShop,
+                    TenThanhVien = tv.HoTen,
+                    Client = x.Client
+
+
+                }) ;
                 return Json(listMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
@@ -63,20 +93,20 @@ namespace WebsiteBanHang.Controllers
             Shop shop = Session["CuaHang"] as Shop;
             if (SIde == "Client")
             {
-                Chat chat = db.Chats.ToList().LastOrDefault();
-                if (chat != null && !chat.Sent.Value)
+                ChatwithShop chat = db.ChatwithShops.ToList().LastOrDefault();
+                if (chat != null && !chat.DaXem.Value)
                 {
-                    chat.Sent = true;
+                    chat.DaXem = true;
                     db.SaveChanges();
                 }
-                Chat Chat = new Chat();
-                Chat.Sent = false;
-                Chat.FromUserId = FromUserId;
-                Chat.ToUserId = ToUserId;
+                ChatwithShop Chat = new ChatwithShop();
+                Chat.DaXem = false;
+                Chat.MaThanhVien = FromUserId;
+                Chat.MaShop = ToUserId;
                 Chat.Text = Text;
-                Chat.CreatedDate = DateTime.Now;
-
-                db.Chats.Add(Chat);
+                Chat.NgayTao = DateTime.Now;
+                Chat.Client = true;
+                db.ChatwithShops.Add(Chat);
                 db.SaveChanges();
                 return Json(new
                 {
@@ -85,15 +115,15 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                Chat Chat = new Chat();
+                ChatwithShop Chat = new ChatwithShop();
 
-                Chat.FromUserId = shop.MaShop;
-                Chat.ToUserId = ToUserId;
+                Chat.MaShop = shop.MaShop;
+                Chat.MaThanhVien = ToUserId;
                 Chat.Text = Text;
-                Chat.CreatedDate = DateTime.Now;
-                Chat.Sent = true;
-
-                db.Chats.Add(Chat);
+                Chat.NgayTao = DateTime.Now;
+                Chat.DaXem = true;
+                Chat.Client = false;
+                db.ChatwithShops.Add(Chat);
                 db.SaveChanges();
                 return Json(new
                 {
@@ -102,28 +132,21 @@ namespace WebsiteBanHang.Controllers
             }
         }
 
-        public ActionResult Chating(int WithUserId, int ChatId = 0)
+        public ActionResult Chating(int WithUserId)
         {
-            IEnumerable<Chat> listChat;
-            if (ChatId != 0)
-            {
-                //Update Sent
-                Chat chat = db.Chats.Find(ChatId);
-                if (!chat.Sent.Value)
-                {
-                    chat.Sent = true;
-                    db.SaveChanges();
-                }
+            Shop shop = Session["CuaHang"] as Shop;
+            IEnumerable<ChatwithShop> listChat;
+           
 
-                listChat = db.Chats.Where(x => x.FromUserId == WithUserId || x.ToUserId == WithUserId).OrderBy(x => x.CreatedDate).ToList();
+                listChat = db.ChatwithShops.Where(x => x.MaThanhVien == WithUserId || x.MaShop == WithUserId).OrderBy(x => x.NgayTao).ToList();
 
-                ViewBag.TenShop = db.Shops.Find(WithUserId).TenShop;
+                ViewBag.TenShop = shop.TenShop;
+            ViewBag.MaShop = shop.MaShop;
                 return View(listChat);
 
-            }
+            
 
-            ViewBag.TenShop = db.Shops.Find(WithUserId).TenShop;
-            return View();
+            
         }
 
         [AllowAnonymous]
@@ -133,7 +156,7 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             try
             {
-                var listMessage = db.Chats.Where(x => x.Sent == false && x.FromUserId != shop.MaShop ).ToList().Select(x => new { ID = x.Id, FromUserID = x.FromUserId, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
+                var listMessage = db.ChatwithShops.Where(x => x.DaXem == false && x.MaShop == shop.MaShop ).ToList().Select(x => new { ID = x.ID, FromUserID = x.MaThanhVien, FromUserAvatar = "user.png", FromUserName = x.ThanhVien.HoTen , CreatedDate = (DateTime.Now - x.NgayTao.Value).Minutes }); ;
                 return Json(listMessage, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
@@ -148,6 +171,24 @@ namespace WebsiteBanHang.Controllers
             var listComment = db.BinhLuans.Where(n=>n.DaXem==false && n.SanPham.MaShop == shop.MaShop).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaThanhVien, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
             return Json(listComment, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult ChatWithShop(int WithUserId)
+        {
+            IEnumerable<ChatwithShop> listChat;
+          
+
+                listChat = db.ChatwithShops.Where(x => x.MaShop == WithUserId || x.MaThanhVien == WithUserId).OrderBy(x => x.NgayTao).ToList();
+
+                ViewBag.TenShop = db.Shops.Find(WithUserId).TenShop;
+                return View(listChat);
+
+           
+        }
+
+      
+
+
 
     }
 }
