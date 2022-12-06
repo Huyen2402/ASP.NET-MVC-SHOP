@@ -595,3 +595,28 @@ svg:not(:root) {
     border-bottom: 1px solid rgba(0,0,0,.09);
     margin-bottom: 32px;
 }
+.shopee-sort-bar {
+    font-weight: 400;
+    background: rgba(0,0,0,.03);
+    padding: 0.8125rem 1.25rem;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.shopee-sort-bar__label {
+    color: #555;
+    margin: 0 0.3125rem 0 0;
+}
+.sap-xep {
+    background-color: aliceblue;
+    padding: 8px;
+}
+.item-sx{
+    background-color:white;
+    margin: 0 3px;
+
+}
+.btn-reponsive{
+    min-width: 75px;
+}

@@ -11,6 +11,7 @@
 
 <h1 class="text-center mt-4">Tất Cả Sản Phẩm</h1>
 <div class="product">
+
     <div class="container">
         <div class="col-md-3 product-price">
             <div class="product-middle mb-3">
@@ -80,7 +81,32 @@
 
         </div>
         <div class="col-md-9 product1">
-            <div class=" row bottom-product">
+            <input id="MaShop" type="hidden" name="name" value="@Model.MaShop" />
+            <div  class="row sap-xep ">
+                <div class="col-1 text-center">Sắp xếp theo</div>
+                <div class="col-1  "><a id="popular" class="btn btn-outline-secondary btn-reponsive">Phổ biến</a></div>
+                <div class="col-1  "><a id="new" class="btn btn-outline-secondary btn-reponsive">Mới nhất</a></div>
+                <div class="col-1 "><a id="best-sell" class="btn btn-outline-secondary btn-reponsive">Bán chạy</a></div>
+                <div class="col-2  ">
+                    <form action="/" method="post">
+                        <select class="form-select" id="sell" name="sellist1">
+                            <option>---Giá---</option>
+                            <option  value="1">Từ thấp đến cao</option>
+                            <option value="2">Từ cao đến thấp</option>
+
+                        </select>
+                    </form>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-2  ">
+                    <ul style="margin:0" class="pagination justify-content-end">
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
+
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="product-shop" class=" row bottom-product">
                 @foreach (var item in list)
                 {
 
@@ -100,7 +126,7 @@
                             decimal? number = item.DonGia;
                             string GiaTien = number.Value.ToString("#,##0");
                         }
-                        <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="item_add ThemGioHang">
+                        <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()"  class="item_add ThemGioHang">
                             <p class="number item_price"><i> </i>@GiaTien</p>
                         </a>
                     </div>
@@ -116,42 +142,166 @@
     </div>
 </div>
 <script>
-    $(".ThemGioHang").click(function () {
-        var MaSP = $(this).attr("data-MaSP");
-        var strURL = $(this).attr("data-strURL");
-        $.ajax({
+    $(document).ready(function () {
 
+        $("#new").click(function () {
+            var MaShop = $("#MaShop").val();
 
-            type: "get",
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/NewProduct?MaShop=" + MaShop,
 
-            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
-            contentType: "html",
-            statusCode: {
-                400: function (xhr) {
+                dataType: 'JSON',
 
-                    Swal.fire({
+                success: function (data) {
 
-                        icon: 'error',
-                        title: 'Sản phẩm đã hết hàng',
-                        showConfirmButton: false,
-                        timer: 1500
-
-                    })
-                }
-            },
-            success: function (response) {
-                debugger
-
-
-                $("#GioHangPartial").html(response);
-
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>'
+                            );
+                        });
+                    }
+                },
 
             }
 
+            )
         })
 
+        $("#best-sell").click(function () {
+            var MaShop = $("#MaShop").val();
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/BestSell?MaShop=" + MaShop,
+
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>' +
+                                '    <a id="ThemGioHang" data-MaSP="' + field.MaSP + '" data-strURL="' + window.location + '"  class="item_add ThemGioHang">' +
+                                ' <p data-MaSP="' + field.MaSP + '" data-strURL="' + window.location + '"  class="number item_price ThemGioHang"><i> </i>' + field.DonGia + '</p>' +
+                                ' </a>' +
+                                ' </div > '
+                            );
+                        });
+                    }
+                },
+
+            }
+
+            )
+        })
+
+        $("#sell").change(function () {
+
+            var val = $('#sell option:selected').val()
+            var MaShop = $("#MaShop").val();
+            console.log(val)
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/filterProduct?MaShop=" + MaShop + "&val=" + val,
+
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>'
+                            );
+                        });
+                    }
+                },
+
+            }
+
+            )
+        })
+        $(".ThemGioHang").on("click", function () {
+            /*$("#ThemGioHang").click(function () {*/
+            var MaSP = $(this).attr("data-MaSP");
+            alert(MaSP)
+            var strURL = $(this).attr("data-strURL");
+            $.ajax({
+
+
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+                contentType: "html",
+                statusCode: {
+                    400: function (xhr) {
+
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Sản phẩm đã hết hàng',
+                            showConfirmButton: false,
+                            timer: 1500
+
+                        })
+                    }
+                },
+                success: function (response) {
+                    debugger
+
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+
+            })
 
 
 
-    })
+
+        })
+    });
+
+
+
+
 </script>

@@ -78,5 +78,37 @@ namespace WebsiteBanHang.Controllers
 
             return RedirectToAction("DangNhapCuaHang", "Home");
         }
+
+        public JsonResult NewProduct(int? MaShop)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SanPham> listNew = db.SanPhams.Where(x=>x.MaShop == MaShop && x.DaXoa == false).OrderByDescending(n => n.NgayCapNhat).ToList();
+            
+            //return Json( new { status = true,  } , JsonRequestBehavior.AllowGet);
+            return Json(listNew, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult BestSell(int? MaShop)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<SanPham> bestSell = db.SanPhams.Where(x => x.MaShop == MaShop && x.DaXoa == false).OrderByDescending(n => n.SoLanMua).ToList();
+
+            //return Json( new { status = true,  } , JsonRequestBehavior.AllowGet);
+            return Json(bestSell, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult filterProduct(int MaShop, int val)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            if(val == 1)
+            {
+                List<SanPham> listFilter = db.SanPhams.Where(x => x.DaXoa == false && x.MaShop == MaShop).OrderBy(n => n.DonGia).ToList();
+                return Json(listFilter, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<SanPham> listFilter = db.SanPhams.Where(x => x.DaXoa == false && x.MaShop == MaShop).OrderByDescending(n => n.DonGia).ToList();
+                return Json(listFilter, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
