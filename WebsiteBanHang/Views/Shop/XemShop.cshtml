@@ -259,16 +259,12 @@
 
             )
         })
-        $(".ThemGioHang").on("click", function () {
-            /*$("#ThemGioHang").click(function () {*/
+            $(".ThemGioHang").one('click', function () {
             var MaSP = $(this).attr("data-MaSP");
             alert(MaSP)
             var strURL = $(this).attr("data-strURL");
             $.ajax({
-
-
                 type: "get",
-
                 url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
                 contentType: "html",
                 statusCode: {
@@ -285,23 +281,10 @@
                     }
                 },
                 success: function (response) {
-                    debugger
-
-
                     $("#GioHangPartial").html(response);
-
-
                 }
 
             })
-
-
-
-
         })
     });
-
-
-
-
 </script>
