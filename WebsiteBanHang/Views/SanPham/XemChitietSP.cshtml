@@ -81,13 +81,16 @@
                         <del>@GiaTien</del>
                         <h5 class="item_price">@GiaTien </h5>
                     </div>*@
+                @{ 
+                    decimal? Giacuoicung = Model.DonGia - (Model.DonGia * Model.KhuyenMai)/100;
+                }
                 <div class="flex flex-column _38g6so">
                     <div class="flex items-center">
                         <div class="flex items-center _34BHKe">
-                            <div class="_2yjfFH">₫220.000</div>
+                            <div class="_2yjfFH">₫@Model.DonGia</div>
                             <div class="flex items-center">
-                                <div class="_2Shl1j">₫@GiaTien</div>
-                                <div class="_3PlIlX">19% giảm</div>
+                                <div class="_2Shl1j">₫@Giacuoicung</div>
+                                <div class="_3PlIlX">@Model.KhuyenMai % giảm</div>
                             </div>
                         </div>
                     </div>

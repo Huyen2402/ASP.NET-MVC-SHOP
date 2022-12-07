@@ -1,11 +1,31 @@
 ﻿@using WebsiteBanHang.Models;
 @model IEnumerable<SanPham>
 
-
+@{ 
+    FlashSale fl = ViewBag.Day as FlashSale;
+}
 <div class="content-top container flash-sale">
-   
+
+    @*<div>
+        <strong>
+            Nhập thông tin ban đầu: <br />
+        </strong>
+        <input type="text" id="h_val" placeholder="Giờ" value="" /> <br />
+        <input type="text" id="m_val" placeholder="Phút" value="" /> <br />
+        <input type="text" id="s_val" placeholder="Giây" value="" />
+        <input type="button" value="Start" onclick="start()" />
+        <input type="button" value="Stop" onclick="stop()" />  <br /> <br />
+    </div>*@
+
+
     <h1>Flash Sale</h1>
+    <div id="time-flash-sale">
+        <span class="time" id="h">Giờ</span> :
+        <span class="time" id="m">Phút</span> :
+        <span class="time" id="s">Giây</span>
+    </div>
     <div class="grid-in">
+        <input id="time" type="hidden" name="name" value="@fl.ThoiGianSale" />
         @foreach (var item in Model)
         {
             <input type="hidden" name="name" value="" id="@item.MaShop" />
@@ -31,3 +51,72 @@
     <div class="clearfix"></div>
 </div>
 
+<style>
+    .time {
+        border: solid 1px #ACACAC;
+        padding: 2px;
+    }
+    #time-flash-sale {
+        display: flex;
+        justify-content: flex-end;
+        
+        margin-right: 70px;
+    }
+</style>
+<script language="javascript">
+   
+    var val = document.getElementById("time").value
+    const myArray = val.split(":");
+    console.log(myArray)
+    var h = myArray[0]; // Giờ
+    var m = myArray[1]; // Phút
+    var s = myArray[2]; // Giây
+
+    var timeout = null; // Timeout
+
+    function start() {
+        // Code
+        /*BƯỚC 1: LẤY GIÁ TRỊ BAN ĐẦU*/
+       
+
+        /*BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU*/
+        // Nếu số giây = -1 tức là đã chạy ngược hết số giây, lúc này:
+        //  - giảm số phút xuống 1 đơn vị
+        //  - thiết lập số giây lại 59
+        if (s === -1) {
+            m -= 1;
+            s = 59;
+        }
+
+        // Nếu số phút = -1 tức là đã chạy ngược hết số phút, lúc này:
+        //  - giảm số giờ xuống 1 đơn vị
+        //  - thiết lập số phút lại 59
+        if (m === -1) {
+            h -= 1;
+            m = 59;
+        }
+
+        // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
+        //  - Dừng chương trình
+        if (h == -1) {
+            clearTimeout(timeout);
+            alert('Hết giờ');
+            return false;
+        }
+
+        /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
+        document.getElementById('h').innerText = h.toString();
+        document.getElementById('m').innerText = m.toString();
+        document.getElementById('s').innerText = s.toString();
+
+        /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
+        timeout = setTimeout(function () {
+            s--;
+            start();
+        }, 1000);
+    }
+    start()
+    function stop() {
+        clearTimeout(timeout);
+    }
+</script>

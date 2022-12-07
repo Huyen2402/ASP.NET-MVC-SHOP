@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "AddDiscount";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+
+<h2>AddDiscount</h2>
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Phần trăm chiết khấu:</label>
+
+            <div class="col-md-10">
+                <input id="discount" type="number" name="name" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="addDiscount" type="button" value="Thêm" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+        $("#addDiscount").click(function () {
+            var discount = $("#discount").val();
+            console.log(discount)
+            $.ajax({
+
+
+                type: "get",
+
+                url: "http://localhost:62979/Admin/AddDiscount123?sale=" + discount,
+                dataType: 'JSON',
+
+                success: function (status) {
+
+                    if (status) {
+                        console.log("Thành công")
+                        Swal.fire({
+                         
+                            icon: 'success',
+                            title: 'Tạo Flash Sale thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+
+
+
+
+                }
+
+            })
+        })
+       
+    </script>
+

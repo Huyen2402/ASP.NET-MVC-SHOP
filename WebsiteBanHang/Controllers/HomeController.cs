@@ -187,6 +187,15 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult ProductFlashSale()
         {
+            DateTime CurrentDay = DateTime.Now;
+            List<FlashSale> listFlash = db.FlashSales.ToList();
+            foreach (FlashSale flashSale in listFlash)
+            {
+                if (flashSale.NgaySale.Value.Date == CurrentDay.Date && flashSale.NgaySale.Value.Month == CurrentDay.Month && flashSale.NgaySale.Value.Year == CurrentDay.Year)
+                {
+                    ViewBag.Day = flashSale;
+                }
+            }
 
             List<SanPham> listSP = db.SanPhams.Take(6).ToList();
             return PartialView(listSP);

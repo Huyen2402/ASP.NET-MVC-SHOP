@@ -157,6 +157,7 @@
                     success: function (data) {
                         chatbox.empty()
                         if (data.length > 0) {
+                            console.log(data)
                             $.each(data, function (i, model) {
                                 if (model.FromUserID == userID) {
                                     lastMessID = model.ID;

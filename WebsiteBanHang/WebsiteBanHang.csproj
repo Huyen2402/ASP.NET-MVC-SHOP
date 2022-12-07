@@ -208,6 +208,9 @@
     <Compile Include="Models\ChiTietDonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChiTietFlashSale.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChiTietGiamGia.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -217,6 +220,9 @@
     <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DonDatHang.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FlashSale.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GiamGia.cs">
@@ -594,6 +600,9 @@
     <Content Include="Views\Layout\ShopLayout.cshtml" />
     <Content Include="Views\Shop\CheckAvtShop.cshtml" />
     <Content Include="Views\Chat\ChatWithShop.cshtml" />
+    <Content Include="Views\Admin\AddFlashSale.cshtml" />
+    <Content Include="Views\Admin\AddProductFlashSale.cshtml" />
+    <Content Include="Views\Admin\AddDiscount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

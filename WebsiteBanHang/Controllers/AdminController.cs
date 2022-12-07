@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Xml.Schema;
 using WebsiteBanHang.Extensions;
@@ -662,6 +663,72 @@ namespace WebsiteBanHang.Controllers
             db.SaveChanges();
             return Json(new {status = true}, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult AddFlashSale()
+        {
+            List<FlashSale> listsale = db.FlashSales.ToList();
+          
+
+            return View(listsale);
+        }
+
+        
+        public ActionResult AddFlashSale(int MaSP, int MaSale)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddProductFlashSale(int MaSale)
+        {
+            Shop shop = Session["CuaHang"] as Shop;
+            ViewBag.MaSale = MaSale;
+            List<SanPham> listSp = db.SanPhams.Where(n => n.MaShop == shop.MaShop && n.DaXoa == false).ToList();
+            return View(listSp);
+        }
+
+
+        [HttpGet]
+        public ActionResult AddChiTietFlashSale(int MaSP, int MaSale)
+        {
+            
+                SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                if(sp != null)
+                {
+                    ChiTietFlashSale ct = new ChiTietFlashSale();
+                    ct.MaSP = MaSP;
+                    ct.MaSale = MaSale;
+                    db.ChiTietFlashSales.Add(ct);
+                    db.SaveChanges();
+                }   
+
+               return View("AddDiscount");
+            
+        }
+
+        [HttpGet]
+        public ActionResult AddDiscount()
+        {
+            return View();
+        }
+     
+        public JsonResult AddDiscount123(int sale)
+        {
+            Shop shop = Session["CuaHang"] as Shop;
+          
+            foreach (ChiTietFlashSale ct in db.ChiTietFlashSales)
+            {
+                if(ct.MaShop == shop.MaShop)
+                {
+                    SanPham sp = db.SanPhams.Single(n => n.MaSP == ct.MaSP);
+                    sp.KhuyenMai = sale;
+                }
+            }
+            db.SaveChanges();
+            return Json(new {status =true}, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

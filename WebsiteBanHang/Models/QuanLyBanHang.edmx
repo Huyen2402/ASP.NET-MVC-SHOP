@@ -50,6 +50,15 @@
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="ChiTietFlashSale">
+          <Key>
+            <PropertyRef Name="MaChiTietSale" />
+          </Key>
+          <Property Name="MaChiTietSale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSale" Type="int" />
+          <Property Name="MaSP" Type="int" />
+          <Property Name="MaShop" Type="int" />
+        </EntityType>
         <EntityType Name="ChiTietGiamGia">
           <Key>
             <PropertyRef Name="MaCTGiamGia" />
@@ -84,6 +93,14 @@
           <Property Name="MaXa" Type="int" />
           <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="MaShop" Type="int" />
+        </EntityType>
+        <EntityType Name="FlashSale">
+          <Key>
+            <PropertyRef Name="MaSale" />
+          </Key>
+          <Property Name="MaSale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgaySale" Type="datetime" />
+          <Property Name="ThoiGianSale" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GiamGia">
           <Key>
@@ -184,6 +201,7 @@
           <Property Name="SEOKeyword" Type="nvarchar" MaxLength="500" />
           <Property Name="MoTaNgan" Type="nvarchar(max)" />
           <Property Name="MaShop" Type="int" />
+          <Property Name="KhuyenMai" Type="int" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -357,6 +375,42 @@
             </Principal>
             <Dependent Role="ChatwithShop">
               <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFl__MaSal__19232161">
+          <End Role="FlashSale" Type="Self.FlashSale" Multiplicity="0..1" />
+          <End Role="ChiTietFlashSale" Type="Self.ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlashSale">
+              <PropertyRef Name="MaSale" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
+              <PropertyRef Name="MaSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFl__MaSho__1236F807">
+          <End Role="Shop" Type="Self.Shop" Multiplicity="0..1" />
+          <End Role="ChiTietFlashSale" Type="Self.ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFla__MaSP__1A17459A">
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+          <End Role="ChiTietFlashSale" Type="Self.ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
+              <PropertyRef Name="MaSP" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -695,9 +749,11 @@
           <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChatwithShop" EntityType="Self.ChatwithShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="Self.ChiTietDonDatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietFlashSale" EntityType="Self.ChiTietFlashSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietGiamGia" EntityType="Self.ChiTietGiamGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="Self.ChiTietPhieuNhap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonDatHang" EntityType="Self.DonDatHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlashSale" EntityType="Self.FlashSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiamGia" EntityType="Self.GiamGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Huyen" EntityType="Self.Huyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
@@ -748,6 +804,18 @@
           <AssociationSet Name="FK__ChatwithS__MaTha__1586CF50" Association="Self.FK__ChatwithS__MaTha__1586CF50">
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="ChatwithShop" EntitySet="ChatwithShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFl__MaSal__19232161" Association="Self.FK__ChiTietFl__MaSal__19232161">
+            <End Role="FlashSale" EntitySet="FlashSale" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFl__MaSho__1236F807" Association="Self.FK__ChiTietFl__MaSho__1236F807">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFla__MaSP__1A17459A" Association="Self.FK__ChiTietFla__MaSP__1A17459A">
+            <End Role="SanPham" EntitySet="SanPham" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
           </AssociationSet>
           <AssociationSet Name="FK__ChiTietGi__MaGia__673F4B05" Association="Self.FK__ChiTietGi__MaGia__673F4B05">
             <End Role="GiamGia" EntitySet="GiamGia" />
@@ -867,9 +935,11 @@
           <EntitySet Name="Chat" EntityType="QuanLyBanHangModel.Chat" />
           <EntitySet Name="ChatwithShop" EntityType="QuanLyBanHangModel.ChatwithShop" />
           <EntitySet Name="ChiTietDonDatHang" EntityType="QuanLyBanHangModel.ChiTietDonDatHang" />
+          <EntitySet Name="ChiTietFlashSale" EntityType="QuanLyBanHangModel.ChiTietFlashSale" />
           <EntitySet Name="ChiTietGiamGia" EntityType="QuanLyBanHangModel.ChiTietGiamGia" />
           <EntitySet Name="ChiTietPhieuNhap" EntityType="QuanLyBanHangModel.ChiTietPhieuNhap" />
           <EntitySet Name="DonDatHang" EntityType="QuanLyBanHangModel.DonDatHang" />
+          <EntitySet Name="FlashSale" EntityType="QuanLyBanHangModel.FlashSale" />
           <EntitySet Name="GiamGia" EntityType="QuanLyBanHangModel.GiamGia" />
           <EntitySet Name="Huyen" EntityType="QuanLyBanHangModel.Huyen" />
           <EntitySet Name="KhachHang" EntityType="QuanLyBanHangModel.KhachHang" />
@@ -924,6 +994,18 @@
           <AssociationSet Name="FK_ChiTietDonDatHang_SanPham" Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietDonDatHang" EntitySet="ChiTietDonDatHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFl__MaSal__19232161" Association="QuanLyBanHangModel.FK__ChiTietFl__MaSal__19232161">
+            <End Role="FlashSale" EntitySet="FlashSale" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFl__MaSho__1236F807" Association="QuanLyBanHangModel.FK__ChiTietFl__MaSho__1236F807">
+            <End Role="Shop" EntitySet="Shop" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietFla__MaSP__1A17459A" Association="QuanLyBanHangModel.FK__ChiTietFla__MaSP__1A17459A">
+            <End Role="SanPham" EntitySet="SanPham" />
+            <End Role="ChiTietFlashSale" EntitySet="ChiTietFlashSale" />
           </AssociationSet>
           <AssociationSet Name="FK__ChiTietGi__MaGia__673F4B05" Association="QuanLyBanHangModel.FK__ChiTietGi__MaGia__673F4B05">
             <End Role="GiamGia" EntitySet="GiamGia" />
@@ -1085,6 +1167,18 @@
           <NavigationProperty Name="DonDatHang1" Relationship="QuanLyBanHangModel.DonDatHang_ChiTietDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="ChiTietDonDatHang" ToRole="SanPham" />
         </EntityType>
+        <EntityType Name="ChiTietFlashSale">
+          <Key>
+            <PropertyRef Name="MaChiTietSale" />
+          </Key>
+          <Property Name="MaChiTietSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSale" Type="Int32" />
+          <Property Name="MaSP" Type="Int32" />
+          <Property Name="MaShop" Type="Int32" />
+          <NavigationProperty Name="FlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSal__19232161" FromRole="ChiTietFlashSale" ToRole="FlashSale" />
+          <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSho__1236F807" FromRole="ChiTietFlashSale" ToRole="Shop" />
+          <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK__ChiTietFla__MaSP__1A17459A" FromRole="ChiTietFlashSale" ToRole="SanPham" />
+        </EntityType>
         <EntityType Name="ChiTietGiamGia">
           <Key>
             <PropertyRef Name="MaCTGiamGia" />
@@ -1131,6 +1225,15 @@
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.DonDatHang_ThanhVien" FromRole="DonDatHang" ToRole="ThanhVien" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.DonDatHang_Xa" FromRole="DonDatHang" ToRole="Xa" />
           <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="DonDatHang" ToRole="Shop" />
+        </EntityType>
+        <EntityType Name="FlashSale">
+          <Key>
+            <PropertyRef Name="MaSale" />
+          </Key>
+          <Property Name="MaSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgaySale" Type="DateTime" Precision="3" />
+          <Property Name="ThoiGianSale" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSal__19232161" FromRole="FlashSale" ToRole="ChiTietFlashSale" />
         </EntityType>
         <EntityType Name="GiamGia">
           <Key>
@@ -1245,8 +1348,10 @@
           <Property Name="SEOKeyword" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MoTaNgan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaShop" Type="Int32" />
+          <Property Name="KhuyenMai" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_BinhLuan_SanPham" FromRole="SanPham" ToRole="BinhLuan" />
           <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="SanPham" ToRole="ChiTietDonDatHang" />
+          <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFla__MaSP__1A17459A" FromRole="SanPham" ToRole="ChiTietFlashSale" />
           <NavigationProperty Name="ChiTietPhieuNhap" Relationship="QuanLyBanHangModel.FK_ChiTietPhieuNhap_SanPham" FromRole="SanPham" ToRole="ChiTietPhieuNhap" />
           <NavigationProperty Name="loaiSanPham" Relationship="QuanLyBanHangModel.FK_SanPham_LoaiSanPham" FromRole="SanPham" ToRole="loaiSanPham" />
           <NavigationProperty Name="NhaCungCap" Relationship="QuanLyBanHangModel.FK_SanPham_NhaCungCap" FromRole="SanPham" ToRole="NhaCungCap" />
@@ -1270,6 +1375,7 @@
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="XacNhan" Type="Boolean" />
           <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17" FromRole="Shop" ToRole="ChatwithShop" />
+          <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSho__1236F807" FromRole="Shop" ToRole="ChiTietFlashSale" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="Shop" ToRole="DonDatHang" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK__Shop__MaHuyen__002AF460" FromRole="Shop" ToRole="Huyen" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
@@ -1465,6 +1571,42 @@
               <PropertyRef Name="MaSP" />
             </Principal>
             <Dependent Role="ChiTietDonDatHang">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFl__MaSal__19232161">
+          <End Type="QuanLyBanHangModel.FlashSale" Role="FlashSale" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.ChiTietFlashSale" Role="ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlashSale">
+              <PropertyRef Name="MaSale" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
+              <PropertyRef Name="MaSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFl__MaSho__1236F807">
+          <End Type="QuanLyBanHangModel.Shop" Role="Shop" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.ChiTietFlashSale" Role="ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shop">
+              <PropertyRef Name="MaShop" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
+              <PropertyRef Name="MaShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietFla__MaSP__1A17459A">
+          <End Type="QuanLyBanHangModel.SanPham" Role="SanPham" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.ChiTietFlashSale" Role="ChiTietFlashSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="ChiTietFlashSale">
               <PropertyRef Name="MaSP" />
             </Dependent>
           </ReferentialConstraint>
@@ -1842,6 +1984,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietFlashSale">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietFlashSale">
+              <MappingFragment StoreEntitySet="ChiTietFlashSale">
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaSale" ColumnName="MaSale" />
+                <ScalarProperty Name="MaChiTietSale" ColumnName="MaChiTietSale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ChiTietGiamGia">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietGiamGia">
               <MappingFragment StoreEntitySet="ChiTietGiamGia">
@@ -1877,6 +2029,15 @@
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="DaThanhToan" ColumnName="DaThanhToan" />
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlashSale">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.FlashSale">
+              <MappingFragment StoreEntitySet="FlashSale">
+                <ScalarProperty Name="ThoiGianSale" ColumnName="ThoiGianSale" />
+                <ScalarProperty Name="NgaySale" ColumnName="NgaySale" />
+                <ScalarProperty Name="MaSale" ColumnName="MaSale" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1966,6 +2127,7 @@
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="KhuyenMai" ColumnName="KhuyenMai" />
                 <ScalarProperty Name="MaShop" ColumnName="MaShop" />
                 <ScalarProperty Name="MoTaNgan" ColumnName="MoTaNgan" />
                 <ScalarProperty Name="SEOKeyword" ColumnName="SEOKeyword" />

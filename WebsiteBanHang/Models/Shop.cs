@@ -18,6 +18,7 @@ namespace WebsiteBanHang.Models
         public Shop()
         {
             this.ChatwithShop = new HashSet<ChatwithShop>();
+            this.ChiTietFlashSale = new HashSet<ChiTietFlashSale>();
             this.DonDatHang = new HashSet<DonDatHang>();
             this.SanPham = new HashSet<SanPham>();
         }
@@ -37,6 +38,8 @@ namespace WebsiteBanHang.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatwithShop> ChatwithShop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietFlashSale> ChiTietFlashSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonDatHang> DonDatHang { get; set; }
         public virtual Huyen Huyen { get; set; }

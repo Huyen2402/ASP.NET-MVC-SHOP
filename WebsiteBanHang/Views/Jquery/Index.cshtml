@@ -4,41 +4,85 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
-<div id="full">
-    <button id="btn-dangnhap" class="btn btn-success">Đăng nhập </button>
-    <div id="popup-login">
-
-        <div class="container">
-
-            <div id="form_dangnhap">
-                <h2>Đăng nhập</h2>
-                <form>
-                    <i id="close" class="fa-solid fa-xmark"></i>
-
-                    <div>
-                        <span class="control-label">Email</span>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <input class="form-control" type="password">
-                    </div>
-                    <button class="btn btn-danger ">Đăng nhập</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
+<div>
+    <strong>
+        Nhập thông tin ban đầu: <br />
+    </strong>
+    <input type="text" id="h_val" placeholder="Giờ" value="" /> <br />
+    <input type="text" id="m_val" placeholder="Phút" value="" /> <br />
+    <input type="text" id="s_val" placeholder="Giây" value="" />
+    <input type="button" value="Start" onclick="start()" />
+    <input type="button" value="Stop" onclick="stop()" />  <br /> <br />
 </div>
 
-<script type="text/javascript">
-    $("#btn-dangnhap").click(function () {
-        $("#popup-login").fadeIn(300);
-    });
-
-    $("#close").click(function () {
-        $("#popup-login").hide();
+<div>
+    <span id="h">Giờ</span> :
+    <span id="m">Phút</span> :
+    <span id="s">Giây</span>
+</div>
+<style>
+                span {
+        border: solid 1px #ACACAC;
+        padding: 2px;
     }
-    );
-</script>
 
+
+</style>
+<script language="javascript">
+
+    var h = null; // Giờ
+    var m = null; // Phút
+    var s = null; // Giây
+
+    var timeout = null; // Timeout
+
+    function start() {
+        // Code
+        /*BƯỚC 1: LẤY GIÁ TRỊ BAN ĐẦU*/
+        if (h === null) {
+            h = parseInt(document.getElementById('h_val').value);
+            m = parseInt(document.getElementById('m_val').value);
+            s = parseInt(document.getElementById('s_val').value);
+        }
+
+        /*BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU*/
+        // Nếu số giây = -1 tức là đã chạy ngược hết số giây, lúc này:
+        //  - giảm số phút xuống 1 đơn vị
+        //  - thiết lập số giây lại 59
+        if (s === -1) {
+            m -= 1;
+            s = 59;
+        }
+
+        // Nếu số phút = -1 tức là đã chạy ngược hết số phút, lúc này:
+        //  - giảm số giờ xuống 1 đơn vị
+        //  - thiết lập số phút lại 59
+        if (m === -1) {
+            h -= 1;
+            m = 59;
+        }
+
+        // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
+        //  - Dừng chương trình
+        if (h == -1) {
+            clearTimeout(timeout);
+            alert('Hết giờ');
+            return false;
+        }
+
+        /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
+        document.getElementById('h').innerText = h.toString();
+        document.getElementById('m').innerText = m.toString();
+        document.getElementById('s').innerText = s.toString();
+
+        /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
+        timeout = setTimeout(function () {
+            s--;
+            start();
+        }, 1000);
+    }
+
+    function stop() {
+        clearTimeout(timeout);
+    }
+</script>
