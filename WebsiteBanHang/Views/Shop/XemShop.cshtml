@@ -82,7 +82,7 @@
         </div>
         <div class="col-md-9 product1">
             <input id="MaShop" type="hidden" name="name" value="@Model.MaShop" />
-            <div  class="row sap-xep ">
+            <div class="row sap-xep ">
                 <div class="col-1 text-center">Sắp xếp theo</div>
                 <div class="col-1  "><a id="popular" class="btn btn-outline-secondary btn-reponsive">Phổ biến</a></div>
                 <div class="col-1  "><a id="new" class="btn btn-outline-secondary btn-reponsive">Mới nhất</a></div>
@@ -91,7 +91,7 @@
                     <form action="/" method="post">
                         <select class="form-select" id="sell" name="sellist1">
                             <option>---Giá---</option>
-                            <option  value="1">Từ thấp đến cao</option>
+                            <option value="1">Từ thấp đến cao</option>
                             <option value="2">Từ cao đến thấp</option>
 
                         </select>
@@ -126,7 +126,7 @@
                             decimal? number = item.DonGia;
                             string GiaTien = number.Value.ToString("#,##0");
                         }
-                        <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()"  class="item_add ThemGioHang">
+                        <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" class="item_add ThemGioHang">
                             <p class="number item_price"><i> </i>@GiaTien</p>
                         </a>
                     </div>
@@ -259,7 +259,7 @@
 
             )
         })
-            $(".ThemGioHang").one('click', function () {
+        $(document).on('click', '.ThemGioHang', function (e) {
             var MaSP = $(this).attr("data-MaSP");
             alert(MaSP)
             var strURL = $(this).attr("data-strURL");
@@ -285,6 +285,7 @@
                 }
 
             })
+            return false;
         })
     });
 </script>
