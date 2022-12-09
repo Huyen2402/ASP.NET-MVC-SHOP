@@ -124,6 +124,8 @@ namespace WebsiteBanHang.Controllers
         
         public ActionResult DangXuat()
         {
+            
+            
             Session["TaiKhoan"] = null;
             return RedirectToAction("Index");
         }
