@@ -178,6 +178,17 @@ namespace WebsiteBanHang.Controllers
             return View();
          
         }
+        public ActionResult ViewAllFlashSale()
+        {
+            List<ChiTietFlashSale> listspsale = db.ChiTietFlashSales.ToList();
+            List<SanPham> listSp = new List<SanPham>();
+            foreach(var item in listspsale)
+            {
+                SanPham sp = db.SanPhams.FirstOrDefault(n => n.MaSP == item.MaSP && n.DaXoa == false);
+                listSp.Add(sp);
+            }
+            return View(listSp);
+        }
 
     }
 }

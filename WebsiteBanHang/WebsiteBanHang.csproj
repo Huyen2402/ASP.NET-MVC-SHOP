@@ -219,6 +219,9 @@
     </Compile>
     <Compile Include="Models\DataChart.cs" />
     <Compile Include="Models\DataPoint.cs" />
+    <Compile Include="Models\DiaChi.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -506,6 +509,7 @@
     <Content Include="Models\QuanLyBanHang.edmx.diagram">
       <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
     </Content>
+    <Content Include="MLModel1.mbconfig" />
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -603,6 +607,9 @@
     <Content Include="Views\Admin\AddFlashSale.cshtml" />
     <Content Include="Views\Admin\AddProductFlashSale.cshtml" />
     <Content Include="Views\Admin\AddDiscount.cshtml" />
+    <Content Include="Views\SanPham\ViewAllFlashSale.cshtml" />
+    <Content Include="Views\DatHang\MuaHang.cshtml" />
+    <Content Include="Views\DatHang\DiaChiPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

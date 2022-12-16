@@ -1,0 +1,82 @@
+﻿@using WebsiteBanHang.Models
+@model Shop
+
+
+@{
+    ViewBag.Title = "MuaHang";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
+@{ 
+    List<GioHang> listSP = ViewBag.listSP as List<GioHang>;
+}
+<div class="container color-wh ">
+    @Html.Action("DiaChiPartial", "DatHang")
+    <hr />
+    <div>
+        <h2>Sản phẩm</h2>
+        <b>@Model.TenShop</b>
+        <div>
+            @foreach (var sp in listSP)
+            {
+
+           
+
+
+            <div id="hide" class="cart-header">
+          
+             
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="cart-item cyc">
+                        <img src="@Url.Content("~/Content/images/"+sp.HinhAnh)" class="img-responsive" alt="">
+                    </div>
+                    <div class="cart-item-info">
+                        <h3><a href="#">@sp.TenSP</a><span>Số lượng: @sp.SoLuong</span></h3>
+                       
+                        @{
+                            decimal? number = sp.Dongia;
+                            string GiaTien = number.Value.ToString("#,##0");
+                        }
+                        <div class="delivery">
+                            <p>Giá: @GiaTien</p>
+                            <span>Thời gian nhận hàng từ 5-7 ngày</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            
+
+            }
+        </div>
+    </div>
+
+    <hr />
+    <div>
+        <h4>Giảm giá của Shop: -15k</h4>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-2">Đơn vị vận chuyển:</div>
+        <div class="col-4">
+            Nhanh
+            Nhận hàng vào 20 Th12 - 22 Th12
+        </div>
+        <div class="col-2"><button>Thay đổi</button></div>
+        <div class="col-2">₫42.500</div>
+    </div>
+    <hr />
+    <div>
+        Tổng số tiền (@listSP.Count sản phẩm):
+        ₫141.500
+    </div>
+    <hr />
+    <div>
+        <button>
+            ĐẶT HÀNG
+        </button>
+    </div>
+</div>
+
+

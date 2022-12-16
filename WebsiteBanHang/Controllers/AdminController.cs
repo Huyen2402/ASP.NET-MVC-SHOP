@@ -689,24 +689,34 @@ namespace WebsiteBanHang.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult AddChiTietFlashSale(int MaSP, int MaSale)
+        [HttpPost]
+        public JsonResult AddChiTietFlashSale(int[] arr, int MaSale)
         {
-            
+            Shop shop = Session["CuaHang"] as Shop;
+            for(int i =0; i <= arr.Length-1; i++)
+            {
+                int MaSP = arr[i];
                 SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
-                if(sp != null)
+                if (sp != null)
                 {
                     ChiTietFlashSale ct = new ChiTietFlashSale();
-                    ct.MaSP = MaSP;
+                    ct.MaSP = arr[i];
                     ct.MaSale = MaSale;
+                    ct.MaShop = shop.MaShop;
                     db.ChiTietFlashSales.Add(ct);
                     db.SaveChanges();
-                }   
 
-               return View("AddDiscount");
-            
+                    Session["arrMaSP"] = arr;
+
+                }
+              
+            }
+           
+           
+            return Json(new {status = true}, JsonRequestBehavior.AllowGet);
+
         }
-
+      
         [HttpGet]
         public ActionResult AddDiscount()
         {
@@ -716,16 +726,25 @@ namespace WebsiteBanHang.Controllers
         public JsonResult AddDiscount123(int sale)
         {
             Shop shop = Session["CuaHang"] as Shop;
-          
-            foreach (ChiTietFlashSale ct in db.ChiTietFlashSales)
+            int[] arr= Session["arrMaSP"] as int[];
+
+
+           
+            for(int i =0; i <= arr.Length-1; i++)
             {
-                if(ct.MaShop == shop.MaShop)
+                foreach (ChiTietFlashSale ct in db.ChiTietFlashSales)
                 {
-                    SanPham sp = db.SanPhams.Single(n => n.MaSP == ct.MaSP);
-                    sp.KhuyenMai = sale;
+                    if (ct.MaShop == shop.MaShop)
+                    {
+                        int MaSP = arr[i];
+                        SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                        sp.KhuyenMai = sale;
+                    }
                 }
             }
+
             db.SaveChanges();
+            Session["arrMaSP"] = null;
             return Json(new {status =true}, JsonRequestBehavior.AllowGet);
         }
 

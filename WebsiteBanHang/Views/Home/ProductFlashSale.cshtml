@@ -19,13 +19,15 @@
 
 
     <h1>Flash Sale</h1>
+    <a href="@Url.Action("ViewAllFlashSale","SanPham")" id="view-all">Xem tất cả</a>
     <div id="time-flash-sale">
-        <span class="time" id="h">Giờ</span> :
-        <span class="time" id="m">Phút</span> :
-        <span class="time" id="s">Giây</span>
+        <span class="time" id="days">Ngảy</span> :
+        <span class="time" id="hours">Giờ</span> :
+        <span class="time" id="minutes">Phút</span> :
+        <span class="time" id="seconds">Giây</span>
     </div>
     <div class="grid-in">
-        <input id="time" type="hidden" name="name" value="@fl.ThoiGianSale" />
+        <input id="time" type="hidden" name="name" value="@fl.EndTime" />
         @foreach (var item in Model)
         {
             <input type="hidden" name="name" value="" id="@item.MaShop" />
@@ -56,7 +58,7 @@
         border: solid 1px #ACACAC;
         padding: 2px;
     }
-    #time-flash-sale {
+    #time-flash-sale, #view-all {
         display: flex;
         justify-content: flex-end;
         
@@ -64,59 +66,54 @@
     }
 </style>
 <script language="javascript">
-   
+
     var val = document.getElementById("time").value
-    const myArray = val.split(":");
+    console.log(val)
+    var ngay = val.slice(0, 10)
+    var gio = val.slice(11,19)
+    console.log(ngay)
+    console.log(gio)
+    const myArray = ngay.split("/");
+    const myArray2 = gio.split(":");
     console.log(myArray)
-    var h = myArray[0]; // Giờ
-    var m = myArray[1]; // Phút
-    var s = myArray[2]; // Giây
+    console.log(myArray2)
+    var day = myArray[0]; // Giờ
+    var month = myArray[1]; // Phút
+    var year = myArray[2]; // Giây
+    var hour = myArray2[0]
+    var phut = myArray2[1]
+    var giay = myArray2[2]
+    
 
-    var timeout = null; // Timeout
+    
+        function makeTimer() {
 
-    function start() {
-        // Code
-        /*BƯỚC 1: LẤY GIÁ TRỊ BAN ĐẦU*/
-       
+            //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
+            var endTime = new Date(year + "," + month + "," + day + " " + hour + ": " + phut + ": " + giay + " ");
+            console.log(endTime)
 
-        /*BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU*/
-        // Nếu số giây = -1 tức là đã chạy ngược hết số giây, lúc này:
-        //  - giảm số phút xuống 1 đơn vị
-        //  - thiết lập số giây lại 59
-        if (s === -1) {
-            m -= 1;
-            s = 59;
-        }
+        endTime = (Date.parse(endTime) / 1000);
+        var now = new Date();
+        now = (Date.parse(now) / 1000);
 
-        // Nếu số phút = -1 tức là đã chạy ngược hết số phút, lúc này:
-        //  - giảm số giờ xuống 1 đơn vị
-        //  - thiết lập số phút lại 59
-        if (m === -1) {
-            h -= 1;
-            m = 59;
-        }
+        var timeLeft = endTime - now;
 
-        // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
-        //  - Dừng chương trình
-        if (h == -1) {
-            clearTimeout(timeout);
-            alert('Hết giờ');
-            return false;
-        }
+        var days = Math.floor(timeLeft / 86400);
+        var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+        var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60);
+        var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
 
-        /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
-        document.getElementById('h').innerText = h.toString();
-        document.getElementById('m').innerText = m.toString();
-        document.getElementById('s').innerText = s.toString();
+        if (hours < "10") {hours = "0" + hours; }
+        if (minutes < "10") {minutes = "0" + minutes; }
+        if (seconds < "10") {seconds = "0" + seconds; }
 
-        /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
-        timeout = setTimeout(function () {
-            s--;
-            start();
-        }, 1000);
+        $("#days").html(days + "<span>Days</span>");
+        $("#hours").html(hours + "<span>Hours</span>");
+        $("#minutes").html(minutes + "<span>Minutes</span>");
+        $("#seconds").html(seconds + "<span>Seconds</span>");
+
     }
-    start()
-    function stop() {
-        clearTimeout(timeout);
-    }
+
+        setInterval(function () {makeTimer(); }, 1000);
+
 </script>

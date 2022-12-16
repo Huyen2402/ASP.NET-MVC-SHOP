@@ -70,12 +70,26 @@
             arr.push(val);
 
             console.log(arr)
-            $("#addProduct").click(function () {
-                $.each(arr, function (i, field) {
-                    window.location.href = "http://localhost:62979/Admin/AddChiTietFlashSale?MaSP=" + field + "&MaSale=" + MaSale
+          
+            
 
-                })
-            })
+        })
+        $("#addProduct").click(function (e) {
+
+            $.ajax({
+                type: "POST",
+                data: { arr: arr, MaSale: MaSale },
+                url: "http://localhost:62979/Admin/AddChiTietFlashSale",
+                success: function (status) {
+                    if (status) {
+
+                        console.log("gghfh")
+                        return window.location.href = "http://localhost:62979/Admin/AddDiscount"
+
+                    }
+                }
+
+            });
 
 
         })

@@ -58,29 +58,33 @@ namespace WebsiteBanHang.Controllers
 
                         for (var i = 0; i < listGioHang.Count(); i++)
                         {
-                            ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
-                            ct.MaDDH = ddh.MaDDH;
-
-                            ct.MaSP = listGioHang[i].MaSP;
-                            ct.TenSP = listGioHang[i].TenSP;
-                            ct.SoLuong = listGioHang[i].SoLuong;
-                            ct.DonGia = listGioHang[i].Dongia;
-                            db.ChiTietDonDatHangs.Add(ct);
-
-                            if (ct != null)
+                            if (listGioHang[i].MaShop == MaShop)
                             {
-                                SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
-                                spsl.SoLuongTon--;
-                                spsl.SoLanMua++;
+                                ChiTietDonDatHang ct = new ChiTietDonDatHang();
+
+                                ct.MaDDH = ddh.MaDDH;
+
+                                ct.MaSP = listGioHang[i].MaSP;
+                                ct.TenSP = listGioHang[i].TenSP;
+                                ct.SoLuong = listGioHang[i].SoLuong;
+                                ct.DonGia = listGioHang[i].Dongia;
+                                db.ChiTietDonDatHangs.Add(ct);
+
+                                if (ct != null)
+                                {
+                                    SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
+                                    spsl.SoLuongTon--;
+                                    spsl.SoLanMua++;
+                                }
+
+
+
                             }
 
-
-
+                            db.SaveChanges();
+                            Session["GioHang"] = null;
                         }
-
-                        db.SaveChanges();
-                        Session["GioHang"] = null;
+                           
                     }
                     if (id == 2)
                     {
@@ -425,6 +429,29 @@ namespace WebsiteBanHang.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult MuaHang(int MaShop)
+        {
+            Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+            List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
+            List<GioHang> listSP = new List<GioHang>();
+            for (int i=0; i <= listSPGioHang.Count - 1; i++)
+            {
+                if(listSPGioHang[i].MaShop == MaShop)
+                {
+                    listSP.Add(listSPGioHang[i]);
+                }
+            }
+            ViewBag.listSP = listSP;
+            return View(shop);
+        }
+
+        public ActionResult DiaChiPartial()
+        {
+            int iduser = (int)Session["idKH"];
+            List<DiaChi> listDC = db.DiaChis.Where(n => n.MaThanhVien == iduser).ToList();
+            return PartialView(listDC);
         }
 
 

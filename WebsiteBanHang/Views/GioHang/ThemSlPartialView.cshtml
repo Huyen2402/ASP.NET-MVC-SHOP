@@ -218,11 +218,24 @@
 
 
         });
-            $("#btn-dathang").click(function () {
+            //$("#btn-dathang").click(function () {
+            //    value = $("#MaCTGiamGia").val();
+            //    console.log("Value:" + value)
+            //    if (check) {
+            //        var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
+            //        window.location.href = url;
+            //    } else {
+            //        alert("Vui lòng đăng nhập để thanh toán!");
+            //    }
+
+
+            //})
+
+             $("#btn-dathang").click(function () {
                 value = $("#MaCTGiamGia").val();
                 console.log("Value:" + value)
                 if (check) {
-                    var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
+                    var url = "http://localhost:62979/DatHang/MuaHang?MaShop=" + MaShop
                     window.location.href = url;
                 } else {
                     alert("Vui lòng đăng nhập để thanh toán!");

@@ -32,6 +32,7 @@ namespace WebsiteBanHang.Models
         public virtual DbSet<ChiTietFlashSale> ChiTietFlashSales { get; set; }
         public virtual DbSet<ChiTietGiamGia> ChiTietGiamGias { get; set; }
         public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+        public virtual DbSet<DiaChi> DiaChis { get; set; }
         public virtual DbSet<DonDatHang> DonDatHangs { get; set; }
         public virtual DbSet<FlashSale> FlashSales { get; set; }
         public virtual DbSet<GiamGia> GiamGias { get; set; }
