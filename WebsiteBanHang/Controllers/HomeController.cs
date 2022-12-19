@@ -191,7 +191,7 @@ namespace WebsiteBanHang.Controllers
             List<FlashSale> listFlash = db.FlashSales.ToList();
             foreach (FlashSale flashSale in listFlash)
             {
-                if (flashSale.NgaySale.Value.Date == CurrentDay.Date && flashSale.NgaySale.Value.Month == CurrentDay.Month && flashSale.NgaySale.Value.Year == CurrentDay.Year)
+                if (flashSale.NgaySale.Value.Date <= CurrentDay.Date && flashSale.NgaySale.Value.Month == CurrentDay.Month && flashSale.NgaySale.Value.Year == CurrentDay.Year)
                 {
                     ViewBag.Day = flashSale;
                 }

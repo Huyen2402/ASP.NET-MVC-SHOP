@@ -449,10 +449,72 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult DiaChiPartial()
         {
+            ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
             int iduser = (int)Session["idKH"];
             List<DiaChi> listDC = db.DiaChis.Where(n => n.MaThanhVien == iduser).ToList();
             return PartialView(listDC);
         }
+
+        public JsonResult CustomAddress(int ID)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            //DiaChi dc = db.DiaChis.SingleOrDefault(n => n.ID == ID);
+            //var x = dc.Select(n => new
+            //{
+            //    tenTinh = n.Tinh.TenTinh,
+            //    tenHuyen = n.Huyen.TenHuyen,
+            //    tenXa = n.Xa.TenXa,
+            //    tenThanhVien = n.ThanhVien.HoTen,
+            //    diaChi = n.DiaChi1
+
+            //});
+            var list = db.DiaChis.Where(n => n.ID == ID).Select(n => new
+            {
+                ID = n.ID,
+                tenTinh = n.Tinh.TenTinh,
+                tenHuyen = n.Huyen.TenHuyen,
+                tenXa = n.Xa.TenXa,
+                tenThanhVien = n.ThanhVien.HoTen,
+                sdt = n.SDT,
+                diaChi = n.DiaChi1
+
+            }).Take(1).ToList();
+
+            if (list != null)
+            {
+                return Json( new { status = true, data = list },  JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(null);
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult AddAddress(DiaChi dc)
+        {
+
+            ThanhVien u = Session["TaiKhoan"] as ThanhVien;
+            ThanhVien tv = db.ThanhViens.Single(n => n.MaThanhVien == u.MaThanhVien);
+            if(tv != null)
+            {
+                DiaChi newdc = new DiaChi();
+                newdc.MaThanhVien = u.MaThanhVien;
+                newdc.SDT = dc.SDT;
+               
+                newdc.DiaChi1 = dc.DiaChi1;
+                newdc.MaHuyen = dc.MaHuyen;
+                newdc.MaTinh = dc.MaTinh;
+                newdc.MaXa = dc.MaXa;
+                db.DiaChis.Add(newdc);
+                db.SaveChanges();
+                return Json(new {data = newdc}, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null);
+
+        }
+
 
 
     }

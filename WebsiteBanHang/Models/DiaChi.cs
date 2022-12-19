@@ -20,6 +20,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaXa { get; set; }
         public string DiaChi1 { get; set; }
         public Nullable<int> MaThanhVien { get; set; }
+        public string SDT { get; set; }
     
         public virtual Huyen Huyen { get; set; }
         public virtual Tinh Tinh { get; set; }

@@ -88,6 +88,7 @@
           <Property Name="MaXa" Type="int" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="2000" />
           <Property Name="MaThanhVien" Type="int" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="DonDatHang">
           <Key>
@@ -1306,6 +1307,7 @@
           <Property Name="MaXa" Type="Int32" />
           <Property Name="DiaChi1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="MaThanhVien" Type="Int32" />
+          <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Huyen" Relationship="QuanLyBanHangModel.FK__DiaChi__MaHuyen__44E33EBC" FromRole="DiaChi" ToRole="Huyen" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK__DiaChi__MaTinh__43EF1A83" FromRole="DiaChi" ToRole="Tinh" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK__DiaChi__MaThanhV__46CB872E" FromRole="DiaChi" ToRole="ThanhVien" />
@@ -2180,6 +2182,7 @@
           <EntitySetMapping Name="DiaChi">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.DiaChi">
               <MappingFragment StoreEntitySet="DiaChi">
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="MaThanhVien" ColumnName="MaThanhVien" />
                 <ScalarProperty Name="DiaChi1" ColumnName="DiaChi" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
