@@ -18,9 +18,9 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaTinh { get; set; }
         public Nullable<int> MaHuyen { get; set; }
         public Nullable<int> MaXa { get; set; }
-        public string DiaChi1 { get; set; }
         public Nullable<int> MaThanhVien { get; set; }
-        public string SDT { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
     
         public virtual Huyen Huyen { get; set; }
         public virtual Tinh Tinh { get; set; }

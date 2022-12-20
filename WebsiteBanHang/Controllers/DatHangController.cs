@@ -451,6 +451,7 @@ namespace WebsiteBanHang.Controllers
         {
             ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
             int iduser = (int)Session["idKH"];
+             ViewBag.lastAddress = db.DiaChis.OrderByDescending(n=>n.ID).First();
             List<DiaChi> listDC = db.DiaChis.Where(n => n.MaThanhVien == iduser).ToList();
             return PartialView(listDC);
         }
@@ -475,8 +476,8 @@ namespace WebsiteBanHang.Controllers
                 tenHuyen = n.Huyen.TenHuyen,
                 tenXa = n.Xa.TenXa,
                 tenThanhVien = n.ThanhVien.HoTen,
-                sdt = n.SDT,
-                diaChi = n.DiaChi1
+                sdt = n.Phone,
+                diaChi = n.Address
 
             }).Take(1).ToList();
 
@@ -497,19 +498,24 @@ namespace WebsiteBanHang.Controllers
 
             ThanhVien u = Session["TaiKhoan"] as ThanhVien;
             ThanhVien tv = db.ThanhViens.Single(n => n.MaThanhVien == u.MaThanhVien);
-            if(tv != null)
-            {
-                DiaChi newdc = new DiaChi();
-                newdc.MaThanhVien = u.MaThanhVien;
-                newdc.SDT = dc.SDT;
-               
-                newdc.DiaChi1 = dc.DiaChi1;
-                newdc.MaHuyen = dc.MaHuyen;
-                newdc.MaTinh = dc.MaTinh;
-                newdc.MaXa = dc.MaXa;
-                db.DiaChis.Add(newdc);
+            if (tv != null)
+                {
+                //    DiaChi newdc = new DiaChi();
+                //    newdc.MaThanhVien = u.MaThanhVien;
+                //    newdc.SDT = dc.SDT;
+
+                //    newdc.Address = dc.Address;
+                //    newdc.MaHuyen = dc.MaHuyen;
+                //    newdc.MaTinh = dc.MaTinh;
+                //    newdc.MaXa = dc.MaXa;
+                //    db.DiaChis.Add(newdc);
+                //    db.SaveChanges();
+       
+                dc.MaThanhVien = u.MaThanhVien;
+                db.DiaChis.Add(dc);
                 db.SaveChanges();
-                return Json(new {data = newdc}, JsonRequestBehavior.AllowGet);
+                    
+                return Json(new {data = dc, status = true}, JsonRequestBehavior.AllowGet);
             }
             return Json(null);
 
