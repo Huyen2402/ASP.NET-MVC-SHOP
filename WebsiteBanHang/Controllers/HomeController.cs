@@ -105,7 +105,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DangNhap(string TaiKhoan, string MatKhau)
         {
             ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == TaiKhoan && n.MatKhau == MatKhau );
-            if(tv != null && tv.MaLoaiTV == 2)
+            if(tv != null && tv.MaLoaiTV == 1)
             {
                 Session["TaiKhoan"] = tv;
                 Session["idKH"] = tv.MaThanhVien;
@@ -114,7 +114,7 @@ namespace WebsiteBanHang.Controllers
                 Session["MaXa"] = tv.MaXa;
                 return Content(" <script>window.location.href = 'http://localhost:62979/Home/Index';</script>");
             }
-            if(tv != null && tv.MaLoaiTV == 1)
+            if(tv != null && tv.MaLoaiTV == 3)
             {
                 Session["TaiKhoan"] = tv;
                 Session["Quyen"] = "Admin";

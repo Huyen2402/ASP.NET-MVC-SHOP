@@ -77,9 +77,10 @@
     const myArray2 = gio.split(":");
     console.log(myArray)
     console.log(myArray2)
-    var day = myArray[0]; // Giờ
-    var month = myArray[1]; // Phút
+    var day = myArray[1]; // Giờ
+    var month = myArray[0]; // Phút
     var year = myArray[2]; // Giây
+    console.log(month)
     var hour = myArray2[0]
     var phut = myArray2[1]
     var giay = myArray2[2]
@@ -88,7 +89,7 @@
     
         function makeTimer() {
 
-            //		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");
+         /*   		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");*/
             var endTime = new Date(year + "," + month + "," + day + " " + hour + ": " + phut + ": " + giay + " ");
             console.log(endTime)
 

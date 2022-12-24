@@ -19,8 +19,9 @@ namespace WebsiteBanHang.Controllers
         Entities db = new Entities();
         // GET: DatHang
         [HttpGet]
-        public ActionResult DatHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
+        public ActionResult DatHang()
         {
+            DatHang dh = Session["DatHang"] as DatHang;
            
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
 
@@ -38,15 +39,15 @@ namespace WebsiteBanHang.Controllers
                     DonDatHang ddh = new DonDatHang();
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
-                    ddh.MaTinhTrangGiaoHang = 5;
-                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == MaCTGiamGia);
+                    ddh.MaTinhTrangGiaoHang = 1;
+                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == dh.MaCTGiamGia);
                     ctgg.DaSuDung = true;
-                    if (id == 1)
+                    if (dh.id == 1)
                     {
                         ddh.MaDDH = DateTime.Now.Ticks.ToString();
                         ddh.HinhThucThanhToan = "COD";
                         ddh.DaThanhToan = false;
-                       ddh.MaShop = MaShop;
+                       ddh.MaShop = dh.MaShop;
                         ddh.UuDai = 0;
                         ddh.MaKH = iduser;
                         ddh.MaTinh = (int)Session["MaTinh"];
@@ -58,7 +59,7 @@ namespace WebsiteBanHang.Controllers
 
                         for (var i = 0; i < listGioHang.Count(); i++)
                         {
-                            if (listGioHang[i].MaShop == MaShop)
+                            if (listGioHang[i].MaShop == dh.MaShop)
                             {
                                 ChiTietDonDatHang ct = new ChiTietDonDatHang();
 
@@ -86,7 +87,7 @@ namespace WebsiteBanHang.Controllers
                         }
                            
                     }
-                    if (id == 2)
+                    if (dh.id == 2)
                     {
 
                         if (listGioHang != null)
@@ -97,7 +98,7 @@ namespace WebsiteBanHang.Controllers
                                 decimal price = listGioHang[i].ThanhTien;
                                 total = total + price;
                             }
-                            string tongiten = ThanhTien.ToString();
+                            string tongiten = dh.ThanhTien.ToString();
 
 
                             //ddh.HinhThucThanhToan = "MoMo";
@@ -109,10 +110,10 @@ namespace WebsiteBanHang.Controllers
                             string accessKey = "hWtILE8L8yb1vzVz";
                             string serectkey = "ktQfGrAtjnGWlAUo6Ea2SP7fVhBbzrhK";
                             string orderInfo = "Huyền Cosmetic";
-                            string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop="+MaShop + "&MaCTGiamGia=" + MaCTGiamGia;
+                            string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop="+dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
                             string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
-                            string amount = ThanhTien.ToString();
+                            string amount = dh.ThanhTien.ToString();
                             string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
                             string requestId = DateTime.Now.Ticks.ToString();
                             string extraData = "";
@@ -163,7 +164,7 @@ namespace WebsiteBanHang.Controllers
                     }
 
 
-                    if (id == 3)
+                    if (dh.id == 3)
                     {
 
                         if (listGioHang != null)
@@ -172,7 +173,7 @@ namespace WebsiteBanHang.Controllers
                             for (int i = 0; i < listGioHang.Count(); i++)
                             {
                                 decimal price = listGioHang[i].ThanhTien;
-                                total = (ThanhTien) * 100;
+                                total = (dh.ThanhTien) * 100;
                             }
                             string tongiten = total.ToString();
                             //ddh.HinhThucThanhToan = "VNPay";
@@ -180,7 +181,7 @@ namespace WebsiteBanHang.Controllers
 
                             string url = ConfigurationManager.AppSettings["Url"];
                             //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
-                            string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop="+ MaShop + "&MaCTGiamGia=" + MaCTGiamGia;
+                            string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop="+ dh.MaShop+ "&MaCTGiamGia=" + dh.MaCTGiamGia;
                             string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
                             string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
 
@@ -431,8 +432,9 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        public ActionResult MuaHang(int MaShop)
+        public ActionResult MuaHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
         {
+            Session["DatHang"] = new DatHang(id, ThanhTien, MaShop, MaCTGiamGia);
             Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
             List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
             List<GioHang> listSP = new List<GioHang>();
