@@ -11,7 +11,12 @@
     <div class="row mt-3">
         <input type="hidden" name="ID" id="idchecked" value="@lastAddress.ID" />
         <div class="col-3"><p>@lastAddress.ThanhVien.HoTen (+84) @lastAddress.Phone</p></div>
-        <div class="col-6"><p>@lastAddress.Address,@lastAddress.Xa.TenXa, @lastAddress.Huyen.TenHuyen, @lastAddress.Tinh.TenTinh</p></div>
+        <div class="col-6"><p><span id="Diachi">@lastAddress.Address</span>,
+                              <span data-idXa="@lastAddress.Xa.MaXa" id="idXa"> @lastAddress.Xa.TenXa</span>,
+                              <span data-idHuyen="@lastAddress.Huyen.MaHuyen" id="idHuyen">  @lastAddress.Huyen.TenHuyen</span>, 
+                              <span data-idtinh="@lastAddress.Tinh.MaTinh" id="idTinh"> @lastAddress.Tinh.TenTinh</span>
+             </p>
+        </div>
         <div class="col-2">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                 Thay đổi
@@ -145,8 +150,16 @@
                     $("#defaultAddress").html(
                         ' <h2><i class="fa-solid fa-location-dot"></i>Địa chỉ nhận hàng</h2>' +
                         ' <div class= "row" >' +
-                        '<div class="col-2"><h4>' + status.data[0].tenThanhVien + ' (+84)' + status.data[0].sdt + '</h4></div>' +
-                        ' <div class="col-8"><h4>' + status.data[0].diaChi + ',' + status.data[0].tenXa + ',' + status.data[0].tenHuyen + ', ' + status.data[0].tenTinh + '</h4></div> ' +
+                        '<div class="col-2"><p>' + status.data[0].tenThanhVien + ' (+84)' + status.data[0].sdt + '</p></div>' +
+                        ' <div class="col-8"><p>' +
+                        '<span id="Diachi">' + status.data[0].diaChi + '</span>'
+                        + ',' +
+                        '<span  id="idXa" data-idXa="' +status.data[0].idXa+'">' + status.data[0].tenXa + '</span>'
+                        + ',' +
+                        '<span id="idHuyen" data-idXa="' + status.data[0].idHuyen + '">' + status.data[0].tenHuyen + '</span>'
+                        + ', ' +
+                        '<span id="idTinh"   data-idXa="' + status.data[0].idTinh  + '">' + status.data[0].tenTinh + '</span>'
+                        + '</p></div> ' +
                         ' <div class= "col-2" > <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"> ' +
                         ' Thay đổi' +
                         ' </button></div>' +
@@ -169,7 +182,7 @@
     }
     var one = arr[0]
     console.log(one.attributes.value);
-    
+
 
     $("#idTinh").change(function () {
         var idTinh = $(this).val();
@@ -208,14 +221,14 @@
 
 
     $("#form-addAddress").submit(function (e) {
-      
+
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);
         var actionUrl = form.attr('action');
 
         $.ajax({
-           
+
             type: "POST",
             url: actionUrl,
             data: form.serialize(), // serializes the form's elements.
@@ -225,9 +238,9 @@
                 var url = $("#url-string").val()
                 var modal = $("#myModal")
                 modal.show()
-               
+
             }
-            
+
 
         });
         Swal.fire({
@@ -241,5 +254,7 @@
         window.location.reload();
 
     });
+
+
 
 </script>

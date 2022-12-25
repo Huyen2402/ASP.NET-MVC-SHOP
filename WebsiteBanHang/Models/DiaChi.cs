@@ -23,8 +23,8 @@ namespace WebsiteBanHang.Models
         public string Phone { get; set; }
     
         public virtual Huyen Huyen { get; set; }
-        public virtual Tinh Tinh { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
+        public virtual Tinh Tinh { get; set; }
         public virtual Xa Xa { get; set; }
     }
 }

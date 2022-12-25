@@ -435,7 +435,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DonHangChoXacNhan()
         {
             Shop s = Session["CuaHang"] as Shop;
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 5 && n.MaShop == s.MaShop).ToList();
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 1 && n.MaShop == s.MaShop).ToList();
 
 
 
@@ -507,7 +507,7 @@ namespace WebsiteBanHang.Controllers
                 }
                 else
                 {
-                    ddh.MaTinhTrangGiaoHang = 6;
+                    ddh.MaTinhTrangGiaoHang = 2;
                     db.SaveChanges();
                 }
             }
@@ -518,7 +518,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DonHangDangGiao()
         {
             Shop s = Session["CuaHang"] as Shop;
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 6 && n.MaShop == s.MaShop).ToList();
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 2 && n.MaShop == s.MaShop).ToList();
 
 
             return View(listddh);
@@ -526,7 +526,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DonHangThanhCong()
         {
             Shop s = Session["CuaHang"] as Shop;
-            List<DonDatHang> listThanhCong = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 7 && n.MaShop == s.MaShop).ToList();
+            List<DonDatHang> listThanhCong = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 3 && n.MaShop == s.MaShop).ToList();
             return View(listThanhCong);
         }
 

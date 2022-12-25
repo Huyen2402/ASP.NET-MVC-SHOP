@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 
 namespace WebsiteBanHang.Models
@@ -11,6 +12,7 @@ namespace WebsiteBanHang.Models
         public decimal ThanhTien { get; set; }
         public int MaShop { get; set; }
         public int MaCTGiamGia { get; set; }
+       
 
         public DatHang() {
 
@@ -21,6 +23,8 @@ namespace WebsiteBanHang.Models
             this.ThanhTien= ThanhTien;
             this.MaShop= MaShop;
             this.MaCTGiamGia= MaCTGiamGia;
+            
+
         }
     }
 }

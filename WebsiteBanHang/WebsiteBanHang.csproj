@@ -272,6 +272,7 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SessionDiaChi.cs" />
     <Compile Include="Models\Shop.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>

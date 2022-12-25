@@ -18,11 +18,12 @@ namespace WebsiteBanHang.Controllers
     {
         Entities db = new Entities();
         // GET: DatHang
-        [HttpGet]
-        public ActionResult DatHang()
+        [HttpPost]
+        public ActionResult DatHang(SessionDiaChi sessionDiaChi)
         {
             DatHang dh = Session["DatHang"] as DatHang;
-           
+            Session["DiaChi"] = sessionDiaChi;
+            SessionDiaChi ss = Session["DiaChi"] as SessionDiaChi;
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
 
           
@@ -50,9 +51,10 @@ namespace WebsiteBanHang.Controllers
                        ddh.MaShop = dh.MaShop;
                         ddh.UuDai = 0;
                         ddh.MaKH = iduser;
-                        ddh.MaTinh = (int)Session["MaTinh"];
-                        ddh.MaHuyen = (int)Session["MaHuyen"];
-                        ddh.MaXa = (int)Session["MaXa"];
+                        ddh.MaTinh = ss.MaTinh;
+                        ddh.MaHuyen = ss.MaHuyen;
+                        ddh.MaXa = ss.MaXa;
+                        ddh.DiaChi= ss.DiaChi;
                         db.DonDatHangs.Add(ddh);
 
 
@@ -84,6 +86,7 @@ namespace WebsiteBanHang.Controllers
 
                             db.SaveChanges();
                             Session["GioHang"] = null;
+                            Session["DatHang"] = null;
                         }
                            
                     }
@@ -230,6 +233,7 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult ReturnUrl(int MaShop, int MaCTGiamGia)
         {
+            SessionDiaChi ss = Session["DiaChi"] as SessionDiaChi;
             string param = Request.QueryString.ToString().Substring(0, Request.QueryString.ToString().IndexOf("signature") - 1);
             param = Server.UrlDecode(param);
             MoMoSecurity crypto = new MoMoSecurity();
@@ -261,7 +265,7 @@ namespace WebsiteBanHang.Controllers
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
                     ddh.MaShop = MaShop;
-                    ddh.MaTinhTrangGiaoHang = 5;
+                    ddh.MaTinhTrangGiaoHang = 1;
                     
                     if (listGioHang != null)
                     {
@@ -280,9 +284,10 @@ namespace WebsiteBanHang.Controllers
                         ddh.MaDDH = Session["orderid"].ToString();
                         ddh.UuDai = 0;
                         ddh.MaKH = iduser;
-                        ddh.MaTinh = (int)Session["MaTinh"];
-                        ddh.MaHuyen = (int)Session["MaHuyen"];
-                        ddh.MaXa = (int)Session["MaXa"];
+                        ddh.MaTinh = ss.MaTinh;
+                        ddh.MaHuyen = ss.MaHuyen;
+                        ddh.MaXa = ss.MaXa;
+                        ddh.DiaChi= ss.DiaChi;
                         db.DonDatHangs.Add(ddh);
                         for (var i = 0; i < listGioHang.Count(); i++)
                         {
@@ -309,6 +314,7 @@ namespace WebsiteBanHang.Controllers
                         db.SaveChanges();
                         Session["GioHang"] = null;
                         Session["orderid"] = null;
+                        Session["DatHang"] = null;
                         ViewBag.message = "Đặt hàng và thanh toán thành công";
 
                         return RedirectToAction("XemGioHang", "GioHang");
@@ -321,6 +327,7 @@ namespace WebsiteBanHang.Controllers
         }
         public ActionResult PaymentConfirm(int MaShop, int MaCTGiamGia)
         {
+            SessionDiaChi ss = Session["DiaChi"] as SessionDiaChi;
             if (Request.QueryString.Count > 0)
             {
                 string hashSecret = ConfigurationManager.AppSettings["HashSecret"]; //Chuỗi bí mật
@@ -362,7 +369,7 @@ namespace WebsiteBanHang.Controllers
                             DonDatHang ddh = new DonDatHang();
                             string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                             ddh.NgayDat = DateTime.Parse(ngay);
-                            ddh.MaTinhTrangGiaoHang = 5;
+                            ddh.MaTinhTrangGiaoHang = 1;
                             if (listGioHang != null)
                             {
                                 decimal total = 0;
@@ -381,9 +388,10 @@ namespace WebsiteBanHang.Controllers
                                 ddh.MaDDH = DateTime.Now.Ticks.ToString();
                                 ddh.UuDai = 0;
                                 ddh.MaKH = iduser;
-                                ddh.MaTinh = (int)Session["MaTinh"];
-                                ddh.MaHuyen = (int)Session["MaHuyen"];
-                                ddh.MaXa = (int)Session["MaXa"];
+                                ddh.MaTinh = ss.MaTinh;
+                                ddh.MaHuyen = ss.MaHuyen;
+                                ddh.MaXa = ss.MaXa;
+                                ddh.DiaChi= ss.DiaChi;
                                 db.DonDatHangs.Add(ddh);
                                 for (var i = 0; i < listGioHang.Count(); i++)
                                 {
@@ -410,7 +418,7 @@ namespace WebsiteBanHang.Controllers
 
                                 db.SaveChanges();
                                 Session["GioHang"] = null;
-
+                                Session["DatHang"] = null;
                                 ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
                                 return RedirectToAction("XemGioHang", "GioHang");
                             }
@@ -475,8 +483,11 @@ namespace WebsiteBanHang.Controllers
             {
                 ID = n.ID,
                 tenTinh = n.Tinh.TenTinh,
+                idTinh = n.Tinh.MaTinh,
                 tenHuyen = n.Huyen.TenHuyen,
+                idHuyen = n.Huyen.MaHuyen,
                 tenXa = n.Xa.TenXa,
+                idXa = n.Xa.MaXa,
                 tenThanhVien = n.ThanhVien.HoTen,
                 sdt = n.Phone,
                 diaChi = n.Address

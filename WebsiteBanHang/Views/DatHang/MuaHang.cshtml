@@ -81,4 +81,23 @@
     </div>
 </div>
 
+<script>
+    $("#btn-muahang").click(function (e) {
+        e.preventDefault();
+        var idTinh = $("#idTinh").attr("data-idTinh");
+        var idHuyen = $("#idHuyen").attr("data-idHuyen");
+        var idXa = $("#idXa").attr("data-idXa");
+        var diaChi = $("#Diachi").text();
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:62979/DatHang/DatHang",
+            data: { MaTinh: idTinh,  MaHuyen: idHuyen,  MaXa: idXa,  DiaChi: diaChi  },
+            dataType: 'json',
+            success: function (data, status, xhr) {
 
+                
+            }
+            
+        });
+    })
+</script>
