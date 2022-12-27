@@ -105,7 +105,7 @@
           <Property Name="MaXa" Type="int" />
           <Property Name="MaDDH" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="MaShop" Type="int" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="FlashSale">
           <Key>
@@ -1329,7 +1329,7 @@
           <Property Name="MaXa" Type="Int32" />
           <Property Name="MaDDH" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MaShop" Type="Int32" />
-          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHangtoDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietDonDatHang1" Relationship="QuanLyBanHangModel.FK_DonDatHang_ChiTietDonDatHang" FromRole="DonDatHang" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="Shop" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="DonDatHang" ToRole="Shop" />

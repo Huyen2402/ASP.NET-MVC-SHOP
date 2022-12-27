@@ -87,6 +87,7 @@ namespace WebsiteBanHang.Controllers
                             db.SaveChanges();
                             Session["GioHang"] = null;
                             Session["DatHang"] = null;
+                            return RedirectToAction("XemGioHang", "GioHang");
                         }
                            
                     }

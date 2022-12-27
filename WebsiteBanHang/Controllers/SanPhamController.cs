@@ -161,6 +161,7 @@ namespace WebsiteBanHang.Controllers
                     ChiTietGiamGia ctgg = new ChiTietGiamGia();
                     ctgg.MaGiamGia = MaGiamGia;
                     ctgg.MaThanhVien = tv.MaThanhVien;
+                    ctgg.DaSuDung = false;
                     gg.SL--;
                     db.ChiTietGiamGias.Add(ctgg);
                     db.SaveChanges();

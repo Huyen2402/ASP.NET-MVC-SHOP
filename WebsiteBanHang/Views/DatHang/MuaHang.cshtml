@@ -84,9 +84,13 @@
 <script>
     $("#btn-muahang").click(function (e) {
         e.preventDefault();
-        var idTinh = $("#idTinh").attr("data-idTinh");
-        var idHuyen = $("#idHuyen").attr("data-idHuyen");
-        var idXa = $("#idXa").attr("data-idXa");
+        var idTinh = $("#idTinh1").attr("data-idTinh");
+        
+        var idHuyen = $("#idHuyen1").attr("data-idHuyen");
+        var idXa = $("#idXa1").attr("data-idXa");
+        console.log(idTinh)
+        console.log(idHuyen)
+        console.log(idXa)
         var diaChi = $("#Diachi").text();
         $.ajax({
             type: "POST",
