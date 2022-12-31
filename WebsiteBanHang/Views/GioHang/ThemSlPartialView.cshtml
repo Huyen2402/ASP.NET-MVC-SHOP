@@ -230,7 +230,14 @@
 
 
             //})
+            var val = 1;
+            $(".form-check-input").click(function () {
 
+                val = $(this).attr("id");
+                console.log(val)
+
+
+            })
              $("#btn-dathang").click(function () {
                 value = $("#MaCTGiamGia").val();
                 console.log("Value:" + value)
@@ -280,13 +287,7 @@
 
         var check = $("#logout").length;
 
-        var val = 1;
-        $(".form-check-input").click(function () {
-
-            val = $(this).attr("id");
-
-
-        })
+       
 
         //$("#btn-dathang").click(function () {
         //    if (check) {

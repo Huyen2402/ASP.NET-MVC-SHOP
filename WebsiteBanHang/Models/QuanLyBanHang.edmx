@@ -49,6 +49,7 @@
           <Property Name="SoLuong" Type="int" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DanhGia" Type="float" />
         </EntityType>
         <EntityType Name="ChiTietFlashSale">
           <Key>
@@ -216,6 +217,7 @@
           <Property Name="MoTaNgan" Type="nvarchar(max)" />
           <Property Name="MaShop" Type="int" />
           <Property Name="KhuyenMai" Type="int" />
+          <Property Name="DanhGia" Type="float" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
@@ -1259,6 +1261,7 @@
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="MaChiTietDDH1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanhGia" Type="Double" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="ChiTietDonDatHang" ToRole="SanPham" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHangtoDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
           <NavigationProperty Name="DonDatHang1" Relationship="QuanLyBanHangModel.FK_DonDatHang_ChiTietDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
@@ -1464,6 +1467,7 @@
           <Property Name="MoTaNgan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaShop" Type="Int32" />
           <Property Name="KhuyenMai" Type="Int32" />
+          <Property Name="DanhGia" Type="Double" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_BinhLuan_SanPham" FromRole="SanPham" ToRole="BinhLuan" />
           <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="SanPham" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFla__MaSP__1A17459A" FromRole="SanPham" ToRole="ChiTietFlashSale" />
@@ -2141,6 +2145,7 @@
           <EntitySetMapping Name="ChiTietDonDatHang">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietDonDatHang">
               <MappingFragment StoreEntitySet="ChiTietDonDatHang">
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
                 <ScalarProperty Name="MaChiTietDDH1" ColumnName="MaChiTietDDH1" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
@@ -2308,6 +2313,7 @@
           <EntitySetMapping Name="SanPham">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
                 <ScalarProperty Name="KhuyenMai" ColumnName="KhuyenMai" />
                 <ScalarProperty Name="MaShop" ColumnName="MaShop" />
                 <ScalarProperty Name="MoTaNgan" ColumnName="MoTaNgan" />

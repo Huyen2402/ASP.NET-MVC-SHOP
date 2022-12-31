@@ -44,6 +44,7 @@ namespace WebsiteBanHang.Models
         public string MoTaNgan { get; set; }
         public Nullable<int> MaShop { get; set; }
         public Nullable<int> KhuyenMai { get; set; }
+        public Nullable<double> DanhGia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }

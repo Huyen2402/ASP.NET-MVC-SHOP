@@ -17,13 +17,20 @@ namespace WebsiteBanHang.Controllers
     public class DatHangController : Controller
     {
         Entities db = new Entities();
+
+
+        //[HttpGet]
+        //public ActionResult DatHang()
+        //{
+        //    return View();
+        //}
         // GET: DatHang
-        [HttpPost]
-        public ActionResult DatHang(SessionDiaChi sessionDiaChi)
+        [HttpGet]
+        public ActionResult DatHang(int MaTinh, int MaHuyen, int MaXa, string DiaChi)
         {
             DatHang dh = Session["DatHang"] as DatHang;
-            Session["DiaChi"] = sessionDiaChi;
-            SessionDiaChi ss = Session["DiaChi"] as SessionDiaChi;
+           
+            SessionDiaChi ss = new SessionDiaChi(MaTinh, MaHuyen,MaXa,DiaChi);
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
 
           
@@ -87,7 +94,7 @@ namespace WebsiteBanHang.Controllers
                             db.SaveChanges();
                             Session["GioHang"] = null;
                             Session["DatHang"] = null;
-                            return RedirectToAction("XemGioHang", "GioHang");
+                           
                         }
                            
                     }

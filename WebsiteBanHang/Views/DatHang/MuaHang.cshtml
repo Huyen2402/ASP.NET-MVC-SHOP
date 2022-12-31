@@ -92,16 +92,33 @@
         console.log(idHuyen)
         console.log(idXa)
         var diaChi = $("#Diachi").text();
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:62979/DatHang/DatHang",
-            data: { MaTinh: idTinh,  MaHuyen: idHuyen,  MaXa: idXa,  DiaChi: diaChi  },
-            dataType: 'json',
-            success: function (data, status, xhr) {
+        var url = "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi;
+                    window.location.href = url;
+
+
+        //$("#btn-dathang").click(function () {
+            //    value = $("#MaCTGiamGia").val();
+            //    console.log("Value:" + value)
+            //    if (check) {
+            //        var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
+            //        window.location.href = url;
+            //    } else {
+            //        alert("Vui lòng đăng nhập để thanh toán!");
+            //    }
+
+
+            //})
+        //$.ajax({
+        //    type: "GET",
+        //    url: "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi,
+        //   /* data: { MaTinh: idTinh,  MaHuyen: idHuyen,  MaXa: idXa,  DiaChi: diaChi  },*/
+        //    dataType: 'json',
+        //    success: function (data, status, xhr) {
 
                 
-            }
+        //    }
             
-        });
+        //});
+      
     })
 </script>

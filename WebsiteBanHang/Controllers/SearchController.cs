@@ -14,6 +14,7 @@ namespace WebsiteBanHang.Controllers
         [HttpPost]
         public ActionResult SearchSP(string txbSearch)
         {
+            Session["keyword"] = txbSearch;
             List<SanPham> listSearch = db.SanPhams.Where(s => s.TenSP.Contains(txbSearch) && s.DaXoa == false).ToList();
             ViewBag.listshop = db.Shops.Where(n=>n.TenShop.Contains(txbSearch)).ToList();
 
@@ -23,6 +24,22 @@ namespace WebsiteBanHang.Controllers
         public ActionResult SearchSPPartial()
         {
             return PartialView();
+        }
+
+        public ActionResult suggestProduct() 
+        {
+            string keyword = Session["keyword"] as string;
+            List<SanPham> listSuggest = db.SanPhams.Where(n => n.Equals(keyword[0])).ToList();
+            if(listSuggest.Count > 0)
+            {
+                return View(listSuggest);
+            }
+            else
+            {
+                List<SanPham> listSuggestV2 = db.SanPhams.ToList();
+                return PartialView(listSuggestV2);
+            }
+            
         }
     }
 }

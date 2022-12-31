@@ -20,7 +20,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult Index()
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
-            List<DonDatHang>  listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 5).OrderByDescending(p=>p.NgayDat).ToList();
+            List<DonDatHang>  listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 1).OrderByDescending(p=>p.NgayDat).ToList();
 
 
             return View(listdh);
@@ -31,7 +31,7 @@ namespace WebsiteBanHang.Controllers
 
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
-            List<DonDatHang> listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 6).ToList();
+            List<DonDatHang> listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 2).ToList();
 
             return View(listdh);
         }
@@ -42,7 +42,7 @@ namespace WebsiteBanHang.Controllers
         {
 
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
-            List<DonDatHang> listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 7).ToList();
+            List<DonDatHang> listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 3).ToList();
 
             return View(listdh);
         }
@@ -56,7 +56,7 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                dhh.MaTinhTrangGiaoHang = 7;
+                dhh.MaTinhTrangGiaoHang = 3;
                 db.SaveChanges();
             }
             return RedirectToAction("DHDangVanChuyen", "DonHang");
@@ -89,6 +89,7 @@ namespace WebsiteBanHang.Controllers
         {
 
             List<ChiTietDonDatHang> ctddh = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+            ViewBag.MaDDH = MaDDH;
             
             return View(ctddh);
         }
