@@ -89,9 +89,24 @@ namespace WebsiteBanHang.Controllers
         {
 
             List<ChiTietDonDatHang> ctddh = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+           
             ViewBag.MaDDH = MaDDH;
             
             return View(ctddh);
+        }
+
+        public JsonResult evaluateProduct(int MaCTDDH, int star)
+        {
+           ChiTietDonDatHang ct = db.ChiTietDonDatHangs.SingleOrDefault(n=>n.MaChiTietDDH1== MaCTDDH);
+            if(ct == null)
+            {
+                Response.StatusCode = 404;
+
+            }
+            ct.DanhGia = star;
+            db.SaveChanges();
+
+            return Json(new {status = true} ,JsonRequestBehavior.AllowGet);
         }
 
 

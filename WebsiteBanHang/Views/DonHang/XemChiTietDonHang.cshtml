@@ -38,37 +38,73 @@
                     <td>@item.MaChiTietDDH1</td>
 
                     <td>@item.TenSP</td>
-                    <td ><img class="img-report"  src="@Url.Content("~/Content/images/"+item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                    <td><img class="img-report" src="@Url.Content("~/Content/images/"+item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
                     <td>@item.SoLuong</td>
 
                     <td>@tien.Value.ToString("#,##0")</td>
                     <td style="display: none">
-                        <input class="valDanhGia" data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.DanhGia" />
+                        <input class="valDanhGia" data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaChiTietDDH1" />
                     </td>
 
 
-
-                    @*<td>
-            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
-            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ</a>
-        </td>*@
-
                     <td>
+                        @if (item.DanhGia != 0 && item.DanhGia == 5 || item.DanhGia != null && item.DanhGia == 5)
+                        {
 
-                        <div class="stars">
-                            <form action="">
-                                @*<input class="star star-5" id="star-5" type="radio" name="star" />*@
-                                <label data-start="5" class="star 5 star-5" for="star-5"></label>
-                                @*<input class="star star-4" id="star-4" type="radio" name="star" />*@
-                                <label data-start="4" class="star 4 star-4" for="star-4"></label>
-                                @*<input class="star star-3" id="star-3" type="radio" name="star" />*@
-                                <label data-start="3" class="star 3 star-3" for="star-3"></label>
-                                @*<input class="star star-2" id="star-2" type="radio" name="star" />*@
-                                <label data-start="2" class="star 2 star-2" for="star-2"></label>
-                                @*<input class="star star-1" id="star-1" type="radio" name="star" />*@
-                                <label data-start="1" class="star 1 star-1" for="star-1"></label>
-                            </form>
-                        </div>
+
+                            <div class="stars">
+
+                                <form action="">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <p data-start="@i" class="star @i star-5"><i style="color: #FD4" class="fa  fa-star "></i></p>
+                                    }
+
+                                    
+
+                                </form>
+                            </div>
+                        }
+                        else if (item.DanhGia != 0 && item.DanhGia < 5 || item.DanhGia != null && item.DanhGia < 5)
+                        {
+                            <div class="stars">
+
+                                <form action="">
+                                    @{
+                                        double? noStar = 5 - item.DanhGia;
+
+                                    }
+                                    @for (double? i = 1; i <= noStar; i++)
+                                    {
+                                        <p data-start="@i" class="star @i star-5"><i class="fa-regular  fa-star "></i></p>
+                                    }
+
+                                    @for (double? i = 1; i <= item.DanhGia; i++)
+                                    {
+                                        <p data-start="@i" class="star @i star-5"><i style="color: #FD4" class="fa  fa-star "></i></p>
+                                    }
+
+
+
+
+                                </form>
+                            </div>
+                        }
+                                        else
+                                        {
+                            <div class="stars">
+                                <form action="">
+                                    <p data-start="5" class="star 5 star-5"><i class="fa-regular  fa-star "></i></p>
+                                    <p data-start="4" class="star 4 star-4"><i class="fa-regular fa-star"></i></p>
+                                    <p data-start="3" class="star 3 star-3"><i class="fa-regular fa-star"></i></p>
+                                    <p data-start="2" class="star 2 star-2"><i class="fa-regular fa-star"></i></p>
+                                    <p data-start="1" class="star 1 star-1"><i class="fa-regular fa-star"></i></p>
+                                  
+                                </form>
+                            </div>
+                        }
+
+
                     </td>
 
 
@@ -82,9 +118,10 @@
     </table>
 </div>
 <style>
-    .img-report{
+    .img-report {
         width: 250px;
     }
+
     div.stars {
         display: inline-block;
     }
@@ -93,37 +130,37 @@
         display: none;
     }
 
-    label.star {
+    p.star {
         float: right;
         padding: 10px;
         font-size: 13px;
         color: #444;
         transition: all .2s;
     }
-
+        /*
     input.star:checked ~ label.star:before {
         content: '\f005';
         color: #FD4;
         transition: all .25s;
-    }
+    }*/
 
-    input.star-5:checked ~ label.star:before {
+        /*   input.star-5:checked ~ label.star:before {
         color: #FE7;
         text-shadow: 0 0 20px #952;
     }
 
     input.star-1:checked ~ label.star:before {
         color: #F62;
-    }
+    }*/
 
-    label.star:hover {
-        transform: rotate(-15deg) scale(1.3);
-    }
+        p.star:hover {
+            transform: rotate(-15deg) scale(1.3);
+        }
 
-    label.star:before {
+    /* p.star:before {
         content: '\f006';
         font-family: FontAwesome;
-    }
+    }*/
 
 </style>
 <script>
@@ -131,34 +168,50 @@
     $(".star").click(function () {
 
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Đánh giá sản phẩm',
+            text: "Bạn đã chắc chắn với đánh giá của mình?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
+
+                var start = $(this).attr("data-start")
+                var MaCTDDH = $(".valDanhGia").val();
+                console.log(start)
+
+                $.ajax({
+                    type: "get",
+
+                    url: "http://localhost:62979/DonHang/evaluateProduct?MaCTDDH=" + MaCTDDH + "&star=" + start,
+                    contentType: "json",
+
+                    success: function (status, data) {
+                        console.log("status", status)
+                        console.log("data", data)
+                        for (var i = 1; i <= start; i++) {
+                            $("." + i).empty();
+                            $("." + i).prepend('<i style="color:#FD4" class="fa  fa-star "></i>');
+                        }
+                        Swal.fire(
+                            'Thành công!',
+                            'Đánh giá của bạn đã góp phần giúp shop chúng tôi ngày càng phát triển tốt hơn.',
+                            'success'
+                        )
+
+                    }
+                })
+
+
             }
         })
 
 
-        var start = $(this).attr("data-start")
-       
-        console.log(start)
 
-        for (var i = 1; i <= start ; i++) {
-            $("."+i).css("background-color", "yellow");
-        }
     })
-    
-    var valDanhGia = $(".valDanhGia").val();
+
 
 </script>
 
