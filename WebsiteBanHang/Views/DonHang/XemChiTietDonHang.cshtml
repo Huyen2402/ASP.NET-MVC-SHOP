@@ -48,14 +48,14 @@
 
 
                     <td>
-                        @if (item.DanhGia != 0 && item.DanhGia == 5 || item.DanhGia != null && item.DanhGia == 5)
+                        @if ( item.DanhGia == 5 )
                         {
 
 
                             <div class="stars">
 
                                 <form action="">
-                                    @for (int i = 1; i <= 5; i++)
+                                    @for (int i = 5; i >= 1; i--)
                                     {
                                         <p data-start="@i" class="star @i star-5"><i style="color: #FD4" class="fa  fa-star "></i></p>
                                     }
@@ -65,7 +65,7 @@
                                 </form>
                             </div>
                         }
-                        else if (item.DanhGia != 0 && item.DanhGia < 5 || item.DanhGia != null && item.DanhGia < 5)
+                        else if ( item.DanhGia < 5 && item.DanhGia != 0)
                         {
                             <div class="stars">
 
@@ -74,12 +74,12 @@
                                         double? noStar = 5 - item.DanhGia;
 
                                     }
-                                    @for (double? i = 1; i <= noStar; i++)
+                                    @for (double? i = 5; i >= item.DanhGia + 1; i--)
                                     {
                                         <p data-start="@i" class="star @i star-5"><i class="fa-regular  fa-star "></i></p>
                                     }
 
-                                    @for (double? i = 1; i <= item.DanhGia; i++)
+                                    @for (double? i = item.DanhGia; i >= 1; i--)
                                     {
                                         <p data-start="@i" class="star @i star-5"><i style="color: #FD4" class="fa  fa-star "></i></p>
                                     }
@@ -90,7 +90,7 @@
                                 </form>
                             </div>
                         }
-                                        else
+                                        else if(item.DanhGia == 0)
                                         {
                             <div class="stars">
                                 <form action="">
@@ -166,7 +166,7 @@
 <script>
     var arr = []
     $(".star").click(function () {
-
+        
         Swal.fire({
             title: 'Đánh giá sản phẩm',
             text: "Bạn đã chắc chắn với đánh giá của mình?",
