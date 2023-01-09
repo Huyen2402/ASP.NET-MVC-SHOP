@@ -194,11 +194,22 @@ namespace WebsiteBanHang.Controllers
                 if (flashSale.NgaySale.Value.Date <= CurrentDay.Date && flashSale.NgaySale.Value.Month <= CurrentDay.Month && flashSale.NgaySale.Value.Year <= CurrentDay.Year)
                 {
                     ViewBag.Day = flashSale;
+                   
+                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n=>n.MaSale == flashSale.MaSale).ToList();
+                    List<SanPham> listSP = new List<SanPham>();
+                    for (var i =0; i<list.Count(); i++)
+                    {
+                        int? MaSP = list[i].MaSP;
+                       SanPham sp = db.SanPhams.Single(n=>n.MaSP== MaSP);
+                        listSP.Add(sp);
+                       
+                    }
+                    return PartialView(listSP);
                 }
             }
 
-            List<SanPham> listSP = db.SanPhams.Take(6).ToList();
-            return PartialView(listSP);
+            return PartialView(null);
+
         }
 
         public ActionResult SanPhamGoiY()
