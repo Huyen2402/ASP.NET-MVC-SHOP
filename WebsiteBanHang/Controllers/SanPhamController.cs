@@ -190,6 +190,12 @@ namespace WebsiteBanHang.Controllers
             }
             return View(listSp);
         }
+        public ActionResult SanPhamTuongTuPartial(int MaLSP)
+        {
+
+            List<SanPham> listDanhMuc = db.SanPhams.Where(n=>n.MaLoaiSP== MaLSP).Take(9).ToList();
+            return PartialView(listDanhMuc);
+        }
 
     }
 }

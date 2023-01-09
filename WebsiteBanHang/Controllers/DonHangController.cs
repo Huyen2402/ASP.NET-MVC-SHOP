@@ -106,6 +106,16 @@ namespace WebsiteBanHang.Controllers
             ct.DanhGia = star;
             db.SaveChanges();
 
+            List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n=>n.MaSP == ct.MaSP && n.DanhGia != 0).ToList();
+            double? sumStar = 0;
+            for (int i=0; i< listCT.Count();i++)
+            {
+                sumStar += listCT[i].DanhGia;
+            }
+            double? tbStar = sumStar/listCT.Count();
+            SanPham sp = db.SanPhams.SingleOrDefault(x => x.MaSP == ct.MaSP);
+            sp.DanhGia = tbStar;
+            db.SaveChanges();
             return Json(new {status = true} ,JsonRequestBehavior.AllowGet);
         }
 

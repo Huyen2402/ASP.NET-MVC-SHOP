@@ -325,14 +325,12 @@ b#text-discount{
     float: right;
 }
 
-/*.front .img1 {
-    background-image: url(http://i.imgur.com/1aE1nMA.jpg);
+#danhGia {
+    list-style: none;
+    font-size: 13px;
 }
-
-.front .img2 {
-    background-image: url(http://i.imgur.com/2p9VXAn.jpg);
+#review-product {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 15px 0;
 }
-
-.front .img3 {
-    background-image: url(http://i.imgur.com/I5ABT2v.jpg);
-}*/
