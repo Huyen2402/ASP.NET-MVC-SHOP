@@ -95,28 +95,41 @@ namespace WebsiteBanHang.Controllers
             return View(ctddh);
         }
 
-        public JsonResult evaluateProduct(int MaCTDDH, int star)
+        public JsonResult evaluateProduct(int[] MaCTDDH, int[] star, string[] NoiDung)
         {
-           ChiTietDonDatHang ct = db.ChiTietDonDatHangs.SingleOrDefault(n=>n.MaChiTietDDH1== MaCTDDH);
-            if(ct == null)
+            for (int i = 0; i< MaCTDDH.Length;i++)
             {
-                Response.StatusCode = 404;
+                ChiTietDonDatHang ct = db.ChiTietDonDatHangs.SingleOrDefault(n => n.MaChiTietDDH1 == MaCTDDH[i]);
+                if (ct == null)
+                {
+                    Response.StatusCode = 404;
 
-            }
-            ct.DanhGia = star;
-            db.SaveChanges();
+                }
+                ct.DaDanhGia = true;
+                BinhLuan bl = new BinhLuan();
+                bl.NoiDungBL = NoiDung[i];
+                bl.MaCTDDH = MaCTDDH[i];
+                bl.MaSP = ct.MaSP;
+                bl.DaXem = false;
+                bl.DanhGia = star[i];
+                bl.NgayTao = DateTime.Now;
+                db.BinhLuans.Add(bl);
+                db.SaveChanges();
 
-            List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n=>n.MaSP == ct.MaSP && n.DanhGia != 0).ToList();
-            double? sumStar = 0;
-            for (int i=0; i< listCT.Count();i++)
-            {
-                sumStar += listCT[i].DanhGia;
+                List<BinhLuan> listCT = db.BinhLuans.Where(n => n.MaSP == ct.MaSP && n.DanhGia != 0).ToList();
+                double? sumStar = 0;
+                for (int j = 0; j < listCT.Count(); j++)
+                {
+                    sumStar += listCT[j].DanhGia;
+                }
+                double? tbStar = sumStar / listCT.Count();
+                SanPham sp = db.SanPhams.SingleOrDefault(x => x.MaSP == ct.MaSP);
+                sp.DanhGia = tbStar;
+                db.SaveChanges();
             }
-            double? tbStar = sumStar/listCT.Count();
-            SanPham sp = db.SanPhams.SingleOrDefault(x => x.MaSP == ct.MaSP);
-            sp.DanhGia = tbStar;
-            db.SaveChanges();
-            return Json(new {status = true} ,JsonRequestBehavior.AllowGet);
+
+           
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -14,14 +14,22 @@ namespace WebsiteBanHang.Models
     
     public partial class ChiTietDonDatHang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ChiTietDonDatHang()
+        {
+            this.BinhLuan = new HashSet<BinhLuan>();
+        }
+    
         public string MaDDH { get; set; }
         public Nullable<int> MaSP { get; set; }
         public string TenSP { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public Nullable<decimal> DonGia { get; set; }
         public int MaChiTietDDH1 { get; set; }
-        public Nullable<double> DanhGia { get; set; }
+        public Nullable<bool> DaDanhGia { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BinhLuan> BinhLuan { get; set; }
         public virtual SanPham SanPham { get; set; }
         public virtual DonDatHang DonDatHang { get; set; }
         public virtual DonDatHang DonDatHang1 { get; set; }

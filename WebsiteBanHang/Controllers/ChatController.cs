@@ -168,7 +168,7 @@ namespace WebsiteBanHang.Controllers
         public JsonResult GetNotiComment()
         {
             Shop shop = Session["CuaHang"] as Shop;
-            var listComment = db.BinhLuans.Where(n=>n.DaXem==false && n.SanPham.MaShop == shop.MaShop).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaThanhVien, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
+            var listComment = db.BinhLuans.Where(n=>n.DaXem==false && n.SanPham.MaShop == shop.MaShop).ToList().Select(x=> new { ID = x.MaBL, NdBL = x.NoiDungBL, MaSP = x.MaSP ,UserId = x.MaCTDDH, NgayTao = (DateTime.Now - x.NgayTao.Value).Minutes});
             return Json(listComment, JsonRequestBehavior.AllowGet);
         }
 

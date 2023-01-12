@@ -22,13 +22,14 @@ namespace WebsiteBanHang.Models
     
         public int MaBL { get; set; }
         public string NoiDungBL { get; set; }
-        public Nullable<int> MaThanhVien { get; set; }
         public Nullable<int> MaSP { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
         public Nullable<bool> DaXem { get; set; }
+        public Nullable<double> DanhGia { get; set; }
+        public Nullable<int> MaCTDDH { get; set; }
     
+        public virtual ChiTietDonDatHang ChiTietDonDatHang { get; set; }
         public virtual SanPham SanPham { get; set; }
-        public virtual ThanhVien ThanhVien { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TraLoiBinhLuan> TraLoiBinhLuan { get; set; }
     }

@@ -17,7 +17,6 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThanhVien()
         {
-            this.BinhLuan = new HashSet<BinhLuan>();
             this.Chat = new HashSet<Chat>();
             this.Chat1 = new HashSet<Chat>();
             this.ChatwithShop = new HashSet<ChatwithShop>();
@@ -41,8 +40,6 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaHuyen { get; set; }
         public Nullable<int> MaXa { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BinhLuan> BinhLuan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chat> Chat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
