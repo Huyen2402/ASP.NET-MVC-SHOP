@@ -279,6 +279,13 @@
           <Property Name="NgayTao" Type="datetime" />
           <Property Name="MaSP" Type="int" />
         </EntityType>
+        <EntityType Name="VideoQC">
+          <Key>
+            <PropertyRef Name="IDVideo" />
+          </Key>
+          <Property Name="IDVideo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Xa">
           <Key>
             <PropertyRef Name="MaXa" />
@@ -834,6 +841,7 @@
           <EntitySet Name="Tinh" EntityType="Self.Tinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="Self.TinhTrangGiaoHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TraLoiBinhLuan" EntityType="Self.TraLoiBinhLuan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoQC" EntityType="Self.VideoQC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Xa" EntityType="Self.Xa" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__BinhLuan__MaCTDD__4A0EDAD1" Association="Self.FK__BinhLuan__MaCTDD__4A0EDAD1">
             <End Role="ChiTietDonDatHang" EntitySet="ChiTietDonDatHang" />
@@ -1037,6 +1045,7 @@
           <EntitySet Name="Tinh" EntityType="QuanLyBanHangModel.Tinh" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="QuanLyBanHangModel.TinhTrangGiaoHang" />
           <EntitySet Name="TraLoiBinhLuan" EntityType="QuanLyBanHangModel.TraLoiBinhLuan" />
+          <EntitySet Name="VideoQC" EntityType="QuanLyBanHangModel.VideoQC" />
           <EntitySet Name="Xa" EntityType="QuanLyBanHangModel.Xa" />
           <AssociationSet Name="FK__BinhLuan__MaCTDD__4A0EDAD1" Association="QuanLyBanHangModel.FK__BinhLuan__MaCTDD__4A0EDAD1">
             <End Role="ChiTietDonDatHang" EntitySet="ChiTietDonDatHang" />
@@ -1565,6 +1574,13 @@
           <Property Name="MaSP" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_BinhLuan" FromRole="TraLoiBinhLuan" ToRole="BinhLuan" />
           <NavigationProperty Name="ThanhVien" Relationship="QuanLyBanHangModel.FK_TraLoiBinhLuan_ThanhVien" FromRole="TraLoiBinhLuan" ToRole="ThanhVien" />
+        </EntityType>
+        <EntityType Name="VideoQC">
+          <Key>
+            <PropertyRef Name="IDVideo" />
+          </Key>
+          <Property Name="IDVideo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Xa">
           <Key>
@@ -2402,6 +2418,14 @@
                 <ScalarProperty Name="MaBL" ColumnName="MaBL" />
                 <ScalarProperty Name="NoiDungTraLoi" ColumnName="NoiDungTraLoi" />
                 <ScalarProperty Name="MaTraLoiBL" ColumnName="MaTraLoiBL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoQC">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.VideoQC">
+              <MappingFragment StoreEntitySet="VideoQC">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="IDVideo" ColumnName="IDVideo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

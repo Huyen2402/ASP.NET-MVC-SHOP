@@ -48,6 +48,23 @@ namespace WebsiteBanHang.Controllers
                 return HttpNotFound();
             }
 
+            Random rnd = new Random();
+            List<VideoQC> listVideo = db.VideoQCs.ToList();
+            VideoQC lastVideo = listVideo.Last();
+            int i = rnd.Next(1,lastVideo.IDVideo);
+           
+            VideoQC vd = db.VideoQCs.SingleOrDefault(n => n.IDVideo == i);
+            if(vd != null)
+            {
+                ViewBag.Video = vd;
+
+            }
+            else
+            {
+                VideoQC vdLast = db.VideoQCs.SingleOrDefault(n => n.IDVideo == lastVideo.IDVideo);
+                ViewBag.Video = vd;
+            }
+
             ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b => b.NgayTao).ToList();
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
             ViewBag.listGiamGia = db.GiamGias.ToList();
@@ -196,6 +213,8 @@ namespace WebsiteBanHang.Controllers
             List<SanPham> listDanhMuc = db.SanPhams.Where(n=>n.MaLoaiSP== MaLSP).Take(9).ToList();
             return PartialView(listDanhMuc);
         }
+
+        
 
     }
 }

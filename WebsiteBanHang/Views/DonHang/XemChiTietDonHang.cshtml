@@ -69,9 +69,9 @@
                             </div>
                             <form action="">
                                 @*<div class="mb-3 mt-3">
-                                <img style="width:50px" src="~/Content/images/no_img.png" alt="Alternate Text" />
-                                <input type="file" name="name" value="" />
-                            </div>*@
+                                        <img style="width:50px" src="~/Content/images/no_img.png" alt="Alternate Text" />
+                                        <input type="file" name="name" value="" />
+                                    </div>*@
                                 <div class="mb-3 mt-3">
 
                                     <textarea placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!" class="form-control" rows="5" id="@Url.Content("comment-"+i)" name="text"></textarea>
@@ -123,6 +123,7 @@
 
             @{
                 int count = Model.Count();
+                int IDDanhMuc = Model[0].SanPham.loaiSanPham.MaLoaiSP;
                 bool? danhgia = Model[0].DaDanhGia;
 
 
@@ -146,6 +147,10 @@
 
         </tbody>
     </table>
+
+    <div class="SanPhamTuongTu">
+        @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = IDDanhMuc })
+    </div>
 </div>
 <style>
     .img-report {

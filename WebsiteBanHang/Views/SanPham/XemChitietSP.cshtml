@@ -11,11 +11,22 @@
     List<GiamGia> listGiamGia = ViewBag.listGiamGia as List<GiamGia>;
     ThanhVien user = ViewBag.user as ThanhVien;
     List<ChiTietGiamGia> listCTGG = ViewBag.listCTGG as List<ChiTietGiamGia>;
+    VideoQC vd = ViewBag.Video as VideoQC;
     Shop shop = ViewBag.shop as Shop;
-   
+
 }
 
 
+<div  class="container" id="video">
+    <video autoplay muted loop id="myVideo">
+        <span class="close">&times;</span>
+
+        <source src="@vd.url" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+
+</div>
 
 <div id="XemChiTietSP">
     <div class="row product-price1 card-shop mt-4">
@@ -217,8 +228,8 @@
         <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh2)" alt="Alternate Text" /></div>
         <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh3)" alt="Alternate Text" /></div>
     </div>
-   
-    <div id="review-product" >
+
+    <div id="review-product">
         <div id="CMT">
             <h1 class="">Đánh giá sản phẩm</h1>
             <div>
@@ -232,7 +243,7 @@
                         <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
                     </div>
                 }
-               
+
             </div>
             <div class="clearfix"> </div>
 
@@ -277,160 +288,174 @@
     </div>
 
     <div class="SanPhamTuongTu">
-        @Html.Action("SanPhamTuongTuPartial", "SanPham", new {@MaLSP = Model.MaLoaiSP})
+        @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = Model.MaLoaiSP })
     </div>
 
 
 </div>
 
 
-    <style>
+<style>
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 4px;
+        background-color: white;
+    }
+    #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        max-width: 400px;
+        max-height: 100%;
+    }
 
 
+    #HienThiThem {
+        color: blue;
+        text-decoration: blue;
+        text-decoration-line: none;
+        text-decoration-line: underline;
+        font-size: 12px;
+        padding: 4px;
+    }
 
-        #HienThiThem {
-            color: blue;
-            text-decoration: blue;
-            text-decoration-line: none;
-            text-decoration-line: underline;
-            font-size: 12px;
-            padding: 4px;
+        #HienThiThem:hover {
+            cursor: pointer;
         }
 
-            #HienThiThem:hover {
-                cursor: pointer;
+    .itemSearch {
+        display: none;
+    }
+
+    .Trang_1 {
+        display: block;
+    }
+</style>
+<script>
+    $(".ThemGioHang").click(function () {
+        var MaSP = $(this).attr("data-MaSP");
+        var strURL = $(this).attr("data-strURL");
+        $.ajax({
+
+
+            type: "get",
+
+            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+            contentType: "html",
+            statusCode: {
+                400: function (xhr) {
+
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Sản phẩm đã hết hàng',
+                        showConfirmButton: false,
+                        timer: 1500
+
+                    })
+                }
+            },
+            success: function (response) {
+                debugger
+
+
+                $("#GioHangPartial").html(response);
+
+
             }
 
-        .itemSearch {
-            display: none;
-        }
-
-        .Trang_1 {
-            display: block;
-        }
-    </style>
-    <script>
-        $(".ThemGioHang").click(function () {
-            var MaSP = $(this).attr("data-MaSP");
-            var strURL = $(this).attr("data-strURL");
-            $.ajax({
-
-
-                type: "get",
-
-                url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
-                contentType: "html",
-                statusCode: {
-                    400: function (xhr) {
-
-                        Swal.fire({
-
-                            icon: 'error',
-                            title: 'Sản phẩm đã hết hàng',
-                            showConfirmButton: false,
-                            timer: 1500
-
-                        })
-                    }
-                },
-                success: function (response) {
-                    debugger
-
-
-                    $("#GioHangPartial").html(response);
-
-
-                }
-
-            })
-
-
-
-
         })
 
-        $(".luuKM").click(function () {
-            var maGiamGia = $(this).attr("data-KM");
-            var pt = $(this).parent().parent();
-            
 
-            console.log(pt)
-            $.ajax({
-                type: 'GET',
-                dataType: 'JSON',
-                url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
-                success: function (status) {
-                    if (status) {
-                        pt.remove()
-                    }
+
+
+    })
+
+    $(".luuKM").click(function () {
+        var maGiamGia = $(this).attr("data-KM");
+        var pt = $(this).parent().parent();
+
+
+        console.log(pt)
+        $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
+            success: function (status) {
+                if (status) {
+                    pt.remove()
                 }
+            }
 
-            })
         })
+    })
 
-        $(document).ready(function () {
-            $("#btn-BL").click(function () {
-                var masp = $("#masp").val();
-                var noidung = $("#noidung").val();
-                $.ajax('/SanPham/ThemBinhLuan',
+    $(document).ready(function () {
+        $("#btn-BL").click(function () {
+            var masp = $("#masp").val();
+            var noidung = $("#noidung").val();
+            $.ajax('/SanPham/ThemBinhLuan',
+                {
+                    type: "POST",
+                    dataType: 'json',
+                    data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
+                    success: function (data, status, xhr) {
+
+                        if (data.status) {
+                            $("#noidung").val('');
+
+                            alert("Thành công")
+
+                            $("#container-binhluan").prepend(
+                                '<div class="form-control " id="binhluan">' +
+                                '<div>' +
+                                '<label id="TenBL">' + data.TenThanhVien + '</label>' +
+                                '</div>' +
+                                '<div id="ndBL">'
+                                + noidung +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        console.log(data)
+                    }
+                });
+        });
+        $(".binhluan").hide();
+        $(".binhluan").slice(0, 4).show();
+        $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $(".binhluan:hidden").slice(0, 4).slideDown();
+            if ($(".binhluan:hidden").length == 0) {
+                $("#loadMore").text("Hết gòi bà dà");
+            }
+        });
+
+        $(".noidungbinhluan").click(function () {
+            var noidung = window.prompt("Nhập nội dung bình luận");
+            var mabl = $(this).attr("data-mabl")
+            if (noidung) {
+                $.ajax('/SanPham/SuaBinhLuan',
                     {
                         type: "POST",
                         dataType: 'json',
-                        data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
+                        data: { MaBL: mabl, noidung: noidung },
                         success: function (data, status, xhr) {
-
                             if (data.status) {
-                                $("#noidung").val('');
-
-                                alert("Thành công")
-
-                                $("#container-binhluan").prepend(
-                                    '<div class="form-control " id="binhluan">' +
-                                    '<div>' +
-                                    '<label id="TenBL">' + data.TenThanhVien + '</label>' +
-                                    '</div>' +
-                                    '<div id="ndBL">'
-                                    + noidung +
-                                    '</div>' +
-                                    '</div>'
-                                );
+                                $('body').find('[data-mabl=' + mabl + ']').html(noidung);
                             }
                         },
                         error: function (jqXhr, textStatus, errorMessage) {
                             console.log(data)
                         }
                     });
-            });
-            $(".binhluan").hide();
-            $(".binhluan").slice(0, 4).show();
-            $("#loadMore").on("click", function (e) {
-                e.preventDefault();
-                $(".binhluan:hidden").slice(0, 4).slideDown();
-                if ($(".binhluan:hidden").length == 0) {
-                    $("#loadMore").text("Hết gòi bà dà");
-                }
-            });
-
-            $(".noidungbinhluan").click(function () {
-                var noidung = window.prompt("Nhập nội dung bình luận");
-                var mabl = $(this).attr("data-mabl")
-                if (noidung) {
-                    $.ajax('/SanPham/SuaBinhLuan',
-                        {
-                            type: "POST",
-                            dataType: 'json',
-                            data: { MaBL: mabl, noidung: noidung },
-                            success: function (data, status, xhr) {
-                                if (data.status) {
-                                    $('body').find('[data-mabl=' + mabl + ']').html(noidung);
-                                }
-                            },
-                            error: function (jqXhr, textStatus, errorMessage) {
-                                console.log(data)
-                            }
-                        });
-                }
-            })
-        });
-    </script>
+            }
+        })
+    });
+</script>
 

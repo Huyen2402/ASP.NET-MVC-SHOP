@@ -13,7 +13,7 @@
 }
 
 
-
+@Html.Action("ModalLoadPartial", "Home")
 <input type="hidden" value="@Session["idKH"]" id="UserID" />
 <div class="container" style="background-color:white">
     <div id="chat">
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-  @Html.Action("MenuPartial", "Home");
+    @Html.Action("MenuPartial", "Home");
 
     @Html.Action("ProductFlashSale", "Home")
 
@@ -86,6 +86,8 @@
     <div class="row">
         <img src="https://cf.shopee.vn/file/ece0fd6e7be830c3bc3ed1e537aab05f" alt="Alternate Text" />
     </div>
+
+
 
     @Html.Action("SanPhamGoiY", "Home")
 
@@ -119,10 +121,29 @@
     #nhan {
         margin-bottom: 12px;
     }
+
+
+
+
+   
 </style>
 <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
 <script src="~/signalr/hubs" type="text/javascript"></script>
 <script>
+
+
+    var video = document.getElementById("myVideo");
+    var btn = document.getElementById("myBtn");
+
+    function myFunction() {
+        if (video.paused) {
+            video.play();
+            btn.innerHTML = "Pause";
+        } else {
+            video.pause();
+            btn.innerHTML = "Play";
+        }
+    }
 
     $(document).ready(function () {
         var userID = $('#UserID').val();

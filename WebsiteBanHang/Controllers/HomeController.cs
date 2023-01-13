@@ -282,7 +282,10 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("CheckAvtShop", "Shop", new {@MaShop = checkShop.MaShop});
         }
 
-
+        public ActionResult ModalLoadPartial()
+        {
+            return PartialView();
+        }
 
 
 
