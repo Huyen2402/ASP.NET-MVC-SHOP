@@ -27,14 +27,16 @@
             </tr>
         </thead>
         <tbody>
-            @{ 
+            @{
                 int i = 0;
             }
             @foreach (var item in Model)
             {
-                decimal? tien = item.DonGia;
+                if (item.DaDanhGia == false)
+                {
+                    decimal? tien = item.DonGia;
 
-                i = i + 1;
+                    i = i + 1;
 
                     <tr>
                         <td>@item.MaChiTietDDH1</td>
@@ -55,13 +57,13 @@
                                 <form action="">
                                     <input data-start="5" data-i="@i" class="@Url.Content("star star-i star-5 sp_"+i.ToString())" id="@Url.Content("star-5-"+i)" type="radio" name="star" />
                                     <label class="star star-5" for="@Url.Content("star-5-"+i)"></label>
-                                    <input data-start="4"  data-i="@i" class="@Url.Content("star star-i star-4 sp_"+i.ToString())" id="@Url.Content("star-4-"+i)" type="radio" name="star" />
+                                    <input data-start="4" data-i="@i" class="@Url.Content("star star-i star-4 sp_"+i.ToString())" id="@Url.Content("star-4-"+i)" type="radio" name="star" />
                                     <label class="star star-4" for="@Url.Content("star-4-"+i)"></label>
-                                    <input data-start="3"  data-i="@i" class="@Url.Content("star star-i star-3 sp_"+i.ToString())" id="@Url.Content("star-3-"+i)" type="radio" name="star" />
+                                    <input data-start="3" data-i="@i" class="@Url.Content("star star-i star-3 sp_"+i.ToString())" id="@Url.Content("star-3-"+i)" type="radio" name="star" />
                                     <label class="star star-3" for="@Url.Content("star-3-"+i)"></label>
-                                    <input data-start="2"  data-i="@i" class="@Url.Content("star star-i star-2 sp_"+i.ToString())" id="@Url.Content("star-2-"+i)" type="radio" name="star" />
+                                    <input data-start="2" data-i="@i" class="@Url.Content("star star-i star-2 sp_"+i.ToString())" id="@Url.Content("star-2-"+i)" type="radio" name="star" />
                                     <label class="star star-2" for="@Url.Content("star-2-"+i)"></label>
-                                    <input data-start="1"  data-i="@i" class="@Url.Content("star star-i star-1 sp_"+i.ToString())" id="@Url.Content("star-1-"+i)" type="radio" name="star" />
+                                    <input data-start="1" data-i="@i" class="@Url.Content("star star-i star-1 sp_"+i.ToString())" id="@Url.Content("star-1-"+i)" type="radio" name="star" />
                                     <label class="star star-1" for="@Url.Content("star-1-"+i)"></label>
                                 </form>
                             </div>
@@ -83,19 +85,64 @@
 
 
                     </tr>
+                }
+                else
+                {
+                    decimal? tien = item.DonGia;
 
-               
+                    i = i + 1;
+
+                    <tr>
+                        <td>@item.MaChiTietDDH1</td>
+
+                        <td>@item.TenSP</td>
+                        <td><img class="img-report" src="@Url.Content("~/Content/images/"+item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                        <td>@item.SoLuong</td>
+
+                        <td>@tien.Value.ToString("#,##0")</td>
+                        <td style="display: none">
+                            <input class="@Url.Content("valDanhGia-"+i)" data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaChiTietDDH1" />
+                        </td>
+
+
+
+                        <td>
+                            <a href="#" class="btn btn-outline-success">Mua lại</a>
+
+                        </td>
+
+
+
+
+                    </tr>
+                }
+
+
 
             }
-            
-           @{ 
-               int count = Model.Count();
-           }
-            <tr>
-                <td colspan="6">
-                    <button id="btn-comment" type="submit" class="btn btn-primary float-end">Gửi đánh giá</button>
-                </td>
-            </tr>
+
+            @{
+                int count = Model.Count();
+                bool? danhgia = Model[0].DaDanhGia;
+
+
+            }
+            @if (danhgia == false)
+            {
+                <tr>
+                    <td colspan="6">
+                        <button id="btn-comment" type="submit" class="btn btn-primary float-end">Gửi đánh giá</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                       
+                    </td>
+                </tr>
+            }
 
         </tbody>
     </table>
@@ -193,58 +240,79 @@
     const arr_star = [];
     const arr_MaCTDDH = [];
     const arr_comment = [];
+    const arr_infor = [];
+    const infor = {};
+
+    function Review(MaCTDDH, start, comment) {
+        this.MaCTDDH = MaCTDDH;
+        this.start = start;
+        this.comment = comment;
+    }
     $(".star-i").click(function () {
 
         var i = $(this).attr("data-i")
         var MaCTDDH = $(".valDanhGia-" + i).val();
-        arr_MaCTDDH.push(MaCTDDH);
+        infor.MaCTDDH = MaCTDDH;
+        arr_MaCTDDH.push(MaCTDDH)
         var start = $(this).attr("data-start")
-        arr_star.push(start)
-        console.log(count)
-        console.log(arr_star)
+        infor.start = start;
         console.log(arr_MaCTDDH)
+       
+        console.log(arr_infor)
+        console.log(arr_infor[0])
+        
+        
        
         $("#btn-comment").click(function () {
             var comment = $("#comment-" + i).val();
+            infor.comment = comment;
             arr_comment.push(comment)
+            arr_infor.push(new Review(MaCTDDH, start, comment))
+           
             console.log(arr_comment)
-
-            swal.fire({
-                title: 'đánh giá sản phẩm',
+            console.log(infor)
+            console.log(arr_infor)
+          
+            Swal.fire({
+                title: 'Đánh giá sản phẩm',
                 text: "bạn đã chắc chắn với đánh giá của mình? nếu bạn chọn yes bạn sẽ không thể chỉnh sửa được nữa",
                 icon: 'warning',
-                showcancelbutton: true,
-                confirmbuttoncolor: '#3085d6',
-                cancelbuttoncolor: '#d33',
-                confirmbuttontext: 'yes'
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
             }).then((result) => {
-                if (result.isconfirmed) {
+                if (result.isConfirmed) {
 
                     //var start = $(this).attr("data-start")
                     var mactddh = $(".valdanhgia").val();
                     //console.log(start)
 
-                    $.ajax({
-                        type: "get",
+                    for (var i = 0; i < arr_infor.length; i++) {
+                        $.ajax({
+                            type: "get",
 
-                        url: "http://localhost:62979/donhang/evaluateproduct?mactddh=" + arr_mactddh + "&star=" + arr_star + "&noidung=" + arr_comment,
-                        contenttype: "json",
+                            url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + arr_infor[i].MaCTDDH + "&comment=" + arr_infor[i].comment + "&start=" +arr_infor[i].start,
+                            contenttype: "json",
 
-                        success: function (status, data) {
-                            console.log("status", status)
-                            console.log("data", data)
-                            //for (var i = 1; i <= start; i++) {
-                            //    $("." + i).empty();
-                            //    $("." + i).prepend('<i style="color:#fd4" class="fa  fa-star "></i>');
-                            //}
-                            swal.fire(
-                                'thành công!',
-                                'đánh giá của bạn đã góp phần giúp shop chúng tôi ngày càng phát triển tốt hơn.',
-                                'success'
-                            )
+                            success: function (status, data) {
+                                console.log("status", status)
+                                console.log("data", status.data)
+                                //for (var i = 1; i <= start; i++) {
+                                //    $("." + i).empty();
+                                //    $("." + i).prepend('<i style="color:#fd4" class="fa  fa-star "></i>');
+                                //}
+                                
 
-                        }
-                    })
+                            }
+                        })
+                    }
+                    Swal.fire(
+                        'thành công!',
+                        'đánh giá của bạn đã góp phần giúp shop chúng tôi ngày càng phát triển tốt hơn.',
+                        'success'
+                    )
+                    window.location.reload();
 
 
                 }
