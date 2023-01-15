@@ -7,6 +7,8 @@ using WebsiteBanHang.Models;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc;
 using System.IO;
+using System.Net.Mail;
+using System.Net;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -73,22 +75,82 @@ namespace WebsiteBanHang.Controllers
             ViewBag.CauHoi = new SelectList(CauHoi());
             if(this.IsCaptchaValid("Captcha is not valid"))
             {
+                Random random = new Random();
                 ViewBag.ThongBao = "Thêm thành công";
-                tv.MaLoaiTV = 2;
+                tv.MaLoaiTV = 1;
                 tv.DaKhoa = false;
+                tv.DaXacNhan = false;
+                tv.captcha = random.Next(100000,999999);
                 db.ThanhViens.Add(tv);
                
                 db.SaveChanges();
                 ViewBag.ThongBao = "Thêm thành công";
-                return View();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                        var receiverEmail = new MailAddress(tv.Email, "Receiver");
+                        var password = "yyxrbzsfbkrftlny";
+                        string subject = "Xác nhận tài khoản người dùng - Sàn thương mại điện tử Ori Cute";
+                        string body = "Chào bạn, đây là mã xác nhận tài khoản của bạn: " + tv.captcha;
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = subject,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                        return RedirectToAction("XacNhanNguoiDung");
+                    }
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
+                return RedirectToAction("XacNhanNguoiDung");
             }
             else
             {
                 ViewBag.ThongBao = "Thêm thất bại";
             }
 
-            
+
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult XacNhanNguoiDung()
+        {
+
+            return View();
+        }
+
+       
+        public JsonResult MaXacNhan(int captcha)
+        {
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.captcha == captcha);
+            if(tv != null)
+            {
+                tv.DaXacNhan = true;
+                ViewBag.mess = "Xác nhận tài khoản thành công";
+                db.SaveChanges();
+            }
+            else
+            {
+                ViewBag.mess = "Mã xác nhận không hợp lệ";
+            }
+            return Json(new { mess = ViewBag.mess }, JsonRequestBehavior.AllowGet);
         }
 
         public List<string> CauHoi()
@@ -105,7 +167,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DangNhap(string TaiKhoan, string MatKhau)
         {
             ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == TaiKhoan && n.MatKhau == MatKhau );
-            if(tv != null && tv.MaLoaiTV == 1)
+            if(tv != null && tv.MaLoaiTV == 1 && tv.DaXacNhan == true)
             {
                 Session["TaiKhoan"] = tv;
                 Session["idKH"] = tv.MaThanhVien;
@@ -240,8 +302,10 @@ namespace WebsiteBanHang.Controllers
                
                if (checkTK == null && checkName == null)
                 {
+                    Random random = new Random();
                     shop.NgayTao = (DateTime)DateTime.Now;
                     shop.XacNhan = false;
+                    shop.captcha = random.Next(100000, 999999);
                     db.Shops.Add(shop);
                     db.SaveChanges();
                     return Json(new { status = true }, JsonRequestBehavior.AllowGet);

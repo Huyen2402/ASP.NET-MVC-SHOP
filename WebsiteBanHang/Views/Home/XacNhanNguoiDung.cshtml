@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "XacNhanNguoiDung";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<div class=" container">
+    <div class=" register">
+        <h1>Xác nhận thành viên</h1>
+        @using (Html.BeginForm("XacNhanNguoiDung", "Home", FormMethod.Post, new { @id = "form-xacnhan" }))
+        {
+
+            <div class="col-md-12 register-top-grid">
+                <h3>Thông tin xác nhận</h3>
+                <div>
+                    <span>Mã xác nhận:</span>
+                    <input id="captcha" name="captcha" type="text">
+                </div>
+
+
+                <input class="btn btn-warning" id="btn-dangky  " type="submit" value="Đăng ký">
+                <div class="clearfix"> </div>
+
+            </div>
+
+            
+
+         
+            <div class="clearfix"> </div>
+
+        }
+        <h2 style="color:aqua">@ViewBag.ThongBao</h2>
+
+    </div>
+</div>
+
+<script>
+        $(function () {
+        $("#form-xacnhan").submit(function (event) {
+            event.preventDefault();
+            
+            var captcha = $("#captcha").val();
+           
+
+
+             /*   $("#form-dangky").submit();*/
+                var actionurl = event.currentTarget.action;
+
+                //do your own request an handle the results
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/Home/MaXacNhan?captcha=" + captcha,
+                success: function (status, data) {
+                    console.log(status)
+
+                    if (data == success) {
+                        console.log(data)
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: "Xác nhận tài khoản thành công",
+                            showConfirmButton: false,
+                            timer: 2500
+
+                        })
+                    }
+                    else {
+                        console.log(data)
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: "Đã xảy ra lỗi",
+                            showConfirmButton: false,
+                            timer: 2500
+
+                        })
+                    }
+                }
+
+            })
+
+
+               
+                //window.location.reload();
+
+            
+
+
+        });
+    });
+
+</script>
+

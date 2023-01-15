@@ -28,14 +28,15 @@ namespace WebsiteBanHang.Controllers
         {
             Shop s = Session["CuaHang"] as Shop;
 
-            List<ThanhVien> listTV = db.ThanhViens.Where(n => n.MaLoaiTV == 2).ToList();
+            List<ThanhVien> listTV = db.ThanhViens.Where(n => n.MaLoaiTV == 1).ToList();
             ViewBag.TongTV = listTV.Count();
-            List<BinhLuan> listBl = db.BinhLuans.Where(n=>n.SanPham.MaShop == s.MaShop).ToList();
-            ViewBag.TongBL = listBl.Count();
-
-            ViewBag.TongTien = TongTien(s.MaShop);
-            List<DonDatHang> listDDH = db.DonDatHangs.Where(x=>x.MaShop == s.MaShop).ToList();
-            ViewBag.TongDDH = listDDH.Count();
+            List<BinhLuan> listBl = db.BinhLuans.Where(n=>n.SanPham.MaShop == s.MaShop).ToList() ;
+            List<DonDatHang> listDDH = db.DonDatHangs.Where(x => x.MaShop == s.MaShop).ToList();
+            ViewBag.TongBL = listBl.Count() > 0 ? listBl.Count : 0;
+            ViewBag.TongDDH = listDDH.Count > 0 ? listDDH.Count :  0;
+            ViewBag.TongTien = listDDH.Count > 0 ? TongTien(s.MaShop) : 0;
+           
+            //ViewBag.TongTien = TongTien(s.MaShop);
             int year = int.Parse(DateTime.Now.Year.ToString()) ;
             // Data chart
             List<DataChart> data = db.DonDatHangs.Where(x=>x.NgayDat.Value.Year == year)
@@ -59,11 +60,14 @@ namespace WebsiteBanHang.Controllers
 
         public decimal? TongTien(int? MaShop)
         {
-            var tongtien = db.ChiTietDonDatHangs.Where(n=>n.DonDatHang.MaShop == MaShop).Sum(n => n.DonGia * n.SoLuong).Value;
+           
+            decimal? tongtien = db.ChiTietDonDatHangs.Where(n => n.DonDatHang.MaShop == MaShop).Sum(n => n.DonGia * n.SoLuong).Value;
+
             return tongtien;
+
         }
 
-       
+
 
         public ActionResult ThongKeBieuDo(int? time)
         {

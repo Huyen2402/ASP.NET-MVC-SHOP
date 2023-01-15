@@ -674,6 +674,7 @@
     <Content Include="Views\DatHang\DatHang.cshtml" />
     <Content Include="Views\SanPham\SanPhamTuongTuPartial.cshtml" />
     <Content Include="Views\Home\ModalLoadPartial.cshtml" />
+    <Content Include="Views\Home\XacNhanNguoiDung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

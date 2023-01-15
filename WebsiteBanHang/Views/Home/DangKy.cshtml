@@ -123,48 +123,48 @@
 
     })
 
-    $(function () {
-        $("#form-dangky").submit(function (event) {
-            event.preventDefault();
-            var pass = $("#password").val();
-            var repass = $("#repass").val();
-            if (repass != pass) {
+    //$(function () {
+    //    $("#form-dangky").submit(function (event) {
+    //        event.preventDefault();
+    //        var pass = $("#password").val();
+    //        var repass = $("#repass").val();
+    //        if (repass != pass) {
                 
-                $("#erorr").text("Mật khẩu không trùng khớp");
-            }
+    //            $("#erorr").text("Mật khẩu không trùng khớp");
+    //        }
 
-            else {
+    //        else {
             
 
-             /*   $("#form-dangky").submit();*/
-                var actionurl = event.currentTarget.action;
+    //         /*   $("#form-dangky").submit();*/
+    //            var actionurl = event.currentTarget.action;
 
-                //do your own request an handle the results
-                $.ajax({
-                    url: actionurl,
-                    type: 'post',
-                    dataType: 'application/json',
-                    data: $("#form-dangky").serialize()
+    //            //do your own request an handle the results
+    //            $.ajax({
+    //                url: actionurl,
+    //                type: 'post',
+    //                dataType: 'application/json',
+    //                data: $("#form-dangky").serialize()
                    
                    
-                });
+    //            });
 
 
-                Swal.fire({
+    //            Swal.fire({
                    
-                    icon: 'success',
-                    title: 'Đăng ký tài khoản thành công',
-                    showConfirmButton: false,
-                    timer: 1500
+    //                icon: 'success',
+    //                title: 'Đăng ký tài khoản thành công',
+    //                showConfirmButton: false,
+    //                timer: 1500
                    
-                })
-                window.location.reload();
+    //            })
+    //            window.location.reload();
                
-            }
+    //        }
             
            
-        });
-    });
+    //    });
+    //});
 
 
     

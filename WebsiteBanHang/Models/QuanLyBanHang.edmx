@@ -236,6 +236,7 @@
           <Property Name="SDT" Type="int" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
           <Property Name="XacNhan" Type="bit" />
+          <Property Name="captcha" Type="int" />
         </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
@@ -253,6 +254,8 @@
           <Property Name="MaTinh" Type="int" />
           <Property Name="MaHuyen" Type="int" />
           <Property Name="MaXa" Type="int" />
+          <Property Name="captcha" Type="int" />
+          <Property Name="DaXacNhan" Type="bit" />
         </EntityType>
         <EntityType Name="Tinh">
           <Key>
@@ -1505,6 +1508,7 @@
           <Property Name="SDT" Type="Int32" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="XacNhan" Type="Boolean" />
+          <Property Name="captcha" Type="Int32" />
           <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17" FromRole="Shop" ToRole="ChatwithShop" />
           <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSho__1236F807" FromRole="Shop" ToRole="ChiTietFlashSale" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="Shop" ToRole="DonDatHang" />
@@ -1529,6 +1533,8 @@
           <Property Name="MaTinh" Type="Int32" />
           <Property Name="MaHuyen" Type="Int32" />
           <Property Name="MaXa" Type="Int32" />
+          <Property Name="captcha" Type="Int32" />
+          <Property Name="DaXacNhan" Type="Boolean" />
           <NavigationProperty Name="Chat" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien" FromRole="ThanhVien" ToRole="Chat" />
           <NavigationProperty Name="Chat1" Relationship="QuanLyBanHangModel.FK_Chat_ThanhVien1" FromRole="ThanhVien" ToRole="Chat" />
           <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaTha__1586CF50" FromRole="ThanhVien" ToRole="ChatwithShop" />
@@ -2360,6 +2366,7 @@
           <EntitySetMapping Name="Shop">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="captcha" ColumnName="captcha" />
                 <ScalarProperty Name="XacNhan" ColumnName="XacNhan" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
@@ -2378,6 +2385,8 @@
           <EntitySetMapping Name="ThanhVien">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ThanhVien">
               <MappingFragment StoreEntitySet="ThanhVien">
+                <ScalarProperty Name="DaXacNhan" ColumnName="DaXacNhan" />
+                <ScalarProperty Name="captcha" ColumnName="captcha" />
                 <ScalarProperty Name="MaXa" ColumnName="MaXa" />
                 <ScalarProperty Name="MaHuyen" ColumnName="MaHuyen" />
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
