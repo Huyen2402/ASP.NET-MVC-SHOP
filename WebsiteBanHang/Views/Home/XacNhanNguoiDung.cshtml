@@ -53,8 +53,9 @@
                 url: "http://localhost:62979/Home/MaXacNhan?captcha=" + captcha,
                 success: function (status, data) {
                     console.log(status)
+                    console.log(status.status)
 
-                    if (data == success) {
+                    if (status.status == "success") {
                         console.log(data)
                         Swal.fire({
 

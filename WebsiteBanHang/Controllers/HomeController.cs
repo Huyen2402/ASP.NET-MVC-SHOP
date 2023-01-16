@@ -9,6 +9,7 @@ using CaptchaMvc;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Hosting;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -93,7 +94,9 @@ namespace WebsiteBanHang.Controllers
                         var receiverEmail = new MailAddress(tv.Email, "Receiver");
                         var password = "yyxrbzsfbkrftlny";
                         string subject = "Xác nhận tài khoản người dùng - Sàn thương mại điện tử Ori Cute";
-                        string body = "Chào bạn, đây là mã xác nhận tài khoản của bạn: " + tv.captcha;
+                        string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/Customer.html"));
+                        body = body.Replace(@"######", @"Chào bạn, đây là mã xác nhận tài khoản của bạn: " + tv.captcha);
+                     
                         var smtp = new SmtpClient
                         {
                             Host = "smtp.gmail.com",
@@ -105,6 +108,7 @@ namespace WebsiteBanHang.Controllers
                         };
                         using (var mess = new MailMessage(senderEmail, receiverEmail)
                         {
+                            IsBodyHtml = true,
                             Subject = subject,
                             Body = body
                         })
@@ -144,13 +148,15 @@ namespace WebsiteBanHang.Controllers
             {
                 tv.DaXacNhan = true;
                 ViewBag.mess = "Xác nhận tài khoản thành công";
+                ViewBag.status = "success";
                 db.SaveChanges();
             }
             else
             {
                 ViewBag.mess = "Mã xác nhận không hợp lệ";
+                ViewBag.status = "faild";
             }
-            return Json(new { mess = ViewBag.mess }, JsonRequestBehavior.AllowGet);
+            return Json(new { mess = ViewBag.mess, status = ViewBag.status }, JsonRequestBehavior.AllowGet);
         }
 
         public List<string> CauHoi()
