@@ -93,45 +93,7 @@ namespace WebsiteBanHang.Controllers
                             }
 
                             db.SaveChanges();
-                            try
-                            {
-                                ThanhVien tv = db.ThanhViens.Single(n => n.MaThanhVien == iduser);
-                                if (ModelState.IsValid)
-                                {
-                                    var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
-                                    var receiverEmail = new MailAddress(tv.Email, "Receiver");
-                                    var password = "yyxrbzsfbkrftlny";
-                                    string subject = "Đơn đặt hàng của bạn - Sàn thương mại điện tử Ori Cute";
-                                    string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/Views/EmailTemplates/DonHang.cshtml"));
-                                    body = body.Replace(@"###img", @"" + listGioHang[i].HinhAnh);
-                                    body = body.Replace(@"###TenSP", @"" + listGioHang[i].TenSP);
-                                    body = body.Replace(@"###Gia", @"" + listGioHang[i].Dongia);
-
-                                    var smtp = new SmtpClient
-                                    {
-                                        Host = "smtp.gmail.com",
-                                        Port = 587,
-                                        EnableSsl = true,
-                                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                                        UseDefaultCredentials = false,
-                                        Credentials = new NetworkCredential(senderEmail.Address, password)
-                                    };
-                                    using (var mess = new MailMessage(senderEmail, receiverEmail)
-                                    {
-                                        IsBodyHtml = true,
-                                        Subject = subject,
-                                        Body = body
-                                    })
-                                    {
-                                        smtp.Send(mess);
-                                    }
-                                   
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                ViewBag.Error = "Some Error";
-                            }
+                            
                             
                            
 

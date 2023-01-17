@@ -1,0 +1,220 @@
+﻿@using WebsiteBanHang.Models
+@model Shop
+@{
+    ViewBag.Title = "ThongTinShop";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    a {
+        text-decoration: none;
+        font-size: 22px;
+        color: black;
+    }
+
+        button:hover, a:hover {
+            opacity: 0.7;
+        }
+
+
+    p.credits {
+        font-size: .8125rem;
+        margin-top: 6em;
+    }
+
+
+
+    .phone-hide {
+        display: none;
+    }
+
+    }
+
+    .w3l-table-info code {
+        background: #dde6ec;
+        border-radius: 0;
+        color: #666;
+        display: block;
+        margin: 2em 0;
+        padding: 15px;
+        position: relative;
+    }
+
+    .w3agile-css {
+        margin-bottom: 0 !important;
+    }
+
+    code:after {
+        bottom: 5px;
+        color: #e4ebeb;
+        font-family: 'Lato', sans-serif;
+        font-size: 1rem;
+        position: absolute;
+        right: 10px;
+        text-transform: uppercase;
+    }
+
+    code.css:after {
+        content: 'css';
+    }
+
+    code.js:after {
+        content: 'js';
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin: 1.25em 0 0;
+        width: 100%;
+    }
+
+        table tr,
+        table th,
+        table td {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: .95em;
+        }
+
+        table th,
+        table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e53238;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        table tr td {
+            background: #f3faff;
+            color: #424242;
+        }
+
+        table tr:nth-of-type(2n+2) td {
+            background: #ffffff;
+        }
+
+        table.bt tfoot th,
+        table.bt tfoot td,
+        table.bt tbody td {
+            font-size: .8125rem;
+            padding: 0;
+        }
+
+            table.bt tfoot th:before,
+            table.bt tfoot td:before,
+            table.bt tbody td:before {
+                background: #e74c3c;
+                margin-right: 10px;
+                padding: 2px 10px;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            table.bt tfoot th .bt-content,
+            table.bt tfoot td .bt-content,
+            table.bt tbody td .bt-content {
+                display: inline-block;
+                padding: 2px 5px;
+            }
+
+            table.bt tfoot th:first-of-type:before,
+            table.bt tfoot th:first-of-type .bt-content,
+            table.bt tfoot td:first-of-type:before,
+            table.bt tfoot td:first-of-type .bt-content,
+            table.bt tbody td:first-of-type:before,
+            table.bt tbody td:first-of-type .bt-content {
+                padding-top: 10px;
+            }
+
+            table.bt tfoot th:last-of-type:before,
+            table.bt tfoot th:last-of-type .bt-content,
+            table.bt tfoot td:last-of-type:before,
+            table.bt tfoot td:last-of-type .bt-content,
+            table.bt tbody td:last-of-type:before,
+            table.bt tbody td:last-of-type .bt-content {
+                padding-bottom: 10px;
+            }
+
+</style>
+
+
+
+<div class="inner_content">
+
+    <h2 style="text-align:center">User Profile Card</h2>
+    <div class="row">
+        <div class="card col-5">
+            <img src="@Url.Content("~/Content/images/"+Model.avt)" alt="John" style="width:100%">
+            <h1>John Doe</h1>
+            <p class="title">CEO & Founder, Example</p>
+            <p>Harvard University</p>
+            <div style="margin: 24px 0;">
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+            </div>
+            <p><button>Chấp Nhận</button></p>
+        </div>
+        <div class="col-7">
+            <div class="w3l-table-info agile_info_shadow">
+                <h3 class="w3_inner_tittle two">Max Height</h3>
+                <table id="table-max-height" class="max-height">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Mặt hàng kinh doanh</th>
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                            <tr>
+                                <td class="text-center" data-th="Name"><span class="bt-content">.TenShop</span></td>
+                               
+                            
+
+                            </tr>
+
+                        
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

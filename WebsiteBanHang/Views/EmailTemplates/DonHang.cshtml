@@ -34,21 +34,22 @@
                         <th width="80%" style="text-align:left; padding: 0 2.5em; color: #000; padding-bottom: 20px">Item</th>
                         <th width="20%" style="text-align:right; padding: 0 2.5em; color: #000; padding-bottom: 20px">Price</th>
                     </tr>
+                    @for (var i= 0 ; i< Model.Count;i++) {
                     <tr style="border-bottom: 1px solid rgba(0,0,0,.05);">
                         <td valign="middle" width="80%" style="text-align:left; padding: 0 2.5em;">
                             <div class="product-entry">
-                                <img src="@Url.Content("~/Content/images/###img")" alt="" style="width: 100px; max-width: 600px; height: auto; margin-bottom: 20px; display: block;">
+
                                 <div class="text">
-                                    <h3>###TenSP </h3>
-                                    <span>Small</span>
-                                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                    <h3>@Url.Content("###TenSP_"+i) </h3>
+
                                 </div>
                             </div>
                         </td>
                         <td valign="middle" width="20%" style="text-align:left; padding: 0 2.5em;">
-                            <span class="price" style="color: #000; font-size: 20px;">###Gia</span>
+                            <span class="price" style="color: #000; font-size: 20px;">@Url.Content("###Gia_" + i)</span>
                         </td>
                     </tr>
+                    }
 
 
                 </table>

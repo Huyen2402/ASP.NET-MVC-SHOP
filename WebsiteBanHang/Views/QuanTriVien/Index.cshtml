@@ -1,0 +1,455 @@
+﻿@using WebsiteBanHang.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+
+}
+<div class="inner_content">
+    <div class="agile_top_w3_grids">
+        <ul class="ca-menu">
+            <li>
+                <a href="#">
+
+                    <i class="fa fa-building-o" aria-hidden="true"></i>
+                    <div class="ca-content">
+                        <h4 class="ca-main">@ViewBag.Xet</h4>
+                        <h3 class="ca-sub">Chờ Xét Duyệt</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <div class="ca-content">
+                        <h4 class="ca-main one">@ViewBag.TongShop</h4>
+                        <h3 class="ca-sub one">Tổng Shop</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <div class="ca-content">
+                        <h4 class="ca-main two">@ViewBag.TongDM</h4>
+                        <h3 class="ca-sub two">Tổng Loại Sản Phẩm</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    <div class="ca-content">
+                        <h4 class="ca-main three">@ViewBag.TongNCC</h4>
+                        <h3 class="ca-sub three">Tổng Nhà Cung Cấp</h3>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-clone" aria-hidden="true"></i>
+                    <div class="ca-content">
+                        <h4 class="ca-main four">@ViewBag.TongNSX</h4>
+                        <h3 class="ca-sub four">Tổng Nhà Sản Xuất</h3>
+                    </div>
+                </a>
+            </li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+    <!-- /inner_content_w3_agile_info-->
+    <div class="inner_content_w3_agile_info">
+        <!-- /agile_top_w3_grids-->
+        <!-- //agile_top_w3_grids-->
+        <!-- /agile_top_w3_post_sections-->
+        <div class="agile_top_w3_post_sections">
+            <div class="col-md-6 agile_top_w3_post agile_info_shadow">
+                <div class="img_wthee_post">
+                    <h3 class="w3_inner_tittle">Latest Report</h3>
+                    <div class="stats-wrap">
+                        <div class="count_info"><h4 class="count">65,800,587 </h4><span class="year">Total Companies</span></div>
+                        <div class="year-info"><p class="text-no">20 </p><span class="year">This Year</span></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="stats-wrap">
+                        <div class="count_info"><h4 class="count">2,690 </h4><span class="year">Total Companies</span></div>
+                        <div class="year-info"><p class="text-no">40 </p><span class="year">This Month</span></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="stats-wrap">
+                        <div class="count_info"><h4 class="count">24,660 </h4><span class="year">Total Companies</span></div>
+                        <div class="year-info"><p class="text-no">30 </p><span class="year">This Week</span></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="stats-wrap">
+                        <div class="count_info"><h4 class="count">1,204</h4><span class="year">Total Companies</span></div>
+                        <div class="year-info"><p class="text-no">10 </p><span class="year">This Day</span></div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 agile_top_w3_post_info agile_info_shadow">
+                <div class="img_wthee_post1">
+                    <h3 class="w3_inner_tittle"> Flip Clock</h3>
+                    <div class="main-example">
+                        <div class="clock flip-clock-wrapper"><span class="flip-clock-divider hours"><span class="flip-clock-label">Hours</span></span><ul class="flip "><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">9</div></div><div class="down"><div class="shadow"></div><div class="inn">9</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li></ul><ul class="flip "><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">9</div></div><div class="down"><div class="shadow"></div><div class="inn">9</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li></ul><span class="flip-clock-divider minutes"><span class="flip-clock-label">Minutes</span><span class="flip-clock-dot top"></span><span class="flip-clock-dot bottom"></span></span><ul class="flip "><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">9</div></div><div class="down"><div class="shadow"></div><div class="inn">9</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li></ul><ul class="flip "><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">9</div></div><div class="down"><div class="shadow"></div><div class="inn">9</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li></ul><span class="flip-clock-divider seconds"><span class="flip-clock-label">Seconds</span><span class="flip-clock-dot top"></span><span class="flip-clock-dot bottom"></span></span><ul class="flip  play"><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">1</div></div><div class="down"><div class="shadow"></div><div class="inn">1</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">2</div></div><div class="down"><div class="shadow"></div><div class="inn">2</div></div></a></li></ul><ul class="flip  play"><li class="flip-clock-before"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">1</div></div><div class="down"><div class="shadow"></div><div class="inn">1</div></div></a></li><li class="flip-clock-active"><a href="#"><div class="up"><div class="shadow"></div><div class="inn">2</div></div><div class="down"><div class="shadow"></div><div class="inn">2</div></div></a></li></ul></div>
+                        <div class="message"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!-- //agile_top_w3_post_sections-->
+        <!-- /w3ls_agile_circle_progress-->
+        <div class="w3ls_agile_cylinder chart agile_info_shadow">
+            <h3 class="w3_inner_tittle two"> Cylinder chart</h3>
+
+            <div id="chartdiv" style="overflow: visible; text-align: left;"><div class="amcharts-main-div" style="position: relative;"><div class="amcharts-chart-div" style="overflow: hidden; position: relative; text-align: left; width: 812px; height: 450px; padding: 0px; touch-action: auto;"><svg version="1.1" style="position: absolute; width: 812px; height: 450px; top: 0.0500488px; left: 0px;"><desc>JavaScript chart by amCharts 3.20.20</desc><g><path cs="100,100" d="M0.5,0.5 L811.5,0.5 L811.5,449.5 L0.5,449.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-bg"></path><path cs="100,100" d="M0.5,0.5 L697.5,0.5 L697.5,374.5 L0.5,374.5 L0.5,0.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area" transform="translate(94,20)"></path><path cs="100,100" d="M0.5,0.5 L35.5,-19.5 L732.5,-19.5 L697.5,0.5 L0.5,0.5 Z" fill="#d9d9d9" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area-bottom" transform="translate(59,414)"></path><path cs="100,100" d="M0.5,0.5 L0.5,374.5 L35.5,354.5 L35.5,-19.5 L0.5,0.5 Z" fill="#d9d9d9" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area-left" transform="translate(59,40)"></path></g><g><g class="amcharts-category-axis" transform="translate(59,40)"></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549638" transform="translate(59,40)" visibility="visible"></g></g><g transform="translate(59,40)" clip-path="url(#AmChartsEl-1586)"><g visibility="hidden"></g></g><g></g><g></g><g><g transform="translate(59,40)"><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(4,374)" aria-label=" USA 4,025"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#FF0F00" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-335A18.5,10,0,0,0,37,-335L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1588)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1588" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#FF0F00"></stop><stop offset="33.333333333333336%" stop-color="#b30b00"></stop><stop offset="66.66666666666667%" stop-color="#b30b00"></stop><stop offset="100%" stop-color="#FF0F00"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ff1700" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-344)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(51,374)" aria-label=" China 1,882"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#FF6600" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-156A18.5,10,0,0,0,37,-156L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1589)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1589" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#FF6600"></stop><stop offset="33.333333333333336%" stop-color="#b34700"></stop><stop offset="66.66666666666667%" stop-color="#b34700"></stop><stop offset="100%" stop-color="#FF6600"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ff9900" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-165)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(97,374)" aria-label=" Japan 1,809"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#FF9E01" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-150A18.5,10,0,0,0,37,-150L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1590)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1590" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#FF9E01"></stop><stop offset="33.333333333333336%" stop-color="#b36f01"></stop><stop offset="66.66666666666667%" stop-color="#b36f01"></stop><stop offset="100%" stop-color="#FF9E01"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ffed02" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-159)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(144,374)" aria-label=" Germany 1,322"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#FCD202" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-110A18.5,10,0,0,0,37,-110L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1591)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1591" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#FCD202"></stop><stop offset="33.333333333333336%" stop-color="#b09301"></stop><stop offset="66.66666666666667%" stop-color="#b09301"></stop><stop offset="100%" stop-color="#FCD202"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ffff03" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-119)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(190,374)" aria-label=" UK 1,122"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#F8FF01" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-93A18.5,10,0,0,0,37,-93L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1592)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1592" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#F8FF01"></stop><stop offset="33.333333333333336%" stop-color="#aeb301"></stop><stop offset="66.66666666666667%" stop-color="#aeb301"></stop><stop offset="100%" stop-color="#F8FF01"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ffff02" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-102)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(237,374)" aria-label=" France 1,114"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#B0DE09" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-93A18.5,10,0,0,0,37,-93L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1593)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1593" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#B0DE09"></stop><stop offset="33.333333333333336%" stop-color="#7b9b06"></stop><stop offset="66.66666666666667%" stop-color="#7b9b06"></stop><stop offset="100%" stop-color="#B0DE09"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ffff0e" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-102)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(283,374)" aria-label=" India 984"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#04D215" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-82A18.5,10,0,0,0,37,-82L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1594)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1594" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#04D215"></stop><stop offset="33.333333333333336%" stop-color="#03930f"></stop><stop offset="66.66666666666667%" stop-color="#03930f"></stop><stop offset="100%" stop-color="#04D215"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#06ff20" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-91)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(330,374)" aria-label=" Spain 711"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#0D8ECF" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-59A18.5,10,0,0,0,37,-59L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1595)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1595" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#0D8ECF"></stop><stop offset="33.333333333333336%" stop-color="#096391"></stop><stop offset="66.66666666666667%" stop-color="#096391"></stop><stop offset="100%" stop-color="#0D8ECF"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#14d5ff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-68)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(376,374)" aria-label=" Netherlands 665"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#0D52D1" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-55A18.5,10,0,0,0,37,-55L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1596)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1596" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#0D52D1"></stop><stop offset="33.333333333333336%" stop-color="#093992"></stop><stop offset="66.66666666666667%" stop-color="#093992"></stop><stop offset="100%" stop-color="#0D52D1"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#147bff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-64)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(422,374)" aria-label=" Russia 580"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#2A0CD0" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-48A18.5,10,0,0,0,37,-48L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1597)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1597" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#2A0CD0"></stop><stop offset="33.333333333333336%" stop-color="#1d0892"></stop><stop offset="66.66666666666667%" stop-color="#1d0892"></stop><stop offset="100%" stop-color="#2A0CD0"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#3f12ff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-57)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(469,374)" aria-label=" South Korea 443"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#8A0CCF" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-37A18.5,10,0,0,0,37,-37L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1598)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1598" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#8A0CCF"></stop><stop offset="33.333333333333336%" stop-color="#610891"></stop><stop offset="66.66666666666667%" stop-color="#610891"></stop><stop offset="100%" stop-color="#8A0CCF"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#cf12ff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-46)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(515,374)" aria-label=" Canada 441"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#CD0D74" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-37A18.5,10,0,0,0,37,-37L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1599)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1599" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#CD0D74"></stop><stop offset="33.333333333333336%" stop-color="#900951"></stop><stop offset="66.66666666666667%" stop-color="#900951"></stop><stop offset="100%" stop-color="#CD0D74"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ff14ae" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-46)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(562,374)" aria-label=" Brazil 395"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#754DEB" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-33A18.5,10,0,0,0,37,-33L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1600)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1600" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#754DEB"></stop><stop offset="33.333333333333336%" stop-color="#5236a5"></stop><stop offset="66.66666666666667%" stop-color="#5236a5"></stop><stop offset="100%" stop-color="#754DEB"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#b074ff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-42)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(608,374)" aria-label=" Italy 386"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#DDDDDD" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-32A18.5,10,0,0,0,37,-32L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1601)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1601" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#DDDDDD"></stop><stop offset="33.333333333333336%" stop-color="#9b9b9b"></stop><stop offset="66.66666666666667%" stop-color="#9b9b9b"></stop><stop offset="100%" stop-color="#DDDDDD"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#ffffff" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-41)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639" transform="translate(655,374)" aria-label=" Taiwan 338"><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#333333" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-10)" class="amcharts-graph-column-bottom amcharts-graph-column-element"></ellipse><path cs="100,100" d="M0,0 L0,-28A18.5,10,0,0,0,37,-28L37,0A18.5,10,0,0,1,0,0" fill="url(#AmChartsEl-1602)" stroke="#009fe3" stroke-width="1" stroke-opacity="0.1" fill-opacity="0.85" transform="translate(0,-10)" class="amcharts-graph-column-front amcharts-graph-column-element"></path><linearGradient id="AmChartsEl-1602" x1="100%" x2="0%" y1="0%" y2="0%"><stop offset="0%" stop-color="#333333"></stop><stop offset="33.333333333333336%" stop-color="#242424"></stop><stop offset="66.66666666666667%" stop-color="#242424"></stop><stop offset="100%" stop-color="#333333"></stop></linearGradient><ellipse rx="18.5" ry="10" cx="0" cy="0" fill="#4d4d4d" stroke="#009fe3" fill-opacity="0.85" stroke-width="1" stroke-opacity="0.1" transform="translate(19,-37)" class="amcharts-graph-column-top amcharts-graph-column-element"></ellipse></g></g></g><g><g transform="translate(59,40)" class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639"><g></g></g></g><g></g><g><path cs="100,100" d="M0.5,374.5 L697.5,374.5 L732.5,354.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(59,40)" class="amcharts-axis-zero-grid-valueAxisAuto0_1673937549638 amcharts-axis-zero-grid"></path><g class="amcharts-category-axis"><path cs="100,100" d="M0.5,0.5 L697.5,0.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(59,414)" class="amcharts-axis-line"></path></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549638"><path cs="100,100" d="M0.5,0.5 L0.5,374.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(59,40)" class="amcharts-axis-line" visibility="visible"></path></g></g><g><g transform="translate(59,40)" clip-path="url(#AmChartsEl-1587)" style="pointer-events: none;"><path cs="100,100" d="M35.5,-19.5 L0.5,0.5 L0.5,374.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" class="amcharts-cursor-line amcharts-cursor-line-vertical" visibility="hidden"></path><path cs="100,100" d="M0.5,0.5 L697.5,0.5 L732.5,-19.5" fill="none" stroke-width="1" stroke="#000000" class="amcharts-cursor-line amcharts-cursor-line-horizontal" visibility="hidden"></path></g><clipPath id="AmChartsEl-1587"><rect x="0" y="0" width="697" height="374" rx="0" ry="0" stroke-width="0"></rect></clipPath></g><g></g><g><g transform="translate(59,40)" class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549639"></g></g><g><g></g></g><g><g class="amcharts-category-axis" transform="translate(59,40)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(23.233333333333334,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">USA</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(70.23333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">China</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(116.23333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Japan</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(163.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Germany</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(209.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">UK</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(256.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">France</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(302.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">India</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(349.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Spain</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(395.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Netherlands</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(441.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Russia</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(488.23333333333335,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">South Korea</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(534.2333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Canada</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(581.2333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Brazil</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(627.2333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Italy</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(674.2333333333333,391.5)" class="amcharts-axis-label"><tspan y="6" x="0">Taiwan</tspan></text></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549638" transform="translate(59,40)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,372.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">0</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,330.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">500</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,289.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">1,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,247.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">1,500</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,206.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">2,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,164.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">2,500</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,123.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">3,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,81.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">3,500</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,40.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">4,000</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,-1.3000001907348633)" class="amcharts-axis-label"><tspan y="6" x="0">4,500</tspan></text></g></g><g></g><g transform="translate(59,40)"></g><g></g><g></g><clipPath id="AmChartsEl-1586"><rect x="-1" y="-1" width="699" height="376" rx="0" ry="0" stroke-width="0"></rect></clipPath></svg><a href="http://www.amcharts.com/javascript-charts/" title="JavaScript charts" style="position: absolute; text-decoration: none; color: rgb(0, 0, 0); font-family: Verdana; font-size: 11px; opacity: 0.7; display: block; left: 64px; top: 45px;">JS chart by amCharts</a></div><div class="amcharts-export-menu amcharts-export-menu-top-right amExportButton"><ul><li class="export-main"><a href="#"><span>menu.label.undefined</span></a><ul><li><a href="#"><span>Download as ...</span></a><ul><li><a href="#"><span>PNG</span></a></li><li><a href="#"><span>JPG</span></a></li><li><a href="#"><span>SVG</span></a></li><li><a href="#"><span>PDF</span></a></li></ul></li><li><a href="#"><span>Save as ...</span></a><ul><li><a href="#"><span>CSV</span></a></li><li><a href="#"><span>XLSX</span></a></li><li><a href="#"><span>JSON</span></a></li></ul></li><li><a href="#"><span>Annotate ...</span></a></li><li><a href="#"><span>Print</span></a></li></ul></li></ul></div></div></div>
+
+
+        </div>
+        <!-- /w3ls_agile_circle_progress-->
+        <!-- /chart_agile-->
+        <!-- /w3ls_agile_circle_progress-->
+        <div class="w3ls_agile_circle_progress agile_info_shadow">
+
+            <div class="cir_agile_info ">
+                <h3 class="w3_inner_tittle">Circular Progress</h3>
+                <div class="skill-grids">
+                    <div class="skills-grid text-center">
+                        <div class="circle" id="circles-1"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="160" height="160"><path fill="transparent" stroke="#ffffff" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 79.89582650464463 5.000072347482458 Z"></path><path fill="transparent" stroke="#fd9426" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 0 1 124.17351291284737 140.61106134146232 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:56px; height:160px; line-height:160px;"><span class="circles-number"><span class="circles-number">40</span></span><span class="circles-text">%</span></div></div></div>
+                        <p>HTML</p>
+                    </div>
+                    <div class="skills-grid text-center">
+                        <div class="circle" id="circles-2"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="160" height="160"><path fill="transparent" stroke="#ffffff" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 79.89582650464463 5.000072347482458 Z"></path><path fill="transparent" stroke="#fc3158" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 80.05972450330499 154.9999762198876 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:56px; height:160px; line-height:160px;"><span class="circles-number"><span class="circles-number">50</span></span><span class="circles-text">%</span></div></div></div>
+                        <p>PHOTOGRAPHY</p>
+                    </div>
+                    <div class="skills-grid text-center">
+                        <div class="circle" id="circles-3"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="160" height="160"><path fill="transparent" stroke="#ffffff" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 79.89582650464463 5.000072347482458 Z"></path><path fill="transparent" stroke="#53d769" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 35.98377886071055 140.7253841207873 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:56px; height:160px; line-height:160px;"><span class="circles-number"><span class="circles-number">60</span></span><span class="circles-text">%</span></div></div></div>
+
+                        <p>ILLUSTRATOR</p>
+                    </div>
+                    <div class="skills-grid text-center">
+                        <div class="circle" id="circles-4"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="160" height="160"><path fill="transparent" stroke="#ffffff" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 79.89582650464463 5.000072347482458 Z"></path><path fill="transparent" stroke="#147efb" stroke-width="10" d="M 79.98472450972287 5.000001555604044 A 75 75 0 1 1 8.704055142281334 103.27849322540312 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:56px; height:160px; line-height:160px;"><span class="circles-number"><span class="circles-number">70</span></span><span class="circles-text">%</span></div></div></div>
+                        <p>CSS3</p>
+                    </div>
+
+
+
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- /w3ls_agile_circle_progress-->
+        <!--/prograc-blocks_agileits-->
+        <div class="prograc-blocks_agileits">
+
+
+            <div class="col-md-6 bars_agileits agile_info_shadow">
+                <h3 class="w3_inner_tittle two">Daily Sales</h3>
+                <div class="bar_group group_ident-1">
+                    <p class="b_label">Rating</p><div class="bar_group__bar thin" label="Rating" show_values="true" tooltip="true" value="343" style="margin-bottom: 40px;"><div class="b_tooltip"><span>343</span><div class="b_tooltip--tri"></div></div><p class="bar_label_min">0</p><p class="bar_label_max">550</p></div>
+                    <p class="b_label">Quality</p><div class="bar_group__bar thin" label="Quality" show_values="true" tooltip="true" value="235" style="margin-bottom: 40px;"><div class="b_tooltip"><span>235</span><div class="b_tooltip--tri"></div></div><p class="bar_label_min">0</p><p class="bar_label_max">550</p></div>
+                    <p class="b_label">Amount</p><div class="bar_group__bar thin" label="Amount" show_values="true" tooltip="true" value="550" style="margin-bottom: 40px;"><div class="b_tooltip"><span>550</span><div class="b_tooltip--tri"></div></div><p class="bar_label_min">0</p><p class="bar_label_max">550</p></div>
+                    <p class="b_label">Farming</p><div class="bar_group__bar thin" label="Farming" show_values="true" tooltip="true" value="456" style="margin-bottom: 40px;"><div class="b_tooltip"><span>456</span><div class="b_tooltip--tri"></div></div><p class="bar_label_min">0</p><p class="bar_label_max">550</p></div>
+                </div>
+            </div>
+            <div class="col-md-6 fallowers_agile agile_info_shadow">
+                <h3 class="w3_inner_tittle two">Recent Followers</h3>
+                <div class="work-progres">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Project</th>
+                                    <th>Manager</th>
+
+                                    <th>Status</th>
+                                    <th>Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Face book</td>
+                                    <td>Malorum</td>
+
+                                    <td><span class="label label-danger">in progress</span></td>
+                                    <td><span class="badge badge-info">50%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Twitter</td>
+                                    <td>Evan</td>
+
+                                    <td><span class="label label-success">completed</span></td>
+                                    <td><span class="badge badge-success">100%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Google</td>
+                                    <td>John</td>
+
+                                    <td><span class="label label-warning">in progress</span></td>
+                                    <td><span class="badge badge-warning">75%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>LinkedIn</td>
+                                    <td>Danial</td>
+
+                                    <td><span class="label label-info">in progress</span></td>
+                                    <td><span class="badge badge-info">65%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Tumblr</td>
+                                    <td>David</td>
+
+                                    <td><span class="label label-warning">in progress</span></td>
+                                    <td><span class="badge badge-danger">95%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Tesla</td>
+                                    <td>Mickey</td>
+
+                                    <td><span class="label label-info">in progress</span></td>
+                                    <td><span class="badge badge-success">95%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <!--//prograc-blocks_agileits-->
+        <!-- /bottom_agileits_grids-->
+        <div class="bottom_agileits_grids">
+            <div class="col-md-4 profile-main">
+                <div class="profile_bg_agile">
+                    <div class="profile-pic wthree">
+                        <h2>Bason Durel</h2>
+                        <img src="images/profile.jpg" alt="Image">
+                        <p>Web Designer</p>
+                    </div>
+                    <div class="profile-ser">
+                        <div class="follow-grids-agileits-w3layouts">
+                            <div class="profile-ser-grids">
+                                <h3>Followers</h3>
+                                <h4>2486</h4>
+                            </div>
+                            <div class="profile-ser-grids agileinfo">
+                                <h3>Following</h3>
+                                <h4>1582</h4>
+                            </div>
+                            <div class="profile-ser-grids no-border">
+                                <h3>Tweets</h3>
+                                <h4>1468</h4>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="w3l_social_icons w3l_social_icons1">
+                            <ul>
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="google_plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 chart_agile agile_info_shadow">
+                <h3 class="w3_inner_tittle two">Stacked Bar Chart</h3>
+                <div id="chartdiv1" style="overflow: visible; text-align: left;"><div class="amcharts-main-div" style="position: relative; width: 100%; height: 100%;"><div class="amcharts-chart-div" style="overflow: hidden; position: absolute; text-align: left; width: 612.5px; height: 368px; padding: 0px; left: 0px; touch-action: auto;"><svg version="1.1" style="position: absolute; width: 612.5px; height: 368px; top: 0.0625px; left: 0px;"><desc>JavaScript chart by amCharts 3.20.20</desc><g><path cs="100,100" d="M0.5,0.5 L612.5,0.5 L612.5,367.5 L0.5,367.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-bg"></path><path cs="100,100" d="M0.5,0.5 L537.5,0.5 L537.5,312.5 L0.5,312.5 L0.5,0.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area" transform="translate(55,20)"></path></g><g><g class="amcharts-category-axis" transform="translate(55,20)"></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549588" transform="translate(55,20)" visibility="visible"><g><path cs="100,100" d="M0.5,0.5 L0.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g><g><path cs="100,100" d="M107.5,0.5 L107.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g><g><path cs="100,100" d="M215.5,0.5 L215.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g><g><path cs="100,100" d="M322.5,0.5 L322.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g><g><path cs="100,100" d="M430.5,0.5 L430.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g><g><path cs="100,100" d="M537.5,0.5 L537.5,5.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(0,312)" class="amcharts-axis-tick"></path></g></g></g><g></g><g></g><g></g><g></g><g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588"><g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588" transform="translate(0,10)" aria-label="Europe 2017 2.5"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L134.5,83.5 L134.5,0.5 L0.5,0.5 Z" fill="#009fe3" stroke="#009fe3" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588" transform="translate(0,114)" aria-label="Europe 2016 2.6"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L140.5,83.5 L140.5,0.5 L0.5,0.5 Z" fill="#009fe3" stroke="#009fe3" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588" transform="translate(0,218)" aria-label="Europe 2015 2.8"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L150.5,83.5 L150.5,0.5 L0.5,0.5 Z" fill="#009fe3" stroke="#009fe3" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588"><g><g class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588" transform="translate(134,10)" aria-label="North America 2017 2.5"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L134.5,83.5 L134.5,0.5 L0.5,0.5 Z" fill="#fdd400" stroke="#fdd400" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588" transform="translate(140,114)" aria-label="North America 2016 2.7"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L145.5,83.5 L145.5,0.5 L0.5,0.5 Z" fill="#fdd400" stroke="#fdd400" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588" transform="translate(150,218)" aria-label="North America 2015 2.9"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L156.5,83.5 L156.5,0.5 L0.5,0.5 Z" fill="#fdd400" stroke="#fdd400" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589"><g><g class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589" transform="translate(269,10)" aria-label="Asia-Pacific 2017 2.1"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L113.5,83.5 L113.5,0.5 L0.5,0.5 Z" fill="#2baf2b" stroke="#2baf2b" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589" transform="translate(285,114)" aria-label="Asia-Pacific 2016 2.2"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L118.5,83.5 L118.5,0.5 L0.5,0.5 Z" fill="#2baf2b" stroke="#2baf2b" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589" transform="translate(306,218)" aria-label="Asia-Pacific 2015 2.4"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L129.5,83.5 L129.5,0.5 L0.5,0.5 Z" fill="#2baf2b" stroke="#2baf2b" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589"><g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589" transform="translate(381,10)" aria-label="Latin America 2017 0.3"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L16.5,83.5 L16.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589" transform="translate(403,114)" aria-label="Latin America 2016 0.3"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L16.5,83.5 L16.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589" transform="translate(435,218)" aria-label="Latin America 2015 0.3"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L16.5,83.5 L16.5,0.5 L0.5,0.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589"><g><g class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589" transform="translate(397,10)" aria-label="Middle-East 2017 0.2"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L11.5,83.5 L11.5,0.5 L0.5,0.5 Z" fill="#eb2226" stroke="#eb2226" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589" transform="translate(419,114)" aria-label="Middle-East 2016 0.3"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L16.5,83.5 L16.5,0.5 L0.5,0.5 Z" fill="#eb2226" stroke="#eb2226" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589" transform="translate(451,218)" aria-label="Middle-East 2015 0.3"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L16.5,83.5 L16.5,0.5 L0.5,0.5 Z" fill="#eb2226" stroke="#eb2226" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589"><g><g class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589" transform="translate(408,10)" aria-label="Africa 2017 0.1"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L5.5,83.5 L5.5,0.5 L0.5,0.5 Z" fill="#003580" stroke="#003580" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589" transform="translate(435,114)" aria-label="Africa 2016 0.1"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L5.5,83.5 L5.5,0.5 L0.5,0.5 Z" fill="#003580" stroke="#003580" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><g class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589" transform="translate(467,218)" aria-label="Africa 2015 0.1"><path cs="100,100" d="M0.5,0.5 L0.5,83.5 L5.5,83.5 L5.5,0.5 L0.5,0.5 Z" fill="#003580" stroke="#003580" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g></g></g></g><g></g><g><path cs="100,100" d="M0.5,312.5 L0.5,0.5 L0.5,0.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(55,20)" class="amcharts-axis-zero-grid-valueAxisAuto0_1673937549588 amcharts-axis-zero-grid"></path><g class="amcharts-category-axis"><path cs="100,100" d="M0.5,0.5 L0.5,312.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(55,20)" class="amcharts-axis-line"></path></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549588"><path cs="100,100" d="M0.5,0.5 L537.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.5" stroke="#000000" transform="translate(55,332)" class="amcharts-axis-line" visibility="visible"></path></g></g><g></g><g></g><g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(67,51)"><tspan y="6" x="0">2.5</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(70,155)"><tspan y="6" x="0">2.6</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(75,259)"><tspan y="6" x="0">2.8</tspan></text></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(201,51)"><tspan y="6" x="0">2.5</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(212,155)"><tspan y="6" x="0">2.7</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(228,259)"><tspan y="6" x="0">2.9</tspan></text></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(325,51)"><tspan y="6" x="0">2.1</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(344,155)"><tspan y="6" x="0">2.2</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" class="amcharts-graph-label" style="pointer-events: none;" transform="translate(370,259)"><tspan y="6" x="0">2.4</tspan></text></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589"></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589"></g><g transform="translate(55,20)" class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589"></g></g><g><g></g></g><g><g class="amcharts-category-axis" transform="translate(55,20)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,50.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">2017</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,154.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">2016</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,258.69999980926514)" class="amcharts-axis-label"><tspan y="6" x="0">2015</tspan></text></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1673937549588" transform="translate(55,20)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(0,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">0</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(107,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">2</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(215,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">4</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(322,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">6</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(430,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">8</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="middle" transform="translate(537,329.5)" class="amcharts-axis-label"><tspan y="6" x="0">10</tspan></text></g></g><g></g><g transform="translate(55,20)"></g><g></g><g></g></svg><a href="http://www.amcharts.com/javascript-charts/" title="JavaScript charts" style="position: absolute; text-decoration: none; color: rgb(0, 0, 0); font-family: Verdana; font-size: 11px; opacity: 0.7; display: block; left: 60px; top: 25px;">JS chart by amCharts</a></div><div class="amChartsLegend amcharts-legend-div" style="overflow: hidden; position: relative; text-align: left; width: 199.5px; height: 178px; left: 612.5px; top: 95px;"><svg version="1.1" style="position: absolute; width: 199.5px; height: 178px; top: -0.0375977px; left: -0.5px;"><desc>JavaScript chart by amCharts 3.20.20</desc><g transform="translate(10,0)"><path cs="100,100" d="M0.5,0.5 L180.5,0.5 L180.5,177.5 L0.5,177.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-legend-bg"></path><g transform="translate(10,11)"><g cursor="pointer" class="amcharts-legend-item-graphAuto0_1673937549588" aria-label="Europe" transform="translate(0,0)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#009fe3" stroke="#009fe3" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto0_1673937549588 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">Europe</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto1_1673937549588" aria-label="North America" transform="translate(0,28)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#fdd400" stroke="#fdd400" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto1_1673937549588 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">North America</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto2_1673937549589" aria-label="Asia-Pacific" transform="translate(0,56)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#2baf2b" stroke="#2baf2b" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto2_1673937549589 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">Asia-Pacific</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto3_1673937549589" aria-label="Latin America" transform="translate(0,84)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#cc4748" stroke="#cc4748" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto3_1673937549589 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">Latin America</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto4_1673937549589" aria-label="Middle-East" transform="translate(0,112)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#eb2226" stroke="#eb2226" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto4_1673937549589 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">Middle-East</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g><g cursor="pointer" class="amcharts-legend-item-graphAuto5_1673937549589" aria-label="Africa" transform="translate(0,140)"><path cs="100,100" d="M-9.5,5.5 L10.5,5.5 L10.5,-4.5 L-9.5,-4.5 Z" fill="#003580" stroke="#003580" fill-opacity="0.8" stroke-width="1" stroke-opacity="0.3" transform="translate(10,9)" class="amcharts-graph-column amcharts-graph-graphAuto5_1673937549589 amcharts-legend-marker"></path><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-legend-label" transform="translate(25,8)"><tspan y="6" x="0">Africa</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" class="amcharts-legend-value" transform="translate(160,8)"> </text><rect x="20" y="0" width="139.5875015258789" height="18" rx="0" ry="0" stroke-width="0" stroke="none" fill="#fff" fill-opacity="0.005"></rect></g></g></g></svg></div><div class="amcharts-export-menu amcharts-export-menu-top-right amExportButton"><ul><li class="export-main"><a href="#"><span>menu.label.undefined</span></a><ul><li><a href="#"><span>Download as ...</span></a><ul><li><a href="#"><span>PNG</span></a></li><li><a href="#"><span>JPG</span></a></li><li><a href="#"><span>SVG</span></a></li><li><a href="#"><span>PDF</span></a></li></ul></li><li><a href="#"><span>Save as ...</span></a><ul><li><a href="#"><span>CSV</span></a></li><li><a href="#"><span>XLSX</span></a></li><li><a href="#"><span>JSON</span></a></li></ul></li><li><a href="#"><span>Annotate ...</span></a></li><li><a href="#"><span>Print</span></a></li></ul></li></ul></div></div></div>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- //bottom_agileits_grids-->
+        <!-- /weather_w3_agile_info-->
+        <div class="weather_w3_agile_info agile_info_shadow">
+            <div class="weather_w3_inner_info">
+
+                <div class="over_lay_agile">
+                    <h3 class="w3_inner_tittle">Weather Report</h3>
+                    <ul>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="partly-cloudy-day" width="60" height="60"></canvas>
+                            </figure>
+                            <h3>25 °C</h3>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="clear-day" width="60" height="60"></canvas>
+                            </figure>
+                            <div class="weather-text">
+                                <h4>WED</h4>
+                                <h5>27 °C</h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="snow" width="60" height="60"></canvas>
+                            </figure>
+                            <div class="weather-text">
+                                <h4>THU</h4>
+                                <h5>13 °C</h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="partly-cloudy-night" width="60" height="60"></canvas>
+                            </figure>
+                            <div class="weather-text">
+                                <h4>FRI</h4>
+                                <h5>18 °C</h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="cloudy" width="60" height="60"></canvas>
+                            </figure>
+                            <div class="weather-text">
+                                <h4>SAT</h4>
+                                <h5>15 °C</h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li>
+                            <figure class="icons">
+                                <canvas id="fog" width="60" height="60"></canvas>
+                            </figure>
+                            <div class="weather-text">
+                                <h4>SUN</h4>
+                                <h5>11 °C</h5>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- //weather_w3_agile_info-->
+        <!-- /social_media-->
+        <div class="social_media_w3ls">
+
+            <div class="col-md-3 socail_grid_agile facebook">
+                <ul class="icon_w3_info">
+                    <li><a href="#" class="wthree_facebook"> <i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li>Facebook</li>
+                </ul>
+                <ul class="icon_w3_social">
+                    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="bottom_info_social">
+                    <div class="col-md-4 agile_w3l_social_media_text_img">
+                        <img src="images/admin.jpg" alt="">
+                    </div>
+                    <div class="col-md-8 agile_w3l_social_media_text">
+                        <h4>Hurisa Joe</h4>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-3 socail_grid_agile twitter">
+                <ul class="icon_w3_info">
+                    <li><a href="#" class="wthree_facebook"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li>Twitter</li>
+                </ul>
+                <ul class="icon_w3_social">
+                    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="bottom_info_social">
+                    <div class="col-md-4 agile_w3l_social_media_text_img">
+                        <img src="images/a1.jpg" alt="">
+                    </div>
+                    <div class="col-md-8 agile_w3l_social_media_text">
+                        <h4>Jasmin Joe</h4>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-3 socail_grid_agile gmail">
+                <ul class="icon_w3_info">
+                    <li><a href="#" class="wthree_facebook"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <li>Google+</li>
+                </ul>
+                <ul class="icon_w3_social">
+                    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="bottom_info_social">
+                    <div class="col-md-4 agile_w3l_social_media_text_img">
+                        <img src="images/a2.jpg" alt="">
+                    </div>
+                    <div class="col-md-8 agile_w3l_social_media_text">
+                        <h4>John Pal</h4>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-3 socail_grid_agile dribble">
+
+                <ul class="icon_w3_info">
+                    <li><a href="#" class="wthree_facebook"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                    <li>Dribbble</li>
+                </ul>
+                <ul class="icon_w3_social">
+                    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="bottom_info_social">
+                    <div class="col-md-4 agile_w3l_social_media_text_img">
+                        <img src="images/a4.jpg" alt="">
+                    </div>
+                    <div class="col-md-8 agile_w3l_social_media_text">
+                        <h4>Honey Pal</h4>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- //social_media-->
+    </div>
+    <!-- //inner_content_w3_agile_info-->
+</div>
+
+
+
