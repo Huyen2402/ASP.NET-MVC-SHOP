@@ -36,6 +36,7 @@ namespace WebsiteBanHang.Models
         public string DiaChi { get; set; }
         public Nullable<bool> XacNhan { get; set; }
         public Nullable<int> captcha { get; set; }
+        public Nullable<int> MaMatHang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatwithShop> ChatwithShop { get; set; }
@@ -44,6 +45,7 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonDatHang> DonDatHang { get; set; }
         public virtual Huyen Huyen { get; set; }
+        public virtual MatHangKinhDoanh MatHangKinhDoanh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
         public virtual Tinh Tinh { get; set; }

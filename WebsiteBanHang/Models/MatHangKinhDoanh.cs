@@ -12,23 +12,21 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class loaiSanPham
+    public partial class MatHangKinhDoanh
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public loaiSanPham()
+        public MatHangKinhDoanh()
         {
             this.ChiTietMatHangKinhDoanh = new HashSet<ChiTietMatHangKinhDoanh>();
-            this.SanPham = new HashSet<SanPham>();
+            this.Shop = new HashSet<Shop>();
         }
     
-        public int MaLoaiSP { get; set; }
-        public string TenLoai { get; set; }
-        public Nullable<bool> DaXoa { get; set; }
-        public string HinhAnh { get; set; }
+        public int MaMatHang { get; set; }
+        public Nullable<System.DateTime> DayUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietMatHangKinhDoanh> ChiTietMatHangKinhDoanh { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPham { get; set; }
+        public virtual ICollection<Shop> Shop { get; set; }
     }
 }

@@ -94,7 +94,7 @@ namespace WebsiteBanHang.Controllers
                         var receiverEmail = new MailAddress(tv.Email, "Receiver");
                         var password = "yyxrbzsfbkrftlny";
                         string subject = "Xác nhận tài khoản người dùng - Sàn thương mại điện tử Ori Cute";
-                        string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/Customer.html"));
+                        string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/Views/EmailTemplates/Customer.cshtml"));
                         body = body.Replace(@"######", @"Chào bạn, đây là mã xác nhận tài khoản của bạn: " + tv.captcha);
                      
                         var smtp = new SmtpClient
@@ -294,27 +294,50 @@ namespace WebsiteBanHang.Controllers
             ViewBag.MaTinh = new SelectList(db.Tinhs, "MaTinh", "TenTinh");
             ViewBag.MaHuyen = new SelectList(db.Huyens, "MaHuyen", "TenHuyen");
             ViewBag.MaXa = new SelectList(db.Xas, "MaXa", "TenXa");
-            return View();
+            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n => n.DaXoa == false).ToList();
+            return View(listLSP);
         }
 
-        public JsonResult DangKyCuaHang(Shop shop)
+        public JsonResult DangKyCuaHang(string TenShop, string TaiKhoan, string MatKhau, string DiaChi, int idTinh, int idHuyen, int idXa, int[] arr)
         {
             ViewBag.Error = "";
 
-            if (shop != null)
-            {
-                Shop checkTK = db.Shops.SingleOrDefault(n => n.TaiKhoan.Equals(shop.TaiKhoan));
-                Shop checkName = db.Shops.SingleOrDefault(n => n.TenShop.Equals(shop.TenShop));
-               
-               if (checkTK == null && checkName == null)
+           
+                Shop checkTK = db.Shops.SingleOrDefault(n => n.TaiKhoan.Equals(TaiKhoan));
+                Shop checkName = db.Shops.SingleOrDefault(n => n.TenShop.Equals(TenShop));
+                Shop shop = new Shop();
+            MatHangKinhDoanh kd = new MatHangKinhDoanh();
+            kd.DayUpdate = (DateTime)DateTime.Now;
+            db.MatHangKinhDoanhs.Add(kd);
+            db.SaveChanges();
+            if (checkTK == null && checkName == null)
                 {
                     Random random = new Random();
+                    shop.TaiKhoan = TaiKhoan;
+                    shop.Pass = MatKhau;
+                    shop.TenShop = TenShop;
+                    shop.DiaChi = DiaChi;
+                    shop.MaTinh = idTinh;
+                    shop.MaHuyen = idHuyen;
+                    shop.MaXa = idXa;
                     shop.NgayTao = (DateTime)DateTime.Now;
                     shop.XacNhan = false;
                     shop.captcha = random.Next(100000, 999999);
+                    shop.MaMatHang = kd.MaMatHang;
                     db.Shops.Add(shop);
                     db.SaveChanges();
-                    return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+               
+                for (int i =0;i< arr.Length; i++)
+                {
+                    ChiTietMatHangKinhDoanh ct = new ChiTietMatHangKinhDoanh();
+                    ct.MaMatHang = kd.MaMatHang;
+                    ct.MaLSP = arr[i];
+                    db.ChiTietMatHangKinhDoanhs.Add(ct);
+                    db.SaveChanges();
+                }
+
+               
+                    return Json(new { status = true, MaShop = shop.MaShop }, JsonRequestBehavior.AllowGet);
                 }
                else if(checkTK != null)
                 {
@@ -328,7 +351,7 @@ namespace WebsiteBanHang.Controllers
                
                
                 
-            }
+            
           
                 return Json(new { status = false, text = "Có lỗi xảy ra" }, JsonRequestBehavior.AllowGet);
             

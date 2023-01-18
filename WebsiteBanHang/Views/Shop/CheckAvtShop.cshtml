@@ -5,7 +5,7 @@
     int MaShop = ViewBag.MaShop;
 }
 
-@using (Html.BeginForm("UpAvt", "Shop", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-UpAvt", @name = "upavt" }))
+@using (Html.BeginForm("CheckAvtShop", "Shop", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-UpAvt", @name = "upavt" }))
 {
     <!--   con = Container  for items in the form-->
     <div class="con" style="justify-content:center">
@@ -32,7 +32,7 @@
             <br>
             <!--        buttons -->
             <!--      button LogIn -->
-            <button class="log-in mx-auto d-block"> Log In </button>
+            <button type="submit" class="log-in mx-auto d-block"> Log In </button>
         </div>
 
 
@@ -47,4 +47,48 @@
             border-radius: 50%;
         }
     </style>
+
+
+    <script>
+        
+
+        //$("#form-UpAvt").submit(function (e) {
+        //    e.preventDefault();
+        //    var form = $(this);
+         
+        //    $.ajax({
+
+        //        type: "POST",
+        //        url: "http://localhost:62979/Shop/CheckAvtShop",
+        //        data: form.serialize(), // serializes the form's elements.
+
+        //        success: function (status, data, MaShop) {
+        //            console.log(data)
+        //            console.log(status)
+        //            if (status.status == "success") {
+        //                Swal.fire(
+        //                    'Yêu Cầu Đăng Ký Thành Công',
+        //                    'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
+        //                    'success'
+        //                )
+                      
+        //                window.location.href = "http://localhost:62979/Home/DangKyCuaHang";
+        //            }
+        //            else {
+                      
+        //                Swal.fire({
+                           
+        //                    icon: 'error',
+        //                    title: 'Your work has been saved',
+        //                    showConfirmButton: false,
+                           
+                           
+        //                })
+        //            }
+
+
+        //        }
+        //    });
+        //})
+    </script>
 

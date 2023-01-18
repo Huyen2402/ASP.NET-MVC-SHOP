@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
+using System.Web.Hosting;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -23,7 +26,7 @@ namespace WebsiteBanHang.Controllers
 
             return View(shop);
         }
-
+        [HttpGet]
        public ActionResult CheckAvtShop(int? MaShop)
         {
             Shop s = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
@@ -42,8 +45,13 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("DangNhapCuaHang","Home");
         }
 
+        public ActionResult UpAvt()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult UpAvt(HttpPostedFileBase avt, Shop s)
+        public ActionResult CheckAvtShop(HttpPostedFileBase avt, Shop s)
         {
             int MaShop = s.MaShop;
             Shop check = db.Shops.SingleOrDefault(n=>n.MaShop== MaShop);
@@ -64,19 +72,58 @@ namespace WebsiteBanHang.Controllers
 
                         check.avt = avt.FileName;
                         db.SaveChanges();
-                        return RedirectToAction("Index", "Admin");
+                        try
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                                var receiverEmail = new MailAddress(check.TaiKhoan, "Receiver");
+                                var password = "yyxrbzsfbkrftlny";
+                                string subject = "Xác nhận đăng ký cửa hàng - Sàn thương mại điện tử Ori Cute";
+                                string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/Views/EmailTemplates/Customer.cshtml"));
+                                body = body.Replace(@"######", @"Chào bạn, đây là Email xác nhận bạn đã đăng ký cửa hàng tại sàn thương mại Ori Cute. Sau 5-7 ngày sau khi quản trị viên xét duyệt chúng tôi sẽ có thông báo cho bạn. Đây là tin nhắn tự động bạn không cần phải trả lời. Có rất nhiều lựa chọn nhưng bạn vẫn chọn sàn thương mại của mình, Ori cảm ơn bạn rất nhiều!! ");
+                                var smtp = new SmtpClient
+                                {
+                                    Host = "smtp.gmail.com",
+                                    Port = 587,
+                                    EnableSsl = true,
+                                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                                    UseDefaultCredentials = false,
+                                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                                };
+                                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                                {
+                                    IsBodyHtml = true,
+                                    Subject = subject,
+                                    Body = body
+                                })
+                                {
+                                    smtp.Send(mess);
+                                }
+                                
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            ViewBag.Error = "Some Error";
+                        }
+
+                        //return Json(new { status = "success" }, JsonRequestBehavior.AllowGet);
+                        return RedirectToAction("Index", "Home");
                     }
 
 
                 }
                 else
                 {
-                    return RedirectToAction("DangNhapCuaHang", "Home");
+                    //return Json(new { status = "fail" }, JsonRequestBehavior.AllowGet);
+                    return RedirectToAction("DangKyCuaHang","Home");
                 }
             }
-          
 
-            return RedirectToAction("DangNhapCuaHang", "Home");
+
+            //return Json(new { status = "fail" }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("DangKyCuaHang", "Home");
         }
 
         public JsonResult NewProduct(int? MaShop)

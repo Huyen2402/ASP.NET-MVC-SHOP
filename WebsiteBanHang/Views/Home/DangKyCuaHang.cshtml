@@ -1,4 +1,6 @@
-﻿@model WebsiteBanHang.Models.Shop
+﻿
+@using WebsiteBanHang.Models
+@model List<loaiSanPham>
 
 @{
     ViewBag.Title = "DangKyCuaHang";
@@ -8,101 +10,175 @@
 
 <div id="dky-ch" class="flash-sale">
 
-    @using (Html.BeginForm("DangKyCuaHang", "Home", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-DangKyCuaHang", @name = "form"}))
-    {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm("DangKyCuaHang", "Home", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-DangKyCuaHang", @name = "form" }))
+        {
+            <div class="container1">
+                <h1>Đăng ký thông tin cửa hàng</h1>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
 
-    <div class="form-horizontal">
-        <h2 class="text-center mt-4">Đăng ký thông tin cửa hàng</h2>
+                <label for="TenShop"><b>Tên Cửa Hàng</b></label>
+                <input type="text" name="TenShop" id="TenShop" required>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <label class="control-label col-md-2">Tên Cửa Hàng</label>
+                <label for="TaiKhoan"><b>Tài Khoản</b></label>
+                <input type="email" name="TaiKhoan" id="TaiKhoan" required>
 
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenShop, new { htmlAttributes = new { @require = true, @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenShop, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <label for="Pass"><b>Mật Khẩu</b></label>
+                <input type="password" name="Pass" id="Pass" required>
 
-
-
-       
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Tài Khoản</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @require = true, @type = "email", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Mật Khẩu</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @require = true, @type = "password", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Tỉnh</label>
-            <div class="col-md-10">
-
+                <label for="psw-repeat"><b>Tỉnh</b></label>
                 @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh" })
-                @Html.ValidationMessageFor(model => model.MaTinh, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Huyện</label>
-            <div class="col-md-10">
+                <label for="psw-repeat"><b>Huyện</b></label>
                 @Html.DropDownList("MaHuyen", new SelectList(""), "", new { @class = "form-select", @id = "idHuyen" })
-                @Html.ValidationMessageFor(model => model.MaHuyen, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Xã</label>
-            <div class="col-md-10">
+                <label for="psw-repeat"><b>Xã</b></label>
                 @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
-                @Html.ValidationMessageFor(model => model.MaXa, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Địa Chỉ</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @require = true, @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <label for="DiaChi"><b>Địa Chỉ</b></label>
+                <input type="text" name="DiaChi" id="DiaChi" required>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">SDT</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @require = true, @type = "phone", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <label for="SDT"><b>SDT</b></label>
+                <input type="text" name="SDT" id="SDT" required>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="createShop" type="submit" value="Create" class="btn btn-success" />
+
+                <label for="SDT"><b>Mặt Hàng Kinh Doanh</b></label>
+                @foreach (var item in Model)
+                {
+                    <label class="container">
+
+                        <input class="check-lsp" id="@item.MaLoaiSP" type="checkbox" value="@item.MaLoaiSP" > @item.TenLoai
+                        <span class="checkmark"></span>
+                    </label>
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <p style="color:red">@ViewBag.Error</p>
+                    </div>
+                </div>
+                <hr>
+                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+                <button type="submit" class="registerbtn">Register</button>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <p style="color:red">@ViewBag.Error</p>
+
+            <div class="container signin">
+                <p>Already have an account? <a href="#">Sign in</a>.</p>
             </div>
-        </div>
-    </div>
-    }
+        }
+     
+
+   
+      
 </div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<style>
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Add padding to containers */
+    .container1 {
+        padding: 16px;
+        background-color: white;
+    }
+
+    /* Full-width input fields */
+    input[type=text], input[type=password], input[type=email]{
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+    }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+    /* Overwrite default styles of hr */
+    hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+    }
+
+    /* Set a style for the submit button */
+    .registerbtn {
+        background-color: #ff6f6f;
+        color: white;
+        padding: 16px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+    /* Add a blue text color to links */
+    a {
+        color: dodgerblue;
+    }
+
+    /* Set a grey background color and center the text of the "sign in" section */
+    .signin {
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+</style>
 <script>
     $("#idTinh").change(function () {
         var idTinh = $(this).val();
@@ -138,26 +214,39 @@
         })
 
     })
-
+    var arr = [];
+    $(".check-lsp").change(function () {
+        var idLSP = $(this).val();
+        arr.push(idLSP)
+       
+    })
     $("#form-DangKyCuaHang").submit(function (e) {
         e.preventDefault();
         var form = $(this);
-
+        var TenShop = $("#TenShop").val();
+        var TaiKhoan = $("#TaiKhoan").val();
+        var MatKhau = $("#Pass").val();
+        var DiaChi = $("#DiaChi").val();
+        var idTinh = $("#idTinh").val();
+        var idHuyen = $("#idHuyen").val();
+        var idXa = $("#idXa").val();
         $.ajax({
 
             type: "POST",
             url: "http://localhost:62979/Home/DangKyCuaHang",
-            data: form.serialize(), // serializes the form's elements.
+            data: { TenShop: TenShop, TaiKhoan: TaiKhoan, MatKhau: MatKhau, DiaChi: DiaChi, idTinh: idTinh, idHuyen: idHuyen, idXa: idXa, arr: arr }, // serializes the form's elements.
 
-            success: function (status, data) {
+            success: function (status, data, MaShop) {
                 console.log(data)
                 console.log(status)
                 if (status.status == true) {
-                    Swal.fire(
-                        'Yêu Cầu Đăng Ký Thành Công',
-                        'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
-                        'success'
-                    )
+                    //Swal.fire(
+                    //    'Yêu Cầu Đăng Ký Thành Công',
+                    //    'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
+                    //    'success'
+                    //)
+                    console.log(status.MaShop)
+                    window.location.href = "http://localhost:62979/Shop/CheckAvtShop?MaShop=" + status.MaShop;
                 }
                 else {
                     console.log(data.text)
@@ -173,6 +262,8 @@
             }
         });
     })
+
+  
     //$("#form-DangKyCuaHang").submit(function (e) {
     //    e.preventDefault();
 

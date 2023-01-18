@@ -280,6 +280,9 @@
     <Compile Include="Models\ChiTietGiamGia.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChiTietMatHangKinhDoanh.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChiTietPhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -309,6 +312,9 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoaiThanhVien.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MatHangKinhDoanh.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhaCungCap.cs">
@@ -765,6 +771,7 @@
     <Content Include="Views\QuanTriVien\ChoXetDuyet.cshtml" />
     <Content Include="Views\QuanTriVien\ThongTinShop.cshtml" />
     <Content Include="Views\QuanTriVien\TaoFlashSale.cshtml" />
+    <Content Include="Views\Shop\UpAvt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
