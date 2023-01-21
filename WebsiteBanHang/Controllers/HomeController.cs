@@ -298,7 +298,7 @@ namespace WebsiteBanHang.Controllers
             return View(listLSP);
         }
 
-        public JsonResult DangKyCuaHang(string TenShop, string TaiKhoan, string MatKhau, string DiaChi, int idTinh, int idHuyen, int idXa, int[] arr)
+        public JsonResult DangKyCuaHang(string TenShop, string TaiKhoan, string MatKhau, string DiaChi, int idTinh, int idHuyen, int idXa, int[] arr, int SDT)
         {
             ViewBag.Error = "";
 
@@ -324,6 +324,7 @@ namespace WebsiteBanHang.Controllers
                     shop.XacNhan = false;
                     shop.captcha = random.Next(100000, 999999);
                     shop.MaMatHang = kd.MaMatHang;
+                shop.SDT = SDT;
                     db.Shops.Add(shop);
                     db.SaveChanges();
                

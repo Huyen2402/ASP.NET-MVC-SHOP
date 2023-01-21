@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
 using System.Web.Hosting;
+using System.Xml.Linq;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -32,6 +33,7 @@ namespace WebsiteBanHang.Controllers
             Shop s = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
             if(s != null)
             {
+                Session["MaShop"] = s.MaShop;
                 ViewBag.MaShop = MaShop;
                 if(s.avt != null)
                 {
@@ -42,6 +44,7 @@ namespace WebsiteBanHang.Controllers
                     return View();
                 }
             }
+           
             return RedirectToAction("DangNhapCuaHang","Home");
         }
 
@@ -51,27 +54,45 @@ namespace WebsiteBanHang.Controllers
         }
 
         [HttpPost]
-        public ActionResult CheckAvtShop(HttpPostedFileBase avt, Shop s)
+        public JsonResult CheckAvtShop()
         {
-            int MaShop = s.MaShop;
+            Nullable< int> MaShop = Session["MaShop"] as  Nullable<int>;
             Shop check = db.Shops.SingleOrDefault(n=>n.MaShop== MaShop);
             if(check != null)
             {
-                if (avt != null && avt.ContentLength > 0)
+                // Checking no of files injected in Request object  
+                if (Request.Files.Count > 0)
                 {
-                    //Get file name
-                    var fileName = Path.GetFileName(avt.FileName);
-                    //Get path
-                    var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-
-                    //Check exitst
-                    if (!System.IO.File.Exists(path))
+                    try
                     {
-                        //Add image into folder
-                        avt.SaveAs(path);
+                        //  Get all files from Request object  
+                        HttpFileCollectionBase files = Request.Files;
+                        for (int i = 0; i < files.Count; i++)
+                        {
+                            //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                            //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
-                        check.avt = avt.FileName;
-                        db.SaveChanges();
+                            HttpPostedFileBase file = files[i];
+                            string fname;
+
+                            // Checking for Internet Explorer  
+                            if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                            {
+                                string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                                fname = testfiles[testfiles.Length - 1];
+                            }
+                            else
+                            {
+                                fname = file.FileName;
+                                check.avt = fname;
+                                db.SaveChanges();
+                            }
+
+                            // Get the complete folder path and store the file inside it.  
+                            fname = Path.Combine(Server.MapPath("~/Content/images/"), fname);
+                            file.SaveAs(fname);
+                            
+                        }
                         try
                         {
                             if (ModelState.IsValid)
@@ -100,7 +121,7 @@ namespace WebsiteBanHang.Controllers
                                 {
                                     smtp.Send(mess);
                                 }
-                                
+
                             }
                         }
                         catch (Exception)
@@ -108,22 +129,24 @@ namespace WebsiteBanHang.Controllers
                             ViewBag.Error = "Some Error";
                         }
 
-                        //return Json(new { status = "success" }, JsonRequestBehavior.AllowGet);
-                        return RedirectToAction("Index", "Home");
+                        // Returns message that successfully uploaded  
+                        return Json("File Uploaded Successfully!");
                     }
-
-
+                    catch (Exception ex)
+                    {
+                        return Json("Error occurred. Error details: " + ex.Message);
+                    }
                 }
                 else
                 {
-                    //return Json(new { status = "fail" }, JsonRequestBehavior.AllowGet);
-                    return RedirectToAction("DangKyCuaHang","Home");
+                    return Json("No files selected.");
                 }
             }
 
 
             //return Json(new { status = "fail" }, JsonRequestBehavior.AllowGet);
-            return RedirectToAction("DangKyCuaHang", "Home");
+            return Json("Add avt success!.");
+            //return RedirectToAction("DangKyCuaHang", "Home");
         }
 
         public JsonResult NewProduct(int? MaShop)

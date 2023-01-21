@@ -230,11 +230,12 @@
         var idTinh = $("#idTinh").val();
         var idHuyen = $("#idHuyen").val();
         var idXa = $("#idXa").val();
+        var SDT = $("#SDT").val();
         $.ajax({
 
             type: "POST",
             url: "http://localhost:62979/Home/DangKyCuaHang",
-            data: { TenShop: TenShop, TaiKhoan: TaiKhoan, MatKhau: MatKhau, DiaChi: DiaChi, idTinh: idTinh, idHuyen: idHuyen, idXa: idXa, arr: arr }, // serializes the form's elements.
+            data: { TenShop: TenShop, TaiKhoan: TaiKhoan, MatKhau: MatKhau, DiaChi: DiaChi, idTinh: idTinh, idHuyen: idHuyen, idXa: idXa, arr: arr, SDT:SDT }, // serializes the form's elements.
 
             success: function (status, data, MaShop) {
                 console.log(data)

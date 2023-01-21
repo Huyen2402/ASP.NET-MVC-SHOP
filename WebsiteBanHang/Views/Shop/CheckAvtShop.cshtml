@@ -21,7 +21,7 @@
             <input type="hidden" name="MaShop" value="@MaShop" />
             <!--   user name -->
             <img class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
-            <input name="avt" class="form-input" id="avt" type="file" required>
+            <input  name="avt" class="form-input" id="avt" type="file" required>
 
 
 
@@ -32,7 +32,7 @@
             <br>
             <!--        buttons -->
             <!--      button LogIn -->
-            <button type="submit" class="log-in mx-auto d-block"> Log In </button>
+            <button id="btn-upavt" type="button" class="log-in mx-auto d-block"> Log In </button>
         </div>
 
 
@@ -52,43 +52,45 @@
     <script>
         
 
-        //$("#form-UpAvt").submit(function (e) {
-        //    e.preventDefault();
-        //    var form = $(this);
+        $("#btn-upavt").click(function (e) {
          
-        //    $.ajax({
-
-        //        type: "POST",
-        //        url: "http://localhost:62979/Shop/CheckAvtShop",
-        //        data: form.serialize(), // serializes the form's elements.
-
-        //        success: function (status, data, MaShop) {
-        //            console.log(data)
-        //            console.log(status)
-        //            if (status.status == "success") {
-        //                Swal.fire(
-        //                    'Yêu Cầu Đăng Ký Thành Công',
-        //                    'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
-        //                    'success'
-        //                )
-                      
-        //                window.location.href = "http://localhost:62979/Home/DangKyCuaHang";
-        //            }
-        //            else {
-                      
-        //                Swal.fire({
-                           
-        //                    icon: 'error',
-        //                    title: 'Your work has been saved',
-        //                    showConfirmButton: false,
-                           
-                           
-        //                })
-        //            }
-
-
-        //        }
-        //    });
-        //})
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+                var fileUpload = $("#avt").get(0);
+                var files = fileUpload.files;
+                // Create FormData object
+                var fileData = new FormData();
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                // Adding one more key to FormData object
+                /* fileData.append('username', ‘Manas’);*/
+                $.ajax({
+                    url: '/Shop/CheckAvtShop',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        Swal.fire(
+                            result,
+                            'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
+                            'success'
+                        )
+                       
+                    },
+                    error: function (err) {
+                        Swal.fire(
+                            result,
+                            'Vui lòng kiểm tra lại',
+                            'error'
+                        )
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        })
     </script>
 
