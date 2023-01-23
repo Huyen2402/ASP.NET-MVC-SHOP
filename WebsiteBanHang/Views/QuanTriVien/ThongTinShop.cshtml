@@ -3,8 +3,86 @@
 @{
     ViewBag.Title = "ThongTinShop";
     Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+    List<ChiTietMatHangKinhDoanh> listCTKD = ViewBag.listCTKD as List<ChiTietMatHangKinhDoanh>;
 }
 
+
+
+
+
+<div class="inner_content">
+
+    <h2 style="text-align:center">User Profile Card</h2>
+    <div class="row">
+        <div class="card col-5">
+            <img src="@Url.Content("~/Content/images/"+Model.avt)" alt="John" style="width:100%">
+            <h1>@Model.TenShop</h1>
+            <p class="title">Địa chỉ: @Model.DiaChi, @Model.Xa.TenXa, @Model.Huyen.TenHuyen, @Model.Tinh.TenTinh</p>
+
+            <div style="margin: 24px 0;">
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+            </div>
+            <p><button>Duyệt</button></p>
+            <p><button>Từ Chối</button></p>
+        </div>
+        <div class="col-7">
+            <div class="w3l-table-info agile_info_shadow">
+                <h3 class="w3_inner_tittle two">Thông tin chi tiết</h3>
+                <table id="table-max-height" class="max-height">
+                    <thead>
+                       
+                        <tr>
+                            <th class="text-center">Chủ sở hữu</th>
+                            <th class="text-center">Email</th>
+
+                            <th class="text-center">Sdt</th>
+
+
+                            <th class="text-center">Mặt hàng kinh doanh</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td class="text-center" data-th="Name"><span class="bt-content">Phan Hồ Như Huyền</span></td>
+                            <td class="text-center" data-th="Name"><span class="bt-content">huyen@gmail.com</span></td>
+                            <td class="text-center" data-th="Name"><span class="bt-content">0356492230</span></td>
+                           
+                            <td class="text-center" data-th="Name">
+                                @for (int i = 0; i < listCTKD.Count; ++i)
+                                {
+                                    if (i < listCTKD.Count -1)
+                                    {
+                                        <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai,</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai</span>
+                                    }
+
+                                }
+                            </td>
+                          
+
+                        </tr>
+
+                     
+
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -165,56 +243,5 @@
             table.bt tbody td:last-of-type .bt-content {
                 padding-bottom: 10px;
             }
-
 </style>
-
-
-
-<div class="inner_content">
-
-    <h2 style="text-align:center">User Profile Card</h2>
-    <div class="row">
-        <div class="card col-5">
-            <img src="@Url.Content("~/Content/images/"+Model.avt)" alt="John" style="width:100%">
-            <h1>John Doe</h1>
-            <p class="title">CEO & Founder, Example</p>
-            <p>Harvard University</p>
-            <div style="margin: 24px 0;">
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-            </div>
-            <p><button>Chấp Nhận</button></p>
-        </div>
-        <div class="col-7">
-            <div class="w3l-table-info agile_info_shadow">
-                <h3 class="w3_inner_tittle two">Max Height</h3>
-                <table id="table-max-height" class="max-height">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Mặt hàng kinh doanh</th>
-                            
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                      
-                            <tr>
-                                <td class="text-center" data-th="Name"><span class="bt-content">.TenShop</span></td>
-                               
-                            
-
-                            </tr>
-
-                        
-
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-    </div>
-</div>
 

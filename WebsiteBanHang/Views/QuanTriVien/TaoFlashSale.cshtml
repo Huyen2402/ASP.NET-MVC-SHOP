@@ -6,41 +6,46 @@
 
 <div class="inner_content">
     <div class="wthree_general graph-form agile_info_shadow ">
-        <h3 class="w3_inner_tittle two">General Form </h3>
+        <h3 class="w3_inner_tittle two">Tạo Flash Sale</h3>
 
         <div class="grid-1 ">
             <div class="form-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="focusedinput" class="col-sm-2 control-label">Focused Input</label>
+                        <label for="focusedinput" class="col-sm-2 control-label">Chọn ngày flash sale</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control1" id="focusedinput" placeholder="Default Input">
                         </div>
-                        <div class="col-sm-2">
-                            <p class="help-block">Your help text!</p>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Ngày kết thúc</label>
+                        <div class="col-sm-8">
+                            <input readonly type="date" class="form-control1" id="endinput" placeholder="Default Input">
                         </div>
+
                     </div>
 
                     <div class="form-group">
-                        <label for="radio" class="col-sm-2 control-label">Radio Inline</label>
+                        <label for="radio" class="col-sm-2 control-label">Tạo tự động (Thời gian tính từ hiện tại)</label>
                         <div class="col-sm-8">
-                            <div class="radio-inline"><label><input type="radio"> Tạo 7 ngày</label></div>
-                            <div class="radio-inline"><label><input type="radio" > Tạo 10 ngày</label></div>
-                            <div class="radio-inline"><label><input type="radio">  Tạo 30 ngày</label></div>
-                           
+                            <div class="radio-inline"><label><input value="7" type="radio"> Tạo 7 ngày</label></div>
+                            <div class="radio-inline"><label><input value="10" type="radio"> Tạo 10 ngày</label></div>
+                            <div class="radio-inline"><label><input value="30" type="radio">  Tạo 30 ngày</label></div>
+
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="radio" class="col-sm-2 control-label">Radio</label>
+                        <label for="radio" class="col-sm-2 control-label"></label>
                         <div class="col-sm-8">
-                            <button class="radio block btn info">Tạo</button>
+                            <button id="btn-fs" type="button" class="radio block btn info">Tạo</button>
 
                         </div>
                     </div>
 
 
 
-                
+
                 </form>
             </div>
 
@@ -63,9 +68,56 @@
                background: #0b7dda;
            }
 </style>
+
 <script>
-    $(".radio-inline").click(function () {
-        console.log("Fg")
-        $("#focusedinput").prop('disabled', true);
+    $(document).ready(function () {
+        $("#focusedinput").click(function () {
+            $('input[type="radio"]').prop('disabled', true);
+            $('input[type="radio"]').css('background-color', '#e7e7e7');
+
+        })
+        $("#focusedinput").change(function () {
+            var date = $(this).val()
+            var val = null;
+            alert(date)
+            var arr = date.split("-")
+            var end = date.replace(arr[2], parseInt(arr[2])+ 1)
+            alert(end)
+            
+            $("#btn-fs").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/QuanTriVien/TaoFlashSale?value=" + val + "&date=" + date + "&end=" + end,
+
+                    success: function (data) {
+                        alert(data); // show response from the php script.
+                    }
+                });
+            })
+        })
+
+        $('input[type="radio"]').click(function () {
+            console.log("Fg")
+            $("#focusedinput").prop('disabled', true);
+            $("#focusedinput").css('background-color', '#e7e7e7');
+            var val = $(this).val();
+            var date = null;
+            var end = null;
+            $("#btn-fs").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/QuanTriVien/TaoFlashSaleAjax?value=" + val + "&date=" + date +"&end=" +end,
+
+                    success: function (data) {
+                        alert(data); // show response from the php script.
+                    }
+                });
+            })
+        })
+        
     })
+  
+
 </script>

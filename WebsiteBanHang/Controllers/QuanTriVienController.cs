@@ -52,11 +52,43 @@ namespace WebsiteBanHang.Controllers
         public ActionResult ThongTinShop(int MaShop)
         {
             Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+            Nullable< int> MaMatHang = shop.MaMatHang;
+            ViewBag.listCTKD = db.ChiTietMatHangKinhDoanhs.Where(n => n.MaMatHang == MaMatHang).ToList();
+
+
             return View(shop);
         }
         public ActionResult TaoFlashSale()
         {
             return View();
+        }
+
+      
+
+        public JsonResult TaoFlashSaleAjax(int? value, DateTime? datee, DateTime? end)
+        {
+            int? val = value == null ? value = null : value;
+            DateTime? date = datee == null ? datee = null : datee;
+            if(date != null && end != null)
+            {
+                FlashSale newfl = new FlashSale();
+                newfl.NgaySale = date;
+                newfl.EndTime = end;
+                db.FlashSales.Add(newfl);
+                db.SaveChanges();
+            }
+            else
+            {
+                for(int i =1;i<= value; i++)
+                {
+                    FlashSale newfl = new FlashSale();
+                    string now = DateTime.Now.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss");
+                   
+
+                }
+            }
+
+            return Json("alo");
         }
     }
 }

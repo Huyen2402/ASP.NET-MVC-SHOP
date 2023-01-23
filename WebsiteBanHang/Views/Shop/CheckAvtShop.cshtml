@@ -17,11 +17,11 @@
         </header>
         <!--     End  header Content  -->
         <br>
-        <div class="field-set">
+        <div class="field-set" style="width: 360px">
             <input type="hidden" name="MaShop" value="@MaShop" />
             <!--   user name -->
-            <img class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
-            <input  name="avt" class="form-input" id="avt" type="file" required>
+            <img style="max-width: 360px" id="preview-img" class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
+            <input  name="avt" class="form-input " id="hsp_tentaptin" type="file" required>
 
 
 
@@ -32,7 +32,7 @@
             <br>
             <!--        buttons -->
             <!--      button LogIn -->
-            <button id="btn-upavt" type="button" class="log-in mx-auto d-block"> Log In </button>
+            <button style="margin-left:50px" id="btn-upavt" type="button" class="log-in mx-auto d-block"> Thêm ảnh </button>
         </div>
 
 
@@ -50,13 +50,22 @@
 
 
     <script>
-        
+        const reader = new FileReader();
+        const fileInput = document.getElementById("hsp_tentaptin");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
 
         $("#btn-upavt").click(function (e) {
          
             // Checking whether FormData is available in browser
             if (window.FormData !== undefined) {
-                var fileUpload = $("#avt").get(0);
+                var fileUpload = $("#hsp_tentaptin").get(0);
                 var files = fileUpload.files;
                 // Create FormData object
                 var fileData = new FormData();
