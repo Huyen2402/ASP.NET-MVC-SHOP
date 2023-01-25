@@ -13,14 +13,15 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">Chọn ngày flash sale</label>
-                        <div class="col-sm-8">
+                        <div id="fsinput" class="col-sm-8">
                             <input type="date" class="form-control1" id="focusedinput" placeholder="Default Input">
+                         
                         </div>
 
                     </div>
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">Ngày kết thúc</label>
-                        <div class="col-sm-8">
+                        <div id="einput" class="col-sm-8">
                             <input readonly type="date" class="form-control1" id="endinput" placeholder="Default Input">
                         </div>
 
@@ -71,6 +72,11 @@
 
 <script>
     $(document).ready(function () {
+        function addZero(i) {
+            if (i < 10) { i = "0" + i }
+            return i;
+        }
+
         $("#focusedinput").click(function () {
             $('input[type="radio"]').prop('disabled', true);
             $('input[type="radio"]').css('background-color', '#e7e7e7');
@@ -99,11 +105,23 @@
 
         $('input[type="radio"]').click(function () {
             console.log("Fg")
-            $("#focusedinput").prop('disabled', true);
-            $("#focusedinput").css('background-color', '#e7e7e7');
+            
+            var d = new Date();
             var val = $(this).val();
             var date = null;
             var end = null;
+            //var date = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + d.getDate() + " " + addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getSeconds());
+            //console.log(date)
+            //$("#fsinput").empty();
+            //$("#fsinput").append(' <input class="form-control1" id="focusedinput" type="text" name="name" value="' + date + '" />');
+            //$("#focusedinput").prop('disabled', true);
+            //$("#focusedinput").css('background-color', '#e7e7e7');
+            //var end = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + (d.getDate() + parseInt(val))  + " " + addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getSeconds());
+            //console.log(end)
+            //$("#einput").empty();
+            //$("#einput").append(' <input class="form-control1" id="endinput" type="text" name="name" value="' + end + '" />');
+            //$("#endinput").prop('disabled', true);
+            //$("#endinput").css('background-color', '#e7e7e7');
             $("#btn-fs").click(function () {
 
                 $.ajax({

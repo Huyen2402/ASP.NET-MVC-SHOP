@@ -79,11 +79,17 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                for(int i =1;i<= value; i++)
+                DateTime now = (DateTime)DateTime.Now;
+                FlashSale newfl = new FlashSale();
+                for (int i=0; i< val;i++)
                 {
-                    FlashSale newfl = new FlashSale();
-                    string now = DateTime.Now.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss");
                    
+                    newfl.NgaySale = now;
+                    newfl.EndTime = now.AddDays(1);
+                    db.FlashSales.Add(newfl);
+                    db.SaveChanges();
+                    now = now.AddDays(1);
+
 
                 }
             }
