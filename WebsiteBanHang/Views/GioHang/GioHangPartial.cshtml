@@ -6,14 +6,15 @@
 <div id="GioHangPartial" class="cart box_1">
     <a href="@Url.Action("XemGioHang","GioHang")">
         <h3>
+            <i class="fa-solid fa-cart-shopping"></i>
             <div data-total="@ViewBag.TongTien" data-slide="@ViewBag.TongSoLuong" class="total">
 
                 @TongGiaTien VND (<span>@ViewBag.TongSoLuong</span>)
             </div>
-            <img src="~/Content/images/cart.png" alt="">
+
         </h3>
     </a>
-    <p><a href="" class="simpleCart_empty">Empty Cart</a></p>
+   
 </div>
 
 

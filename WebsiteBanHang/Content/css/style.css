@@ -84,12 +84,13 @@ a.item_add {
 	background: #68c2e5;
 	padding: 15px 0;
 }
-.search{
-	position:relative;
-	  float: left;
-  width: 25%;
-  background-color: #fff;
-    margin-top: 11px;
+.search {
+	position: relative;
+	float: left;
+	width: 327px;
+	background-color: #fff;
+	margin-top: 11px;
+	border-radius: 20px;
 }
 .search input[type="text"] {
 	outline: none;
@@ -114,18 +115,27 @@ a.item_add {
   padding: 3px;
   font-weight: 700;
 }
+#brand {
+	font-weight: 600;
+	font-family: cursive;
+	color: white;
+}
 .search input[type="submit"]:hover {
-  background: #EF5F21;  
-  color: #fff;
-    transition: 0.5s all;
-  -webkit-transition: 0.5s all;
-  -o-transition: 0.5s all;
-  -moz-transition: 0.5s all;
-  -ms-transition: 0.5s all;
+	background: #EF5F21;
+	color: #fff;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-ms-transition: 0.5s all;
 }
 .header-left{
 	float: right;
 	  margin-top: 4px;
+}
+.header-right {
+	float: right;
+	margin-top: 4px;
 }
 .header-left ul{
 	float: left;

@@ -5,14 +5,20 @@
 <div class="header-top">
     <div class="container">
         <a class="navbar-brand" href="@Url.Action("Index","Home")">
-            <img src="~/Content/images/logo.png" alt="Avatar Logo" style="width:140px;" >
+            @*<img src="~/Content/images/logo.png" alt="Avatar Logo" style="width:140px;" >*@
+            <h1 id="brand">OriMART <i style="color: #d20053" class="fa-solid fa-heart"></i></h1>
         </a>
 
         <div class="search">
             @using (Html.BeginForm("SearchSP", "Search"))
             {
-                <input name="txbSearch" type="text" value="">
-                <input name="btnSearch" type="submit" value="Tìm">
+                <input name="txbSearch" type="text" placeholder="Nhập từ khóa tìm kiếm" value="">
+
+                <button class="btn" type="submit" name="btnSearch">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+             
+
             }
         </div>
         <div class="header-left">
@@ -27,18 +33,22 @@
                         <a class="lock" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a>
                     </li>
                     <li><a class="lock" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
+                    <li> @Html.Action("GioHangPartial", "GioHang");</li>
 
 
                 }
                 else
                 {
-                    <li><a id="btn-DangNhap" class="lock" href="#">Đăng nhập</a></li>
-                    <li><a class="lock" href="@Url.Action("DangKy", "Home")">Đăng ký</a></li>
+                    <li><a id="btn-DangNhap" class="lock" href="#"><i class="fa-solid fa-circle-user"></i>Tài Khoản</a></li>
+                    <li>
+                        @Html.Action("GioHangPartial", "GioHang");
+                    </li>
+                   
                 }
                 <li>
                 </li>
             </ul>
-            @Html.Action("GioHangPartial", "GioHang");
+           
 
             @*<div class="cart box_1">
                 <a href="checkout.html">
@@ -78,6 +88,8 @@
                     </div>
                     <h4 id="ThongBao" style="color:red;"></h4>
                     <input id="btn-dangnhap" type="submit" value="Đăng nhập">
+                    <a  href="@Url.Action("DangKy", "Home")">Tạo Tài Khoản</a>
+                    <br />
                     <a href="@Url.Action("DangNhapCuaHang","Home")">Bạn có tài khoản cửa hàng?</a>
 
                 </div>
