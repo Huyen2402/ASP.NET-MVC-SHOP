@@ -37,9 +37,9 @@
                     <div class="row">
 
                         <h4 class="">@item.TenLoai</h4>
-                        <img  class="img-menupartial" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
+                        <img class="img-menupartial" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
 
-
+                        <a href="@Url.Action("ListSanPham","SanPham", new {@MaLSP = item.MaLoaiSP})"></a>
                     </div>
                 </div>
             }

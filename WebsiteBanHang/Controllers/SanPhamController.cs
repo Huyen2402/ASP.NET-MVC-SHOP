@@ -122,8 +122,8 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult SanPhamNoiBat()
         {
-            int n = 2;
-            var listNoiBat = db.SanPhams.OrderByDescending(q => q.SoLanMua).Take(n);
+            
+            var listNoiBat = db.SanPhams.OrderByDescending(q => q.SoLanMua);
             return PartialView(listNoiBat);
         }
 

@@ -6,57 +6,92 @@
 }
 <div class="content-top container flash-sale">
 
-    @*<div>
-        <strong>
-            Nhập thông tin ban đầu: <br />
-        </strong>
-        <input type="text" id="h_val" placeholder="Giờ" value="" /> <br />
-        <input type="text" id="m_val" placeholder="Phút" value="" /> <br />
-        <input type="text" id="s_val" placeholder="Giây" value="" />
-        <input type="button" value="Start" onclick="start()" />
-        <input type="button" value="Stop" onclick="stop()" />  <br /> <br />
-    </div>*@
 
-
-    <h1>Flash Sale</h1>
-    <a href="@Url.Action("ViewAllFlashSale","SanPham")" id="view-all">Xem tất cả</a>
+    <h1>ƯU ĐÃI TRONG NGÀY</h1>
+    <a class="nono" href="@Url.Action("ViewAllFlashSale","SanPham")" id="view-all">Xem tất cả   <i class="fa-solid fa-angle-right"></i></a>
     <div id="time-flash-sale">
-        <span class="time" id="days">Ngảy</span> :
-        <span class="time" id="hours">Giờ</span> :
-        <span class="time" id="minutes">Phút</span> :
+        <span class="time" id="days">Ngảy</span> <p class="nono">:</p>
+        <span class="time" id="hours">Giờ</span> <p class="nono">:</p>
+        <span class="time" id="minutes">Phút</span> <p class="nono">:</p>
         <span class="time" id="seconds">Giây</span>
     </div>
     <div class="grid-in">
         <input id="time" type="hidden" name="name" value="@fl.EndTime" />
-        @foreach (var item in Model)
-        {
-            <input type="hidden" name="name" value="" id="@item.MaShop" />
+      
+        <div id="product-shop" class=" row bottom-product">
+            @foreach (var item in Model)
+            {
 
-            <div class="col-2 col-xs-12 grid-top ">
-                <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP, item.MaShop})" class="b-link-stripe b-animate-go  thickbox">
-                    <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
-                    <div class="b-wrapper">
-                        <h3 class="b-animate b-from-left    b-delay03 ">
-                            <span>@item.MoTaNgan</span>
-                        </h3>
+                decimal? number = item.DonGia;
+                string GiaTien = number.Value.ToString("#,##0");
+                string Giacuoicung = (item.DonGia - (item.DonGia * item.KhuyenMai) / 100).Value.ToString("#,##0");
+                 
+                <div class="col-md-3 bottom-cd simpleCart_shelfItem">
+
+                   
+                    <div class="product-at ">
+                        <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                            <div class="S-product-item__wrapper-upper-left">
+                                <div role="contentinfo" class="wrapper-upper-left__flashsale notranslate" tabindex="-1" data-ada-level="0" data-ada-pos="0-0">
+                                    
+                                    <i class="fa-solid fa-bolt suiiconfont sui_icon_flashsale_24px"></i>
+                                    <span class="wrapper-upper-left__flashsale-percent">-45%</span>
+                                </div><!-- ccc-tsp角标 --><!--v-if-->
+                            </div>
+                            <img style="height: 326px" class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
+                            <div class="pro-grid">
+                                <span class="buy-in">Mua ngay</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    <div style="height:50px;">
+                        <b><p class="tun">@item.TenSP</p></b>
+                        <br />
+
+                    </div>
+                    <div class="row">
+                        <p class="number item_price col-6"><i> </i>@Giacuoicung</p>
+                        <del class="number item_price col-6">@GiaTien</del>
+                    </div>
+                    <br />
+                    <div class="progress">
+                        <div class="progress-bar color-blue" style="width:10%"></div>
+
+                    </div>
+                    <br>
+                    <p> 10% đã bán</p>
+
+                    
+                </div>
 
 
-                <p><a href="single.html">@item.TenSP</a></p>
-            </div>
 
 
+            }
 
-        }
+        </div>
     </div>
     <div class="clearfix"></div>
 </div>
 
 <style>
+
+    .nono {
+        font-size: 17px;
+        font-weight: 800;
+        padding: 4px;
+        color: black;
+    }
     .time {
         border: solid 1px #ACACAC;
         padding: 2px;
+        background-color: black;
+        color: white;
+        height:30px;
+        width: 70px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 10px;
     }
     #time-flash-sale, #view-all {
         display: flex;
@@ -64,6 +99,7 @@
         
         margin-right: 70px;
     }
+  
 </style>
 <script language="javascript">
 

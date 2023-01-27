@@ -1027,13 +1027,15 @@ font-weight: 100;
 }
 /*---*/
 
-a.item_add p.number{	
+a.item_add p.number {
 	font-size: 1.1em;
-  color: #FFF;
-  text-align: center;
-  background: #EF5F21;
-  padding: 0.5em 1em;
+	color: #FFF;
+	text-align: center;
+	background: #ff6f6f !important;
+	padding: 0.5em 1em;
 }
+
+
 a.item_add p.number:hover{
 		background: #000;
 		transition: 0.5s all;
