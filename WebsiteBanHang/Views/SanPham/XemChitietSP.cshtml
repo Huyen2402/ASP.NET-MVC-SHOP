@@ -17,10 +17,11 @@
 }
 
 
-<div  class="container" id="video">
+<div class="" id="video">
+   
+
     <video autoplay muted loop id="myVideo">
         <span class="close">&times;</span>
-
         <source src="@vd.url" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
@@ -72,8 +73,14 @@
                 <h4>@Model.TenSP</h4>
                 <div class="star-on">
                     <ul class="">
-
-                        <li id="danhGia">@Model.DanhGia <i style="color: #FD4" class="fa-solid fa-star"></i></li>
+                        @if (Model.DanhGia == null)
+                        {
+                            <li id="danhGia">Chưa có đánh giá</li>
+                        }
+                        else
+                        {
+                            <li id="danhGia">@Model.DanhGia <i style="color: #FD4" class="fa-solid fa-star"></i></li>
+                        }
 
                     </ul>
 
@@ -85,23 +92,45 @@
                 }
 
                 @*<div class="div-price">
-                        <del>@GiaTien</del>
-                        <h5 class="item_price">@GiaTien </h5>
-                    </div>*@
-                @{
-                    decimal? Giacuoicung = Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100;
-                }
-                <div class="flex flex-column _38g6so">
-                    <div class="flex items-center">
-                        <div class="flex items-center _34BHKe">
-                            <div class="_2yjfFH">₫@Model.DonGia</div>
-                            <div class="flex items-center">
-                                <div class="_2Shl1j">₫@Giacuoicung</div>
-                                <div class="_3PlIlX">@Model.KhuyenMai % giảm</div>
+            <del>@GiaTien</del>
+            <h5 class="item_price">@GiaTien </h5>
+        </div>*@
+
+                @if (Model.KhuyenMai != null)
+                {
+                    string Giacuoicung = (Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100).Value.ToString("#,##0");
+
+                    <div class="flex flex-column _38g6so">
+                        <div class="flex items-center">
+                            <div class="flex items-center _34BHKe">
+                                <div class="_2yjfFH">₫@Model.DonGia</div>
+                                <div class="flex items-center">
+                                    <div class="_2Shl1j">@Giacuoicung</div>
+
+                                    <div class="_3PlIlX">@Model.KhuyenMai % giảm</div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="flex flex-column _38g6so">
+                        <div class="flex items-center">
+                            <div class="flex items-center _34BHKe">
+                              
+                                <div class="flex items-center">
+                                    <div class="_2Shl1j">@GiaTien</div>
+
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 <div class="_3rFQYx">
                     <div class="flex flex-column">
                         <div aria-haspopup="true" aria-expanded="false" id="miniVoucherPopoverLabel" class="VrhRS0 _2o5GCQ OjT2aQ" tabindex="0" style="position: relative;">
@@ -232,58 +261,62 @@
     <div id="review-product">
         <div id="CMT">
             <h1 class="">Đánh giá sản phẩm</h1>
-            <div>
-                @if (Session["TaiKhoan"] != null)
-                {
-                    <input type="hidden" name="MaSP" value="@Model.MaSP" id="masp" />
-                    <input class="form-control" type="text" name="NoiDungBL" value="" id="noidung" />
-                    <p id="divEmp" style="color:red;"></p>
-                    <div>
-                        @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
-                        <input id="btn-BL" type="button" value="Gửi Bình Luận" class="btn btn-primary float-end" />
-                    </div>
-                }
-
-            </div>
-            <div class="clearfix"> </div>
+            
 
 
+           
             <div id="container-binhluan">
-                @foreach (var item in ListBL)
+                @if (ListBL.Count != 0)
                 {
-                    <div class="form-control binhluan" id="binhluan">
-                        <div>
-                            <label id="TenBL"> @item.ChiTietDonDatHang.DonDatHang.ThanhVien.HoTen</label>
-                        </div>
-                        <div id="ndBL" class="noidungbinhluan" data-mabl="@item.MaBL">
-                            @item.NoiDungBL
-                        </div>
-
-                        @if (ListTL != null)
-                        {
-                            foreach (var tl in ListTL)
-                            {
-                                if (tl.MaBL == item.MaBL)
+                    foreach (var item in ListBL)
+                    {
+                        <div class=" binhluan row " id="binhluan">
+                            <div class="col-6">
+                                <label style="margin-left: 32px" id="TenBL"> @item.ChiTietDonDatHang.DonDatHang.ThanhVien.HoTen</label>
+                            </div>
+                            <div id="ndBL" class="noidungbinhluan col-6" data-mabl="@item.MaBL">
+                                @for (int i = 0; i < item.DanhGia; i++)
                                 {
-                                    <div id="TraLoiBL">
-                                        <div class="form-control " id="TLbinhluan">
-                                            <div>
-                                                <label id="TenBL">@tl.ThanhVien.HoTen</label>
-                                            </div>
-                                            <div id="ndBL">
-                                                @tl.NoiDungTraLoi
+                                    <i style="color: #FD4" class="fa-solid fa-star"></i>
+                                }
+                            <br />
+                                @item.NoiDungBL
+                            </div>
+
+                            @if (ListTL != null)
+                            {
+                                foreach (var tl in ListTL)
+                                {
+                                    if (tl.MaBL == item.MaBL)
+                                    {
+                                        <div id="TraLoiBL">
+                                            <div class="form-control " id="TLbinhluan">
+                                                <div>
+                                                    <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                                </div>
+                                                <div id="ndBL" >
+                                                    @tl.NoiDungTraLoi
+                                                </div>
+
                                             </div>
 
                                         </div>
-
-                                    </div>
+                                    }
                                 }
                             }
-                        }
-                    </div>
+
+                        </div>
+                        <br />
+                        <hr style="width:90%" class="mx-auto d-block" />
+                    }
                 }
+else
+            {
+                <p>Chưa có đánh giá</p>
+            }
                 <b id="loadMore">Hịn thêm thì click dô</b>
             </div>
+            
         </div>
     </div>
 
@@ -309,7 +342,8 @@
         right: 0;
         bottom: 0;
         max-width: 400px;
-        max-height: 100%;
+        max-height: 300px;
+        z-index: 1000;
     }
 
 
