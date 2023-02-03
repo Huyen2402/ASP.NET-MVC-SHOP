@@ -39,7 +39,7 @@ namespace WebsiteBanHang.Controllers
                 {
                      apires = await responde.Content.ReadAsStringAsync();
                    
-                    //kq =  JsonConvert.DeserializeObject<KetQua>(apires);
+                
                    
                 }
             }

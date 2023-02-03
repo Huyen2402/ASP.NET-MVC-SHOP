@@ -128,7 +128,7 @@ namespace WebsiteBanHang.Controllers
 
 
 
-            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
           
         }
 

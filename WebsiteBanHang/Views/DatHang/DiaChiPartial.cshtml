@@ -18,7 +18,7 @@
              </p>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#myModal">
                 Thay đổi
             </button>
         </div>
@@ -42,32 +42,31 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
+            <div class="modal-body ex2">
                 @foreach (var item in Model)
                 {
                     <div class="row ">
                         <input type="hidden" class="arr-id" name="name" value="@item.ID" />
-                        <div class="col-2"><h4>@item.ThanhVien.HoTen @item.Phone</h4></div>
-                        <div class="col-8"><h4>@item.Address,@item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</h4></div>
+                        <div class="col-2"><p><b>@item.ThanhVien.HoTen</b> @item.Phone</p></div>
+                        <div class="col-8"><p>@item.Address,@item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</p></div>
                         <div class="col-2">
 
                             <input class="check" type="radio" name="name" value="@item.ID" />
 
-                            <button>Cập nhật</button>
+                            <button class="btn btn-warning">Cập nhật <i class="fa-solid fa-pen-to-square"></i></button>
                         </div>
 
                     </div>
                 }
-                <div>
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#myModalAdd">
-                        Thêm địa chỉ
-                    </button>
-                </div>
+              
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                    Thêm địa chỉ <i class="fa-solid fa-plus"></i>
+                </button>
+               
             </div>
 
         </div>
@@ -128,7 +127,13 @@
          
         </div>
 </div>
-
+<style>
+    div.ex2 {
+      
+        height: 400px;
+        overflow-y: scroll;
+    }
+</style>
 <!-- The Modal -->
 
 <script>

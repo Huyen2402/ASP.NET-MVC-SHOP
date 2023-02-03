@@ -16,6 +16,7 @@
     <div class="row">
         <div class="card col-5">
             <img src="@Url.Content("~/Content/images/"+Model.avt)" alt="John" style="width:100%">
+            <input type="hidden" id="id-shop" name="name" value="@Model.MaShop" />
             <h1>@Model.TenShop</h1>
             <p class="title">Địa chỉ: @Model.DiaChi, @Model.Xa.TenXa, @Model.Huyen.TenHuyen, @Model.Tinh.TenTinh</p>
 
@@ -25,7 +26,7 @@
                 <a href="#"><i class="fa fa-linkedin"></i></a>
                 <a href="#"><i class="fa fa-facebook"></i></a>
             </div>
-            <p><button>Duyệt</button></p>
+            <p><button id="accept-shop" type="button">Duyệt</button></p>
             <p><button>Từ Chối</button></p>
         </div>
         <div class="col-7">
@@ -244,4 +245,27 @@
                 padding-bottom: 10px;
             }
 </style>
+<script>
+    $("#accept-shop").click(function () {
+        var id = $("#id-shop").val();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:62979/QuanTriVien/XetDuyetShop?MaShop='+id,
+            
+            success: function (data) {
+                Swal.fire({
+                   
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: true,
+                    timer: 1500
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                       
+                    }
+                })
+            }
+        });
+    })
+</script>
 

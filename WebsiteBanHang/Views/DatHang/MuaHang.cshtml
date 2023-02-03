@@ -63,7 +63,7 @@
             Nhanh
             Nhận hàng vào 20 Th12 - 22 Th12
         </div>
-        <div class="col-2"><button class="btn btn-primary">Thay đổi</button></div>
+        <div class="col-2"><button class="btn btn-custom">Thay đổi</button></div>
         <div class="col-2">Phí ship: ₫42.500</div>
     </div>
     <hr />
@@ -75,7 +75,7 @@
     </div>
     <hr />
     <div>
-        <a href="@Url.Action("DatHang","DatHang")" id="btn-muahang" class="btn btn-success">
+        <a style="width:70px; height:30px" href="@Url.Action("DatHang","DatHang")" id="btn-muahang" class="btn btn-custom">
             ĐẶT HÀNG
         </a>
     </div>
@@ -95,30 +95,6 @@
         var url = "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi;
                     window.location.href = url;
 
-
-        //$("#btn-dathang").click(function () {
-            //    value = $("#MaCTGiamGia").val();
-            //    console.log("Value:" + value)
-            //    if (check) {
-            //        var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
-            //        window.location.href = url;
-            //    } else {
-            //        alert("Vui lòng đăng nhập để thanh toán!");
-            //    }
-
-
-            //})
-        //$.ajax({
-        //    type: "GET",
-        //    url: "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi,
-        //   /* data: { MaTinh: idTinh,  MaHuyen: idHuyen,  MaXa: idXa,  DiaChi: diaChi  },*/
-        //    dataType: 'json',
-        //    success: function (data, status, xhr) {
-
-                
-        //    }
-            
-        //});
       
     })
 </script>

@@ -582,21 +582,24 @@ padding:1em 0 0;
   background: #fff;
   border: none;
  }
- .amet-sed input[type="submit"] {
-  width: 20%;
-  color: #FFF;
-  font-size: 1em;
-  background:#EF5F21;
-  border: none;
-  outline:none;
-  padding: 0.5em;
+.amet-sed input[type="submit"] {
+	width: 20%;
+	color: #FFF;
+	font-size: 1em;
+	background: #ff6f6f;
+	border: none;
+	outline: none;
+	padding: 0.5em;
 }
-.amet-sed input[type="submit"]:hover {
-background: #fff;
-color:#EF5F21;
+	.amet-sed input[type="submit"]:hover, .btn-custom:hover {
+		opacity: 0.7
+	}
+.btn-custom {
+	background: #ff6f6f !important;
+	color: #FFF !important;
 }
-ul.social{
-	padding:1em 0 0;
+ul.social {
+	padding: 1em 0 0;
 }
 ul.social li{
 	display: inline-block;	

@@ -198,7 +198,7 @@ box-shadow: 1px 5px 15px #CCC;
   left:5px;
   top:11px;
   height:33px;
-  background: linear-gradient(to right, #0cebeb, #20e3b2, #29ffc6);
+ 
 }
 
 @keyframes scalewidth {
@@ -240,7 +240,7 @@ p, li {
 
 ul, li {
     text-decoration: none;
-    list-style: disc outside;
+    list-style: none;
 }
 
 ul {

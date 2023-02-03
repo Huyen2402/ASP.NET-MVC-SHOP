@@ -17,9 +17,12 @@ namespace WebsiteBanHang.Controllers
             Session["keyword"] = txbSearch;
             List<SanPham> listSearch = db.SanPhams.Where(s => s.TenSP.Contains(txbSearch) && s.DaXoa == false).ToList();
             ViewBag.listshop = db.Shops.Where(n=>n.TenShop.Contains(txbSearch)).ToList();
-
+           
+            
             return View(listSearch);
         }
+
+        
 
         public ActionResult SearchSPPartial()
         {

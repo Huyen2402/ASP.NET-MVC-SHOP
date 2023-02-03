@@ -240,6 +240,9 @@
 
 </style>
 <script>
+   
+   
+
     const count = @count;
 
     const arr_star = [];
@@ -292,32 +295,78 @@
                     //var start = $(this).attr("data-start")
                     var mactddh = $(".valdanhgia").val();
                     //console.log(start)
+                   
 
                     for (var i = 0; i < arr_infor.length; i++) {
-                        $.ajax({
-                            type: "get",
+                       
+                            /*    var key = $("#email").val();*/
+                            $.getJSON("/DemoJQuery/Test?path=" + arr_infor[i].comment, function (ss) {
+                                console.log(ss)
+                                if (ss == 0) {
+                              
+                                    Swal.fire({
+                                      
+                                        icon: 'error',
+                                        title: 'Nội dung nhạy cảm',
+                                        text: 'Phần đánh giá của bạn có từ ngữ nhạy cảm, vui lòng thử lại',
+                                        showConfirmButton: true,
+                                       
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload()
+                                        }
+                                    })
+                                   
+                                }
+                                else {
 
-                            url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + arr_infor[i].MaCTDDH + "&comment=" + arr_infor[i].comment + "&start=" +arr_infor[i].start,
-                            contenttype: "json",
+                                    $.ajax({
+                                        type: "get",
 
-                            success: function (status, data) {
-                                console.log("status", status)
-                                console.log("data", status.data)
-                                //for (var i = 1; i <= start; i++) {
-                                //    $("." + i).empty();
-                                //    $("." + i).prepend('<i style="color:#fd4" class="fa  fa-star "></i>');
-                                //}
-                                
+                                        url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + arr_infor[i].MaCTDDH + "&comment=" + arr_infor[i].comment + "&start=" + arr_infor[i].start,
+                                        contenttype: "json",
 
-                            }
-                        })
+                                        success: function ( data) {
+                                          
+                                            console.log("data", data.mess)
+                                            if (data.mess == "success") {
+                                                Swal.fire({
+
+                                                    icon: 'success',
+                                                    title: 'Your work has been saved',
+                                                    showConfirmButton: true,
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.reload()
+                                                    }
+                                                })
+                                            }
+                                            else {
+                                                Swal.fire({
+
+                                                    icon: 'error',
+                                                    title: 'Your work has been saved',
+                                                    showConfirmButton: true,
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.reload()
+                                                    }
+                                                })
+                                            }
+                                         
+                                           
+
+                                        }
+                                    })
+                                }
+
+                            })
+                        
+                       
                     }
-                    Swal.fire(
-                        'thành công!',
-                        'đánh giá của bạn đã góp phần giúp shop chúng tôi ngày càng phát triển tốt hơn.',
-                        'success'
-                    )
-                    window.location.reload();
+                  
 
 
                 }

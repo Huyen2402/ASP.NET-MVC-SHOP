@@ -187,7 +187,20 @@ namespace WebsiteBanHang.Controllers
         }
 
       
+        public ActionResult ChatHistory()
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<ChatwithShop> listChatShop = db.ChatwithShops.Where(n=>n.MaThanhVien == tv.MaThanhVien).ToList();  
 
+            return View();
+        }
+
+        public ActionResult ChatInHeader()
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<ChatwithShop> listChatShop = db.ChatwithShops.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+            return PartialView(listChatShop);
+        }
 
 
     }

@@ -22,18 +22,29 @@
             }
         </div>
         <div class="header-left">
-
-            <ul>
+          
+               
+               
+        
+            <ul style="font-weight:900; font-size:12px">
                 @if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
                 {
                     ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
                     <li>
-                        <a class="lock" href="#">Chào bạn @tv.HoTen</a>
-                        <a class="lock" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a>
-                        <a class="lock" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a>
+                        <div class="dropdown">
+                            <a class="lock dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-circle-user"></i>  @tv.HoTen</a>
+                            <ul class="dropdown-menu" style="border-radius: 10px !important; border: white !important; background-color: #d8e8f7db !important; ">
+                                <li>  <a class="lock color-text" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a></li>
+                                <li>  <a class="lock color-text" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a></li>
+                                <li><a class="lock color-text" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+
+
                     </li>
-                    <li><a class="lock" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
+                    <li> @Html.Action("ChatInHeader","Chat")</li>
                     <li> @Html.Action("GioHangPartial", "GioHang");</li>
+
 
 
                 }
@@ -43,30 +54,35 @@
                     <li>
                         @Html.Action("GioHangPartial", "GioHang");
                     </li>
-                   
+
                 }
                 <li>
                 </li>
             </ul>
-           
+
 
             @*<div class="cart box_1">
-                <a href="checkout.html">
-                    <h3>
-                        <div class="total">
-                            <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)
-                        </div>
-                        <img src="images/cart.png" alt="">
-                    </h3>
-                </a>
-                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-            </div>*@
+            <a href="checkout.html">
+                <h3>
+                    <div class="total">
+                        <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)
+                    </div>
+                    <img src="images/cart.png" alt="">
+                </h3>
+            </a>
+            <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+        </div>*@
             <div class="clearfix"> </div>
         </div>
         <div class="clearfix"> </div>
     </div>
 </div>
-
+<style>
+    .color-text{
+        color: black !important;
+    }
+   
+</style>
 
 <div id="popup">
     <div id="frm-DangNhap" class="account mx-auto d-block ">
@@ -88,6 +104,7 @@
                     </div>
                     <h4 id="ThongBao" style="color:red;"></h4>
                     <input id="btn-dangnhap" type="submit" value="Đăng nhập">
+                    <br />
                     <a  href="@Url.Action("DangKy", "Home")">Tạo Tài Khoản</a>
                     <br />
                     <a href="@Url.Action("DangNhapCuaHang","Home")">Bạn có tài khoản cửa hàng?</a>

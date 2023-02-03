@@ -4,7 +4,7 @@
     Layout = "~/Views/Layout/SearchLayout.cshtml";
 }
 
-<h2 class="text-center">Trò chuyện với H'Cosmetic</h2>
+
 
 <style>
     :root {
@@ -159,6 +159,7 @@
         height: 45px;
     }
 </style>
+<h2 class="text-center">Trò chuyện với   @ViewBag.TenShop</h2>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Trang chủ</a> <i class="fa fa-angle-right"></i></li>
     <li class="breadcrumb-item"><a href="@Url.Action("Index","Chat")">Chat với KH</a> <i class="fa fa-angle-right"></i></li>

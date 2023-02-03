@@ -96,5 +96,21 @@ namespace WebsiteBanHang.Controllers
 
             return Json("alo");
         }
+
+        public JsonResult XetDuyetShop(int MaShop)
+        {
+            Shop s = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+            if(s == null)
+            {
+                Response.StatusCode = 404;
+
+            }
+            else
+            {
+                s.XacNhan = true;
+                return Json(new {mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -252,10 +252,10 @@
     </div>
 
     <div class="img-review">
-        <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh)" alt="Alternate Text" /></div>
-        <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh1)" alt="Alternate Text" /></div>
-        <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh2)" alt="Alternate Text" /></div>
-        <div class="text-center m-3"><img src="@Url.Content("~/Content/images/"+Model.HinhAnh3)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content("~/Content/images/"+Model.HinhAnh)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content("~/Content/images/"+Model.HinhAnh1)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content("~/Content/images/"+Model.HinhAnh2)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content("~/Content/images/"+Model.HinhAnh3)" alt="Alternate Text" /></div>
     </div>
 
     <div id="review-product">
@@ -366,6 +366,9 @@ else
 
     .Trang_1 {
         display: block;
+    }
+    .img-productDetail{
+        min-width: 1024px;
     }
 </style>
 <script>

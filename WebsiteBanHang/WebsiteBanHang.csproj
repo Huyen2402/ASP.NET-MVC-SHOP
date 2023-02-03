@@ -772,6 +772,8 @@
     <Content Include="Views\QuanTriVien\ThongTinShop.cshtml" />
     <Content Include="Views\QuanTriVien\TaoFlashSale.cshtml" />
     <Content Include="Views\Shop\UpAvt.cshtml" />
+    <Content Include="Views\Chat\ChatHistory.cshtml" />
+    <Content Include="Views\Chat\ChatInHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
