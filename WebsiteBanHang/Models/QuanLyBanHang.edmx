@@ -136,6 +136,7 @@
           <Property Name="SoTien" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ToiThieu" Type="decimal" Precision="18" Scale="0" />
           <Property Name="SL" Type="int" />
+          <Property Name="MaShop" Type="int" />
         </EntityType>
         <EntityType Name="Huyen">
           <Key>
@@ -1468,6 +1469,7 @@
           <Property Name="SoTien" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ToiThieu" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SL" Type="Int32" />
+          <Property Name="MaShop" Type="Int32" />
           <NavigationProperty Name="ChiTietGiamGia" Relationship="QuanLyBanHangModel.FK__ChiTietGi__MaGia__673F4B05" FromRole="GiamGia" ToRole="ChiTietGiamGia" />
         </EntityType>
         <EntityType Name="Huyen">
@@ -2405,6 +2407,7 @@
           <EntitySetMapping Name="GiamGia">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.GiamGia">
               <MappingFragment StoreEntitySet="GiamGia">
+                <ScalarProperty Name="MaShop" ColumnName="MaShop" />
                 <ScalarProperty Name="SL" ColumnName="SL" />
                 <ScalarProperty Name="ToiThieu" ColumnName="ToiThieu" />
                 <ScalarProperty Name="SoTien" ColumnName="SoTien" />

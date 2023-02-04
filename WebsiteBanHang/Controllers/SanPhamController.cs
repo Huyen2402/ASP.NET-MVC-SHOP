@@ -64,10 +64,10 @@ namespace WebsiteBanHang.Controllers
                 VideoQC vdLast = db.VideoQCs.SingleOrDefault(n => n.IDVideo == lastVideo.IDVideo);
                 ViewBag.Video = vd;
             }
-
+            ViewBag.IDUser = Session["idKH"] ;
             ViewBag.ListBL = db.BinhLuans.Where(x => x.MaSP == masp).OrderByDescending(b => b.NgayTao).ToList();
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
-            ViewBag.listGiamGia = db.GiamGias.ToList();
+            ViewBag.listGiamGia = db.GiamGias.Where(n=>n.MaShop == MaShop && n.SL > 0).ToList();
             ViewBag.shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
 
             return View(sp);

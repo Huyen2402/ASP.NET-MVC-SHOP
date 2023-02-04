@@ -11,19 +11,28 @@ namespace WebsiteBanHang.Models
         public int id { get; set; }
         public decimal ThanhTien { get; set; }
         public int MaShop { get; set; }
-        public int MaCTGiamGia { get; set; }
+        public int? MaCTGiamGia { get; set; }
        
 
         public DatHang() {
 
         }
-        public DatHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
+        //public DatHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
+        //{
+        //    this.id = id;
+        //    this.ThanhTien= ThanhTien;
+        //    this.MaShop= MaShop;
+        //    this.MaCTGiamGia= MaCTGiamGia;
+            
+
+        //}
+        public DatHang(int id, decimal ThanhTien, int MaShop, int? MaCTGiamGia)
         {
             this.id = id;
-            this.ThanhTien= ThanhTien;
-            this.MaShop= MaShop;
-            this.MaCTGiamGia= MaCTGiamGia;
-            
+            this.ThanhTien = ThanhTien;
+            this.MaShop = MaShop;
+            this.MaCTGiamGia = MaCTGiamGia;
+
 
         }
     }

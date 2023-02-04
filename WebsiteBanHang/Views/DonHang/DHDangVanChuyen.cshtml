@@ -12,63 +12,70 @@
 
     <a href="@Url.Action("DHDangVanChuyen", "DonHang")" class="active btn btn-outline-dark">Đơn hàng đang giao</a>
     <a href="@Url.Action("DHDaNhan", "DonHang")" class="btn btn-outline-dark">Đơn hàng đã nhận</a>
-    <h1 class="text-center">Đơn hàng của tôi</h1>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Tên Người Mua</th>
-                <th>Địa Chỉ</th>
-                <th>Thời Gian Đặt</th>
-                <th>Ưu Đãi</th>
-                <th>Tình Trạng GH</th>
-                <th>Hình Thức Thanh Toán</th>
-                <th>Tình Trạng TT</th>
-                <th>Thao Tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-
-
+   
+        <h1 class="text-center">Đơn hàng của tôi</h1>
+        <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+            <thead>
                 <tr>
-                    <td>@item.MaDDH</td>
-                    <td>@item.ThanhVien.HoTen</td>
-                    <td>@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
-                    <td>@item.NgayDat</td>
-                    <td>@item.UuDai</td>
-                    <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
-                    <td>@item.HinhThucThanhToan</td>
-                    @if (@item.DaThanhToan == true)
-                    {
-                        <td>Đã Thanh Toán</td>
-                    }
-                    else
-                    {
-                        <td>Chưa Thanh Toán</td>
-                    }
-
-
-
-                    <td style="width:300px">
-                        <a href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
-                        <a href="@Url.Action("XacNhanDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-warning">Đã Nhận Hàng</a>
-                    </td>
-
-
-
-
-
-
+                    <th>STT</th>
+                    <th>Tên Người Mua</th>
+                    <th>Địa Chỉ</th>
+                    <th>Thời Gian Đặt</th>
+                    <th>Ưu Đãi</th>
+                    <th>Tình Trạng GH</th>
+                    <th>Hình Thức Thanh Toán</th>
+                    <th>Tình Trạng TT</th>
+                    <th>Thao Tác</th>
                 </tr>
+            </thead>
 
-            }
+            <tbody>
+                @foreach (var item in Model)
+                {
 
 
-        </tbody>
+                    <tr>
+                        <td>@item.MaDDH</td>
+                        <td>@item.ThanhVien.HoTen</td>
+                        <td>@item.ThanhVien.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
+                        <td>@item.NgayDat</td>
+                        <td>@item.UuDai</td>
+                        <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
+                        <td>@item.HinhThucThanhToan</td>
+                        @if (@item.DaThanhToan == true)
+                        {
+                            <td>Đã Thanh Toán</td>
+                        }
+                        else
+                        {
+                            <td>Chưa Thanh Toán</td>
+                        }
 
 
-    </table>
+
+                        <td style="width:300px">
+                            <a href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
+                            <a href="@Url.Action("XacNhanDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-warning">Đã Nhận Hàng</a>
+                        </td>
+
+
+
+
+
+
+                    </tr>
+
+                }
+
+
+            </tbody>
+
+
+
+
+        </table>
+    
+  
+    @Html.Action("suggestProduct", "Search")
 </div>

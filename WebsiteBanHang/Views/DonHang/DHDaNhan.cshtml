@@ -52,11 +52,11 @@
 
 
 
-                <td style="width:300px">
-                    <a href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Đánh Giá</a>
-                   
+                    <td style="width:300px">
+                        <a href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Đánh Giá</a>
 
-                </td>
+
+                    </td>
 
 
 
@@ -72,5 +72,6 @@
 
 
     </table>
+    @Html.Action("suggestProduct", "Search")
 </div>
 

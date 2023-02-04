@@ -2,7 +2,7 @@
 @model List<GioHang>
 
 
-@{ 
+@{
     List<ChiTietGiamGia> list = ViewBag.list as List<ChiTietGiamGia>;
     List<GiamGia> listgg = ViewBag.listgg as List<GiamGia>;
     List<Shop> listShop = ViewBag.listShop as List<Shop>;
@@ -10,20 +10,31 @@
 
 @{
     ViewBag.Title = "XemGioHang";
-    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
 }
 
 <div id="hihi" class="container color-wh">
 
     @if (Model.Count == 0)
     {
-        <h2>Giỏ hàng hiện đang trống</h2> 
+        <div id="test" class="check">
+            <h2 class="text-center">Giỏ hàng hiện đang trống</h2>
+            <hr />
+            <br />
+            <div id="Donhang" class="container mt-3">
+                @Html.Action("suggestProduct", "Search")
+            </div>
+        </div>
+
     }
     else
     {
 <div id="test" class="check">
 
     @Html.Action("ThemSlPartialView", "GioHang")
+    <div id="Donhang" class="container mt-3">
+        @Html.Action("suggestProduct", "Search")
+    </div>
 </div>
 
     }

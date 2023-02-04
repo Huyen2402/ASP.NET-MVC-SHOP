@@ -32,7 +32,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult suggestProduct() 
         {
             string keyword = Session["keyword"] as string;
-            List<SanPham> listSuggest = db.SanPhams.Where(n => n.Equals(keyword[0])).ToList();
+            List<SanPham> listSuggest = db.SanPhams.Where(n => n.TenSP.Equals(keyword)).ToList();
             if(listSuggest.Count > 0)
             {
                 return View(listSuggest);

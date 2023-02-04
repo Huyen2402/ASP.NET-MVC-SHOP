@@ -774,6 +774,7 @@
     <Content Include="Views\Shop\UpAvt.cshtml" />
     <Content Include="Views\Chat\ChatHistory.cshtml" />
     <Content Include="Views\Chat\ChatInHeader.cshtml" />
+    <Content Include="Views\Search\suggestProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

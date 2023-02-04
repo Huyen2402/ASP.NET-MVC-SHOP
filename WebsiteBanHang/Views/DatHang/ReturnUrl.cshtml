@@ -9,10 +9,46 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ReturnUrl</title>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div> 
-        @ViewBag.message
+    <div>
+        <input type="hidden" name="name" id="checkStatus" value="@ViewBag.check" />
     </div>
+    <script>
+
+        var check = $("#checkStatus").val();
+        if (check == "success") {
+            Swal.fire({
+
+                icon: 'success',
+                title: 'Thành công',
+                text: 'Thanh toán mua hàng thành công!',
+                showConfirmButton: true,
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "http://localhost:62979/GioHang/XemGioHang";
+                }
+            })
+           
+        }
+        else {
+            Swal.fire({
+
+                icon: 'error',
+                title: 'Thất bại',
+                text: 'Thanh toán mua hàng thất bại!',
+                showConfirmButton: true,
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "http://localhost:62979/GioHang/XemGioHang";
+                }
+            })
+           
+        }
+    </script>
 </body>
 </html>

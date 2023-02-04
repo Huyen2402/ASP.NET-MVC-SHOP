@@ -112,5 +112,7 @@ namespace WebsiteBanHang.Controllers
             }
             return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
         }
+
+       
     }
 }

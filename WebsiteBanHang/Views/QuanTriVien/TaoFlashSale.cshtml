@@ -85,10 +85,10 @@
         $("#focusedinput").change(function () {
             var date = $(this).val()
             var val = null;
-            alert(date)
+          
             var arr = date.split("-")
             var end = date.replace(arr[2], parseInt(arr[2])+ 1)
-            alert(end)
+           
             
             $("#btn-fs").click(function () {
 
@@ -97,7 +97,18 @@
                     url: "http://localhost:62979/QuanTriVien/TaoFlashSale?value=" + val + "&date=" + date + "&end=" + end,
 
                     success: function (data) {
-                        alert(data); // show response from the php script.
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã tạo thời gian flash sale thành công',
+                            showConfirmButton: true,
+                            
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost:62979/QuanTriVien/ChoXetDuyet"
+                            }
+                        })
                     }
                 });
             })
@@ -110,18 +121,7 @@
             var val = $(this).val();
             var date = null;
             var end = null;
-            //var date = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + d.getDate() + " " + addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getSeconds());
-            //console.log(date)
-            //$("#fsinput").empty();
-            //$("#fsinput").append(' <input class="form-control1" id="focusedinput" type="text" name="name" value="' + date + '" />');
-            //$("#focusedinput").prop('disabled', true);
-            //$("#focusedinput").css('background-color', '#e7e7e7');
-            //var end = d.getFullYear() + "-" + d.getMonth() + 1 + "-" + (d.getDate() + parseInt(val))  + " " + addZero(d.getHours()) + ":" + addZero(d.getMinutes()) + ":" + addZero(d.getSeconds());
-            //console.log(end)
-            //$("#einput").empty();
-            //$("#einput").append(' <input class="form-control1" id="endinput" type="text" name="name" value="' + end + '" />');
-            //$("#endinput").prop('disabled', true);
-            //$("#endinput").css('background-color', '#e7e7e7');
+           
             $("#btn-fs").click(function () {
 
                 $.ajax({
@@ -129,7 +129,18 @@
                     url: "http://localhost:62979/QuanTriVien/TaoFlashSaleAjax?value=" + val + "&date=" + date +"&end=" +end,
 
                     success: function (data) {
-                        alert(data); // show response from the php script.
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã tạo thời gian flash sale thành công',
+                            showConfirmButton: true,
+                          
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost:62979/QuanTriVien/ChoXetDuyet"
+                            }
+                        })
                     }
                 });
             })

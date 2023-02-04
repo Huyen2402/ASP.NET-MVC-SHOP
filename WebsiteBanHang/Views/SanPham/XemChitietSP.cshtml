@@ -18,10 +18,10 @@
 
 
 <div class="" id="video">
-   
 
+    <span class="close close-QC">&times;</span>
     <video autoplay muted loop id="myVideo">
-        <span class="close">&times;</span>
+
         <source src="@vd.url" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
@@ -30,6 +30,7 @@
 </div>
 
 <div id="XemChiTietSP">
+    <input type="hidden" name="IdUser" id="IdUser" value="@ViewBag.IDUser" />
     <div class="row product-price1 card-shop mt-4">
 
         <div class="col-md-5 single-top">
@@ -160,28 +161,42 @@
                                         Xem tất cả
                                     </div>
                                     <div id="hihi" class="scroller">
-                                        <h1>Tất cả mã giảm giá</h1>
-                                        @foreach (var km in listGiamGia)
-
+                                        @if (listGiamGia.Count > 0)
                                         {
+                                            <h1>Tất cả mã giảm giá</h1>
+                                            foreach (var km in listGiamGia)
 
+                                            {
+
+                                                <div class="card">
+                                                    <div class="card-body row">
+                                                        <div class="col-3">
+                                                            <img class="img-responsive dot" src="@Url.Content("~/Content/images/"+shop.avt)" alt="Alternate Text" />
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h5>Giảm @km.SoTien₫</h5>
+                                                            <h6>Đơn tối thiểu @km.ToiThieu₫</h6>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <a data-KM="@km.MaGiamGia" class="btn btn-danger luuKM">Lưu</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            }
+
+                                        }
+                                        else
+                                        {
                                             <div class="card">
                                                 <div class="card-body row">
-                                                    <div class="col-3">
-                                                        <img class="img-responsive rounded-circle" src="@Url.Content("~/Content/images/"+shop.avt)" alt="Alternate Text" />
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <h5>Giảm @km.SoTien₫</h5>
-                                                        <h6>Đơn tối thiểu @km.ToiThieu₫</h6>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <a data-KM="@km.MaGiamGia" class="btn btn-danger luuKM">Lưu</a>
-                                                    </div>
+                                                    <p>Shop chưa có mã giảm giá nào</p>
                                                 </div>
 
                                             </div>
-
-
+                                           
                                         }
 
                                     </div>
@@ -337,15 +352,32 @@ else
         padding: 4px;
         background-color: white;
     }
-    #myVideo {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        max-width: 400px;
-        max-height: 300px;
-        z-index: 1000;
+    .close-QC {
+        position: absolute;
+        RIGHT: 0PX;
+        top: 0px;
+        z-index: 10000;
     }
-
+        .close-QC:hover {
+            opacity: 0.7;
+            cursor: pointer;
+            background-color: #312b2b;
+        }
+        #video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            max-width: 400px;
+            max-height: 300px;
+            z-index: 1000;
+        }
+    .dot {
+        height: 50px;
+        width: 50px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
 
     #HienThiThem {
         color: blue;
@@ -412,22 +444,36 @@ else
     })
 
     $(".luuKM").click(function () {
-        var maGiamGia = $(this).attr("data-KM");
-        var pt = $(this).parent().parent();
+        var idUser = $("#IdUser").val();
+        console.log(idUser)
+        if (idUser != "") {
+            var maGiamGia = $(this).attr("data-KM");
+            var pt = $(this).parent().parent();
 
 
-        console.log(pt)
-        $.ajax({
-            type: 'GET',
-            dataType: 'JSON',
-            url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
-            success: function (status) {
-                if (status) {
-                    pt.remove()
+            console.log(pt)
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
+                success: function (status) {
+                    if (status) {
+                        pt.remove()
+                    }
                 }
-            }
 
-        })
+            })
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Có lỗi',
+                text: 'Vui lòng đăng nhập để nhận vourcher',
+                
+            })
+           
+        }
+        
     })
 
     $(document).ready(function () {
@@ -494,5 +540,8 @@ else
             }
         })
     });
+    $(".close-QC").click(function () {
+        $("#video").fadeOut(1500)
+    })
 </script>
 

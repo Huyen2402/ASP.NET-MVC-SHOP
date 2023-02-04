@@ -49,8 +49,12 @@ namespace WebsiteBanHang.Controllers
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
                     ddh.MaTinhTrangGiaoHang = 1;
-                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == dh.MaCTGiamGia);
-                    ctgg.DaSuDung = true;
+                    if(dh.MaCTGiamGia != null)
+                    {
+                        ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == dh.MaCTGiamGia);
+                        ctgg.DaSuDung = true;
+                    }
+                    
                     if (dh.id == 1)
                     {
                         ddh.MaDDH = DateTime.Now.Ticks.ToString();
@@ -93,14 +97,14 @@ namespace WebsiteBanHang.Controllers
                             }
 
                             db.SaveChanges();
-                            
-                            
-                           
+                            ViewBag.check = "success";
+
+
 
                         }
                         Session["GioHang"] = null;
                         Session["DatHang"] = null;
-
+                        return View();
                     }
                     if (dh.id == 2)
                     {
@@ -237,10 +241,10 @@ namespace WebsiteBanHang.Controllers
 
                 return Json(new { status = true }, JsonRequestBehavior.AllowGet);
             }
-            
-            
-            return RedirectToAction("XemGioHang","GioHang");
-            
+
+
+            //return RedirectToAction("XemGioHang","GioHang");
+            return View();
         }
 
         public ActionResult ReturnUrl(int MaShop, int MaCTGiamGia)
@@ -255,10 +259,12 @@ namespace WebsiteBanHang.Controllers
             if (signature != Request["signature"].ToString())
             {
                 ViewBag.message = "Thông tin request không hợp lệ";
+                ViewBag.check = "fail";
             }
             else if (!Request.QueryString["errorCode"].Equals("0"))
             {
                 ViewBag.message = "Thanh toán thất bại";
+                ViewBag.check = "fail";
             }
             else
             {
@@ -328,8 +334,9 @@ namespace WebsiteBanHang.Controllers
                         Session["orderid"] = null;
                         Session["DatHang"] = null;
                         ViewBag.message = "Đặt hàng và thanh toán thành công";
-
-                        return RedirectToAction("XemGioHang", "GioHang");
+                        ViewBag.check = "success";
+                        //return RedirectToAction("XemGioHang", "GioHang");
+                        return View();
                     }
 
                 }   
@@ -432,7 +439,9 @@ namespace WebsiteBanHang.Controllers
                                 Session["GioHang"] = null;
                                 Session["DatHang"] = null;
                                 ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
-                                return RedirectToAction("XemGioHang", "GioHang");
+                                ViewBag.check = "success";
+                                //return RedirectToAction("XemGioHang", "GioHang");
+                                return View();
                             }
                         }
 
@@ -441,32 +450,59 @@ namespace WebsiteBanHang.Controllers
                     {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
+                        ViewBag.check = "fail";
                     }
                 }
                 else
                 {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
+                    ViewBag.check = "fail";
                 }
             }
 
             return View();
         }
 
-        public ActionResult MuaHang(int id, decimal ThanhTien, int MaShop, int MaCTGiamGia)
+        public ActionResult MuaHang(int id, decimal ThanhTien, int MaShop, int? MaCTGiamGia)
         {
-            Session["DatHang"] = new DatHang(id, ThanhTien, MaShop, MaCTGiamGia);
-            Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
-            List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
-            List<GioHang> listSP = new List<GioHang>();
-            for (int i=0; i <= listSPGioHang.Count - 1; i++)
+           
+            
+            if (MaCTGiamGia != null)
             {
-                if(listSPGioHang[i].MaShop == MaShop)
+                Session["DatHang"] = new DatHang(id, ThanhTien, MaShop, MaCTGiamGia);
+                Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+                List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
+                List<GioHang> listSP = new List<GioHang>();
+                ViewBag.ct = db.ChiTietGiamGias.SingleOrDefault(n=>n.MaCTGiamGia== MaCTGiamGia);
+                for (int i = 0; i <= listSPGioHang.Count - 1; i++)
                 {
-                    listSP.Add(listSPGioHang[i]);
+                    if (listSPGioHang[i].MaShop == MaShop)
+                    {
+                        listSP.Add(listSPGioHang[i]);
+                    }
                 }
+                ViewBag.listSP = listSP;
+                return View(shop);
             }
-            ViewBag.listSP = listSP;
-            return View(shop);
+            else
+            {
+                Session["DatHang"] = new DatHang(id, ThanhTien, MaShop, null);
+                Shop shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+                List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
+                List<GioHang> listSP = new List<GioHang>();
+                ViewBag.ct = null;
+                for (int i = 0; i <= listSPGioHang.Count - 1; i++)
+                {
+                    if (listSPGioHang[i].MaShop == MaShop)
+                    {
+                        listSP.Add(listSPGioHang[i]);
+                    }
+                }
+                ViewBag.listSP = listSP;
+                return View(shop);
+            }
+           
+           
         }
 
         public ActionResult DiaChiPartial()

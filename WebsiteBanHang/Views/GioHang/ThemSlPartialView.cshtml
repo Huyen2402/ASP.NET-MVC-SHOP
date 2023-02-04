@@ -112,7 +112,10 @@
 
         <span>Mã:</span>
         <span class="total1">
-            <select name="cars" id="cars">
+
+         
+
+            <select class="form-select" id="sel1" name="sellist1">
                 @foreach (var i in list)
                 {
                     foreach (var j in listgg)
@@ -143,7 +146,7 @@
 
     <ul class="total_price">
         <li class="last_price"> <h4>TỔNG</h4></li>
-        <li class="last_price discount"><span class="TienBanDau">0 </span></li>
+        <li id="TienBanDau" class="last_price  discount"><span  class="TienBanDau">0 </span></li>
         <div class="clearfix"> </div>
     </ul>
 
@@ -155,6 +158,22 @@
 
 
 <script>
+   
+    $("#btn-dathang").click(function () {
+        var checkTrangThai = $(".check-shop").prop("checked")
+        if (checkTrangThai == false) {
+            Swal.fire({
+
+                icon: 'error',
+                title: 'Thất bại',
+                text: 'Thanh toán mua hàng thất bại do bạn chưa đăng nhập!',
+                showConfirmButton: true,
+
+            })
+        }
+       
+        })
+
 
     $(".check-shop").change(function () {
         var checkTrangThai = $(this).prop("checked")
@@ -184,11 +203,19 @@
             console.log("tongTien" + tongTien)
             console.log(mang)
             $(".TienBanDau").remove();
+          
             $("#tong").html('<label id="TenBL">' + tongTien + '</label>')
             $(".discount").html(
 
                 '<div>' +
                 '<label id="TenBL">' + 0 + '</label>' +
+
+                '</div>'
+            );
+            $("#TienBanDau").html(
+
+                '<div>' +
+                '<label id="TenBL">' + tongTien + '</label>' +
 
                 '</div>'
             );
@@ -218,18 +245,7 @@
 
 
         });
-            //$("#btn-dathang").click(function () {
-            //    value = $("#MaCTGiamGia").val();
-            //    console.log("Value:" + value)
-            //    if (check) {
-            //        var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien=" + um + "&MaShop=" + MaShop + "&MaCTGiamGia=" + value;
-            //        window.location.href = url;
-            //    } else {
-            //        alert("Vui lòng đăng nhập để thanh toán!");
-            //    }
-
-
-            //})
+           
             var val = 1;
             $(".form-check-input").click(function () {
 
@@ -252,6 +268,7 @@
             })
 
         }
+       
         else {
             $(".item-check-shop_" + MaShop).prop("checked", false);
         }
@@ -287,7 +304,7 @@
 
         var check = $("#logout").length;
 
-       
+
 
         //$("#btn-dathang").click(function () {
         //    if (check) {
