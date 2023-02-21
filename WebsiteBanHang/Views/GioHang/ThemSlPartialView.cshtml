@@ -34,7 +34,7 @@
 
 
                 <div id="hide" class="cart-header">
-                    <input data-Tien="@sp.Dongia" data-sl="@sp.SoLuong" data-MaShop="@sp.MaShop" class="@Url.Content("item-check-shop_"+sp.MaShop)" type="checkbox" name="name" value="" />
+                    <input data-Tien="@sp.GiaHienTai" data-sl="@sp.SoLuong" data-MaShop="@sp.MaShop" class="@Url.Content("item-check-shop_"+sp.MaShop)" type="checkbox" name="name" value="" />
                     <a data-MaSP="@sp.MaSP" @*href="@Url.Action("XoaGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="close1"> </a>
                     <div class="cart-sec simpleCart_shelfItem">
                         <div class="cart-item cyc">
@@ -50,14 +50,17 @@
                                 <a data-slgiam="@sp.SoLuong" data-MaSP="@sp.MaSP" class="btn sl slgiam" @*href="@Url.Action("GiamSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>-</a>
                             </ul>
                             @{
-                                decimal? number = sp.Dongia;
+                                decimal? number1 = sp.Dongia;
+                                string GiaTien1 = number1.Value.ToString("#,##0");
+                                decimal? number = sp.GiaHienTai;
                                 string GiaTien = number.Value.ToString("#,##0");
                             }
-                            <div class="delivery">
-                                <p>Giá: @GiaTien</p>
-                                <span>Thời gian nhận hàng từ 5-7 ngày</span>
-                                <div class="clearfix"></div>
-                            </div>
+                        <div class="delivery">
+                            <del class="m-2"> @GiaTien1</del>
+                            <p style="font-size:12px"> @GiaTien</p>
+                            <span>Thời gian nhận hàng từ 5-7 ngày</span>
+                            <div class="clearfix"></div>
+                        </div>
                         </div>
                         <div class="clearfix"></div>
 
@@ -231,7 +234,7 @@
             var tien1 = tongTien;
 
             um = tien1 - valueSelected;
-
+            console.log(um)
             /*  $("#tong").remove()*/
             $(".TienBanDau").remove();
             $("#tong").html('  <del>' + tien1 +'</del>')

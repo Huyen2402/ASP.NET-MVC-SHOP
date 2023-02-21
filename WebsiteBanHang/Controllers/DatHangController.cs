@@ -53,109 +53,118 @@ namespace WebsiteBanHang.Controllers
                     {
                         ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == dh.MaCTGiamGia);
                         ctgg.DaSuDung = true;
-                    }
-                    
-                    if (dh.id == 1)
-                    {
-                        ddh.MaDDH = DateTime.Now.Ticks.ToString();
-                        ddh.HinhThucThanhToan = "COD";
-                        ddh.DaThanhToan = false;
-                       ddh.MaShop = dh.MaShop;
-                        ddh.UuDai = 0;
-                        ddh.MaKH = iduser;
-                        ddh.MaTinh = ss.MaTinh;
-                        ddh.MaHuyen = ss.MaHuyen;
-                        ddh.MaXa = ss.MaXa;
-                        ddh.DiaChi= ss.DiaChi;
-                        db.DonDatHangs.Add(ddh);
 
-
-
-                        for (var i = 0; i < listGioHang.Count(); i++)
+                        if (dh.id == 1)
                         {
-                            if (listGioHang[i].MaShop == dh.MaShop)
+                            ddh.MaGiamGia = dh.MaCTGiamGia;
+                            ddh.Voucher = ctgg.GiamGia.SoTien;
+                            ddh.MaDDH = DateTime.Now.Ticks.ToString();
+                            ddh.HinhThucThanhToan = "COD";
+                            ddh.DaThanhToan = false;
+                            ddh.MaShop = dh.MaShop;
+                            ddh.UuDai = 0;
+                            ddh.MaKH = iduser;
+                            ddh.MaTinh = ss.MaTinh;
+                            ddh.MaHuyen = ss.MaHuyen;
+                            ddh.MaXa = ss.MaXa;
+                            ddh.DiaChi = ss.DiaChi;
+                            db.DonDatHangs.Add(ddh);
+
+
+                            decimal TongTien = 0;
+                            decimal TongTienThucTe = 0;
+                            for (var i = 0; i < listGioHang.Count(); i++)
                             {
-                                ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
-                                ct.MaDDH = ddh.MaDDH;
-
-                                ct.MaSP = listGioHang[i].MaSP;
-                                ct.TenSP = listGioHang[i].TenSP;
-                                ct.SoLuong = listGioHang[i].SoLuong;
-                                ct.DonGia = listGioHang[i].Dongia;
-                                db.ChiTietDonDatHangs.Add(ct);
-
-                                if (ct != null)
+                                if (listGioHang[i].MaShop == dh.MaShop)
                                 {
-                                    SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
-                                    spsl.SoLuongTon--;
-                                    spsl.SoLanMua++;
+                                    ChiTietDonDatHang ct = new ChiTietDonDatHang();
+
+                                    ct.MaDDH = ddh.MaDDH;
+                                    ct.DaDanhGia = false;
+                                    ct.MaSP = listGioHang[i].MaSP;
+
+                                    ct.TenSP = listGioHang[i].TenSP;
+                                    ct.SoLuong = listGioHang[i].SoLuong;
+                                    ct.DonGia = listGioHang[i].Dongia;
+                                    TongTien += listGioHang[i].SoLuong * listGioHang[i].Dongia;
+                                    TongTienThucTe += listGioHang[i].SoLuong * listGioHang[i].GiaHienTai;
+                                    db.ChiTietDonDatHangs.Add(ct);
+
+                                    if (ct != null)
+                                    {
+                                        SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
+                                        spsl.SoLuongTon--;
+                                        spsl.SoLanMua++;
+                                    }
+
+
+
                                 }
 
 
+                                ViewBag.check = "success";
+
+
 
                             }
-
+                            ddh.TongTien = TongTien;
+                            ddh.TongTienThucTe = TongTienThucTe - ddh.Voucher; ;
                             db.SaveChanges();
-                            ViewBag.check = "success";
-
-
-
+                            Session["GioHang"] = null;
+                            Session["DatHang"] = null;
+                            return View();
                         }
-                        Session["GioHang"] = null;
-                        Session["DatHang"] = null;
-                        return View();
-                    }
-                    if (dh.id == 2)
-                    {
-
-                        if (listGioHang != null)
+                        if (dh.id == 2)
                         {
-                            decimal total = 0;
-                            for (int i = 0; i < listGioHang.Count(); i++)
+
+                            if (listGioHang != null)
                             {
-                                decimal price = listGioHang[i].ThanhTien;
-                                total = total + price;
-                            }
-                            string tongiten = dh.ThanhTien.ToString();
+                                decimal total = 0;
+                                for (int i = 0; i < listGioHang.Count(); i++)
+                                {
+                                    decimal price = listGioHang[i].ThanhTien;
+                                    total = total + price;
+                                }
+                                total -= total - (decimal)ctgg.GiamGia.SoTien;
+                                string tongiten = total.ToString();
 
 
-                            //ddh.HinhThucThanhToan = "MoMo";
-                            //ddh.DaThanhToan = true;
+                                //ddh.HinhThucThanhToan = "MoMo";
+                                //ddh.DaThanhToan = true;
 
-                            //request params need to request to MoMo system
-                            string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-                            string partnerCode = "MOMONJLR20220909";
-                            string accessKey = "hWtILE8L8yb1vzVz";
-                            string serectkey = "ktQfGrAtjnGWlAUo6Ea2SP7fVhBbzrhK";
-                            string orderInfo = "Huyền Cosmetic";
-                            string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop="+dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
-                            string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+                                //request params need to request to MoMo system
+                                string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+                                string partnerCode = "MOMONJLR20220909";
+                                string accessKey = "hWtILE8L8yb1vzVz";
+                                string serectkey = "ktQfGrAtjnGWlAUo6Ea2SP7fVhBbzrhK";
+                                string orderInfo = "Huyền Cosmetic";
+                                string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop=" + dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
+                                string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
 
-                            string amount = dh.ThanhTien.ToString();
-                            string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
-                            string requestId = DateTime.Now.Ticks.ToString();
-                            string extraData = "";
-                            Session["orderid"] = orderid;
+                                string amount = dh.ThanhTien.ToString();
+                                string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
+                                string requestId = DateTime.Now.Ticks.ToString();
+                                string extraData = "";
+                                Session["orderid"] = orderid;
 
-                            //Before sign HMAC SHA256 signature
-                            string rawHash = "partnerCode=" +
-                                partnerCode + "&accessKey=" +
-                                accessKey + "&requestId=" +
-                                requestId + "&amount=" +
-                                amount + "&orderId=" +
-                                orderid + "&orderInfo=" +
-                                orderInfo + "&returnUrl=" +
-                                returnUrl + "&notifyUrl=" +
-                                notifyurl + "&extraData=" +
-                                extraData;
+                                //Before sign HMAC SHA256 signature
+                                string rawHash = "partnerCode=" +
+                                    partnerCode + "&accessKey=" +
+                                    accessKey + "&requestId=" +
+                                    requestId + "&amount=" +
+                                    amount + "&orderId=" +
+                                    orderid + "&orderInfo=" +
+                                    orderInfo + "&returnUrl=" +
+                                    returnUrl + "&notifyUrl=" +
+                                    notifyurl + "&extraData=" +
+                                    extraData;
 
-                            MoMoSecurity crypto = new MoMoSecurity();
-                            //sign signature SHA256
-                            string signature = crypto.signSHA256(rawHash, serectkey);
+                                MoMoSecurity crypto = new MoMoSecurity();
+                                //sign signature SHA256
+                                string signature = crypto.signSHA256(rawHash, serectkey);
 
-                            //build body json request
-                            JObject message = new JObject
+                                //build body json request
+                                JObject message = new JObject
             {
                 { "partnerCode", partnerCode },
                 { "accessKey", accessKey },
@@ -172,66 +181,254 @@ namespace WebsiteBanHang.Controllers
             };
 
 
-                            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+                                string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
 
-                            JObject jmessage = JObject.Parse(responseFromMomo);
-                            //return RedirectToAction("XemGioHang", "GioHang");
+                                JObject jmessage = JObject.Parse(responseFromMomo);
+                                //return RedirectToAction("XemGioHang", "GioHang");
 
-                            return Redirect(jmessage.GetValue("payUrl").ToString());
+                                return Redirect(jmessage.GetValue("payUrl").ToString());
 
-                        }
-                    }
-
-
-                    if (dh.id == 3)
-                    {
-
-                        if (listGioHang != null)
-                        {
-                            decimal total = 0;
-                            for (int i = 0; i < listGioHang.Count(); i++)
-                            {
-                                decimal price = listGioHang[i].ThanhTien;
-                                total = (dh.ThanhTien) * 100;
                             }
-                            string tongiten = total.ToString();
-                            //ddh.HinhThucThanhToan = "VNPay";
-                            //ddh.DaThanhToan = true;
-
-                            string url = ConfigurationManager.AppSettings["Url"];
-                            //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
-                            string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop="+ dh.MaShop+ "&MaCTGiamGia=" + dh.MaCTGiamGia;
-                            string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
-                            string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
+                        }
 
 
+                        if (dh.id == 3)
+                        {
 
-                            PayLib pay = new PayLib();
+                            if (listGioHang != null)
+                            {
+                                decimal total = 0;
+                                for (int i = 0; i < listGioHang.Count(); i++)
+                                {
+                                    decimal price = listGioHang[i].ThanhTien;
+                                    total = (dh.ThanhTien) * 100;
+                                }
+                                total -= total - (decimal)ctgg.GiamGia.SoTien;
+                                string tongiten = total.ToString();
+                                //ddh.HinhThucThanhToan = "VNPay";
+                                //ddh.DaThanhToan = true;
 
-                            pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
-                            pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
-                            pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-                            pay.AddRequestData("vnp_Amount", tongiten); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
-                            pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
-                            pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
-                            pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
-                            pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress()); //Địa chỉ IP của khách hàng thực hiện giao dịch
-                            pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
-                            pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
-                            pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
-                            pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-                            pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+                                string url = ConfigurationManager.AppSettings["Url"];
+                                //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
+                                string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop=" + dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
+                                string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
+                                string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
 
-                         
 
-                            string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
-                            return Redirect(paymentUrl);
+                                PayLib pay = new PayLib();
+
+                                pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
+                                pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
+                                pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
+                                pay.AddRequestData("vnp_Amount", tongiten); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                                pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
+                                pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+                                pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
+                                pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress()); //Địa chỉ IP của khách hàng thực hiện giao dịch
+                                pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
+                                pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
+                                pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
+                                pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
+                                pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+
+
+
+                                string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
+
+                                return Redirect(paymentUrl);
+                            }
                         }
                     }
+                    // trường hợp k sử dụng mã giảm giá
+                    else
+                    {
+                        
+
+                        if (dh.id == 1)
+                        {
+                            ddh.MaGiamGia = null;
+                            ddh.Voucher = 0;
+                            ddh.MaDDH = DateTime.Now.Ticks.ToString();
+                            ddh.HinhThucThanhToan = "COD";
+                            ddh.DaThanhToan = false;
+                            ddh.MaShop = dh.MaShop;
+                            ddh.UuDai = 0;
+                            ddh.MaKH = iduser;
+                            ddh.MaTinh = ss.MaTinh;
+                            ddh.MaHuyen = ss.MaHuyen;
+                            ddh.MaXa = ss.MaXa;
+                            ddh.DiaChi = ss.DiaChi;
+                            db.DonDatHangs.Add(ddh);
+
+
+                            decimal TongTien = 0;
+                            decimal TongTienThucTe = 0;
+                            for (var i = 0; i < listGioHang.Count(); i++)
+                            {
+                                if (listGioHang[i].MaShop == dh.MaShop)
+                                {
+                                    ChiTietDonDatHang ct = new ChiTietDonDatHang();
+
+                                    ct.MaDDH = ddh.MaDDH;
+                                    ct.DaDanhGia = false;
+                                    ct.MaSP = listGioHang[i].MaSP;
+
+                                    ct.TenSP = listGioHang[i].TenSP;
+                                    ct.SoLuong = listGioHang[i].SoLuong;
+                                    ct.DonGia = listGioHang[i].Dongia;
+                                    TongTien += listGioHang[i].SoLuong * listGioHang[i].Dongia;
+                                    TongTienThucTe += (listGioHang[i].SoLuong * listGioHang[i].GiaHienTai) ;
+                                    db.ChiTietDonDatHangs.Add(ct);
+
+                                    if (ct != null)
+                                    {
+                                        SanPham spsl = db.SanPhams.SingleOrDefault(n => n.MaSP == ct.MaSP);
+                                        spsl.SoLuongTon--;
+                                        spsl.SoLanMua++;
+                                    }
 
 
 
+                                }
+
+
+                                ViewBag.check = "success";
+
+
+
+                            }
+                            ddh.TongTien = TongTien;
+                            ddh.TongTienThucTe = TongTienThucTe;
+                            db.SaveChanges();
+                            Session["GioHang"] = null;
+                            Session["DatHang"] = null;
+                            return View();
+                        }
+                        if (dh.id == 2)
+                        {
+
+                            if (listGioHang != null)
+                            {
+                                decimal total = 0;
+                                for (int i = 0; i < listGioHang.Count(); i++)
+                                {
+                                    decimal price = listGioHang[i].ThanhTien;
+                                    total = total + price;
+                                }
+                                string tongiten = dh.ThanhTien.ToString();
+
+
+                                //ddh.HinhThucThanhToan = "MoMo";
+                                //ddh.DaThanhToan = true;
+
+                                //request params need to request to MoMo system
+                                string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+                                string partnerCode = "MOMONJLR20220909";
+                                string accessKey = "hWtILE8L8yb1vzVz";
+                                string serectkey = "ktQfGrAtjnGWlAUo6Ea2SP7fVhBbzrhK";
+                                string orderInfo = "Huyền Cosmetic";
+                                string returnUrl = "http://localhost:62979/DatHang/ReturnUrl?MaShop=" + dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
+                                string notifyurl = "https://4c8d-2001-ee0-5045-50-58c1-b2ec-3123-740d.ap.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+
+                                string amount = dh.ThanhTien.ToString();
+                                string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
+                                string requestId = DateTime.Now.Ticks.ToString();
+                                string extraData = "";
+                                Session["orderid"] = orderid;
+
+                                //Before sign HMAC SHA256 signature
+                                string rawHash = "partnerCode=" +
+                                    partnerCode + "&accessKey=" +
+                                    accessKey + "&requestId=" +
+                                    requestId + "&amount=" +
+                                    amount + "&orderId=" +
+                                    orderid + "&orderInfo=" +
+                                    orderInfo + "&returnUrl=" +
+                                    returnUrl + "&notifyUrl=" +
+                                    notifyurl + "&extraData=" +
+                                    extraData;
+
+                                MoMoSecurity crypto = new MoMoSecurity();
+                                //sign signature SHA256
+                                string signature = crypto.signSHA256(rawHash, serectkey);
+
+                                //build body json request
+                                JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "accessKey", accessKey },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderid },
+                { "orderInfo", orderInfo },
+                { "returnUrl", returnUrl },
+                { "notifyUrl", notifyurl },
+                { "extraData", extraData },
+                { "requestType", "captureMoMoWallet" },
+                { "signature", signature }
+
+            };
+
+
+                                string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+
+                                JObject jmessage = JObject.Parse(responseFromMomo);
+                                //return RedirectToAction("XemGioHang", "GioHang");
+
+                                return Redirect(jmessage.GetValue("payUrl").ToString());
+
+                            }
+                        }
+
+
+                        if (dh.id == 3)
+                        {
+
+                            if (listGioHang != null)
+                            {
+                                decimal total = 0;
+                                for (int i = 0; i < listGioHang.Count(); i++)
+                                {
+                                    decimal price = listGioHang[i].ThanhTien;
+                                    total = (dh.ThanhTien) * 100;
+                                }
+                                string tongiten = total.ToString();
+                                //ddh.HinhThucThanhToan = "VNPay";
+                                //ddh.DaThanhToan = true;
+
+                                string url = ConfigurationManager.AppSettings["Url"];
+                                //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
+                                string returnUrl = "http://localhost:62979/DatHang/PaymentConfirm?MaShop=" + dh.MaShop + "&MaCTGiamGia=" + dh.MaCTGiamGia;
+                                string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
+                                string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
+
+
+
+                                PayLib pay = new PayLib();
+
+                                pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
+                                pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
+                                pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
+                                pay.AddRequestData("vnp_Amount", tongiten); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+                                pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
+                                pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+                                pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
+                                pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress()); //Địa chỉ IP của khách hàng thực hiện giao dịch
+                                pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
+                                pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
+                                pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
+                                pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
+                                pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+
+
+
+                                string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
+
+                                return Redirect(paymentUrl);
+                            }
+                        }
+                    }
 
 
                 }
@@ -277,14 +474,13 @@ namespace WebsiteBanHang.Controllers
                 }
                 else
                 {
-                    ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n=>n.MaCTGiamGia == MaCTGiamGia);
-                    ctgg.DaSuDung = true;
                     DonDatHang ddh = new DonDatHang();
+                    ddh.MaGiamGia = null;
                     string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     ddh.NgayDat = DateTime.Parse(ngay);
                     ddh.MaShop = MaShop;
                     ddh.MaTinhTrangGiaoHang = 1;
-                    
+                    ddh.Voucher = 0;
                     if (listGioHang != null)
                     {
                         decimal total = 0;
@@ -295,7 +491,7 @@ namespace WebsiteBanHang.Controllers
                         }
                         string tongiten = total.ToString();
 
-
+                        
                         ddh.HinhThucThanhToan = "MoMo";
                         ddh.DaThanhToan = true;
                         ddh.MaShop = MaShop;
@@ -307,6 +503,8 @@ namespace WebsiteBanHang.Controllers
                         ddh.MaXa = ss.MaXa;
                         ddh.DiaChi= ss.DiaChi;
                         db.DonDatHangs.Add(ddh);
+                        decimal TongTien=  0;
+
                         for (var i = 0; i < listGioHang.Count(); i++)
                         {
                             ChiTietDonDatHang ct = new ChiTietDonDatHang();
@@ -317,6 +515,8 @@ namespace WebsiteBanHang.Controllers
                             ct.TenSP = listGioHang[i].TenSP;
                             ct.SoLuong = listGioHang[i].SoLuong;
                             ct.DonGia = listGioHang[i].Dongia;
+                            TongTien += listGioHang[i].SoLuong * listGioHang[i].Dongia;
+                            ct.DaDanhGia = false;
                             db.ChiTietDonDatHangs.Add(ct);
 
                             if (ct != null)
@@ -329,6 +529,8 @@ namespace WebsiteBanHang.Controllers
 
 
                         }
+                        ddh.TongTien= TongTien;
+                        ddh.TongTienThucTe = total;
                         db.SaveChanges();
                         Session["GioHang"] = null;
                         Session["orderid"] = null;
@@ -383,12 +585,13 @@ namespace WebsiteBanHang.Controllers
                         }
                         else
                         {
-                            ChiTietGiamGia ctgg = db.ChiTietGiamGias.Single(n => n.MaCTGiamGia == MaCTGiamGia);
-                            ctgg.DaSuDung = true;
+                           
                             DonDatHang ddh = new DonDatHang();
                             string ngay = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                             ddh.NgayDat = DateTime.Parse(ngay);
                             ddh.MaTinhTrangGiaoHang = 1;
+                            ddh.MaGiamGia = null;
+                            ddh.Voucher = 0;
                             if (listGioHang != null)
                             {
                                 decimal total = 0;
@@ -412,6 +615,7 @@ namespace WebsiteBanHang.Controllers
                                 ddh.MaXa = ss.MaXa;
                                 ddh.DiaChi= ss.DiaChi;
                                 db.DonDatHangs.Add(ddh);
+                                decimal TongTien = 0;
                                 for (var i = 0; i < listGioHang.Count(); i++)
                                 {
                                     ChiTietDonDatHang ct = new ChiTietDonDatHang();
@@ -422,6 +626,8 @@ namespace WebsiteBanHang.Controllers
                                     ct.TenSP = listGioHang[i].TenSP;
                                     ct.SoLuong = listGioHang[i].SoLuong;
                                     ct.DonGia = listGioHang[i].Dongia;
+                                    TongTien += listGioHang[i].SoLuong * listGioHang[i].Dongia;
+                                    ct.DaDanhGia = false;
                                     db.ChiTietDonDatHangs.Add(ct);
 
                                     if (ct != null)
@@ -434,7 +640,8 @@ namespace WebsiteBanHang.Controllers
 
 
                                 }
-
+                                ddh.TongTien = TongTien;
+                                ddh.TongTienThucTe = total;
                                 db.SaveChanges();
                                 Session["GioHang"] = null;
                                 Session["DatHang"] = null;

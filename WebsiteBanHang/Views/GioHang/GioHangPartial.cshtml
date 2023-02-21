@@ -1,6 +1,8 @@
 ﻿@{
-    decimal tongtien = ViewBag.TongTien;
-    string TongGiaTien = tongtien.ToString();
+    decimal? tongtien = ViewBag.TongTien;
+    string TongGiaTien = tongtien.Value.ToString("#,##0"); ;
+
+    
 }
 
 <div id="GioHangPartial" class="cart box_1">

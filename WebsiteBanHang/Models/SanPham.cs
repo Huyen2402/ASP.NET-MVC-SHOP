@@ -21,6 +21,7 @@ namespace WebsiteBanHang.Models
             this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
             this.ChiTietFlashSale = new HashSet<ChiTietFlashSale>();
             this.ChiTietPhieuNhap = new HashSet<ChiTietPhieuNhap>();
+            this.KichCo = new HashSet<KichCo>();
         }
     
         public int MaSP { get; set; }
@@ -54,6 +55,8 @@ namespace WebsiteBanHang.Models
         public virtual ICollection<ChiTietFlashSale> ChiTietFlashSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KichCo> KichCo { get; set; }
         public virtual loaiSanPham loaiSanPham { get; set; }
         public virtual NhaCungCap NhaCungCap { get; set; }
         public virtual NhaSanXuat NhaSanXuat { get; set; }

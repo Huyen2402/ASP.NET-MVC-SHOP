@@ -69,7 +69,7 @@ namespace WebsiteBanHang.Controllers
             ViewBag.ListTL = db.TraLoiBinhLuans.ToList();
             ViewBag.listGiamGia = db.GiamGias.Where(n=>n.MaShop == MaShop && n.SL > 0).ToList();
             ViewBag.shop = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
-
+            ViewBag.listSize = db.KichCos.Where(n => n.MaSP == id).ToList();
             return View(sp);
 
         }
@@ -214,7 +214,14 @@ namespace WebsiteBanHang.Controllers
             return PartialView(listDanhMuc);
         }
 
-        
+        public ActionResult DetailSanPham(int MaLSP) {
+            loaiSanPham check = db.loaiSanPhams.SingleOrDefault(n=>n.MaLoaiSP== MaLSP);
+            if(check == null)
+            {
+                Response.StatusCode = 404;
+            }
+            return PartialView();
+        }
 
     }
 }

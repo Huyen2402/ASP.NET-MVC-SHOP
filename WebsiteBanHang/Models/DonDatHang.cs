@@ -33,11 +33,16 @@ namespace WebsiteBanHang.Models
         public string MaDDH { get; set; }
         public Nullable<int> MaShop { get; set; }
         public string DiaChi { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
+        public Nullable<int> MaGiamGia { get; set; }
+        public Nullable<decimal> TongTienThucTe { get; set; }
+        public Nullable<decimal> Voucher { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang1 { get; set; }
+        public virtual ChiTietGiamGia ChiTietGiamGia { get; set; }
         public virtual Shop Shop { get; set; }
         public virtual Huyen Huyen { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }

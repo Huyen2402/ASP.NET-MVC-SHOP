@@ -13,6 +13,7 @@
     List<ChiTietGiamGia> listCTGG = ViewBag.listCTGG as List<ChiTietGiamGia>;
     VideoQC vd = ViewBag.Video as VideoQC;
     Shop shop = ViewBag.shop as Shop;
+    List<KichCo> listSize = ViewBag.listSize as List<KichCo>;
 
 }
 
@@ -100,13 +101,14 @@
                 @if (Model.KhuyenMai != null)
                 {
                     string Giacuoicung = (Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100).Value.ToString("#,##0");
+                    decimal? price = (Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100);
 
                     <div class="flex flex-column _38g6so">
                         <div class="flex items-center">
                             <div class="flex items-center _34BHKe">
                                 <div class="_2yjfFH">₫@Model.DonGia</div>
                                 <div class="flex items-center">
-                                    <div class="_2Shl1j">@Giacuoicung</div>
+                                    <div data-GiaHienTai="@price" id="GiaHienTai" class="_2Shl1j">@Giacuoicung</div>
 
                                     <div class="_3PlIlX">@Model.KhuyenMai % giảm</div>
 
@@ -120,11 +122,11 @@
                     <div class="flex flex-column _38g6so">
                         <div class="flex items-center">
                             <div class="flex items-center _34BHKe">
-                              
+
                                 <div class="flex items-center">
                                     <div class="_2Shl1j">@GiaTien</div>
 
-                                   
+
 
                                 </div>
                             </div>
@@ -196,7 +198,7 @@
                                                 </div>
 
                                             </div>
-                                           
+
                                         }
 
                                     </div>
@@ -210,6 +212,20 @@
 
 
                     </div>
+
+                </div>
+                <div class="br-bottom">
+                    <div class="custom-deatil ">
+                        <span>Chọn màu</span>
+                        @foreach (var size in listSize)
+                        {
+                            <div class="outline-des text-center">
+                                <span>@size.Ten</span>
+                            </div>
+                        }
+
+                        
+                    </div>
                 </div>
                 <p>
                     @Html.Raw(Model.MoTa)
@@ -217,7 +233,7 @@
 
 
 
-                <a data-MaSP="@Model.MaSP" data-strURL="@Request.Url.ToString()" @*href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })"*@ class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
+                <a data-MaSP="@Model.MaSP" data-strURL="@Request.Url.ToString()" class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
 
             </div>
 
@@ -402,17 +418,42 @@ else
     .img-productDetail{
         min-width: 1024px;
     }
+
+    .br-bottom {
+        border-bottom: 1px solid #C4C3C3;
+        min-height: 50px;
+    }
+
+    .outline-des {
+        width: 70px;
+        border: 1px solid;
+        border-radius: 4px;
+        display: inline-block;
+        height: 30px;
+        color: #757575;
+    }
+        .outline-des:hover {
+            cursor: pointer;
+            background-color: #e8e8e8;
+        }
+        .custom-deatil {
+            margin-top: 10px;
+            margin-left: 15px;
+            margin: 4px
+        }
 </style>
 <script>
     $(".ThemGioHang").click(function () {
         var MaSP = $(this).attr("data-MaSP");
         var strURL = $(this).attr("data-strURL");
+        var Gia = $("#GiaHienTai").attr("data-GiaHienTai");
+        console.log(Gia)
         $.ajax({
 
 
             type: "get",
 
-            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+            url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&Gia="+ Gia ,
             contentType: "html",
             statusCode: {
                 400: function (xhr) {

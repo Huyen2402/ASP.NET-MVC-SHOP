@@ -308,6 +308,9 @@
     <Compile Include="Models\KhachHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\KichCo.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\loaiSanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -775,6 +778,7 @@
     <Content Include="Views\Chat\ChatHistory.cshtml" />
     <Content Include="Views\Chat\ChatInHeader.cshtml" />
     <Content Include="Views\Search\suggestProduct.cshtml" />
+    <Content Include="Views\SanPham\DetailSanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
