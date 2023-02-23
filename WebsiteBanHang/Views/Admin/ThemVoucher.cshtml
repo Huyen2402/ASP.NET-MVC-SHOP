@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "ThemVoucher";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+}
+<h2>THÊM MỚI VOUCHER</h2>
+<DIV class="container">
+    <form id="idForm">
+        <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Tên Voucher:</label>
+            <input type="text" class="form-control" id=""  name="TenGiamGia">
+        </div>
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Số Tiền:</label>
+            <input type="number" class="form-control" id=""  name="SoTien">
+        </div>
+
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Số Lượng:</label>
+            <input type="number" class="form-control" id=""  name="SL">
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+</DIV>
+
+<script>
+    $("#idForm").submit(function (e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:62979/Admin/ThemVoucherJson",
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+                if (data.data == "success") {
+
+                    Swal.fire({
+
+                        icon: 'success',
+                        title: 'Thêm thành công',
+                        text: 'Bạn đã thêm voucher thành công',
+                        showConfirmButton: true,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    })
+
+                }
+                else {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Xảy ra lỗi',
+                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                        showConfirmButton: true,
+
+                    })
+                }
+            }
+        });
+
+    });
+</script>
+

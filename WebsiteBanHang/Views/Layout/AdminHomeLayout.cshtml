@@ -43,6 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet" />
 </head>
 <body style="">
     <section id="container">
@@ -196,7 +197,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                             </ul>
                         </li>
-                        <li class="sub-menu dcjq-parent-li">
+                        @*<li class="sub-menu dcjq-parent-li">
                             <a href="javascript:;" class="dcjq-parent">
                                 <i class="fa fa-user"></i>
                                 <span>QUẢN LÍ NGƯỜI DÙNG</span>
@@ -208,16 +209,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="@Url.Action("Index", "Chat")">Chat</a></li>
 
                             </ul>
-                        </li>
+                        </li>*@
                         <li class="sub-menu dcjq-parent-li">
                             <a href="javascript:;" class="dcjq-parent">
                                 <i class="fa fa-th"></i>
-                                <span>QUẢN LÍ LOẠI SẢN PHẨM</span>
+                                <span>VOUCHER</span>
                                 <span class="dcjq-icon"></span>
                             </a>
                             <ul class="sub" style="display: none;">
-                                <li><a href="@Url.Action("XemLoaiSanPham", "Admin")">Xem Loại Sản Phẩm</a></li>
-                                <li><a href="@Url.Action("ThemLoaiSanPham", "Admin")">Thêm Loại Sản Phẩm</a></li>
+                                <li><a href="@Url.Action("XemVoucher", "Admin")">Xem Voucher</a></li>
+                                <li><a href="@Url.Action("ThemVoucher", "Admin")">Thêm Voucher</a></li>
 
                             </ul>
                         </li>
@@ -237,11 +238,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu dcjq-parent-li">
                             <a href="javascript:;" class="dcjq-parent">
                                 <i class="fa fa-comment"></i>
-                                <span>QUẢN LÍ BÌNH LUẬN</span>
+                                <span>QUẢN LÍ ĐÁNH GIÁ</span>
                                 <span class="dcjq-icon"></span>
                             </a>
                             <ul class="sub" style="display: none;">
-                                <li><a href="@Url.Action("XemBinhLuan","Admin")">Bình Luận Gần Đây</a></li>
+                                <li><a href="@Url.Action("XemBinhLuan","Admin")">Đánh Giá Gần Đây</a></li>
 
                             </ul>
                         </li>

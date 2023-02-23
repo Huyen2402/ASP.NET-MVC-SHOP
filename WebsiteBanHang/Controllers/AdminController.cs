@@ -752,6 +752,82 @@ namespace WebsiteBanHang.Controllers
             return Json(new {status =true}, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult XemVoucher()
+        {
+            List<GiamGia> gg = db.GiamGias.ToList();
+            return View(gg);
+        }
+        public JsonResult GetVoucher(int MaGiamGia)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            GiamGia gg = db.GiamGias.SingleOrDefault(n=>n.MaGiamGia == MaGiamGia);
+            if(gg == null)
+            {
+                return Json(null);
+            }
+            else
+            {
+                return Json(new {data = gg }, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
 
+        public JsonResult EditVoucher(GiamGia gg)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            GiamGia g = db.GiamGias.SingleOrDefault(n => n.MaGiamGia == gg.MaGiamGia);
+            if (g == null)
+            {
+                return Json(null);
+            }
+            else
+            {
+                g.TenGiamGia = gg.TenGiamGia;
+                g.SoTien = gg.SoTien;
+                g.SL = gg.SL;
+                db.SaveChanges();
+                return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ThemVoucher()
+        {
+            return View();
+        }
+
+        public JsonResult ThemVoucherJson(GiamGia gg)
+        {
+            Shop shop = Session["CuaHang"] as Shop;
+            GiamGia g = new GiamGia();
+            g.TenGiamGia = gg.TenGiamGia;
+            g.SoTien = gg.SoTien;
+            g.SL = gg.SL;
+            g.MaShop = shop.MaShop;
+            db.GiamGias.Add(g);
+            db.SaveChanges();
+
+            return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult XoaVoucher(int MaGiamGia)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            GiamGia g = db.GiamGias.SingleOrDefault(n => n.MaGiamGia == MaGiamGia);
+            if (g == null)
+            {
+                return Json(new { data = "failed" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                db.GiamGias.Remove(g);
+                db.SaveChanges();
+               
+                return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+          
+
+        }
     }
 }

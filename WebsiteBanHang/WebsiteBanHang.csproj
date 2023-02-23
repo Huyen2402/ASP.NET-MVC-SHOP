@@ -781,6 +781,8 @@
     <Content Include="Views\SanPham\DetailSanPham.cshtml" />
     <Content Include="Views\DemoJQuery\CallOTPView.cshtml" />
     <Content Include="Views\DemoJQuery\CallOTP.cshtml" />
+    <Content Include="Views\Admin\XemVoucher.cshtml" />
+    <Content Include="Views\Admin\ThemVoucher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
