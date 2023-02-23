@@ -779,6 +779,8 @@
     <Content Include="Views\Chat\ChatInHeader.cshtml" />
     <Content Include="Views\Search\suggestProduct.cshtml" />
     <Content Include="Views\SanPham\DetailSanPham.cshtml" />
+    <Content Include="Views\DemoJQuery\CallOTPView.cshtml" />
+    <Content Include="Views\DemoJQuery\CallOTP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

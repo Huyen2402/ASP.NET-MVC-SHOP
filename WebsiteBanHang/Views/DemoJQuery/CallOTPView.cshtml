@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "CallOTPView";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<input id="token" type="hidden" name="name" value="" />
+<input type="text" name="" id="MaXacNhan" value="" />
+<button onclick="checkVerify()"  class="btn btn-primary">Xác nhận</button>
+<div id="abc"></div>
+<div id="abc1"></div>
+<script>
+
+    (function getall() {
+
+        $.getJSON("/DemoJQuery/CallOTP", function (token) {
+            console.log(token.token)
+            $("#token").val(token.token)
+            if (token.token.length > 0) {
+                $("#abc").append("<p>" + token.token + "</p>")
+            }
+            else {
+                $("#abc").append("<p>0</p>")
+            }
+
+        })
+    })()
+   
+
+    function checkVerify() {
+        const token = $("#token").val();
+        const MaXacNhan = $("#MaXacNhan").val();
+        $.getJSON("/DemoJQuery/checkVerify?MaXacNhan=" + MaXacNhan + "&Token=" + token, function (ss) {
+            console.log(ss.result)
+           
+            if (ss.result == 'success') {
+                $("#abc1").append("<p>" + ss.result + "</p>")
+            }
+            else {
+                $("#abc1").append("<p>0</p>")
+            }
+
+        })
+    }
+</script>
+

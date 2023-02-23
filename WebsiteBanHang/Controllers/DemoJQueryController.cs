@@ -45,6 +45,46 @@ namespace WebsiteBanHang.Controllers
             }
             return apires ;
         }
-        
+        public ActionResult CallOTPView()
+        {
+            return View();
+        }
+
+        public async Task<string> CallOTP()
+        {
+            string apires = "";
+            kq = new KetQua();
+           
+            using (var cl = new HttpClient(_client))
+            {
+                using (var responde = await cl.GetAsync("http://localhost:3000"))
+                {
+                    apires = await responde.Content.ReadAsStringAsync();
+
+
+
+                }
+            }
+            return apires;
+        }
+
+        public async Task<string> checkVerify(string MaXacNhan, string Token)
+        {
+            string apires = "";
+            kq = new KetQua();
+
+            using (var cl = new HttpClient(_client))
+            {
+                using (var responde = await cl.GetAsync("http://localhost:3000/verify?MaXacNhan="+ MaXacNhan + "&Token="+Token))
+                {
+                    apires = await responde.Content.ReadAsStringAsync();
+
+
+
+                }
+            }
+            return apires;
+        }
+
     }
 }

@@ -76,53 +76,27 @@ namespace WebsiteBanHang.Controllers
             ViewBag.CauHoi = new SelectList(CauHoi());
             if(this.IsCaptchaValid("Captcha is not valid"))
             {
-                Random random = new Random();
-                ViewBag.ThongBao = "Thêm thành công";
-                tv.MaLoaiTV = 1;
-                tv.DaKhoa = false;
-                tv.DaXacNhan = false;
-                tv.captcha = random.Next(100000,999999);
-                db.ThanhViens.Add(tv);
+                ThanhVien check = db.ThanhViens.SingleOrDefault(n=>n.TaiKhoan== tv.TaiKhoan);
+                if(check == null)
+                {
+                    //Random random = new Random();
+
+                    tv.MaLoaiTV = 1;
+                    tv.DaKhoa = false;
+                    tv.DaXacNhan = false;
+                    //tv.captcha = random.Next(100000,999999);
+                    db.ThanhViens.Add(tv);
+
+                    db.SaveChanges();
+                    Session["TaiKhoanDK"] = tv.TaiKhoan;
+                    ViewBag.ThongBao = "Thêm thành công";
+                    return RedirectToAction("XacNhanNguoiDung");
+                }
+                else
+                {
+                    ViewBag.ThongBao = "Tài khoản bị trùng lặp";
+                }
                
-                db.SaveChanges();
-                ViewBag.ThongBao = "Thêm thành công";
-                try
-                {
-                    if (ModelState.IsValid)
-                    {
-                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
-                        var receiverEmail = new MailAddress(tv.Email, "Receiver");
-                        var password = "yyxrbzsfbkrftlny";
-                        string subject = "Xác nhận tài khoản người dùng - Sàn thương mại điện tử Ori Cute";
-                        string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/Views/EmailTemplates/Customer.cshtml"));
-                        body = body.Replace(@"######", @"Chào bạn, đây là mã xác nhận tài khoản của bạn: " + tv.captcha);
-                     
-                        var smtp = new SmtpClient
-                        {
-                            Host = "smtp.gmail.com",
-                            Port = 587,
-                            EnableSsl = true,
-                            DeliveryMethod = SmtpDeliveryMethod.Network,
-                            UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential(senderEmail.Address, password)
-                        };
-                        using (var mess = new MailMessage(senderEmail, receiverEmail)
-                        {
-                            IsBodyHtml = true,
-                            Subject = subject,
-                            Body = body
-                        })
-                        {
-                            smtp.Send(mess);
-                        }
-                        return RedirectToAction("XacNhanNguoiDung");
-                    }
-                }
-                catch (Exception)
-                {
-                    ViewBag.Error = "Some Error";
-                }
-                return RedirectToAction("XacNhanNguoiDung");
             }
             else
             {
@@ -141,9 +115,10 @@ namespace WebsiteBanHang.Controllers
         }
 
        
-        public JsonResult MaXacNhan(int captcha)
+        public JsonResult MaXacNhan()
         {
-            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.captcha == captcha);
+            string tk = Session["TaiKhoanDK"] as string;
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.TaiKhoan == tk);
             if(tv != null)
             {
                 tv.DaXacNhan = true;
@@ -153,9 +128,10 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                ViewBag.mess = "Mã xác nhận không hợp lệ";
+                ViewBag.mess = "Có lỗi";
                 ViewBag.status = "faild";
             }
+            Session["TaiKhoanDK"] = null;
             return Json(new { mess = ViewBag.mess, status = ViewBag.status }, JsonRequestBehavior.AllowGet);
         }
 
