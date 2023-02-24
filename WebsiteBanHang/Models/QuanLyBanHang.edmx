@@ -269,6 +269,8 @@
           <Property Name="XacNhan" Type="bit" />
           <Property Name="captcha" Type="int" />
           <Property Name="MaMatHang" Type="int" />
+          <Property Name="ChuSoHuu" Type="nvarchar" MaxLength="500" />
+          <Property Name="DaKhoa" Type="bit" />
         </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
@@ -1688,6 +1690,8 @@
           <Property Name="XacNhan" Type="Boolean" />
           <Property Name="captcha" Type="Int32" />
           <Property Name="MaMatHang" Type="Int32" />
+          <Property Name="ChuSoHuu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DaKhoa" Type="Boolean" />
           <NavigationProperty Name="ChatwithShop" Relationship="QuanLyBanHangModel.FK__ChatwithS__MaSho__1492AB17" FromRole="Shop" ToRole="ChatwithShop" />
           <NavigationProperty Name="ChiTietFlashSale" Relationship="QuanLyBanHangModel.FK__ChiTietFl__MaSho__1236F807" FromRole="Shop" ToRole="ChiTietFlashSale" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK__DonDatHan__MaSho__75435199" FromRole="Shop" ToRole="DonDatHang" />
@@ -2640,6 +2644,8 @@
           <EntitySetMapping Name="Shop">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.Shop">
               <MappingFragment StoreEntitySet="Shop">
+                <ScalarProperty Name="DaKhoa" ColumnName="DaKhoa" />
+                <ScalarProperty Name="ChuSoHuu" ColumnName="ChuSoHuu" />
                 <ScalarProperty Name="MaMatHang" ColumnName="MaMatHang" />
                 <ScalarProperty Name="captcha" ColumnName="captcha" />
                 <ScalarProperty Name="XacNhan" ColumnName="XacNhan" />

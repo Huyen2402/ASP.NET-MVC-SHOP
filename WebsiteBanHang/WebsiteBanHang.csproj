@@ -783,6 +783,7 @@
     <Content Include="Views\DemoJQuery\CallOTP.cshtml" />
     <Content Include="Views\Admin\XemVoucher.cshtml" />
     <Content Include="Views\Admin\ThemVoucher.cshtml" />
+    <Content Include="Views\QuanTriVien\GetAllShop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

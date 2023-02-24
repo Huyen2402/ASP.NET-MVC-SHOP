@@ -113,6 +113,61 @@ namespace WebsiteBanHang.Controllers
             return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
         }
 
-       
+        public ActionResult GetAllShop()
+        {
+            List<Shop> listShop = db.Shops.Where(n=>n.XacNhan == true).ToList();
+
+            return View(listShop);
+        }
+
+        public JsonResult GetInfoShop(int MaShop)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            Shop s = db.Shops.SingleOrDefault(n => n.MaShop == MaShop);
+          
+            if (s == null)
+            {
+                return Json(null);
+            }
+            else
+            {
+                return Json(new { data = s }, JsonRequestBehavior.AllowGet);
+            }
+           
+           
+        }
+
+        public JsonResult GetMatHang(int MaMatHang)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<ChiTietMatHangKinhDoanh> list = db.ChiTietMatHangKinhDoanhs.Where(n=>n.MaMatHang == MaMatHang).ToList();
+            return Json(new { data = list }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetLSP(int MaLSP)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            loaiSanPham lsp = db.loaiSanPhams.SingleOrDefault(n=>n.MaLoaiSP== MaLSP);
+
+            return Json(new { data = lsp }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult KhoaShop(int MaShop)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            Shop s = db.Shops.SingleOrDefault(n=>n.MaShop == MaShop);
+            if(s == null)
+            {
+                return Json(new { data = "failed" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                s.DaKhoa= true;
+                db.SaveChanges();
+                return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
     }
 }

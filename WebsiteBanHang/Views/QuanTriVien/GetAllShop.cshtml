@@ -1,0 +1,355 @@
+﻿@using WebsiteBanHang.Models;
+@model List<Shop>
+@{
+    ViewBag.Title = "GetAllShop";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+    int i = 1;
+}
+@{
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) + 1;
+    int Trang = 1;
+}
+<div class="inner_content">
+    <h3>TẤT CẢ CÁC SHOP</h3>
+    <table id="table-max-height" class="max-height">
+        <thead>
+
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Tên Shop</th>
+                <th class="text-center">Địa Chỉ</th>
+
+                <th class="text-center">AVT</th>
+
+
+                <th class="text-center">Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (soSP % soSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("item_sp Trang_"+Trang)">
+                    <td class="text-center" data-th="Name"><span class="bt-content">@i</span></td>
+                    <td class="text-center" data-th="Name"><span class="bt-content">@item.TenShop</span></td>
+                    <td class="text-center" data-th="Name"><span class="bt-content">@item.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</span></td>
+
+                    <td class="text-center" data-th="Name">
+                        <img src="@Url.Content("~/Content/images/"+item.avt)" alt="Alternate Text" />
+
+                    </td>
+                    <td class="text-center" data-th="Name">
+                        <button data-id="@item.MaShop" type="button" class="btn btn-info btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Xem Thông Tin</button>
+                        @if (item.DaKhoa == true)
+                        {
+                            <button disabled data-MaShop="@item.MaShop" type="button" class="btn btn-secondary btn-Khoa">Khóa</button>
+                        }
+                        else
+                        {
+                            <button data-MaShop="@item.MaShop" type="button" class="btn btn-danger btn-Khoa">Khóa</button>
+                        }
+                    </td>
+
+                </tr>
+                soSP++;
+                i++;
+
+            }
+
+
+
+        </tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        
+    </div>
+
+    <div class="w3-center">
+        <div class="w3-bar text-center">
+            <a href="#" class="w3-button">«</a>
+            @for (int j = 1; j <= soTrangHienThi; j++)
+            {
+
+                <a data-Trang="@j" href="#" class=" @Url.Content(" w3-button  page-item Trang_"+j)">@j</a>
+            }
+
+            <a href="#" class="w3-button">»</a>
+        </div>
+    </div>
+</div>
+<style>
+    .item_sp {
+        display: none;
+    }
+    .btn-info {
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin: 1.25em 0 0;
+        width: 100%;
+    }
+
+        table tr,
+        table th,
+        table td {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: .95em;
+        }
+
+        table th,
+        table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e53238;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        table tr td {
+            background: #f3faff;
+            color: #424242;
+        }
+
+        table tr:nth-of-type(2n+2) td {
+            background: #ffffff;
+        }
+
+        table.bt tfoot th,
+        table.bt tfoot td,
+        table.bt tbody td {
+            font-size: .8125rem;
+            padding: 0;
+        }
+
+            table.bt tfoot th:before,
+            table.bt tfoot td:before,
+            table.bt tbody td:before {
+                background: #e74c3c;
+                margin-right: 10px;
+                padding: 2px 10px;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            table.bt tfoot th .bt-content,
+            table.bt tfoot td .bt-content,
+            table.bt tbody td .bt-content {
+                display: inline-block;
+                padding: 2px 5px;
+            }
+
+            table.bt tfoot th:first-of-type:before,
+            table.bt tfoot th:first-of-type .bt-content,
+            table.bt tfoot td:first-of-type:before,
+            table.bt tfoot td:first-of-type .bt-content,
+            table.bt tbody td:first-of-type:before,
+            table.bt tbody td:first-of-type .bt-content {
+                padding-top: 10px;
+            }
+
+            table.bt tfoot th:last-of-type:before,
+            table.bt tfoot th:last-of-type .bt-content,
+            table.bt tfoot td:last-of-type:before,
+            table.bt tfoot td:last-of-type .bt-content,
+            table.bt tbody td:last-of-type:before,
+            table.bt tbody td:last-of-type .bt-content {
+                padding-bottom: 10px;
+            }
+</style>
+<script>
+  
+    $('.Trang_1').show();
+    $('.page-item').click(function () {
+
+        $('.item_sp').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_' + Trang).show();
+
+
+
+    })
+
+    $(".btn-Khoa").click(function () {
+        const mashop = $(this).attr("data-MaShop");
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Nếu bạn khóa shop này, shop sẽ không thể truy cập và bán hàng được nữa!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#40b043',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Khóa'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:62979/QuanTriVien/KhoaShop?MaShop=' + mashop,
+
+                    success: function (data) {
+
+                        console.log(data)
+                        if (data.data == 'success') {
+                            Swal.fire({
+
+                                icon: 'success',
+                                title: 'Khóa thành công',
+                                text: 'Bạn đã khóa shop thành công',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                        }
+                       
+
+                    }
+
+                });
+               
+            }
+        })
+    })
+
+    $(".btn-infoShop").click(function () {
+        const id = $(this).attr("data-id");
+      
+        console.log(id)
+        $("#myModal").empty();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:62979/QuanTriVien/GetInfoShop?Mashop=' + id,
+
+            success: function (data) {
+                console.log(data)
+                $("#myModal").append(
+                    '<div class="modal-dialog">' +
+                    ' <div class= "modal-content" >' +
+
+
+                    '<div class="modal-header">' +
+                    ' <h4 class="modal-title">THÔNG TIN SHOP ' + data.data.TenShop + '</h4>' +
+                    ' <button type="button" class="btn-close" data-bs-dismiss="modal"></button>' +
+                    ' </div> ' +
+
+
+                    '  <div class="modal-body">' +
+                    '  <div class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">Chủ Sở Hữu:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.data.ChuSoHuu + '" readonly name="">' +
+                    ' </div>' +
+                    '  <div class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">SDT:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.data.SDT + '" readonly name="">' +
+                    ' </div>' +
+                    '  <div id="MHKD" class="mb-3">' +
+                    ' <label for="pwd" class="form-label">Ngày Đăng Ký:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.data.NgayTao + '" readonly name="">' +
+                    ' </div>' +
+
+
+
+
+
+                   
+                    '  </div > ' +
+                    '  <div class="modal-footer">' +
+                    ' <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>' +
+                    ' </div>' +
+
+                    '   </div >' +
+                    '   </div > '
+                     );
+
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:62979/QuanTriVien/GetMatHang?MaMatHang=' + data.data.MaMatHang,
+
+                    success: function (dataMH) {
+                        $("#MHKD").append(
+                            '  <div  class="mb-3">' +
+                            ' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
+                            ' <div id="app"  class="form-check">' +
+                            //'  <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>' +
+                            //' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label>' +
+                            ' </div>' +
+                            ' </div>'
+
+                        );
+                        console.log(dataMH)
+                        let arr = [];
+                        for (var i = 0; i < dataMH.data.length; i++) {
+                            $.ajax({
+                                type: "GET",
+                                url: 'http://localhost:62979/QuanTriVien/GetLSP?MaLSP=' + dataMH.data[i].MaLSP,
+
+                                success: function (dataLSP) {
+                                  
+                                    console.log(dataLSP)
+                                    arr.push(dataLSP.data.TenLoai)
+                                    $("#app").append(
+                                        //'  <div  class="mb-3">' +
+                                        //' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
+                                        //' <div  class="form-check">' +
+                                        '  <input class="form-check-input" type="checkbox" id="" name="option1" value="something" checked>' +
+                                        ' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label> </br>' 
+                                        //' </div>' +
+                                        //' </div>'
+
+                                    );
+
+                                }
+
+                            });
+                            console.log(arr)
+                            
+                        }
+                      
+                       
+                        
+
+                    }
+
+                });
+                   
+               
+
+                $(".btn-close").click(function () {
+                    /* $("#myModal").hide();*/
+                    window.location.reload();
+                })
+
+            }
+
+        });
+
+    })
+   
+</script>

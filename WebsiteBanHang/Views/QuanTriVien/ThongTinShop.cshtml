@@ -49,30 +49,32 @@
                     </thead>
                     <tbody>
 
-                        <tr>
-                            <td class="text-center" data-th="Name"><span class="bt-content">Phan Hồ Như Huyền</span></td>
-                            <td class="text-center" data-th="Name"><span class="bt-content">huyen@gmail.com</span></td>
-                            <td class="text-center" data-th="Name"><span class="bt-content">0356492230</span></td>
-                           
-                            <td class="text-center" data-th="Name">
-                                @for (int i = 0; i < listCTKD.Count; ++i)
-                                {
-                                    if (i < listCTKD.Count -1)
+                       
+                            <tr>
+                                <td class="text-center" data-th="Name"><span class="bt-content">@Model.ChuSoHuu</span></td>
+                                <td class="text-center" data-th="Name"><span class="bt-content">@Model.TaiKhoan</span></td>
+                                <td class="text-center" data-th="Name"><span class="bt-content">@Model.SDT</span></td>
+
+                                <td class="text-center" data-th="Name">
+                                    @for (int i = 0; i < listCTKD.Count; ++i)
                                     {
-                                        <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai,</span>
+                                        if (i < listCTKD.Count - 1)
+                                        {
+                                            <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai,</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai</span>
+                                        }
+
                                     }
-                                    else
-                                    {
-                                        <span class="bt-content">@listCTKD[i].loaiSanPham.TenLoai</span>
-                                    }
+                                </td>
 
-                                }
-                            </td>
-                          
 
-                        </tr>
+                            </tr>
+                        
 
-                     
+
 
 
 

@@ -16,7 +16,8 @@
                 <h1>Đăng ký thông tin cửa hàng</h1>
                 <p>Please fill in this form to create an account.</p>
                 <hr>
-
+                <label for="ChuSoHuu"><b>Chủ Sở Hữu</b></label>
+                <input type="text" name="ChuSoHuu" id="ChuSoHuu" required>
                 <label for="TenShop"><b>Tên Cửa Hàng</b></label>
                 <input type="text" name="TenShop" id="TenShop" required>
 
@@ -47,7 +48,7 @@
                 {
                     <label class="container">
 
-                        <input class="check-lsp" id="@item.MaLoaiSP" type="checkbox" value="@item.MaLoaiSP" > @item.TenLoai
+                        <input class="check-lsp" id="@item.MaLoaiSP" type="checkbox" value="@item.MaLoaiSP"> @item.TenLoai
                         <span class="checkmark"></span>
                     </label>
                 }
@@ -231,11 +232,12 @@
         var idHuyen = $("#idHuyen").val();
         var idXa = $("#idXa").val();
         var SDT = $("#SDT").val();
+        var ChuSoHuu = $("#ChuSoHuu").val();
         $.ajax({
 
             type: "POST",
             url: "http://localhost:62979/Home/DangKyCuaHang",
-            data: { TenShop: TenShop, TaiKhoan: TaiKhoan, MatKhau: MatKhau, DiaChi: DiaChi, idTinh: idTinh, idHuyen: idHuyen, idXa: idXa, arr: arr, SDT:SDT }, // serializes the form's elements.
+            data: { TenShop: TenShop, TaiKhoan: TaiKhoan, MatKhau: MatKhau, DiaChi: DiaChi, idTinh: idTinh, idHuyen: idHuyen, idXa: idXa, arr: arr, SDT: SDT, ChuSoHuu: ChuSoHuu }, // serializes the form's elements.
 
             success: function (status, data, MaShop) {
                 console.log(data)

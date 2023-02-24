@@ -37,6 +37,8 @@ namespace WebsiteBanHang.Models
         public Nullable<bool> XacNhan { get; set; }
         public Nullable<int> captcha { get; set; }
         public Nullable<int> MaMatHang { get; set; }
+        public string ChuSoHuu { get; set; }
+        public Nullable<bool> DaKhoa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatwithShop> ChatwithShop { get; set; }
