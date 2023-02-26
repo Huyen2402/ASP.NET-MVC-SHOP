@@ -26,13 +26,11 @@ namespace WebsiteBanHang.Models
         }
     
         public virtual DbSet<BinhLuan> BinhLuans { get; set; }
-        public virtual DbSet<Chat> Chats { get; set; }
         public virtual DbSet<ChatwithShop> ChatwithShops { get; set; }
         public virtual DbSet<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
         public virtual DbSet<ChiTietFlashSale> ChiTietFlashSales { get; set; }
         public virtual DbSet<ChiTietGiamGia> ChiTietGiamGias { get; set; }
         public virtual DbSet<ChiTietMatHangKinhDoanh> ChiTietMatHangKinhDoanhs { get; set; }
-        public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
         public virtual DbSet<DiaChi> DiaChis { get; set; }
         public virtual DbSet<DonDatHang> DonDatHangs { get; set; }
         public virtual DbSet<FlashSale> FlashSales { get; set; }
@@ -45,7 +43,6 @@ namespace WebsiteBanHang.Models
         public virtual DbSet<MatHangKinhDoanh> MatHangKinhDoanhs { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; }
-        public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }

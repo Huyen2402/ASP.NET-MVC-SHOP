@@ -23,7 +23,7 @@ namespace WebsiteBanHang.Models
         public int MaNSX { get; set; }
         public string TenNSX { get; set; }
         public string ThongTin { get; set; }
-        public string Logo { get; set; }
+        public string logo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }

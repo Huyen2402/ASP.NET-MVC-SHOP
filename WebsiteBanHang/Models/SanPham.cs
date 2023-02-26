@@ -20,7 +20,6 @@ namespace WebsiteBanHang.Models
             this.BinhLuan = new HashSet<BinhLuan>();
             this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
             this.ChiTietFlashSale = new HashSet<ChiTietFlashSale>();
-            this.ChiTietPhieuNhap = new HashSet<ChiTietPhieuNhap>();
             this.KichCo = new HashSet<KichCo>();
         }
     
@@ -34,8 +33,6 @@ namespace WebsiteBanHang.Models
         public Nullable<int> LuotBinhLuan { get; set; }
         public Nullable<int> SoLanMua { get; set; }
         public Nullable<int> Moi { get; set; }
-        public Nullable<int> MaNCC { get; set; }
-        public Nullable<int> MaNSX { get; set; }
         public Nullable<int> MaLoaiSP { get; set; }
         public Nullable<bool> DaXoa { get; set; }
         public string HinhAnh1 { get; set; }
@@ -46,6 +43,8 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaShop { get; set; }
         public Nullable<int> KhuyenMai { get; set; }
         public Nullable<double> DanhGia { get; set; }
+        public Nullable<int> MaNSX { get; set; }
+        public Nullable<int> MaNCC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }
@@ -53,8 +52,6 @@ namespace WebsiteBanHang.Models
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietFlashSale> ChiTietFlashSale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KichCo> KichCo { get; set; }
         public virtual loaiSanPham loaiSanPham { get; set; }

@@ -265,9 +265,6 @@
     <Compile Include="Models\BinhLuan.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Chat.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ChatwithShop.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -281,9 +278,6 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietMatHangKinhDoanh.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ChiTietPhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataChart.cs" />
@@ -324,9 +318,6 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhaSanXuat.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QuanLyBanHang.Context.cs">

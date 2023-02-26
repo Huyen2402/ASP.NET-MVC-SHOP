@@ -17,7 +17,6 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhaCungCap()
         {
-            this.PhieuNhap = new HashSet<PhieuNhap>();
             this.SanPham = new HashSet<SanPham>();
         }
     
@@ -26,10 +25,7 @@ namespace WebsiteBanHang.Models
         public string DiaChi { get; set; }
         public string Email { get; set; }
         public string SDT { get; set; }
-        public string Fax { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
     }
