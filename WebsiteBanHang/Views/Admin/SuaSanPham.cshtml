@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "SuaSanPham";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    List<WebsiteBanHang.Models.KichCo> KC = ViewBag.KC as List<WebsiteBanHang.Models.KichCo>;
 }
 
 
@@ -220,8 +221,26 @@
         </div>
 
 
+        <div class="size">
+            @foreach (var i in KC)
+            {
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="Ten" value="@i.Ten" />
 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Số Lượng</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="number" name="SL" value="@i.SL" />
 
+                    </div>
+                </div>
+            }
+        </div>
+        <button style="float:right" id="btn-size" class="btn"><i class="fa-solid fa-plus"></i></button>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -238,7 +257,24 @@
 }
 
 <script>
+    $("#btn-size").click(function () {
+        $(".size").append(' <div class= "form-group" >' +
+            ' <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>' +
+            '  <div class="col-md-10">' +
+            '  <input class="form-control" type="text" name="Ten"  />' +
 
+            ' </div>' +
+            '  </div >' +
+            ' <div class="form-group">' +
+            '  <label class="col-md-2 control-label">Số Lượng</label>' +
+            '   <div class="col-md-10">' +
+            '  <input class="form-control" type="number" name="SL" value="0" />' +
+
+            '  </div>' +
+            ' </div>'
+        )
+        $(this).focus();
+    })
     tinymce.init({
 
         selector: '#mytextarea',

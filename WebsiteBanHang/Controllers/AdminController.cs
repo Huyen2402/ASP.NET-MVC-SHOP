@@ -96,7 +96,7 @@ namespace WebsiteBanHang.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult ThemSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
+        public ActionResult ThemSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh, KichCo[] kc)
         {
             Shop s = Session["CuaHang"] as Shop;
             // list nhà cung cấp
@@ -116,16 +116,17 @@ namespace WebsiteBanHang.Controllers
                     var fileName = Path.GetFileName(HinhAnh[i].FileName);
                     //Get path
                     var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-
+                    HinhAnh[i].SaveAs(path);
                     //Check exitst
-                    if (!System.IO.File.Exists(path))
-                    {
-                        //Add image into folder
-                        HinhAnh[i].SaveAs(path);
+                    //if (!System.IO.File.Exists(path))
+                    //{
+                    //    //Add image into folder
+                   // HinhAnh[i].SaveAs(path);
+                    //   
 
 
 
-                    }
+                    //}
 
 
                 }
@@ -140,6 +141,7 @@ namespace WebsiteBanHang.Controllers
             sp.HinhAnh1 = HinhAnh[1].FileName;
             sp.HinhAnh2 = HinhAnh[2].FileName;
             sp.HinhAnh3 = HinhAnh[3].FileName;
+            sp.NgayCapNhat = DateTime.Now;
             sp.LuotBinhLuan = 0;
             sp.SoLanMua = 0;
             sp.DaXoa = false;
@@ -147,14 +149,32 @@ namespace WebsiteBanHang.Controllers
             sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
+           
             db.SaveChanges();
 
-            return RedirectToAction("XemSanPham", "Admin");
+            return RedirectToAction("ContThemSP","Admin", new {@MaSP = sp.MaSP });
 
            
 
         }
+        public ActionResult ContThemSP(int MaSP)
+        {
+            ViewBag.MaSP = MaSP;
+            return View();
+        }
 
+        public JsonResult ContThemSPJS(string Ten, int SL, int MaSP)
+        {
+
+            KichCo c = new KichCo();
+            c.MaSP =MaSP;
+            c.Ten = Ten;
+            c.SL = SL;
+            db.KichCos.Add(c);
+            db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+          
+        }
 
         [HttpGet]
         public ActionResult SuaSanPham(int? MaSP)
@@ -184,6 +204,7 @@ namespace WebsiteBanHang.Controllers
                     ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC", sp.MaNCC);
                     ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai", sp.MaLoaiSP);
                     ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX", sp.MaNSX);
+                    ViewBag.KC = db.KichCos.Where(n => n.MaSP == sp.MaSP).ToList();
                     return View(sp);
                 }
 
@@ -194,7 +215,7 @@ namespace WebsiteBanHang.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SuaSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh)
+        public ActionResult SuaSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh, KichCo[]kc)
         {
             Shop s = Session["CuaHang"] as Shop;
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
@@ -256,7 +277,7 @@ namespace WebsiteBanHang.Controllers
                 check.loaiSanPham = sp.loaiSanPham;
                 check.MaNCC = sp.MaNCC;
                 db.SaveChanges();
-
+               
                 return RedirectToAction("XemSanPham", "Admin");
 
             }
