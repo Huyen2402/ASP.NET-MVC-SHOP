@@ -263,66 +263,72 @@ namespace WebsiteBanHang.Controllers
         {
            
             string TenLoai = f["TenLoai"];
-            if (Request.Files.Count > 0)
-            {
-                try
-                {
-                    
-                    
-                        HttpFileCollectionBase files = Request.Files;
-                        for (int i = 0; i < files.Count; i++)
-                        {
-                            //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
-                            //string filename = Path.GetFileName(Request.Files[i].FileName);  
-
-                            HttpPostedFileBase file = files[i];
-                            string fname;
-
-                            // Checking for Internet Explorer  
-                            if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                            {
-                                string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                                fname = testfiles[testfiles.Length - 1];
-                            }
-                            else
-                            {
-
-                            loaiSanPham lsp = new loaiSanPham();
+            loaiSanPham lsp = new loaiSanPham();
+            lsp.TenLoai = TenLoai;
+            lsp.DaXoa = false;
+            //db.loaiSanPhams.Add(lsp);
+            //db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            //if (Request.Files.Count > 0)
+            //{
+            //    try
+            //    {
 
 
-                                fname = file.FileName;
+            //            HttpFileCollectionBase files = Request.Files;
+            //            for (int i = 0; i < files.Count; i++)
+            //            {
+            //                //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+            //                //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
-                                lsp.HinhAnh = fname;
-                                lsp.TenLoai = TenLoai;
+            //                HttpPostedFileBase file = files[i];
+            //                string fname;
 
-                                    fname = Path.Combine(Server.MapPath("~/Content/images/"), fname);
-                                    file.SaveAs(fname);
-                                
-                              
+            //                // Checking for Internet Explorer  
+            //                if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+            //                {
+            //                    string[] testfiles = file.FileName.Split(new char[] { '\\' });
+            //                    fname = testfiles[testfiles.Length - 1];
+            //                }
+            //                else
+            //                {
+
+            //                loaiSanPham lsp = new loaiSanPham();
+
+
+            //                    fname = file.FileName;
+
+            //                    lsp.HinhAnh = fname;
+            //                    lsp.TenLoai = TenLoai;
+            //                lsp.DaXoa = false;
+            //                        fname = Path.Combine(Server.MapPath("~/Content/images/"), fname);
+            //                        file.SaveAs(fname);
+
+            //                  db.loaiSanPhams.Add(lsp);
 
 
 
-                                db.SaveChanges();
-                            }
+            //                    db.SaveChanges();
+            //                }
 
 
-                        }
-                        // Returns message that successfully uploaded  
-                        return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
-                    
-                    //  Get all files from Request object  
+            //            }
+            //            // Returns message that successfully uploaded  
+            //            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
 
-                }
-                catch (Exception ex)
-                {
-                    return Json("Error occurred. Error details: " + ex.Message);
-                }
-            }
-            else
-            {
-                return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+            //        //  Get all files from Request object  
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        return Json("Error occurred. Error details: " + ex.Message);
+            //    }
+            //}
+            //else
+            //{
+            //    return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+            //}
+
         }
 
 

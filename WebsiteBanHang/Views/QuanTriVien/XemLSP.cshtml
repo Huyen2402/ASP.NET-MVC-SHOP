@@ -15,6 +15,7 @@
 }
 <div class="inner_content">
     <h3>TẤT CẢ CÁC LOẠI SẢN PHẨM</h3>
+    <button data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="btn btn-success btn-Khoa">Thêm mới <i class="fa-solid fa-plus"></i></button>
     <table id="table-max-height" class="max-height">
         <thead>
 
@@ -48,8 +49,8 @@
 
                     </td>
                     <td class="text-center" data-th="Name">
-                        <button data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="btn btn-success btn-Khoa">Thêm</button>
-                        <button data-id="@item.MaLoaiSP" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa</button>
+
+                        <button data-id="@item.MaLoaiSP" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa <i class="fa-solid fa-pen-to-square"></i></button>
 
 
                         @*<button data-MaShop="@item.MaLoaiSP" type="button" class="btn btn-danger btn-Khoa">Xóa</button>*@
@@ -67,7 +68,7 @@
         </tbody>
     </table>
 
-   
+
 
     <!-- The Modal -->
     <div class="modal" id="myModal1">
@@ -82,7 +83,7 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="@Url.Action("ThemLoaiSanPham","QuanTriVien")" id="from-add">
+                    <form id="data" action="/" method="post">
                         <div class="mb-3 mt-3">
                             <label for="TenLoai" class="form-label">Tên loại:</label>
                             <input type="text" class="form-control" id="TenLoai" placeholder="Nhập tên loại...." name="TenLoai">
@@ -92,9 +93,14 @@
                             <img style="width:250px" id="preview-img1" src="@Url.Content("~/Content/images/no_img.png") " alt="Alternate Text" />
                             <input type="file" class="form-control" id="HinhAnh1" name="HinhAnh">
                         </div>
-                       
-                        <button type="submit" class="btn btn-primary">Thêm</button>
+
+                        <input type="submit" id="btnUpload" value="Upload Files" />
                     </form>
+                    @*<form id="data" action="/" method="post">
+                        <input type="number" name="Number" value="" />
+                        <input name="FileUpload1" type="file" id="FileUpload1" />
+                        <input type="submit" id="btnUpload" value="Upload Files" />
+                    </form>*@
                 </div>
 
                 <!-- Modal footer -->
@@ -111,7 +117,7 @@
         <span class="close" title="Close Modal">&times;</span>
         <form action="@Url.Action("EditLSP","QuanTriVien")" id="from-ChinhSua">
         </form>
-       
+
     </div>
     @*<div id="id01" class="modal w3-animate-zoom">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -232,7 +238,44 @@
             }
 </style>
 <script>
-
+      $(document).ready(function () {
+          $('form#data').submit(function (e) {
+              e.preventDefault();
+            //// Checking whether FormData is available in browser
+            //if (window.FormData !== undefined) {
+            //    var fileUpload = $("#FileUpload1").get(0);
+            //    var files = fileUpload.files;
+            //    // Create FormData object
+            //    var fileData = new FormData();
+            //    // Looping over all files and add it to FormData object
+            //    for (var i = 0; i < files.length; i++) {
+            //        fileData.append(files[i].name, files[i]);
+            //    }
+                // Adding one more key to FormData object
+               /* fileData.append('username', ‘Manas’);*/
+                var formData = new FormData(this);
+            $.ajax({
+                url: "http://localhost:3000/users/",
+                type: 'POST',
+                data: formData,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                   
+                },
+                error: function (error) {
+                    console.log("error",error)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+                   
+            });
+            //} else {
+            //    alert("FormData is not supported.");
+            //}
+        });
+    });
     $('.Trang_1').show();
     $('.page-item').click(function () {
 
@@ -265,26 +308,39 @@
         console.log(formData)
         $.ajax({
             type: "POST",
-            url: "http://localhost:62979/QuanTriVien/ThemLoaiSanPham",
+            url: "http://localhost:62979/DemoJquery/aaa",
             data: formData, // serializes the form's elements.
             cache: false,
             contentType: false,
             processData: false,
+            dataType: 'json',
+            contentType: "multipart/form-data",
             success: function (data) {
                 if (data.mess = "success") {
 
-                    Swal.fire({
-
-                        icon: 'success',
-                        title: 'Thêm thành công',
-                        text: 'Bạn đã sửa loại danh mục thành công',
-                        showConfirmButton: true,
-
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.reload()
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:62979/DemoJquery/callAPIPushImgCloud",
+                        data: formData, // serializes the form's elements.
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            alert(data); // show response from the php script.
                         }
-                    })
+                    });
+                    //Swal.fire({
+
+                    //    icon: 'success',
+                    //    title: 'Thêm thành công',
+                    //    text: 'Bạn đã sửa loại danh mục thành công',
+                    //    showConfirmButton: true,
+
+                    //}).then((result) => {
+                    //    if (result.isConfirmed) {
+                    //        window.location.reload()
+                    //    }
+                    //})
                 }
                 else {
                     Swal.fire({
