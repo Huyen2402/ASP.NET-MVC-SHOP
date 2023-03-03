@@ -347,6 +347,11 @@ namespace WebsiteBanHang.Controllers
             if (checkShop == null){
                 Response.StatusCode = 404;
             }
+            if(checkShop.DaKhoa == true)
+            {
+                ViewBag.DaKhoa = "Tài khoản của bạn đã bị khóa";
+                return View();
+            }
     
             Session["CuaHang"] = checkShop;
           

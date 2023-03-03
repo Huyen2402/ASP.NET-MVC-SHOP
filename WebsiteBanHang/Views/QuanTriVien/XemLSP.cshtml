@@ -1,0 +1,404 @@
+﻿@using WebsiteBanHang.Models;
+@model List<loaiSanPham>
+@{
+    ViewBag.Title = "XemLSP";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+@{
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) + 1;
+    int Trang = 1;
+    int i = 1;
+}
+<div class="inner_content">
+    <h3>TẤT CẢ CÁC LOẠI SẢN PHẨM</h3>
+    <table id="table-max-height" class="max-height">
+        <thead>
+
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Tên Loại</th>
+
+
+                <th class="text-center">Hình ảnh</th>
+
+
+                <th class="text-center">Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (soSP % soSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("item_sp Trang_"+Trang)">
+                    <td class="text-center" data-th="Name"><span class="bt-content">@i</span></td>
+                    <td class="text-center" data-th="Name"><span class="bt-content">@item.TenLoai</span></td>
+
+
+                    <td class="text-center" data-th="Name">
+                        <img style="width: 200px" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
+
+                    </td>
+                    <td class="text-center" data-th="Name">
+                        <button type="button" class="btn btn-success btn-Khoa">Thêm</button>
+                        <button data-id="@item.MaLoaiSP" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa</button>
+
+
+                        <button data-MaShop="@item.MaLoaiSP" type="button" class="btn btn-danger btn-Khoa">Xóa</button>
+
+                    </td>
+
+                </tr>
+                soSP++;
+                i++;
+
+            }
+
+
+
+        </tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <form  method="post" enctype="multipart/form-data" @*action="@Url.Action("EditLSP","QuanTriVien")"*@ id="from-ChinhSua" class="body">
+
+        </form>
+       
+    </div>
+
+    <div class="w3-center">
+        <div class="w3-bar text-center">
+            <a href="#" class="w3-button">«</a>
+            @for (int j = 1; j <= soTrangHienThi; j++)
+            {
+
+                <a data-Trang="@j" href="#" class=" @Url.Content(" w3-button  page-item Trang_"+j)">@j</a>
+            }
+
+            <a href="#" class="w3-button">»</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .item_sp {
+        display: none;
+    }
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+    .btn-info {
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin: 1.25em 0 0;
+        width: 100%;
+    }
+
+        table tr,
+        table th,
+        table td {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: .95em;
+        }
+
+        table th,
+        table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e53238;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        table tr td {
+            background: #f3faff;
+            color: #424242;
+        }
+
+        table tr:nth-of-type(2n+2) td {
+            background: #ffffff;
+        }
+
+        table.bt tfoot th,
+        table.bt tfoot td,
+        table.bt tbody td {
+            font-size: .8125rem;
+            padding: 0;
+        }
+
+            table.bt tfoot th:before,
+            table.bt tfoot td:before,
+            table.bt tbody td:before {
+                background: #e74c3c;
+                margin-right: 10px;
+                padding: 2px 10px;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            table.bt tfoot th .bt-content,
+            table.bt tfoot td .bt-content,
+            table.bt tbody td .bt-content {
+                display: inline-block;
+                padding: 2px 5px;
+            }
+
+            table.bt tfoot th:first-of-type:before,
+            table.bt tfoot th:first-of-type .bt-content,
+            table.bt tfoot td:first-of-type:before,
+            table.bt tfoot td:first-of-type .bt-content,
+            table.bt tbody td:first-of-type:before,
+            table.bt tbody td:first-of-type .bt-content {
+                padding-top: 10px;
+            }
+
+            table.bt tfoot th:last-of-type:before,
+            table.bt tfoot th:last-of-type .bt-content,
+            table.bt tfoot td:last-of-type:before,
+            table.bt tfoot td:last-of-type .bt-content,
+            table.bt tbody td:last-of-type:before,
+            table.bt tbody td:last-of-type .bt-content {
+                padding-bottom: 10px;
+            }
+</style>
+<script>
+
+    $('.Trang_1').show();
+    $('.page-item').click(function () {
+
+        $('.item_sp').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_' + Trang).show();
+
+
+
+    })
+
+    $(".btn-infoShop").click(function () {
+        const id = $(this).attr("data-id");
+
+        console.log(id)
+        $(".body").empty();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:62979/QuanTriVien/GetInfoLSP?MaLSP=' + id,
+
+            success: function (data) {
+                console.log(data)
+                $(".body").append(
+                    '<div class="modal-dialog">' +
+                    ' <div class= "modal-content" >' +
+
+
+                    '<div class="modal-header">' +
+                    ' <h4 class="modal-title">THÔNG TIN LOẠI SẢN PHẨM</h4>' +
+                    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +
+                    ' </div> ' +
+                    '  <input type="hidden"  value="' + data.MaLoaiSP + '" class="form-control"  name="MaLoaiSP">' +
+
+                    '  <div class="modal-body">' +
+                    '  <div class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">Chủ Sở Hữu:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.TenLoai + '"  name="TenLoai">' +
+                    ' </div>' +
+                    '  <div class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">Hình ảnh:</label>' + '</br>'  +
+                    '  <img style="width:250px" id="preview-img" src="../Content/images/' + data.HinhAnh + '")"  alt="Alternate Text" />' +
+                    '  <input type="file" class="form-control" id="HinhAnh"   name="HinhAnh">' +
+                    ' </div>' +
+                    ' <div class="modal-footer">'+
+                  '  <button type = "submit" id="sua" class= "btn btn-warning"  > Sửa</button >'+
+      '  </div > '
+                    //'  <div id="MHKD" class="mb-3">' +
+                    //' <label for="pwd" class="form-label">Ngày Đăng Ký:</label>' +
+                    //'  <input type="text" class="form-control" id="" value="' + data.data.NgayTao + '" readonly name="">' +
+                    //' </div>' +
+
+
+
+
+
+
+                   
+                );
+                //hình 1
+                const reader = new FileReader();
+                const fileInput = document.getElementById("HinhAnh");
+                const img = document.getElementById("preview-img");
+                reader.onload = e => {
+                    img.src = e.target.result;
+                }
+                fileInput.addEventListener('change', e => {
+                    const f = e.target.files[0];
+                    reader.readAsDataURL(f);
+                })
+                  $("form#from-ChinhSua").submit(function (e) {
+              /*    $("#sua").click(function (e) {*/
+                    console.log("fsjdjf")
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                      console.log(formData)
+                    $.ajax({
+                        type: "POST",
+                        url: 'https://localhost:62979/QuanTriVien/EditLSP',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data1) {
+                            if (data1.mess == "success") {
+
+                                Swal.fire({
+
+                                    icon: 'success',
+                                    title: 'Sửa thành công',
+                                    text: 'Bạn đã sửa loại sản phẩm thành công',
+                                    showConfirmButton: true,
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+
+                            }
+                            else {
+                                Swal.fire({
+
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
+
+                                })
+                            }
+                        }
+                         
+                    })
+                      
+                })
+                $("#close").click(function () {
+                    window.location.reload()
+                })
+                //$("#myModal").append(
+                //    '<div class="modal-dialog">' +
+                //    ' <div class= "modal-content" >' +
+
+
+                //    '<div class="modal-header">' +
+                //    ' <h4 class="modal-title">THÔNG TIN LOẠI SẢN PHẨM </h4>' +
+                //    ' <button type="button" class="btn-close" data-bs-dismiss="modal"></button>' +
+                //    ' </div> ' +
+
+
+                //    '  <div class="modal-body">' +
+                //    '  <div class="mb-3 mt-3">' +
+                //    '    <label for="email" class="form-label">Tên loại:</label>' +
+                  
+                //    '  <input type="text" class="form-control" id="" value="' + data.data.TenLoai + '" readonly name="">' +
+                //    ' </div>' +
+                //    '  <div class="mb-3 mt-3">' +
+                //    '    <label for="email" class="form-label">Hình ảnh:</label>' +
+                //    '  <img style="width:250px" src="../Content/images/"' + data.data.HinhAnh + ')" alt="Alternate Text" />'+
+                  
+                //    ' </div>' 
+
+
+
+
+
+
+                 
+                //);
+
+                //$.ajax({
+                //    type: "GET",
+                //    url: 'http://localhost:62979/QuanTriVien/GetMatHang?MaMatHang=' + data.data.MaMatHang,
+
+                //    success: function (dataMH) {
+                //        $("#MHKD").append(
+                //            '  <div  class="mb-3">' +
+                //            ' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
+                //            ' <div id="app"  class="form-check">' +
+                //            //'  <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>' +
+                //            //' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label>' +
+                //            ' </div>' +
+                //            ' </div>'
+
+                //        );
+                //        console.log(dataMH)
+                //        let arr = [];
+                //        for (var i = 0; i < dataMH.data.length; i++) {
+                //            $.ajax({
+                //                type: "GET",
+                //                url: 'http://localhost:62979/QuanTriVien/GetLSP?MaLSP=' + dataMH.data[i].MaLSP,
+
+                //                success: function (dataLSP) {
+
+                //                    console.log(dataLSP)
+                //                    arr.push(dataLSP.data.TenLoai)
+                //                    $("#app").append(
+                //                        //'  <div  class="mb-3">' +
+                //                        //' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
+                //                        //' <div  class="form-check">' +
+                //                        '  <input class="form-check-input" type="checkbox" id="" name="option1" value="something" checked>' +
+                //                        ' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label> </br>'
+                //                        //' </div>' +
+                //                        //' </div>'
+
+                //                    );
+
+                //                }
+
+                //            });
+                //            console.log(arr)
+
+                //        }
+
+
+
+
+                //    }
+
+                //});
+
+
+
+                //$(".btn-close").click(function () {
+                //    /* $("#myModal").hide();*/
+                //    window.location.reload();
+                //})
+
+            }
+
+        });
+
+    })
+</script>

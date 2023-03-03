@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -168,6 +169,95 @@ namespace WebsiteBanHang.Controllers
             }
 
         }
+
+        public ActionResult XemLSP ()
+        {
+            List<loaiSanPham> listLSP = db.loaiSanPhams.Where(n => n.DaXoa == false).ToList();
+            return View(listLSP);
+        }
+        public JsonResult GetInfoLSP(int MaLSP)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            loaiSanPham l = db.loaiSanPhams.SingleOrDefault(n=>n.MaLoaiSP == MaLSP);
+            if(l == null)
+            {
+                return Json(null);
+            }
+            return Json(l, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditLSP(FormCollection f)
+        {
+            //db.Configuration.ProxyCreationEnabled = false;
+            int MaLSP = Convert.ToInt32(f["MaLoaiSP"]);
+            string TenLoai = f["TenLoai"];
+           
+            // Checking no of files injected in Request object 
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    loaiSanPham check = db.loaiSanPhams.SingleOrDefault(n => n.MaLoaiSP == MaLSP);
+                    if (check != null)
+                    {
+                        HttpFileCollectionBase files = Request.Files;
+                        for (int i = 0; i < files.Count; i++)
+                        {
+                            //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                            //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                            HttpPostedFileBase file = files[i];
+                            string fname;
+
+                            // Checking for Internet Explorer  
+                            if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                            {
+                                string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                                fname = testfiles[testfiles.Length - 1];
+                            }
+                            else
+                            {
+
+
+                                fname = file.FileName;
+                                if (check.HinhAnh != fname && fname != "")
+                                {
+                                    check.HinhAnh = fname;
+                                    check.TenLoai = TenLoai;
+                                   
+                                    fname = Path.Combine(Server.MapPath("~/Content/images/"), fname);
+                                    file.SaveAs(fname);
+                                }
+                                else
+                                {
+                                    check.TenLoai = TenLoai;
+                                }
+
+
+
+                                db.SaveChanges();
+                            }
+
+
+                        }
+                        // Returns message that successfully uploaded  
+                        return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+                    }
+                    //  Get all files from Request object  
+
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
