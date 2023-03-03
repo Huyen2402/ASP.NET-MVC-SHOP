@@ -359,14 +359,14 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult ThemLoaiSanPham(loaiSanPham lsp)
-        {
+        //[HttpPost]
+        //public ActionResult ThemLoaiSanPham(loaiSanPham lsp)
+        //{
 
-            db.loaiSanPhams.Add(lsp);
-            db.SaveChanges();
-            return RedirectToAction("XemLoaiSanPham", "Admin");
-        }
+        //    db.loaiSanPhams.Add(lsp);
+        //    db.SaveChanges();
+        //    return RedirectToAction("XemLoaiSanPham", "Admin");
+        //}
 
         public ActionResult XoaloaiSanPham(int? MaLoaiSP)
         {

@@ -186,7 +186,7 @@ namespace WebsiteBanHang.Controllers
             return Json(l, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditLSP(FormCollection f)
+        public JsonResult EditLSP(FormCollection f, HttpPostedFileBase HinhAnh)
         {
             //db.Configuration.ProxyCreationEnabled = false;
             int MaLSP = Convert.ToInt32(f["MaLoaiSP"]);
@@ -257,6 +257,74 @@ namespace WebsiteBanHang.Controllers
             }
             return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
         }
+
+       
+        public JsonResult ThemLoaiSanPham(FormCollection f)
+        {
+           
+            string TenLoai = f["TenLoai"];
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    
+                    
+                        HttpFileCollectionBase files = Request.Files;
+                        for (int i = 0; i < files.Count; i++)
+                        {
+                            //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                            //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                            HttpPostedFileBase file = files[i];
+                            string fname;
+
+                            // Checking for Internet Explorer  
+                            if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                            {
+                                string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                                fname = testfiles[testfiles.Length - 1];
+                            }
+                            else
+                            {
+
+                            loaiSanPham lsp = new loaiSanPham();
+
+
+                                fname = file.FileName;
+
+                                lsp.HinhAnh = fname;
+                                lsp.TenLoai = TenLoai;
+
+                                    fname = Path.Combine(Server.MapPath("~/Content/images/"), fname);
+                                    file.SaveAs(fname);
+                                
+                              
+
+
+
+                                db.SaveChanges();
+                            }
+
+
+                        }
+                        // Returns message that successfully uploaded  
+                        return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+                    
+                    //  Get all files from Request object  
+
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { mess = "hello" }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
     }

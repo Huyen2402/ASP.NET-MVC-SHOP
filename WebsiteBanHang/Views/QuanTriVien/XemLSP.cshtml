@@ -48,11 +48,11 @@
 
                     </td>
                     <td class="text-center" data-th="Name">
-                        <button type="button" class="btn btn-success btn-Khoa">Thêm</button>
+                        <button data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="btn btn-success btn-Khoa">Thêm</button>
                         <button data-id="@item.MaLoaiSP" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa</button>
 
 
-                        <button data-MaShop="@item.MaLoaiSP" type="button" class="btn btn-danger btn-Khoa">Xóa</button>
+                        @*<button data-MaShop="@item.MaLoaiSP" type="button" class="btn btn-danger btn-Khoa">Xóa</button>*@
 
                     </td>
 
@@ -67,14 +67,57 @@
         </tbody>
     </table>
 
+   
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">THÊM LOẠI SẢN PHẨM</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="@Url.Action("ThemLoaiSanPham","QuanTriVien")" id="from-add">
+                        <div class="mb-3 mt-3">
+                            <label for="TenLoai" class="form-label">Tên loại:</label>
+                            <input type="text" class="form-control" id="TenLoai" placeholder="Nhập tên loại...." name="TenLoai">
+                        </div>
+                        <div class="mb-3">
+                            <label for="HinhAnh1" class="form-label">Hình ảnh:</label> </br>
+                            <img style="width:250px" id="preview-img1" src="@Url.Content("~/Content/images/no_img.png") " alt="Alternate Text" />
+                            <input type="file" class="form-control" id="HinhAnh1" name="HinhAnh">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary">Thêm</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- The Modal -->
     <div class="modal" id="myModal">
-        <form  method="post" enctype="multipart/form-data" @*action="@Url.Action("EditLSP","QuanTriVien")"*@ id="from-ChinhSua" class="body">
-
+        <span class="close" title="Close Modal">&times;</span>
+        <form action="@Url.Action("EditLSP","QuanTriVien")" id="from-ChinhSua">
         </form>
        
     </div>
-
+    @*<div id="id01" class="modal w3-animate-zoom">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <form id="from-ChinhSua" class="modal-content" action="/">
+            </form>
+        </div>*@
     <div class="w3-center">
         <div class="w3-bar text-center">
             <a href="#" class="w3-button">«</a>
@@ -200,26 +243,83 @@
 
 
     })
+    $(".close").click(function () {
+        window.location.reload()
+    })
+    //hình 1
+    const reader = new FileReader();
+    const fileInput = document.getElementById("HinhAnh1");
+    const img = document.getElementById("preview-img1");
+    reader.onload = e => {
+        img.src = e.target.result;
+    }
+    fileInput.addEventListener('change', e => {
+        const f = e.target.files[0];
+        reader.readAsDataURL(f);
+    })
+    $("form#from-add").submit(function (e) {
+        /*    $("#sua").click(function (e) {*/
+        console.log("fsjdjf")
+        e.preventDefault();
+        var formData = new FormData(this);
+        console.log(formData)
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:62979/QuanTriVien/ThemLoaiSanPham",
+            data: formData, // serializes the form's elements.
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.mess = "success") {
+
+                    Swal.fire({
+
+                        icon: 'success',
+                        title: 'Thêm thành công',
+                        text: 'Bạn đã sửa loại danh mục thành công',
+                        showConfirmButton: true,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    })
+                }
+                else {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Xảy ra lỗi',
+                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                        showConfirmButton: true,
+
+                    })
+                }
+            }
+        });
+
+    })
 
     $(".btn-infoShop").click(function () {
         const id = $(this).attr("data-id");
 
         console.log(id)
-        $(".body").empty();
+        $("#from-ChinhSua").empty();
         $.ajax({
             type: "GET",
             url: 'http://localhost:62979/QuanTriVien/GetInfoLSP?MaLSP=' + id,
 
             success: function (data) {
                 console.log(data)
-                $(".body").append(
+                $("#from-ChinhSua").append(
                     '<div class="modal-dialog">' +
                     ' <div class= "modal-content" >' +
 
 
                     '<div class="modal-header">' +
                     ' <h4 class="modal-title">THÔNG TIN LOẠI SẢN PHẨM</h4>' +
-                    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +
+                /*    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +*/
                     ' </div> ' +
                     '  <input type="hidden"  value="' + data.MaLoaiSP + '" class="form-control"  name="MaLoaiSP">' +
 
@@ -265,137 +365,45 @@
                     e.preventDefault();
                     var formData = new FormData(this);
                       console.log(formData)
-                    $.ajax({
-                        type: "POST",
-                        url: 'https://localhost:62979/QuanTriVien/EditLSP',
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (data1) {
-                            if (data1.mess == "success") {
+                      $.ajax({
+                          type: "POST",
+                          url: "http://localhost:62979/QuanTriVien/EditLSP",
+                          data: formData, // serializes the form's elements.
+                          cache: false,
+                          contentType: false,
+                          processData: false,
+                          success: function (data) {
+                              if (data.mess = "success") {
 
-                                Swal.fire({
+                                  Swal.fire({
 
-                                    icon: 'success',
-                                    title: 'Sửa thành công',
-                                    text: 'Bạn đã sửa loại sản phẩm thành công',
-                                    showConfirmButton: true,
+                                      icon: 'success',
+                                      title: 'Thêm thành công',
+                                      text: 'Bạn đã sửa loại danh mục thành công',
+                                      showConfirmButton: true,
 
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.reload()
-                                    }
-                                })
+                                  }).then((result) => {
+                                      if (result.isConfirmed) {
+                                          window.location.reload()
+                                      }
+                                  })
+                              }
+                              else {
+                                  Swal.fire({
 
-                            }
-                            else {
-                                Swal.fire({
+                                      icon: 'error',
+                                      title: 'Xảy ra lỗi',
+                                      text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                      showConfirmButton: true,
 
-                                    icon: 'error',
-                                    title: 'Xảy ra lỗi',
-                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
-                                    showConfirmButton: true,
-
-                                })
-                            }
-                        }
-                         
-                    })
+                                  })
+                              }
+                          }
+                      });
                       
                 })
-                $("#close").click(function () {
-                    window.location.reload()
-                })
-                //$("#myModal").append(
-                //    '<div class="modal-dialog">' +
-                //    ' <div class= "modal-content" >' +
-
-
-                //    '<div class="modal-header">' +
-                //    ' <h4 class="modal-title">THÔNG TIN LOẠI SẢN PHẨM </h4>' +
-                //    ' <button type="button" class="btn-close" data-bs-dismiss="modal"></button>' +
-                //    ' </div> ' +
-
-
-                //    '  <div class="modal-body">' +
-                //    '  <div class="mb-3 mt-3">' +
-                //    '    <label for="email" class="form-label">Tên loại:</label>' +
-                  
-                //    '  <input type="text" class="form-control" id="" value="' + data.data.TenLoai + '" readonly name="">' +
-                //    ' </div>' +
-                //    '  <div class="mb-3 mt-3">' +
-                //    '    <label for="email" class="form-label">Hình ảnh:</label>' +
-                //    '  <img style="width:250px" src="../Content/images/"' + data.data.HinhAnh + ')" alt="Alternate Text" />'+
-                  
-                //    ' </div>' 
-
-
-
-
-
-
-                 
-                //);
-
-                //$.ajax({
-                //    type: "GET",
-                //    url: 'http://localhost:62979/QuanTriVien/GetMatHang?MaMatHang=' + data.data.MaMatHang,
-
-                //    success: function (dataMH) {
-                //        $("#MHKD").append(
-                //            '  <div  class="mb-3">' +
-                //            ' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
-                //            ' <div id="app"  class="form-check">' +
-                //            //'  <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>' +
-                //            //' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label>' +
-                //            ' </div>' +
-                //            ' </div>'
-
-                //        );
-                //        console.log(dataMH)
-                //        let arr = [];
-                //        for (var i = 0; i < dataMH.data.length; i++) {
-                //            $.ajax({
-                //                type: "GET",
-                //                url: 'http://localhost:62979/QuanTriVien/GetLSP?MaLSP=' + dataMH.data[i].MaLSP,
-
-                //                success: function (dataLSP) {
-
-                //                    console.log(dataLSP)
-                //                    arr.push(dataLSP.data.TenLoai)
-                //                    $("#app").append(
-                //                        //'  <div  class="mb-3">' +
-                //                        //' <label for="pwd" class="form-label">Mặt Hàng Kinh Doanh:</label>' +
-                //                        //' <div  class="form-check">' +
-                //                        '  <input class="form-check-input" type="checkbox" id="" name="option1" value="something" checked>' +
-                //                        ' <label class="form-check-label">' + dataLSP.data.TenLoai + '</label> </br>'
-                //                        //' </div>' +
-                //                        //' </div>'
-
-                //                    );
-
-                //                }
-
-                //            });
-                //            console.log(arr)
-
-                //        }
-
-
-
-
-                //    }
-
-                //});
-
-
-
-                //$(".btn-close").click(function () {
-                //    /* $("#myModal").hide();*/
-                //    window.location.reload();
-                //})
-
+               
+           
             }
 
         });
