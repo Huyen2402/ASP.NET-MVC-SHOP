@@ -38,7 +38,7 @@
                     <a data-MaSP="@sp.MaSP" @*href="@Url.Action("XoaGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="close1"> </a>
                     <div class="cart-sec simpleCart_shelfItem">
                         <div class="cart-item cyc">
-                            <img src="@Url.Content("~/Content/images/"+sp.HinhAnh)" class="img-responsive" alt="">
+                            <img src="@Url.Content(sp.HinhAnh)" class="img-responsive" alt="">
                         </div>
                         <div class="cart-item-info">
                             <h3><a href="#">@sp.TenSP</a><span>Model No: 3578</span></h3>
