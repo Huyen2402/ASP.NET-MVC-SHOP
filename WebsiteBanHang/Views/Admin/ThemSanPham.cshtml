@@ -71,6 +71,7 @@
             <img style="width: 150px;" id="preview-img" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin" type="file" name="HinhAnh" value="" />
+            <input type="hidden" name="url1" id="url1" value="" />
 
         </div>
     </div>
@@ -80,7 +81,7 @@
             <img style="width: 150px;" id="preview-img1" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="" />
-
+            <input type="hidden" name="url2" id="url2" value="" />
 
         </div>
     </div>
@@ -91,7 +92,7 @@
             <img style="width: 150px;" id="preview-img2" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="" />
-
+            <input type="hidden" name="url3" id="url3" value="" />
         </div>
     </div>
 
@@ -102,19 +103,19 @@
 
             <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="" />
 
-
+            <input type="hidden" name="url4" id="url4" value="" />
         </div>
     </div>
 
 
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Số Lượng Tồn</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
         </div>
-    </div>
+    </div>*@
 
 
 
@@ -286,7 +287,71 @@
         const f3 = e.target.files[0];
         reader3.readAsDataURL(f3);
     })
+    $(document).ready(function () {
+        $('form#form-addsp').submit(function (e) {
+            /* const TenLoai = $("#TenLoai").val();*/
 
+            e.preventDefault();
+            const TenSP = $("#TenSP").val();
+            const Gia = $("#Gia").val();
+            const MoTaNgan = $("#MoTaNgan").val();
+            const mytextarea = $("mytextarea").val();
+            var formData = new FormData(this);
+            var form = $(this);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/Admin/ThemSanPhama",
+                data: form.serialize(), // serializes the form's elements.
+
+                success: function (dataT) {
+                    const MaSP = dataT.MaSP;
+                    console.log(dataT) // show response from the php script.
+                    if (dataT.mess == "success") {
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:3000/users/",
+                            data: formData, // serializes the form's elements.
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                console.log(data.data.url) // show response from the php script.
+                                if (data.status == true) {
+                                    let acc = [];
+                                    if (data.data.url.length > 0) {
+                                        for (var k = 0; k < data.data.url.length; k++) {
+                                            acc.push(data.data.url[k]);
+                                        }
+                                        console.log("acc", acc)
+
+                                        //console.log(test) // show response from the php script.
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://localhost:62979/Admin/SaveAsImg",
+                                            data: { MaSP: MaSP, url: acc }, // serializes the form's elements.
+
+                                            success: function (dataT) {
+
+                                                console.log(dataT) // show response from the php script.
+                                                window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP
+                                               
+                                            }
+                                        });
+                                       
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+
+
+
+                }
+            });
+         
+        });
+    });
     $("#btn-size").click(function () {
         $(".size").append(' <div class= "form-group" >'+
            ' <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>'+

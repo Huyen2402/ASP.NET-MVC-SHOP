@@ -11,6 +11,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using WebsiteBanHang.Models;
+using System.Net.Http.Headers;
+using Microsoft.AspNet.SignalR.Hosting;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -193,6 +195,33 @@ namespace WebsiteBanHang.Controllers
                 }
                 return await response.Content.ReadAsStreamAsync();
             }
+        }
+        public async Task<string> UploadAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://hello.net/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                MultipartFormDataContent content = new MultipartFormDataContent();
+                ByteArrayContent fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes("D:/ASP.NET-MVC-SHOP/WebsiteBanHang/Content/images/chat.png"));
+                fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = "b.jpg" };
+                content.Add(fileContent);
+
+                HttpResponseMessage response = await client.PostAsync("http://localhost:3000/users/", content);
+               return "f";
+            }
+            
+        }
+
+        public ActionResult Upload1()
+        {
+            
+
+                return View();
+
+            
         }
     }
 }

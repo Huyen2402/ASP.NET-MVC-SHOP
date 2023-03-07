@@ -93,10 +93,14 @@ namespace WebsiteBanHang.Controllers
         }
 
 
-
-        [HttpPost]
+        public ActionResult ThemSanPham1(FormCollection f)
+        {
+            string TenSP = f["TenSP"];
+            return View(f);
+        }
+            [HttpPost]
         [ValidateInput(false)]
-        public ActionResult ThemSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh, KichCo[] kc)
+        public JsonResult ThemSanPhama(SanPham sp)
         {
             Shop s = Session["CuaHang"] as Shop;
             // list nhà cung cấp
@@ -106,73 +110,113 @@ namespace WebsiteBanHang.Controllers
 
 
 
-            // upload file hình ảnh
-            for (int i = 0; i < HinhAnh.Length; i++)
-            {
-                //Check content image
-                if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
-                {
-                    //Get file name
-                    var fileName = Path.GetFileName(HinhAnh[i].FileName);
-                    //Get path
-                    var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                    HinhAnh[i].SaveAs(path);
-                    //Check exitst
-                    //if (!System.IO.File.Exists(path))
-                    //{
-                    //    //Add image into folder
-                   // HinhAnh[i].SaveAs(path);
-                    //   
+            //// upload file hình ảnh
+            //for (int i = 0; i < HinhAnh.Length; i++)
+            //{
+            //    //Check content image
+            //    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
+            //    {
+            //        //Get file name
+            //        var fileName = Path.GetFileName(HinhAnh[i].FileName);
+            //        //Get path
+            //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+            //        HinhAnh[i].SaveAs(path);
+            //        //Check exitst
+            //        //if (!System.IO.File.Exists(path))
+            //        //{
+            //        //    //Add image into folder
+            //       // HinhAnh[i].SaveAs(path);
+            //        //   
 
 
 
-                    //}
+            //        //}
 
 
-                }
-                else
-                {
-                    return View(sp);
-                }
+            //    }
+            //    else
+            //    {
+            //        return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            //    }
 
-            }
+            //}
 
-            sp.HinhAnh = HinhAnh[0].FileName;
-            sp.HinhAnh1 = HinhAnh[1].FileName;
-            sp.HinhAnh2 = HinhAnh[2].FileName;
-            sp.HinhAnh3 = HinhAnh[3].FileName;
+            //sp.HinhAnh = HinhAnh[0].FileName;
+            //sp.HinhAnh1 = HinhAnh[1].FileName;
+            //sp.HinhAnh2 = HinhAnh[2].FileName;
+            //sp.HinhAnh3 = HinhAnh[3].FileName;
             sp.NgayCapNhat = DateTime.Now;
             sp.LuotBinhLuan = 0;
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
+           
             sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
            
             db.SaveChanges();
+            return Json(new { mess = "success", MaSP = sp.MaSP }, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("ContThemSP","Admin", new {@MaSP = sp.MaSP });
 
-            return RedirectToAction("ContThemSP","Admin", new {@MaSP = sp.MaSP });
+           
 
+        }
+        public JsonResult SaveAsImg(int MaSP, string[] url)
+        {
+            SanPham sp = db.SanPhams.SingleOrDefault(n=>n.MaSP== MaSP); 
+            if(sp == null)
+            {
+                return Json(new { mess = "fial" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                sp.HinhAnh = url[0];
+                sp.HinhAnh1= url[1];
+                sp.HinhAnh2= url[2];
+                sp.HinhAnh3= url[3];
+                db.SaveChanges();
+
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
            
 
         }
         public ActionResult ContThemSP(int MaSP)
         {
             ViewBag.MaSP = MaSP;
+            
+           
             return View();
+        }
+        public JsonResult TotalQuantity(int MaSP)
+        {
+            int? TongSL = db.KichCos.Where(n => n.MaSP == MaSP).Sum(x => x.SL);
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            sp.SoLuongTon = TongSL;
+            db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ContThemSPJS(string Ten, int SL, int MaSP)
         {
-
-            KichCo c = new KichCo();
-            c.MaSP =MaSP;
-            c.Ten = Ten;
-            c.SL = SL;
-            db.KichCos.Add(c);
-            db.SaveChanges();
-            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            SanPham sp = db.SanPhams.SingleOrDefault(n=>n.MaSP== MaSP); 
+            if(sp != null)
+            {
+                KichCo c = new KichCo();
+                c.MaSP = MaSP;
+                c.Ten = Ten;
+                c.SL = SL;
+                db.KichCos.Add(c);
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+           
           
         }
 

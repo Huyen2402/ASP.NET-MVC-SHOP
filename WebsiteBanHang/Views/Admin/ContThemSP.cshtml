@@ -67,7 +67,7 @@
         
     }
 
-    
+
     $("#idForm").submit(function (e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -75,15 +75,15 @@
         var arr_infor = []
         console.log(arr.length)
         var MaSP = $("#MaSP").val();
-        for (var j = 0; j < i; j++){
-            var Name = $("#name_"+j).val();
-           
-            var sl = $("#sl_"+j).val();
+        for (var j = 0; j < i; j++) {
+            var Name = $("#name_" + j).val();
+
+            var sl = $("#sl_" + j).val();
 
             arr_infor.push(new Review(Name, sl))
         }
         console.log(arr_infor)
-       
+
         //var form = $(this);
         //var actionUrl = form.attr('action');
         for (var c = 0; c < arr_infor.length; c++) {
@@ -93,11 +93,59 @@
                 url: "http://localhost:62979/Admin/ContThemSPJS",
                 data: { Ten: arr_infor[c].Name, SL: arr_infor[c].sl, MaSP: MaSP }, // serializes the form's elements.
                 success: function (data) {
-                    alert(data.mess); // show response from the php script.
+                    if (data.mess = "success") {
+
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:62979/Admin/TotalQuantity?MaSP=" + MaSP,
+
+                            success: function (dataT) {
+                                console.log(dataT) // show response from the php script.
+                                if (data.mess = "success") {
+                                    Swal.fire({
+
+                                        icon: 'success',
+                                        title: 'Thêm thành công',
+                                        text: 'Bạn đã thêm sản phẩm thành công',
+                                        showConfirmButton: true,
+
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "http://localhost:62979/Admin/XemSanPham";
+                                        }
+                                    })
+
+                                }
+                                else {
+                                    Swal.fire({
+
+                                        icon: 'error',
+                                        title: 'Xảy ra lỗi',
+                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                        showConfirmButton: true,
+
+                                    })
+                                }
+                            }
+                        });
+
+                    }
+
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+
                 }
             });
         }
-       
+
 
     });
 </script>

@@ -777,6 +777,7 @@
     <Content Include="Views\QuanTriVien\GetAllShop.cshtml" />
     <Content Include="Views\Admin\ContThemSP.cshtml" />
     <Content Include="Views\QuanTriVien\XemLSP.cshtml" />
+    <Content Include="Views\DemoJQuery\Upload1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
