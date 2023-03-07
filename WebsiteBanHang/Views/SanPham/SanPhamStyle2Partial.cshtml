@@ -6,7 +6,7 @@
     {
         <div class="col-4 col-xs-12 men grid-top">
             <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
-                <img style="max-height:405px" class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
+                <img style="max-height:405px" class="img-responsive" src="@Url.Content(item.HinhAnh)" alt="">
                 <div class="b-wrapper">
                     <h3 class="b-animate b-from-top top-in   b-delay03 ">
                         <span>@item.MoTaNgan</span>
