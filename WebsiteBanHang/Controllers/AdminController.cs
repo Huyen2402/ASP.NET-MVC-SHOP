@@ -30,20 +30,20 @@ namespace WebsiteBanHang.Controllers
 
             List<ThanhVien> listTV = db.ThanhViens.Where(n => n.MaLoaiTV == 1).ToList();
             ViewBag.TongTV = listTV.Count();
-            List<BinhLuan> listBl = db.BinhLuans.Where(n=>n.SanPham.MaShop == s.MaShop).ToList() ;
+            List<BinhLuan> listBl = db.BinhLuans.Where(n => n.SanPham.MaShop == s.MaShop).ToList();
             List<DonDatHang> listDDH = db.DonDatHangs.Where(x => x.MaShop == s.MaShop).ToList();
             ViewBag.TongBL = listBl.Count() > 0 ? listBl.Count : 0;
-            ViewBag.TongDDH = listDDH.Count > 0 ? listDDH.Count :  0;
+            ViewBag.TongDDH = listDDH.Count > 0 ? listDDH.Count : 0;
             ViewBag.TongTien = listDDH.Count > 0 ? TongTien(s.MaShop) : 0;
-           
+
             //ViewBag.TongTien = TongTien(s.MaShop);
-            int year = int.Parse(DateTime.Now.Year.ToString()) ;
+            int year = int.Parse(DateTime.Now.Year.ToString());
             // Data chart
-            List<DataChart> data = db.DonDatHangs.Where(x=>x.NgayDat.Value.Year == year)
-                .GroupBy(x => x.NgayDat.Value.Month )
+            List<DataChart> data = db.DonDatHangs.Where(x => x.NgayDat.Value.Year == year)
+                .GroupBy(x => x.NgayDat.Value.Month)
                 .Select(x => new DataChart()
                 {
-                    Month = (x.FirstOrDefault().NgayDat.Value.Month ),
+                    Month = (x.FirstOrDefault().NgayDat.Value.Month),
                     Total = x.ToList().Sum(y => y.ChiTietDonDatHang.Sum(b => b.SoLuong * b.DonGia)).Value
                 }).ToList();
 
@@ -60,7 +60,7 @@ namespace WebsiteBanHang.Controllers
 
         public decimal? TongTien(int? MaShop)
         {
-           
+
             decimal? tongtien = db.ChiTietDonDatHangs.Where(n => n.DonDatHang.MaShop == MaShop).Sum(n => n.DonGia * n.SoLuong).Value;
 
             return tongtien;
@@ -77,7 +77,9 @@ namespace WebsiteBanHang.Controllers
         public ActionResult XemSanPham()
         {
             Shop s = Session["CuaHang"] as Shop;
-            List<SanPham> list = db.SanPhams.Where(n => n.DaXoa == false && n.MaShop == s.MaShop).ToList();
+            int? ma = s.MaMatHang;
+            List<ChiTietMatHangKinhDoanh> list = db.ChiTietMatHangKinhDoanhs.Where(n => n.MaMatHang == ma).ToList();
+            ViewBag.listCT = db.SanPhams.Where(n => n.DaXoa == false && n.MaShop == s.MaShop).ToList();
             return View(list);
         }
 
@@ -85,7 +87,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult ThemSanPham()
         {
-           
+
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
             ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
@@ -98,7 +100,7 @@ namespace WebsiteBanHang.Controllers
             string TenSP = f["TenSP"];
             return View(f);
         }
-            [HttpPost]
+        [HttpPost]
         [ValidateInput(false)]
         public JsonResult ThemSanPhama(SanPham sp)
         {
@@ -150,44 +152,49 @@ namespace WebsiteBanHang.Controllers
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
-           
+
             sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
-           
+
             db.SaveChanges();
             return Json(new { mess = "success", MaSP = sp.MaSP }, JsonRequestBehavior.AllowGet);
             //return RedirectToAction("ContThemSP","Admin", new {@MaSP = sp.MaSP });
 
-           
+
 
         }
         public JsonResult SaveAsImg(int MaSP, string[] url)
         {
-            SanPham sp = db.SanPhams.SingleOrDefault(n=>n.MaSP== MaSP); 
-            if(sp == null)
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+
+            if (sp == null)
             {
                 return Json(new { mess = "fial" }, JsonRequestBehavior.AllowGet);
 
             }
             else
             {
-                sp.HinhAnh = url[0];
-                sp.HinhAnh1= url[1];
-                sp.HinhAnh2= url[2];
-                sp.HinhAnh3= url[3];
-                db.SaveChanges();
+                if (url.Length > 0)
+                {
+                    sp.HinhAnh = url[0];
+                    sp.HinhAnh1 = url[1];
+                    sp.HinhAnh2 = url[2];
+                    sp.HinhAnh3 = url[3];
+                    db.SaveChanges();
+                }
+
 
                 return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
             }
-           
+
 
         }
         public ActionResult ContThemSP(int MaSP)
         {
             ViewBag.MaSP = MaSP;
-            
-           
+
+
             return View();
         }
         public JsonResult TotalQuantity(int MaSP)
@@ -201,8 +208,8 @@ namespace WebsiteBanHang.Controllers
 
         public JsonResult ContThemSPJS(string Ten, int SL, int MaSP)
         {
-            SanPham sp = db.SanPhams.SingleOrDefault(n=>n.MaSP== MaSP); 
-            if(sp != null)
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            if (sp != null)
             {
                 KichCo c = new KichCo();
                 c.MaSP = MaSP;
@@ -216,8 +223,8 @@ namespace WebsiteBanHang.Controllers
             {
                 return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
             }
-           
-          
+
+
         }
 
         [HttpGet]
@@ -257,9 +264,88 @@ namespace WebsiteBanHang.Controllers
 
         }
 
+        public JsonResult GetAllImg(int MaSP)
+        {
+            SanPham s = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            string[] url = { s.HinhAnh, s.HinhAnh1, s.HinhAnh2, s.HinhAnh3 };
+            return Json(url, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditSaveAsImg(int MaSP, string[] url, int[] a)
+        {
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+
+            if (sp == null)
+            {
+                return Json(new { mess = "fial" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+              if (url.Length > 1)
+            {
+                for (int i = 0; i < url.Length; i++)
+                {
+                    if (a[0] != 0)
+                    {
+                        sp.HinhAnh = url[i];
+                        i++;
+                    }
+                    if (a[1] != 0)
+                    {
+                        sp.HinhAnh1 = url[i];
+                            i++;
+                    }
+                    if (a[2] != 0)
+                    {
+                        sp.HinhAnh2 = url[i];
+                        i++;
+                    }
+                    if (a[3] != 0)
+                    {
+                        sp.HinhAnh3 = url[i];
+                        i++;
+                    }
+                }
+
+
+
+            }
+           if(url.Length == 1)
+            {
+                
+                    if (a[0] != 0)
+                    {
+                        sp.HinhAnh = url[0];
+                      
+                    }
+                    if (a[1] != 0)
+                    {
+                        sp.HinhAnh1 = url[0];
+                        
+                    }
+                    if (a[2] != 0)
+                    {
+                        sp.HinhAnh2 = url[0];
+                       
+                    }
+                    if (a[3] != 0)
+                    {
+                        sp.HinhAnh3 = url[0];
+                       
+                    }
+               
+            }
+
+            db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+        }
+    
+
+        
+
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SuaSanPham(SanPham sp, HttpPostedFileBase[] HinhAnh, KichCo[]kc)
+        public ActionResult SuaSanPham1(SanPham sp, HttpPostedFileBase[] HinhAnh, KichCo[]kc)
         {
             Shop s = Session["CuaHang"] as Shop;
             ViewBag.MaNCC = new SelectList(db.NhaCungCaps, "MaNCC", "TenNCC");
@@ -269,51 +355,51 @@ namespace WebsiteBanHang.Controllers
             SanPham check = db.SanPhams.SingleOrDefault(n => n.MaSP == sp.MaSP && n.MaShop == s.MaShop);
             if (check != null)
             {
-                for (int i = 0; i < HinhAnh.Length; i++)
-                {
-                    //Check content image
-                    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
-                    {
-                        //Get file name
-                        var fileName = Path.GetFileName(HinhAnh[i].FileName);
-                        //Get path
-                        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                        //Check exitst
-                        if (!System.IO.File.Exists(path))
-                        {
-                            //Add image into folder
-                            HinhAnh[i].SaveAs(path);
-                        }
-                    }
-                }
+                //for (int i = 0; i < HinhAnh.Length; i++)
+                //{
+                //    //Check content image
+                //    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
+                //    {
+                //        //Get file name
+                //        var fileName = Path.GetFileName(HinhAnh[i].FileName);
+                //        //Get path
+                //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                //        //Check exitst
+                //        if (!System.IO.File.Exists(path))
+                //        {
+                //            //Add image into folder
+                //            HinhAnh[i].SaveAs(path);
+                //        }
+                //    }
+                //}
 
-                if (HinhAnh[0] != null)
-                {
-                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh));
-                    check.HinhAnh = HinhAnh[0].FileName;
-                }
-                if (HinhAnh[1] != null)
-                {
-                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh1));
-                    check.HinhAnh1 = HinhAnh[1].FileName;
-                }
-                if (HinhAnh[2] != null)
-                {
-                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh2));
-                    check.HinhAnh2 = HinhAnh[2].FileName;
-                }
-                if (HinhAnh[3] != null)
-                {
-                    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh3));
-                    check.HinhAnh3 = HinhAnh[3].FileName;
-                }
+                //if (HinhAnh[0] != null)
+                //{
+                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh));
+                //    check.HinhAnh = HinhAnh[0].FileName;
+                //}
+                //if (HinhAnh[1] != null)
+                //{
+                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh1));
+                //    check.HinhAnh1 = HinhAnh[1].FileName;
+                //}
+                //if (HinhAnh[2] != null)
+                //{
+                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh2));
+                //    check.HinhAnh2 = HinhAnh[2].FileName;
+                //}
+                //if (HinhAnh[3] != null)
+                //{
+                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh3));
+                //    check.HinhAnh3 = HinhAnh[3].FileName;
+                //}
 
-               
+
                 check.LuotBinhLuan = sp.LuotBinhLuan;
                 check.DaXoa = sp.DaXoa;
                 check.TenSP = sp.TenSP;
                 check.MoTa = sp.MoTa;
-                check.NgayCapNhat = sp.NgayCapNhat;
+                check.NgayCapNhat = DateTime.Now;
                 check.DonGia = sp.DonGia;
                 check.SoLuongTon = sp.SoLuongTon;
                 check.MoTaNgan = sp.MoTaNgan;
@@ -321,8 +407,8 @@ namespace WebsiteBanHang.Controllers
                 check.loaiSanPham = sp.loaiSanPham;
                 check.MaNCC = sp.MaNCC;
                 db.SaveChanges();
-               
-                return RedirectToAction("XemSanPham", "Admin");
+
+                return Json(new { mess = "success", MaSP = sp.MaSP }, JsonRequestBehavior.AllowGet);
 
             }
             return View(sp);
@@ -736,6 +822,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult AddFlashSale()
         {
+            ViewBag.CurrentDay = DateTime.Now;
             List<FlashSale> listsale = db.FlashSales.ToList();
           
 
@@ -893,6 +980,24 @@ namespace WebsiteBanHang.Controllers
 
           
 
+        }
+
+        public ActionResult XemMatHang()
+        {
+            Shop shop = Session["CuaHang"] as Shop;
+            int? ma = shop.MaMatHang;
+            List<ChiTietMatHangKinhDoanh> list = db.ChiTietMatHangKinhDoanhs.Where(n=>n.MaMatHang == ma ).ToList();
+
+            return View(list);
+        }
+
+        public JsonResult NgungKD(int MaCT)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            ChiTietMatHangKinhDoanh ct = db.ChiTietMatHangKinhDoanhs.SingleOrDefault(n => n.MaCTMatHang == MaCT);
+            ct.NgungKD = true;
+            db.SaveChanges();
+            return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

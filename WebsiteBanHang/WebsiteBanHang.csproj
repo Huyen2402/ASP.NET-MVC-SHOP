@@ -343,6 +343,9 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShopGioHang.cs" />
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThanhVien.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -778,6 +781,7 @@
     <Content Include="Views\Admin\ContThemSP.cshtml" />
     <Content Include="Views\QuanTriVien\XemLSP.cshtml" />
     <Content Include="Views\DemoJQuery\Upload1.cshtml" />
+    <Content Include="Views\Admin\XemMatHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

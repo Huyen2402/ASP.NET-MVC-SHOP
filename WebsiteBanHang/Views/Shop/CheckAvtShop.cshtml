@@ -18,21 +18,23 @@
         <!--     End  header Content  -->
         <br>
         <div class="field-set" style="width: 360px">
-            <input type="hidden" name="MaShop" value="@MaShop" />
-            <!--   user name -->
-            <img style="max-width: 360px" id="preview-img" class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
-            <input  name="avt" class="form-input " id="hsp_tentaptin" type="file" required>
+        
+                <input type="hidden" name="MaShop" value="@MaShop" />
+                <!--   user name -->
+                <img style="max-width: 360px" id="preview-img" class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
+                <input name="HinhAnh" class="form-input " id="hsp_tentaptin" type="file" required>
 
 
 
-            <br>
+                <br>
 
-            <!--   Password -->
+                <!--   Password -->
 
-            <br>
-            <!--        buttons -->
-            <!--      button LogIn -->
-            <button style="margin-left:50px" id="btn-upavt" type="button" class="log-in mx-auto d-block"> Thêm ảnh </button>
+                <br>
+                <!--        buttons -->
+                <!--      button LogIn -->
+                <button style="margin-left:50px" id="btn-upavt" type="submit" class="log-in mx-auto d-block"> Thêm ảnh </button>
+           
         </div>
 
 
@@ -61,45 +63,65 @@
             reader.readAsDataURL(f);
         })
 
-        $("#btn-upavt").click(function (e) {
-         
-            // Checking whether FormData is available in browser
-            if (window.FormData !== undefined) {
-                var fileUpload = $("#hsp_tentaptin").get(0);
-                var files = fileUpload.files;
-                // Create FormData object
-                var fileData = new FormData();
-                // Looping over all files and add it to FormData object
-                for (var i = 0; i < files.length; i++) {
-                    fileData.append(files[i].name, files[i]);
-                }
-                // Adding one more key to FormData object
-                /* fileData.append('username', ‘Manas’);*/
+        $("form#form-UpAvt").submit(function (e) {
+            e.preventDefault();
+            console.log("hello")
+            var formData = new FormData(this);
+          
                 $.ajax({
-                    url: '/Shop/CheckAvtShop',
+                    url: "http://localhost:3000/users/",
                     type: "POST",
-                    contentType: false, // Not to set any content header
-                    processData: false, // Not to process data
-                    data: fileData,
-                    success: function (result) {
-                        Swal.fire(
-                            result,
-                            'Vui lòng chờ ban quản trị xác nhận thông tin cửa hàng!',
-                            'success'
-                        )
-                       
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        console.log(data.data.url)
+                        if (data.data.url.length > 0) {
+                            const url = data.data.url;
+                            $.ajax({
+                                url: "http://localhost:62979/Shop/UpAvt?url=" + url,
+                                type: "GET",
+                                
+                                success: function (data) {
+                                    console.log(data.mess)
+                                    if (data.mess == "success") {
+                                        Swal.fire({
+
+                                            icon: 'success',
+                                            title: 'Thêm thành công',
+                                            text: 'Ảnh đại diện của cửa hàng đã thêm thành công. Vui lòng chờ Admin xác nhận shop để có thể hoạt động nhé.',
+                                            showConfirmButton: true,
+
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = "http://localhost:62979/Admin/Index"
+                                            }
+                                        })
+                                      
+                                       
+                                    }
+                                    else {
+                                              Swal.fire(
+                                                  'Thất bại!',
+                                        'Vui lòng kiểm tra lại',
+                                        'error'
+                                    )
+                                    }
+
+
+                                   
+
+                                },
+                               
+                            });
+                        }
+
+                      
                     },
-                    error: function (err) {
-                        Swal.fire(
-                            result,
-                            'Vui lòng kiểm tra lại',
-                            'error'
-                        )
-                    }
+                   
                 });
-            } else {
-                alert("FormData is not supported.");
-            }
+           
         })
     </script>
 

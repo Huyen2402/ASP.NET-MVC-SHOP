@@ -124,7 +124,7 @@
                             <div class="flex items-center _34BHKe">
 
                                 <div class="flex items-center">
-                                    <div class="_2Shl1j">@GiaTien</div>
+                                    <div  data-GiaHienTai="@GiaTien" class="_2Shl1j">@GiaTien</div>
 
 
 
@@ -173,7 +173,7 @@
                                                 <div class="card">
                                                     <div class="card-body row">
                                                         <div class="col-3">
-                                                            <img class="img-responsive dot" src="@Url.Content(shop.avt)" alt="Alternate Text" />
+                                                            <img class="img-responsive dot" src="@Url.Content(shop.HinhAnh)" alt="Alternate Text" />
                                                         </div>
                                                         <div class="col-6">
                                                             <h5>Giảm @km.SoTien₫</h5>
@@ -256,7 +256,7 @@
 
         <div class="row card-shop ">
             <a href="@Url.Action("XemShop","Shop", new {@MaShop=shop.MaShop})" class="b-link-stripe b-animate-go col-2  thickbox">
-                <img class="img-responsive rounded-circle" src="@Url.Content(shop.avt)" alt="">
+                <img class="img-responsive rounded-circle" src="@Url.Content(shop.HinhAnh)" alt="">
 
             </a>
             <p style="font-size:20px" class="col-4 mx-auto d-block"><b>@shop.TenShop</b></p>

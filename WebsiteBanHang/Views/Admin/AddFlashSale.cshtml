@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "AddFlashSale";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    DateTime d = (DateTime)ViewBag.CurrentDay ;
 }
 
 <h2>Tạo Flash Sale</h2>
@@ -23,7 +24,11 @@
                     <option>--Chọn ngày sale--</option>
                     @foreach (var item in Model)
                     {
-                        <option value="@item.MaSale">@item.NgaySale</option>
+                        if (item.NgaySale.Value.Date >= d.Date && item.NgaySale.Value.Month >= d.Month && item.NgaySale.Value.Year >= d.Year)
+                        {
+                            <option value="@item.MaSale">@item.NgaySale</option>
+                        }
+
 
                     }
 

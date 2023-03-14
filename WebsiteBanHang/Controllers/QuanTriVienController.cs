@@ -95,7 +95,7 @@ namespace WebsiteBanHang.Controllers
                 }
             }
 
-            return Json("alo");
+            return Json("alo", JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult XetDuyetShop(int MaShop)

@@ -198,14 +198,37 @@ namespace WebsiteBanHang.Controllers
         }
         public ActionResult ViewAllFlashSale()
         {
-            List<ChiTietFlashSale> listspsale = db.ChiTietFlashSales.ToList();
-            List<SanPham> listSp = new List<SanPham>();
-            foreach(var item in listspsale)
+            DateTime CurrentDay = DateTime.Now;
+            //List<ChiTietFlashSale> listspsale = db.ChiTietFlashSales.ToList();
+            //List<SanPham> listSp = new List<SanPham>();
+            //foreach(var item in listspsale)
+            //{
+            //    SanPham sp = db.SanPhams.FirstOrDefault(n => n.MaSP == item.MaSP && n.DaXoa == false);
+            //    listSp.Add(sp);
+            //}
+            //return View(listSp);
+            List<SanPham> listSP = new List<SanPham>();
+
+            List<FlashSale> listFlash = db.FlashSales.ToList();
+            foreach (FlashSale flashSale in listFlash)
             {
-                SanPham sp = db.SanPhams.FirstOrDefault(n => n.MaSP == item.MaSP && n.DaXoa == false);
-                listSp.Add(sp);
+                if (flashSale.NgaySale.Value.Date == CurrentDay.Date && flashSale.NgaySale.Value.Month == CurrentDay.Month && flashSale.NgaySale.Value.Year == CurrentDay.Year)
+                {
+                    ViewBag.Day = flashSale;
+
+                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n => n.MaSale == flashSale.MaSale).ToList();
+                   
+                    for (var i = 0; i < list.Count(); i++)
+                    {
+                        int? MaSP = list[i].MaSP;
+                        SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                        listSP.Add(sp);
+
+                    }
+                   
+                }
             }
-            return View(listSp);
+            return View(listSP);
         }
         public ActionResult SanPhamTuongTuPartial(int MaLSP)
         {

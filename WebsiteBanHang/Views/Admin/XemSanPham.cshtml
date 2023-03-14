@@ -1,11 +1,12 @@
 ﻿
 @using WebsiteBanHang.Models;
-@model List<SanPham>
+@model List<ChiTietMatHangKinhDoanh>
 
 @{
     ViewBag.Title = "XemSanPham";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
     int i = 1;
+    List<SanPham> listCT = ViewBag.listCT as List<SanPham>;
 }
 
 @*@{ 
@@ -32,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in listCT)
         {
            
             <tr>
@@ -42,11 +43,27 @@
                 <img style="width:150px;"  src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
                 </td>
                 <td>
-                    <a class="btn btn-warning" href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })">Chỉnh Sửa</a>
-                   
-                    <a data-MaSP="@item.MaSP" id="x" 
-                        class="btn btn-danger x">Xoá</a>
-                        </td>
+                    @foreach (var m in Model)
+                    {
+                        if (item.MaLoaiSP == m.MaLSP)
+                        {
+                            if (m.NgungKD == true)
+                            {
+                                <p>Mặt hàng này ngưng kinh doanh</p>
+                            }
+                            else
+                            {
+                                <a class="btn btn-warning" href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })">Chỉnh Sửa</a>
+
+                                <a data-MaSP="@item.MaSP" id="x"
+                                   class="btn btn-danger x">Xoá</a>
+
+                            }
+                        }
+
+                    }
+
+                </td>
 
                     </tr>
             i++;
@@ -55,20 +72,7 @@
 
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên Sản Phẩm</th>
-                    <th>
-
-                        Hình Ảnh
-                    </th>
-                    <th>
-                        Thao Tác
-                    </th>
-
-                </tr>
-            </tfoot>
+           
         </table>
 
         <style>

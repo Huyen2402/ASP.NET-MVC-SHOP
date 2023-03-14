@@ -8,7 +8,7 @@
 
 
 
-@using (Html.BeginForm("SuaSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("SuaSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-edit" }))
 {
 
 
@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Tên Sản Phẩm</label>
-
+            <input type="hidden" name="name" id="MaSP" value="@Model.MaSP" />
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
 
@@ -66,7 +66,7 @@
             <label class="control-label col-md-2">Hình Ảnh Hiện Tại</label>
 
             <div class="col-md-10">
-                <img id="preview-img" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh" alt="Alternate Text" />
+                <img id="preview-img" style="width:150px;" src="@ViewBag.HinhAnh" alt="Alternate Text" />
 
 
             </div>
@@ -75,7 +75,7 @@
             <label class="control-label col-md-2">Hình Ảnh Mới</label>
 
             <div class="col-md-10">
-                <input id="hsp_tentaptin" type="file" name="HinhAnh" value="~/Content/images/@ViewBag.HinhAnh" />
+                <input  id="hsp_tentaptin" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
 
 
             </div>
@@ -84,7 +84,7 @@
             <label class="control-label col-md-2">Hình Ảnh 1 Hiện Tại</label>
 
             <div class="col-md-10">
-                <img id="preview-img1" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh1" alt="Alternate Text" />
+                <img id="preview-img1" style="width:150px;" src="@ViewBag.HinhAnh1" alt="Alternate Text" />
 
 
             </div>
@@ -95,7 +95,7 @@
             <div class="col-md-10">
 
 
-                <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="@ViewBag.HinhAnh1" />
 
 
             </div>
@@ -105,7 +105,7 @@
             <label class="control-label col-md-2">Hình Ảnh 2 Hiện Tại</label>
 
             <div class="col-md-10">
-                <img id="preview-img2" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh2" alt="Alternate Text" />
+                <img id="preview-img2" style="width:150px;" src="@ViewBag.HinhAnh2" alt="Alternate Text" />
 
 
             </div>
@@ -115,7 +115,7 @@
             <label class="control-label col-md-2">Hình Ảnh 2 Mới</label>
 
             <div class="col-md-10">
-                <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="@ViewBag.HinhAnh2" />
 
 
             </div>
@@ -125,7 +125,7 @@
             <label class="control-label col-md-2">Hình Ảnh 3 Hiện Tại</label>
 
             <div class="col-md-10">
-                <img id="preview-img3" style="width:150px;" src="~/Content/images/@ViewBag.HinhAnh3" alt="Alternate Text" />
+                <img id="preview-img3" style="width:150px;" src="@ViewBag.HinhAnh3" alt="Alternate Text" />
 
 
             </div>
@@ -134,7 +134,7 @@
             <label class="control-label col-md-2">Hình Ảnh 3 Mới</label>
 
             <div class="col-md-10">
-                <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
+                <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="@ViewBag.HinhAnh3" />
 
 
             </div>
@@ -240,11 +240,11 @@
                 </div>
             }
         </div>
-        <button style="float:right" id="btn-size" class="btn"><i class="fa-solid fa-plus"></i></button>
+        <button type="button" style="float:right" id="btn-size" class="btn"><i class="fa-solid fa-plus"></i></button>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Chỉnh Sửa" class="btn btn-default" />
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -254,7 +254,7 @@
         $("#datepicker").datepicker();
     });
 </script>
-}
+
 
 <script>
     $("#btn-size").click(function () {
@@ -273,7 +273,7 @@
             '  </div>' +
             ' </div>'
         )
-        $(this).focus();
+       
     })
     tinymce.init({
 
@@ -300,6 +300,7 @@
 </script>
 
 <script>
+    $(document).ready(function () {
     // Hiển thị ảnh preview (xem trước) khi người dùng chọn Ảnh
 
     //hình 1
@@ -351,6 +352,179 @@
         const f3 = e.target.files[0];
         reader3.readAsDataURL(f3);
     })
+   
+   
+
+
+        var a = new Array();
+        $("#hsp_tentaptin").change(function () {
+            a[0] = 1
+            console.log(a)
+        })
+        a[0] = 0
+        console.log(a)
+        $("#hsp_tentaptin1").change(function () {
+            a[1] = 2
+            console.log(a)
+        })
+        a[1] = 0
+        console.log(a)
+        $("#hsp_tentaptin2").change(function () {
+            a[2] = 3
+            console.log(a)
+        })
+        a[2] = 0
+        console.log(a)
+        $("#hsp_tentaptin3").change(function () {
+            a[3] = 4
+            console.log(a)
+        })
+        a[3] = 0
+        console.log(a)
+        $('form#form-edit').submit(function (e) {
+            /* const TenLoai = $("#TenLoai").val();*/
+
+            e.preventDefault();
+            //const TenSP = $("#TenSP").val();
+            //const Gia = $("#Gia").val();
+            //const MoTaNgan = $("#MoTaNgan").val();
+            //const mytextarea = $("mytextarea").val();
+            var formData = new FormData(this);
+            var form = $(this);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/Admin/SuaSanPham1",
+                data: form.serialize(), // serializes the form's elements.
+
+                success: function (dataT) {
+                    const MaSP = dataT.MaSP;
+                    console.log(dataT) // show response from the php script.
+                    if (dataT.mess == "success") {
+                        //$.ajax({
+                        //    type: "GET",
+                        //    url: "http://localhost:62979/Admin/GetAllImg?MaSP=" + MaSP,
+                           
+
+                        //    success: function (datas) {
+
+                        //        console.log("data", datas) // show response from the php script.
+                               
+                        //        /*  window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP*/
+
+
+                        //    }
+                        //});
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:3000/users/",
+                            data: formData, // serializes the form's elements.
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                               
+                                if (data.status == true) {
+                                    let acc = [];
+                                    if (Array.isArray(data.data.url)) {
+                                        console.log("day la mang")
+                                        data.data.url.forEach(i => console.log(i))
+                                        for (var k = 0; k < data.data.url.length; k++) {
+                                            acc.push(data.data.url[k]);
+                                        }
+
+                                        //console.log(test) // show response from the php script.
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://localhost:62979/Admin/EditSaveAsImg",
+                                            data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
+
+                                            success: function (dataT) {
+
+                                                console.log(dataT) // show response from the php script.
+                                                if (dataT.mess == "success") {
+                                                    Swal.fire({
+
+                                                        icon: 'success',
+                                                        title: 'Thành công',
+                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
+                                                        showConfirmButton: true,
+
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                                                        }
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+
+                                                        icon: 'error',
+                                                        title: 'Xảy ra lỗi',
+                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                                        showConfirmButton: true,
+
+                                                    })
+                                                }
+
+                                            }
+                                        });
+
+                                    }
+                                    else {
+                                        console.log("khong la mang")
+                                        console.log(data.data.url) 
+                                        let acc = [];
+                                        acc.push(data.data.url)
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://localhost:62979/Admin/EditSaveAsImg",
+                                            data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
+
+                                            success: function (dataT) {
+                                                console.log(dataT) // show response from the php script.
+                                                if (dataT.mess == "success") {
+                                                    Swal.fire({
+
+                                                        icon: 'success',
+                                                        title: 'Thành công',
+                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
+                                                        showConfirmButton: true,
+
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                                                        }
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+
+                                                        icon: 'error',
+                                                        title: 'Xảy ra lỗi',
+                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                                        showConfirmButton: true,
+
+                                                    })
+                                                }
+                                               
+                                               
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+
+
+
+                }
+            });
+
+        });
+    });
 </script>
 
 <script>

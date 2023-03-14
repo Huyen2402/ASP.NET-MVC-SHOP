@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "ViewAllFlashSale";
     Layout = "~/Views/Layout/SearchLayout.cshtml";
+  
 }
 
 
@@ -23,16 +24,17 @@
         <div id="product-shop" class=" row bottom-product">
             @foreach (var item in Model)
             {
+                
 
-                decimal? number = item.DonGia;
-                string GiaTien = number.Value.ToString("#,##0");
-                string Giacuoicung = (item.DonGia - (item.DonGia * item.KhuyenMai) / 100).Value.ToString("#,##0");
+                    decimal? number = item.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                    string Giacuoicung = (item.DonGia - (item.DonGia * item.KhuyenMai) / 100).Value.ToString("#,##0");
 
                 <div class="col-md-3 bottom-cd simpleCart_shelfItem">
 
                    
                     <div class="product-at ">
-                        <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                        <a href="@Url.Action("XemChiTietSP", "SanPham", new { @id = item.MaSP, @MaShop = item.MaShop })">
                             <div class="S-product-item__wrapper-upper-left">
                                 <div role="contentinfo" class="wrapper-upper-left__flashsale notranslate" tabindex="-1" data-ada-level="0" data-ada-pos="0-0">
 
@@ -66,7 +68,7 @@
 
                 </div>
 
-
+                
 
 
             }

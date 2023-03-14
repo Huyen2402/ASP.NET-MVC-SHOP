@@ -68,6 +68,7 @@
           <Property Name="MaMatHang" Type="int" />
           <Property Name="TenLSP" Type="nvarchar" MaxLength="500" />
           <Property Name="MaLSP" Type="int" />
+          <Property Name="NgungKD" Type="bit" />
         </EntityType>
         <EntityType Name="DiaChi">
           <Key>
@@ -227,7 +228,7 @@
           <Property Name="MaShop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenShop" Type="varchar" MaxLength="255" />
           <Property Name="NgayTao" Type="datetime" />
-          <Property Name="avt" Type="nvarchar(max)" />
+          <Property Name="HinhAnh" Type="nvarchar(max)" />
           <Property Name="TaiKhoan" Type="nvarchar" MaxLength="500" />
           <Property Name="Pass" Type="nvarchar" MaxLength="500" />
           <Property Name="MaTinh" Type="int" />
@@ -240,6 +241,16 @@
           <Property Name="MaMatHang" Type="int" />
           <Property Name="ChuSoHuu" Type="nvarchar" MaxLength="500" />
           <Property Name="DaKhoa" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
@@ -841,6 +852,7 @@
           <EntitySet Name="NhaSanXuat" EntityType="Self.NhaSanXuat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tinh" EntityType="Self.Tinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="Self.TinhTrangGiaoHang" Schema="dbo" store:Type="Tables" />
@@ -1045,6 +1057,7 @@
           <EntitySet Name="NhaSanXuat" EntityType="QuanLyBanHangModel.NhaSanXuat" />
           <EntitySet Name="SanPham" EntityType="QuanLyBanHangModel.SanPham" />
           <EntitySet Name="Shop" EntityType="QuanLyBanHangModel.Shop" />
+          <EntitySet Name="sysdiagrams" EntityType="QuanLyBanHangModel.sysdiagrams" />
           <EntitySet Name="ThanhVien" EntityType="QuanLyBanHangModel.ThanhVien" />
           <EntitySet Name="Tinh" EntityType="QuanLyBanHangModel.Tinh" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="QuanLyBanHangModel.TinhTrangGiaoHang" />
@@ -1302,6 +1315,7 @@
           <Property Name="MaMatHang" Type="Int32" />
           <Property Name="TenLSP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MaLSP" Type="Int32" />
+          <Property Name="NgungKD" Type="Boolean" />
           <NavigationProperty Name="loaiSanPham" Relationship="QuanLyBanHangModel.FK__ChiTietMa__MaLSP__457FFB35" FromRole="ChiTietMatHangKinhDoanh" ToRole="loaiSanPham" />
           <NavigationProperty Name="MatHangKinhDoanh" Relationship="QuanLyBanHangModel.FK__ChiTietMa__MaMat__42A38E8A" FromRole="ChiTietMatHangKinhDoanh" ToRole="MatHangKinhDoanh" />
         </EntityType>
@@ -1501,7 +1515,7 @@
           <Property Name="MaShop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenShop" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <Property Name="avt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TaiKhoan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Pass" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MaTinh" Type="Int32" />
@@ -1522,6 +1536,16 @@
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK__Shop__MaTinh__7F36D027" FromRole="Shop" ToRole="Tinh" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.FK__Shop__MaXa__011F1899" FromRole="Shop" ToRole="Xa" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
@@ -2194,6 +2218,7 @@
           <EntitySetMapping Name="ChiTietMatHangKinhDoanh">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietMatHangKinhDoanh">
               <MappingFragment StoreEntitySet="ChiTietMatHangKinhDoanh">
+                <ScalarProperty Name="NgungKD" ColumnName="NgungKD" />
                 <ScalarProperty Name="MaLSP" ColumnName="MaLSP" />
                 <ScalarProperty Name="TenLSP" ColumnName="TenLSP" />
                 <ScalarProperty Name="MaMatHang" ColumnName="MaMatHang" />
@@ -2380,10 +2405,21 @@
                 <ScalarProperty Name="MaTinh" ColumnName="MaTinh" />
                 <ScalarProperty Name="Pass" ColumnName="Pass" />
                 <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
-                <ScalarProperty Name="avt" ColumnName="avt" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenShop" ColumnName="TenShop" />
                 <ScalarProperty Name="MaShop" ColumnName="MaShop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLyBanHangModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

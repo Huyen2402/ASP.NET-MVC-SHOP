@@ -26,7 +26,7 @@ namespace WebsiteBanHang.Models
         public int MaShop { get; set; }
         public string TenShop { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
-        public string avt { get; set; }
+        public string HinhAnh { get; set; }
         public string TaiKhoan { get; set; }
         public string Pass { get; set; }
         public Nullable<int> MaTinh { get; set; }

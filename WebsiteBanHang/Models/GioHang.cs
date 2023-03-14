@@ -75,7 +75,7 @@ namespace WebsiteBanHang.Models
                 this.SoLuong = 1;
                 this.MaShop = (int)sp.MaShop;
                 this.TenShop = sp.Shop.TenShop;
-                this.ThanhTien = Dongia * SoLuong;
+                this.ThanhTien = GiaHienTai * SoLuong;
             }
 
 
