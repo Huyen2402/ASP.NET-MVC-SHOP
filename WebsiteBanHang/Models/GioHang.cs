@@ -18,7 +18,8 @@ namespace WebsiteBanHang.Models
         public decimal GiaHienTai { get; set; }
         public int MaShop { get; set; }
         public string TenShop { get; set; }
-        public GioHang (int MaSP, int sl, int Gia)
+        public KichCo KichCo { get; set; }
+        public GioHang (int MaSP, int sl, decimal Gia, int MaKichCo)
         {
             using (Entities db = new Entities()) 
             {
@@ -32,6 +33,8 @@ namespace WebsiteBanHang.Models
                 this.SoLuong = sl;
                 this.MaShop = (int)sp.MaShop;
                 this.ThanhTien = GiaHienTai * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n => n.MaKichCo == MaKichCo);
+                this.KichCo = kc;
             }
 
             
@@ -39,7 +42,7 @@ namespace WebsiteBanHang.Models
 
 
         }
-        public GioHang(int MaSP, int? MaShop, decimal Gia)
+        public GioHang(int MaSP, int? MaShop, decimal Gia, int MaKichCo)
         {
             using (Entities db = new Entities())
             {
@@ -53,6 +56,8 @@ namespace WebsiteBanHang.Models
                 this.TenShop = sp.Shop.TenShop;
                 this.SoLuong = 1;
                 this.ThanhTien = Dongia * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n => n.MaKichCo == MaKichCo);
+                this.KichCo = kc;
             } 
         }
         
@@ -61,7 +66,7 @@ namespace WebsiteBanHang.Models
 
         }
 
-        public GioHang(int MaSP, decimal Gia)
+        public GioHang(int MaSP, decimal Gia, int MaKichCo)
         {
             using (Entities db = new Entities())
             {
@@ -76,6 +81,8 @@ namespace WebsiteBanHang.Models
                 this.MaShop = (int)sp.MaShop;
                 this.TenShop = sp.Shop.TenShop;
                 this.ThanhTien = GiaHienTai * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n=>n.MaKichCo== MaKichCo);
+                this.KichCo = kc;
             }
 
 

@@ -28,13 +28,13 @@
 
                     <div class="cart-sec simpleCart_shelfItem">
                         <div class="cart-item cyc">
-                            <img src="@Url.Content("~/Content/images/"+sp.HinhAnh)" class="img-responsive" alt="">
+                            <img src="@Url.Content(sp.HinhAnh)" class="img-responsive" alt="">
                         </div>
                         <div class="cart-item-info">
-                            <h3><a href="#">@sp.TenSP</a><span>Số lượng: @sp.SoLuong</span></h3>
-
+                            <h3><a href="#">@sp.TenSP</a><span>Số lượng: @sp.SoLuong</span><span>Model No: @sp.KichCo.Ten</span></h3>
+                           
                             @{
-                                decimal? number = sp.Dongia;
+                                decimal? number = sp.ThanhTien;
                                 string GiaTien = number.Value.ToString("#,##0");
                             }
                             <div class="delivery">
@@ -83,7 +83,7 @@
     <div>
         <p>
             Tổng số tiền (@listSP.Count sản phẩm):
-            ₫141.500
+            <b style="font-size:15px">  ₫ @ViewBag.TongTien</b>
         </p>
     </div>
     <hr />

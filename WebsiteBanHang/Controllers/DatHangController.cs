@@ -78,7 +78,10 @@ namespace WebsiteBanHang.Controllers
                                 if (listGioHang[i].MaShop == dh.MaShop)
                                 {
                                     ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
+                                    int makc = listGioHang[i].KichCo.MaKichCo;
+                                    KichCo k = db.KichCos.SingleOrDefault(n=>n.MaKichCo == makc);
+                                    ct.MaKichCo = listGioHang[i].KichCo.MaKichCo;
+                                    k.SL -= listGioHang[i].SoLuong;
                                     ct.MaDDH = ddh.MaDDH;
                                     ct.DaDanhGia = false;
                                     ct.MaSP = listGioHang[i].MaSP;
@@ -86,6 +89,8 @@ namespace WebsiteBanHang.Controllers
                                     ct.TenSP = listGioHang[i].TenSP;
                                     ct.SoLuong = listGioHang[i].SoLuong;
                                     ct.DonGia = listGioHang[i].Dongia;
+                                   
+                                    
                                     TongTien += listGioHang[i].SoLuong * listGioHang[i].Dongia;
                                     TongTienThucTe += listGioHang[i].SoLuong * listGioHang[i].GiaHienTai;
                                     db.ChiTietDonDatHangs.Add(ct);
@@ -269,7 +274,11 @@ namespace WebsiteBanHang.Controllers
                                 if (listGioHang[i].MaShop == dh.MaShop)
                                 {
                                     ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
+                                    int makc = listGioHang[i].KichCo.MaKichCo;
+                                    KichCo k = db.KichCos.SingleOrDefault(n => n.MaKichCo == makc);
+                                   
+                                    ct.MaKichCo = listGioHang[i].KichCo.MaKichCo;
+                                    k.SL -= listGioHang[i].SoLuong;
                                     ct.MaDDH = ddh.MaDDH;
                                     ct.DaDanhGia = false;
                                     ct.MaSP = listGioHang[i].MaSP;
@@ -508,7 +517,11 @@ namespace WebsiteBanHang.Controllers
                         for (var i = 0; i < listGioHang.Count(); i++)
                         {
                             ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
+                            int makc = listGioHang[i].KichCo.MaKichCo;
+                            KichCo k = db.KichCos.SingleOrDefault(n => n.MaKichCo == makc);
+                           
+                            ct.MaKichCo = listGioHang[i].KichCo.MaKichCo;
+                            k.SL -= listGioHang[i].SoLuong;
                             ct.MaDDH = ddh.MaDDH;
 
                             ct.MaSP = listGioHang[i].MaSP;
@@ -619,9 +632,13 @@ namespace WebsiteBanHang.Controllers
                                 for (var i = 0; i < listGioHang.Count(); i++)
                                 {
                                     ChiTietDonDatHang ct = new ChiTietDonDatHang();
-
+                                    int makc = listGioHang[i].KichCo.MaKichCo;
+                                    KichCo k = db.KichCos.SingleOrDefault(n=>n.MaKichCo == makc);   
+                                   
+                                    k.SL = k.SL - listGioHang[i].SoLuong;
+                                   
                                     ct.MaDDH = ddh.MaDDH;
-
+                                    ct.MaKichCo = listGioHang[i].KichCo.MaKichCo;
                                     ct.MaSP = listGioHang[i].MaSP;
                                     ct.TenSP = listGioHang[i].TenSP;
                                     ct.SoLuong = listGioHang[i].SoLuong;
@@ -669,7 +686,17 @@ namespace WebsiteBanHang.Controllers
 
             return View();
         }
+        public decimal TongTien()
+        {
+            List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
+            if (listGioHang == null)
+            {
+                return 0;
+            }
+            decimal TongDonGia = listGioHang.Sum(n => n.ThanhTien);
+            return TongDonGia;
 
+        }
         public ActionResult MuaHang(int id, decimal ThanhTien, int MaShop, int? MaCTGiamGia)
         {
            
@@ -689,6 +716,7 @@ namespace WebsiteBanHang.Controllers
                     }
                 }
                 ViewBag.listSP = listSP;
+                ViewBag.TongTien = TongTien();
                 return View(shop);
             }
             else
@@ -705,6 +733,7 @@ namespace WebsiteBanHang.Controllers
                         listSP.Add(listSPGioHang[i]);
                     }
                 }
+                ViewBag.TongTien = TongTien();
                 ViewBag.listSP = listSP;
                 return View(shop);
             }

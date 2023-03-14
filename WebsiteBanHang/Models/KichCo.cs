@@ -14,11 +14,19 @@ namespace WebsiteBanHang.Models
     
     public partial class KichCo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public KichCo()
+        {
+            this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
+        }
+    
         public int MaKichCo { get; set; }
         public string Ten { get; set; }
         public Nullable<int> MaSP { get; set; }
         public Nullable<int> SL { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
         public virtual SanPham SanPham { get; set; }
     }
 }

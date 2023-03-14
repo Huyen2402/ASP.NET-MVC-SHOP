@@ -62,7 +62,7 @@ namespace WebsiteBanHang.Controllers
             return listGioHang;
         }
        
-        public ActionResult ThemGioHang(int? MaSP, decimal Gia)
+        public ActionResult ThemGioHang(int? MaSP, decimal Gia, int MaKichCo)
         {
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
             if (sp == null)
@@ -92,7 +92,7 @@ namespace WebsiteBanHang.Controllers
                     else
                     {
 
-                        GioHang newgh = new GioHang((int)MaSP, Gia);
+                        GioHang newgh = new GioHang((int)MaSP, Gia, MaKichCo);
                         if (newgh.SoLuong < sp.SoLuongTon)
                         {
                             //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó
@@ -113,7 +113,7 @@ namespace WebsiteBanHang.Controllers
                 else
                 {
                     listGioHang = new List<GioHang>();
-                    GioHang newgh = new GioHang((int)MaSP, Gia);
+                    GioHang newgh = new GioHang((int)MaSP, Gia, MaKichCo);
                     if (newgh.SoLuong < sp.SoLuongTon)
                     {
                         //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó

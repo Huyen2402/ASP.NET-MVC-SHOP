@@ -41,7 +41,7 @@
                             <img src="@Url.Content(sp.HinhAnh)" class="img-responsive" alt="">
                         </div>
                         <div class="cart-item-info">
-                            <h3><a href="#">@sp.TenSP</a><span>Model No: 3578</span></h3>
+                            <h3><a href="#">@sp.TenSP</a><span>Model No: @sp.KichCo.Ten</span></h3>
                             <ul class="qty">
                                 <li id="li_xemGH"><p>Số lượng: </p></li>
                                 <a id="ThemSL" data-MaSP="@sp.MaSP" data-slthem="@sp.SoLuong" class="btn sl slthem" @*href="@Url.Action("ThemSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>+</a>

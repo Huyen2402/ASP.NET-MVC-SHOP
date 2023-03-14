@@ -41,6 +41,7 @@
           <Property Name="MaChiTietDDH1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DaDanhGia" Type="bit" />
           <Property Name="GiaHienTai" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaKichCo" Type="int" />
         </EntityType>
         <EntityType Name="ChiTietFlashSale">
           <Key>
@@ -242,16 +243,6 @@
           <Property Name="ChuSoHuu" Type="nvarchar" MaxLength="500" />
           <Property Name="DaKhoa" Type="bit" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
             <PropertyRef Name="MaThanhVien" />
@@ -344,6 +335,18 @@
             </Principal>
             <Dependent Role="ChatwithShop">
               <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietDo__MaKic__000FBCD9">
+          <End Role="KichCo" Type="Self.KichCo" Multiplicity="0..1" />
+          <End Role="ChiTietDonDatHang" Type="Self.ChiTietDonDatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KichCo">
+              <PropertyRef Name="MaKichCo" />
+            </Principal>
+            <Dependent Role="ChiTietDonDatHang">
+              <PropertyRef Name="MaKichCo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -852,7 +855,6 @@
           <EntitySet Name="NhaSanXuat" EntityType="Self.NhaSanXuat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhVien" EntityType="Self.ThanhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tinh" EntityType="Self.Tinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="Self.TinhTrangGiaoHang" Schema="dbo" store:Type="Tables" />
@@ -870,6 +872,10 @@
           <AssociationSet Name="FK__ChatwithS__MaTha__1586CF50" Association="Self.FK__ChatwithS__MaTha__1586CF50">
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="ChatwithShop" EntitySet="ChatwithShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietDo__MaKic__000FBCD9" Association="Self.FK__ChiTietDo__MaKic__000FBCD9">
+            <End Role="KichCo" EntitySet="KichCo" />
+            <End Role="ChiTietDonDatHang" EntitySet="ChiTietDonDatHang" />
           </AssociationSet>
           <AssociationSet Name="FK__ChiTietFl__MaSal__19232161" Association="Self.FK__ChiTietFl__MaSal__19232161">
             <End Role="FlashSale" EntitySet="FlashSale" />
@@ -1057,7 +1063,6 @@
           <EntitySet Name="NhaSanXuat" EntityType="QuanLyBanHangModel.NhaSanXuat" />
           <EntitySet Name="SanPham" EntityType="QuanLyBanHangModel.SanPham" />
           <EntitySet Name="Shop" EntityType="QuanLyBanHangModel.Shop" />
-          <EntitySet Name="sysdiagrams" EntityType="QuanLyBanHangModel.sysdiagrams" />
           <EntitySet Name="ThanhVien" EntityType="QuanLyBanHangModel.ThanhVien" />
           <EntitySet Name="Tinh" EntityType="QuanLyBanHangModel.Tinh" />
           <EntitySet Name="TinhTrangGiaoHang" EntityType="QuanLyBanHangModel.TinhTrangGiaoHang" />
@@ -1083,6 +1088,10 @@
           <AssociationSet Name="FK__ChatwithS__MaTha__1586CF50" Association="QuanLyBanHangModel.FK__ChatwithS__MaTha__1586CF50">
             <End Role="ThanhVien" EntitySet="ThanhVien" />
             <End Role="ChatwithShop" EntitySet="ChatwithShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietDo__MaKic__000FBCD9" Association="QuanLyBanHangModel.FK__ChiTietDo__MaKic__000FBCD9">
+            <End Role="KichCo" EntitySet="KichCo" />
+            <End Role="ChiTietDonDatHang" EntitySet="ChiTietDonDatHang" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietDonDatHang_SanPham" Association="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -1278,7 +1287,9 @@
           <Property Name="MaChiTietDDH1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DaDanhGia" Type="Boolean" />
           <Property Name="GiaHienTai" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaKichCo" Type="Int32" />
           <NavigationProperty Name="BinhLuan" Relationship="QuanLyBanHangModel.FK__BinhLuan__MaCTDD__4A0EDAD1" FromRole="ChiTietDonDatHang" ToRole="BinhLuan" />
+          <NavigationProperty Name="KichCo" Relationship="QuanLyBanHangModel.FK__ChiTietDo__MaKic__000FBCD9" FromRole="ChiTietDonDatHang" ToRole="KichCo" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHang_SanPham" FromRole="ChiTietDonDatHang" ToRole="SanPham" />
           <NavigationProperty Name="DonDatHang" Relationship="QuanLyBanHangModel.FK_ChiTietDonDatHangtoDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
           <NavigationProperty Name="DonDatHang1" Relationship="QuanLyBanHangModel.FK_DonDatHang_ChiTietDonDatHang" FromRole="ChiTietDonDatHang" ToRole="DonDatHang" />
@@ -1421,6 +1432,7 @@
           <Property Name="Ten" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MaSP" Type="Int32" />
           <Property Name="SL" Type="Int32" />
+          <NavigationProperty Name="ChiTietDonDatHang" Relationship="QuanLyBanHangModel.FK__ChiTietDo__MaKic__000FBCD9" FromRole="KichCo" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK__KichCo__MaSP__08038257" FromRole="KichCo" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="loaiSanPham">
@@ -1536,16 +1548,6 @@
           <NavigationProperty Name="SanPham" Relationship="QuanLyBanHangModel.FK_SanPham_Shop" FromRole="Shop" ToRole="SanPham" />
           <NavigationProperty Name="Tinh" Relationship="QuanLyBanHangModel.FK__Shop__MaTinh__7F36D027" FromRole="Shop" ToRole="Tinh" />
           <NavigationProperty Name="Xa" Relationship="QuanLyBanHangModel.FK__Shop__MaXa__011F1899" FromRole="Shop" ToRole="Xa" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="ThanhVien">
           <Key>
@@ -1686,6 +1688,18 @@
             </Principal>
             <Dependent Role="ChatwithShop">
               <PropertyRef Name="MaThanhVien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietDo__MaKic__000FBCD9">
+          <End Type="QuanLyBanHangModel.KichCo" Role="KichCo" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.ChiTietDonDatHang" Role="ChiTietDonDatHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KichCo">
+              <PropertyRef Name="MaKichCo" />
+            </Principal>
+            <Dependent Role="ChiTietDonDatHang">
+              <PropertyRef Name="MaKichCo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2184,6 +2198,7 @@
           <EntitySetMapping Name="ChiTietDonDatHang">
             <EntityTypeMapping TypeName="QuanLyBanHangModel.ChiTietDonDatHang">
               <MappingFragment StoreEntitySet="ChiTietDonDatHang">
+                <ScalarProperty Name="MaKichCo" ColumnName="MaKichCo" />
                 <ScalarProperty Name="GiaHienTai" ColumnName="GiaHienTai" />
                 <ScalarProperty Name="DaDanhGia" ColumnName="DaDanhGia" />
                 <ScalarProperty Name="MaChiTietDDH1" ColumnName="MaChiTietDDH1" />
@@ -2409,17 +2424,6 @@
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="TenShop" ColumnName="TenShop" />
                 <ScalarProperty Name="MaShop" ColumnName="MaShop" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QuanLyBanHangModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
