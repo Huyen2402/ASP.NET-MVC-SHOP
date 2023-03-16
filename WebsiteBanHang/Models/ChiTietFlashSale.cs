@@ -18,6 +18,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaSale { get; set; }
         public Nullable<int> MaSP { get; set; }
         public Nullable<int> MaShop { get; set; }
+        public Nullable<bool> NgungSale { get; set; }
     
         public virtual FlashSale FlashSale { get; set; }
         public virtual Shop Shop { get; set; }

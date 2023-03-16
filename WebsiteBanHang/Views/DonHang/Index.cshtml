@@ -56,7 +56,7 @@
 
 
                     <td style="width:300px">
-                        <a data-idDDh="@item.MaDDH" href="@Url.Action("XemChiTietDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary XemChiTiet">Xem Chi Tiết</a>
+                        <a data-idDDh="@item.MaDDH" href="@Url.Action("XemChiTietDH","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary XemChiTiet">Xem Chi Tiết</a>
                         <a data-idDDh="@item.MaDDH" @*href="@Url.Action("HuyDonHang","DonHang", new { @MaDDH = item.MaDDH })"*@ class="btn btn-danger HuyDonHang">Huỷ Đơn</a>
                     </td>
 

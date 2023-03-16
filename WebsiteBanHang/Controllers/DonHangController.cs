@@ -94,7 +94,18 @@ namespace WebsiteBanHang.Controllers
             
             return View(ctddh);
         }
+        public ActionResult XemChiTietDH(string MaDDH)
+        {
 
+            List<ChiTietDonDatHang> ctddh = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+            DonDatHang ddh  = db.DonDatHangs.SingleOrDefault(n=>n.MaDDH == MaDDH);
+            ChiTietDonDatHang c = db.ChiTietDonDatHangs.First(n => n.MaDDH == MaDDH);
+            KichCo k = db.KichCos.First(n => n.MaSP == c.MaSP);
+            ViewBag.k = k.Ten;
+            ViewBag.MaDDH = MaDDH;
+
+            return View(ctddh);
+        }
         public JsonResult evaluateProduct( int MaCTDDH, string comment, int start)
         {
 
