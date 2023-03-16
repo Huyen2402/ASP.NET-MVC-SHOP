@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -859,6 +860,7 @@ namespace WebsiteBanHang.Controllers
                     ct.MaSP = arr[i];
                     ct.MaSale = MaSale;
                     ct.MaShop = shop.MaShop;
+                    ct.NgungSale = false;
                     db.ChiTietFlashSales.Add(ct);
                     db.SaveChanges();
 
@@ -987,10 +989,38 @@ namespace WebsiteBanHang.Controllers
             Shop shop = Session["CuaHang"] as Shop;
             int? ma = shop.MaMatHang;
             List<ChiTietMatHangKinhDoanh> list = db.ChiTietMatHangKinhDoanhs.Where(n=>n.MaMatHang == ma ).ToList();
-
+            List<loaiSanPham> LSP = db.loaiSanPhams.Where(n => n.DaXoa == false).ToList();
+            ViewBag.LSP = LSP;
             return View(list);
         }
+        public JsonResult ThemMatHang(int MaLSP)
+        {
+           
+            Shop shop = Session["CuaHang"] as Shop;
+            int? ma = shop.MaMatHang;
+            List<ChiTietMatHangKinhDoanh> hi = db.ChiTietMatHangKinhDoanhs.Where(n => n.MaMatHang == shop.MaMatHang).ToList();
+            ChiTietMatHangKinhDoanh[] a = hi.ToArray();
+            for(int i=0; i< a.Length; i++)
+            {
+                if (hi[i].MaLSP == MaLSP)
+                {
+                    return Json(new { data = "duplicate" }, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            ChiTietMatHangKinhDoanh c = new ChiTietMatHangKinhDoanh();
+                c.MaMatHang = shop.MaMatHang;
+                c.MaLSP = MaLSP;
+                c.NgungKD = false;
+                db.ChiTietMatHangKinhDoanhs.Add(c);
+                db.SaveChanges();
+                List<ChiTietMatHangKinhDoanh> list = db.ChiTietMatHangKinhDoanhs.Where(n => n.MaMatHang == ma).ToList();
 
+                return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+            
+            return Json(null, JsonRequestBehavior.AllowGet);
+
+        }
         public JsonResult NgungKD(int MaCT)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -998,6 +1028,70 @@ namespace WebsiteBanHang.Controllers
             ct.NgungKD = true;
             db.SaveChanges();
             return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult XemSPFlashSale()
+        {
+            DateTime t = DateTime.Now;
+            Shop shop = Session["CuaHang"] as Shop;
+            List<ChiTietFlashSale> ct = db.ChiTietFlashSales.Where(n => n.MaShop == shop.MaShop && n.NgungSale == false).ToList();
+            List<ChiTietFlashSale> send = new List<ChiTietFlashSale>();
+            //FlashSale f = db.FlashSales.SingleOrDefault(n => n.MaSale == ct[0].MaSale);
+            foreach(var item in ct)
+            {
+                if (item.FlashSale.NgaySale.Value.Date == t.Date && item.FlashSale.NgaySale.Value.Month == t.Month && item.FlashSale.NgaySale.Value.Year == t.Year)
+                {
+                    send.Add(item);
+                }
+            }
+           
+            return View(send);
+        }
+        public JsonResult NgungSale(int MaCTSale)
+        {
+            ChiTietFlashSale ct = db.ChiTietFlashSales.SingleOrDefault(n => n.MaChiTietSale == MaCTSale);
+            if(ct != null)
+            {
+                ct.NgungSale = true;
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { mess = "faild" }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+        public ActionResult SaleFuture()
+        {
+            DateTime t = DateTime.Now;
+            Shop shop = Session["CuaHang"] as Shop;
+            List<ChiTietFlashSale> ct = db.ChiTietFlashSales.Where(n => n.MaShop == shop.MaShop && n.NgungSale == false).ToList();
+            List<ChiTietFlashSale> send = new List<ChiTietFlashSale>();
+            //FlashSale f = db.FlashSales.SingleOrDefault(n => n.MaSale == ct[0].MaSale);
+            foreach (var item in ct)
+            {
+                if (item.FlashSale.NgaySale.Value.Date > t.Date  && item.FlashSale.NgaySale.Value.Month >= t.Month && item.FlashSale.NgaySale.Value.Year >= t.Year)
+                {
+                    send.Add(item);
+                }
+            }
+
+            return View(send);
+        }
+        public JsonResult XoaSale(int MaCTSale)
+        {
+            ChiTietFlashSale ct = db.ChiTietFlashSales.SingleOrDefault(n => n.MaChiTietSale == MaCTSale);
+            if (ct != null)
+            {
+                db.ChiTietFlashSales.Remove(ct);
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { mess = "faild" }, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

@@ -1,0 +1,115 @@
+﻿@using WebsiteBanHang.Models
+@model List<ChiTietFlashSale>
+@{
+    ViewBag.Title = "XemSPFlashSale";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
+}
+
+<h2>Xem Sản Phẩm Flash Sale</h2>
+<a href="@Url.Action("XemSPFlashSale", "Admin")" class="active btn btn-outline-dark">Sale Hôm Nay</a>
+
+<a href="@Url.Action("SaleFuture", "Admin")" class="btn btn-outline-dark">Sắp Sale</a>
+@if (Model.Count > 0)
+{
+    <table id="example" class="table table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Sản Phẩm</th>
+                <th>
+
+                    Hình Ảnh
+                </th>
+                <th>
+
+                    Chiết Khấu (%)
+                </th>
+                <th>
+                    Ngày Bắt Đầu Sale
+                </th>
+                <th>
+                    Thao Tác
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@i</td>
+                    <td>@item.SanPham.TenSP</td>
+
+                    <td><img style="width:200px" src="@item.SanPham.HinhAnh" alt="Alternate Text" /></td>
+                    <td>@item.SanPham.KhuyenMai</td>
+
+                    <td>
+                        @item.FlashSale.NgaySale
+                    </td>
+                    <td>
+                        <button data-id="@item.MaChiTietSale" class="btn btn-danger btn-endSale">Ngưng Sale</button>
+                    </td>
+                </tr>
+                i++;
+            }
+
+
+
+
+
+
+        </tbody>
+
+    </table>
+}
+else { <p>Chưa có sản phẩm nào</p>}
+
+<a href="@Url.Action("AddFlashSale","Admin")" class="btn btn-success"><i class="fa-solid fa-plus"></i>Thêm Sản Phẩm Sale</a>
+<script>
+    $(".btn-endSale").click(function () {
+        var Ma = $(this).attr("data-id")
+        Swal.fire({
+            title: 'Bạn có chắc?',
+            text: "Nếu bạn ngưng Sale giá sản phẩm sẽ trở về ban đẩu!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ngưng!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "http://localhost:62979/Admin/NgungSale?MaCTSale=" + Ma,
+                    /*  context: document.body*/
+                }).done(function (data) {
+                    if (data.mess == "success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Bạn ngưng sale sq3n phẩm thành công',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload()
+                            }
+                        })
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+                });
+            }
+        })
+    })
+</script>
+
