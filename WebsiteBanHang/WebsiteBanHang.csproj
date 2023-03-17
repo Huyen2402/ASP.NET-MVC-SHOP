@@ -785,6 +785,7 @@
     <Content Include="Views\DonHang\XemChiTietDH.cshtml" />
     <Content Include="Views\Admin\XemSPFlashSale.cshtml" />
     <Content Include="Views\Admin\SaleFuture.cshtml" />
+    <Content Include="Views\QuanTriVien\XemNSX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

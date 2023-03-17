@@ -275,14 +275,54 @@ namespace WebsiteBanHang.Controllers
 
         }
 
-        public JsonResult SaveAsImgCategory(string url, int MaloaiSP)
+        public JsonResult AddNSX(string TenNSX)
         {
-
+            NhaSanXuat nsx = new NhaSanXuat();
+            nsx.TenNSX = TenNSX;
+            db.NhaSanXuats.Add(nsx);
+            db.SaveChanges();
             return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult XemNSX()
+        {
+            List<NhaSanXuat> listNSX = db.NhaSanXuats.ToList();
+            return View(listNSX);
+        }
+        public JsonResult GetInfoNSX(int MaNSX)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            NhaSanXuat check = db.NhaSanXuats.SingleOrDefault(n => n.MaNSX == MaNSX);
+            if(check== null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { data = check, mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+           
+
+        }
+        public JsonResult EditNSX(NhaSanXuat nsx)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            NhaSanXuat check = db.NhaSanXuats.SingleOrDefault(n => n.MaNSX == nsx.MaNSX);
+            if (check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                check.TenNSX = nsx.TenNSX;
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
 
 
+
+        }
 
     }
 }

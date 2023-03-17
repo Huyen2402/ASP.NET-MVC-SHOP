@@ -98,10 +98,10 @@
                         <input type="submit" id="btnUpload" value="Upload Files" />
                     </form>
                     @*<form id="data" action="/" method="post">
-                        <input type="number" name="Number" value="" />
-                        <input name="FileUpload1" type="file" id="FileUpload1" />
-                        <input type="submit" id="btnUpload" value="Upload Files" />
-                    </form>*@
+                            <input type="number" name="Number" value="" />
+                            <input name="FileUpload1" type="file" id="FileUpload1" />
+                            <input type="submit" id="btnUpload" value="Upload Files" />
+                        </form>*@
                 </div>
 
                 <!-- Modal footer -->
@@ -143,11 +143,13 @@
     .item_sp {
         display: none;
     }
+
     .btn-success {
         color: #fff;
         background-color: #5cb85c;
         border-color: #4cae4c;
     }
+
     .btn-info {
         color: #fff;
         background-color: #5bc0de;
@@ -239,13 +241,13 @@
             }
 </style>
 <script>
-      $(document).ready(function () {
-          $('form#data').submit(function (e) {
-              const TenLoai =   $("#TenLoai").val();
+    $(document).ready(function () {
+        $('form#data').submit(function (e) {
+            const TenLoai = $("#TenLoai").val();
 
-              e.preventDefault();
-           
-                var formData = new FormData(this);
+            e.preventDefault();
+
+            var formData = new FormData(this);
             $.ajax({
                 url: "http://localhost:3000/users/",
                 type: 'POST',
@@ -259,8 +261,8 @@
                         $.ajax({
                             type: "POST",
                             url: "http://localhost:62979/QuanTriVien/ThemLoaiSanPham",
-                            data: { TenLoai,  url }, // serializes the form's elements.
-                           
+                            data: { TenLoai, url }, // serializes the form's elements.
+
                             success: function (dataT) {
                                 console.log(dataT) // show response from the php script.
                                 if (dataT.mess == "success") {
@@ -290,15 +292,15 @@
                             }
                         });
                     }
-                   
+
                 },
                 error: function (error) {
-                    console.log("error",error)
+                    console.log("error", error)
                 },
                 cache: false,
                 contentType: false,
                 processData: false
-                   
+
             });
             //} else {
             //    alert("FormData is not supported.");
@@ -329,7 +331,7 @@
         const f = e.target.files[0];
         reader.readAsDataURL(f);
     })
-   
+
 
     $(".btn-infoShop").click(function () {
         const id = $(this).attr("data-id");
@@ -349,7 +351,7 @@
 
                     '<div class="modal-header">' +
                     ' <h4 class="modal-title">THÔNG TIN LOẠI SẢN PHẨM</h4>' +
-                /*    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +*/
+                    /*    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +*/
                     ' </div> ' +
                     '  <input type="hidden"  value="' + data.MaLoaiSP + '" class="form-control"  name="MaLoaiSP">' +
 
@@ -359,19 +361,19 @@
                     '  <input type="text" class="form-control" id="" value="' + data.TenLoai + '"  name="TenLoai">' +
                     ' </div>' +
                     '  <div class="mb-3 mt-3">' +
-                    '    <label for="email" class="form-label">Hình ảnh:</label>' + '</br>'  +
+                    '    <label for="email" class="form-label">Hình ảnh:</label>' + '</br>' +
                     '  <img style="width:250px" id="preview-img" src="' + data.HinhAnh + '")"  alt="Alternate Text" />' +
                     '  <input type="file" class="form-control" id="HinhAnh"   name="HinhAnh">' +
                     ' </div>' +
-                    ' <div class="modal-footer">'+
-                  '  <button type = "submit" id="sua" class= "btn btn-warning"  > Sửa</button >'+
-      '  </div > '
+                    ' <div class="modal-footer">' +
+                    '  <button type = "submit" id="sua" class= "btn btn-warning"  > Sửa</button >' +
+                    '  </div > '
                     //'  <div id="MHKD" class="mb-3">' +
                     //' <label for="pwd" class="form-label">Ngày Đăng Ký:</label>' +
                     //'  <input type="text" class="form-control" id="" value="' + data.data.NgayTao + '" readonly name="">' +
                     //' </div>' +
 
-                   
+
                 );
                 //hình 1
                 const reader = new FileReader();
@@ -384,51 +386,51 @@
                     const f = e.target.files[0];
                     reader.readAsDataURL(f);
                 })
-                  $("form#from-ChinhSua").submit(function (e) {
-              /*    $("#sua").click(function (e) {*/
+                $("form#from-ChinhSua").submit(function (e) {
+                    /*    $("#sua").click(function (e) {*/
                     console.log("fsjdjf")
                     e.preventDefault();
                     var formData = new FormData(this);
-                      console.log(formData)
-                      $.ajax({
-                          type: "POST",
-                          url: "http://localhost:62979/QuanTriVien/EditLSP",
-                          data: formData, // serializes the form's elements.
-                          cache: false,
-                          contentType: false,
-                          processData: false,
-                          success: function (data) {
-                              if (data.mess = "success") {
+                    console.log(formData)
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:62979/QuanTriVien/EditLSP",
+                        data: formData, // serializes the form's elements.
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data.mess = "success") {
 
-                                  Swal.fire({
+                                Swal.fire({
 
-                                      icon: 'success',
-                                      title: 'Thêm thành công',
-                                      text: 'Bạn đã sửa loại danh mục thành công',
-                                      showConfirmButton: true,
+                                    icon: 'success',
+                                    title: 'Thêm thành công',
+                                    text: 'Bạn đã sửa loại danh mục thành công',
+                                    showConfirmButton: true,
 
-                                  }).then((result) => {
-                                      if (result.isConfirmed) {
-                                          window.location.reload()
-                                      }
-                                  })
-                              }
-                              else {
-                                  Swal.fire({
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+                            }
+                            else {
+                                Swal.fire({
 
-                                      icon: 'error',
-                                      title: 'Xảy ra lỗi',
-                                      text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
-                                      showConfirmButton: true,
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
 
-                                  })
-                              }
-                          }
-                      });
-                      
+                                })
+                            }
+                        }
+                    });
+
                 })
-               
-           
+
+
             }
 
         });
