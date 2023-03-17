@@ -1,5 +1,5 @@
 ﻿@using WebsiteBanHang.Models
-@model List<NhaSanXuat>
+@model List<NhaCungCap>
 @{
     ViewBag.Title = "XemNSX";
     Layout = "~/Views/Layout/QuanTriLayout.cshtml";
@@ -21,7 +21,7 @@
 
             <tr>
                 <th class="text-center">STT</th>
-                <th class="text-center">Tên Nhà Sản Xuất</th>
+                <th class="text-center">Tên Nhà Cung Cấp</th>
 
 
 
@@ -42,10 +42,10 @@
                         @i
                     </td>
                     <td class="text-center">
-                        @ie.TenNSX
+                        @ie.TenNCC
                     </td>
                     <td class="text-center">
-                        <button data-id="@ie.MaNSX" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa <i class="fa-solid fa-pen-to-square"></i></button>
+                        <button data-id="@ie.MaNCC" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa <i class="fa-solid fa-pen-to-square"></i></button>
                     </td>
                 </tr>
                 soSP++;
@@ -70,8 +70,8 @@
                 <div class="modal-body">
                     <form id="data" action="/" method="post">
                         <div class="mb-3 mt-3">
-                            <label for="TenNSX" class="form-label">Tên NSX:</label>
-                            <input type="text" class="form-control" id="TenNSX" placeholder="Nhập tên NSX...." name="TenLoai">
+                            <label for="TenNSX" class="form-label">Tên NCC:</label>
+                            <input type="text" class="form-control" id="TenNSX" placeholder="Nhập tên NCC...." name="TenNCC">
                         </div>
 
                         <button class="btn btn-primary" type="button" id="btnUpload">Thêm</button>
@@ -223,8 +223,8 @@
         const nsx = $("#TenNSX").val();
         $.ajax({
             type: "POST",
-            url: "http://localhost:62979/QuanTriVien/AddNSX",
-            data: { TenNSX: nsx }, // serializes the form's elements.
+            url: "http://localhost:62979/QuanTriVien/AddNCC",
+            data: { TenNCC: nsx }, // serializes the form's elements.
 
             success: function (dataT) {
                 console.log(dataT) // show response from the php script.
@@ -233,7 +233,7 @@
 
                         icon: 'success',
                         title: 'Thêm thành công',
-                        text: 'Bạn đã thêm NSX thành công',
+                        text: 'Bạn đã thêm NCC thành công',
                         showConfirmButton: true,
 
                     }).then((result) => {
@@ -262,7 +262,7 @@
         $("#from-ChinhSua").empty();
         $.ajax({
             type: "GET",
-            url: 'http://localhost:62979/QuanTriVien/GetInfoNSX?MaNSX=' + id,
+            url: 'http://localhost:62979/QuanTriVien/GetInfoNCC?MaNCC=' + id,
 
             success: function (data) {
                 console.log(data);
@@ -276,12 +276,12 @@
                         ' <h4 class="modal-title">THÔNG TIN NHÀ SẢN XUẤT</h4>' +
                         /*    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +*/
                         ' </div> ' +
-                        '  <input type="hidden" id="ma"  value="' + data.data.MaNSX + '" class="form-control"  name="MaNSX">' +
+                        '  <input type="hidden" id="ma"  value="' + data.data.MaNCC + '" class="form-control"  name="MaNCC">' +
 
                         '  <div class="modal-body">' +
                         '  <div class="mb-3 mt-3">' +
                         '    <label for="email" class="form-label">Tên NSX:</label>' +
-                        '  <input type="text" class="form-control" id="TenNSX" value="' + data.data.TenNSX + '"  name="TenNSX">' +
+                        '  <input type="text" class="form-control" id="TenNSX" value="' + data.data.TenNCC + '"  name="TenNCC">' +
                         ' </div>' +
 
                         ' <div class="modal-footer">' +
@@ -315,7 +315,7 @@
                     console.log(formData)
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:62979/QuanTriVien/EditNSX",
+                        url: "http://localhost:62979/QuanTriVien/EditNCC",
                         data: formData, // serializes the form's elements.
                         cache: false,
                         contentType: false,
@@ -326,8 +326,8 @@
                                 Swal.fire({
 
                                     icon: 'success',
-                                    title: 'Sưa thành công',
-                                    text: 'Bạn đã sửa nhà sản xuất thành công',
+                                    title: 'Sửa thành công',
+                                    text: 'Bạn đã sửa nhà cung cấp thành công',
                                     showConfirmButton: true,
 
                                 }).then((result) => {
@@ -350,9 +350,9 @@
                     });
 
                 })
-                
 
-               
+
+
 
 
             }

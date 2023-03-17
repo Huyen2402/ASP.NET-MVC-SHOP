@@ -323,6 +323,53 @@ namespace WebsiteBanHang.Controllers
 
 
         }
+        public ActionResult XemNCC()
+        {
+            List<NhaCungCap> listNCC = db.NhaCungCaps.ToList();
+            return View(listNCC);
+        }
+        public JsonResult AddNCC(string TenNCC)
+        {
+            NhaCungCap nsx = new NhaCungCap();
+            nsx.TenNCC = TenNCC;
+            db.NhaCungCaps.Add(nsx);
+            db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
 
+        }
+        public JsonResult GetInfoNCC(int MaNCC)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            NhaCungCap check = db.NhaCungCaps.SingleOrDefault(n => n.MaNCC == MaNCC);
+            if (check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { data = check, mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+
+
+        }
+        public JsonResult EditNCC(NhaCungCap ncc)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            NhaCungCap check = db.NhaCungCaps.SingleOrDefault(n => n.MaNCC == ncc.MaNCC);
+            if (check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                check.TenNCC = ncc.TenNCC;
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+
+
+        }
     }
 }
