@@ -15,7 +15,7 @@
     <h2 style="text-align:center">User Profile Card</h2>
     <div class="row">
         <div class="card col-5">
-            <img src="@Url.Content("~/Content/images/"+Model.avt)" alt="John" style="width:100%">
+            <img src="@Url.Content(Model.HinhAnh)" alt="John" style="width:100%">
             <input type="hidden" id="id-shop" name="name" value="@Model.MaShop" />
             <h1>@Model.TenShop</h1>
             <p class="title">Địa chỉ: @Model.DiaChi, @Model.Xa.TenXa, @Model.Huyen.TenHuyen, @Model.Tinh.TenTinh</p>
@@ -53,7 +53,7 @@
                             <tr>
                                 <td class="text-center" data-th="Name"><span class="bt-content">@Model.ChuSoHuu</span></td>
                                 <td class="text-center" data-th="Name"><span class="bt-content">@Model.TaiKhoan</span></td>
-                                <td class="text-center" data-th="Name"><span class="bt-content">@Model.SDT</span></td>
+                                <td class="text-center" data-th="Name"><span class="bt-content">(+84)@Model.SDT</span></td>
 
                                 <td class="text-center" data-th="Name">
                                     @for (int i = 0; i < listCTKD.Count; ++i)
