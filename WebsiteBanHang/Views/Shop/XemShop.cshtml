@@ -125,10 +125,11 @@
                             decimal? number = item.DonGia;
                             string GiaTien = number.Value.ToString("#,##0");
                         }
-                        <a id="ThemGioHang" data-MaSP="@item.MaSP" data-strURL="@Request.Url.ToString()" class="item_add ThemGioHang">
-                            <p class="number item_price"><i> </i>@GiaTien</p>
-                        </a>
-                    </div>
+                    <a  class="item_add " href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                        <p class="number item_price"><i> </i>@GiaTien</p>
+                    </a>
+                    
+</div>
 
 
 
@@ -262,7 +263,7 @@
         })
         $(document).on('click', '.ThemGioHang', function (e) {
             var MaSP = $(this).attr("data-MaSP");
-            alert(MaSP)
+            
             var strURL = $(this).attr("data-strURL");
             $.ajax({
                 type: "get",

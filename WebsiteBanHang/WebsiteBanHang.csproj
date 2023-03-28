@@ -787,6 +787,7 @@
     <Content Include="Views\Admin\SaleFuture.cshtml" />
     <Content Include="Views\QuanTriVien\XemNSX.cshtml" />
     <Content Include="Views\QuanTriVien\XemNCC.cshtml" />
+    <Content Include="Views\DatHang\DonHangHTML.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

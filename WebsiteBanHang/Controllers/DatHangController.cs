@@ -26,7 +26,12 @@ namespace WebsiteBanHang.Controllers
         //    return View();
         //}
         // GET: DatHang
-        [HttpGet]
+        public ActionResult DonHangHTML()
+        {
+            List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
+            return View(listGioHang);
+        }
+            [HttpGet]
         public ActionResult DatHang(int MaTinh, int MaHuyen, int MaXa, string DiaChi)
         {
             DatHang dh = Session["DatHang"] as DatHang;
@@ -115,6 +120,46 @@ namespace WebsiteBanHang.Controllers
                             ddh.TongTien = TongTien;
                             ddh.TongTienThucTe = TongTienThucTe - ddh.Voucher; ;
                             db.SaveChanges();
+                            try
+                            {
+                                if (ModelState.IsValid)
+                                {
+                                    ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == iduser);
+                                    var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                                    var receiverEmail = new MailAddress(tv.Email, "Receiver");
+                                    var password = "yyxrbzsfbkrftlny";
+                                    string subject = "Xác nhận đơn đặt hàng - Sàn thương mại điện tử Ori Cute";
+                                    //string body = "Chào bạn, đây là mã xác nhận tài khoản của bạn: ";
+                                    string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/DonHang.html"));
+                                    body = body.Replace("###NAME###", "Nhẫn dạng hở Pearl & Crystal-Embellished - Vàng hồng");
+                                    body = body.Replace("###IMG###", "http://res.cloudinary.com/datidmq6e/image/upload/v1678161798/2022-L7-CK5-31470100-57-1.jpg");
+                                    body = body.Replace("###Gia", "450000");
+                                    
+                                    var smtp = new SmtpClient
+                                    {
+                                        Host = "smtp.gmail.com",
+                                        Port = 587,
+                                        EnableSsl = true,
+                                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                                        UseDefaultCredentials = false,
+                                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                                    };
+                                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                                    {
+                                        IsBodyHtml = true,
+                                        Subject = subject,
+                                        Body = body
+                                    })
+                                    {
+                                        smtp.Send(mess);
+                                    }
+
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                ViewBag.Error = "Some Error";
+                            }
                             Session["GioHang"] = null;
                             Session["DatHang"] = null;
                             return View();
