@@ -1,0 +1,294 @@
+﻿@using WebsiteBanHang.Models
+@model ThanhVien
+@{
+    ViewBag.Title = "XemThongTin";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+    List<DonDatHang> ddh = ViewBag.DonDH as List<DonDatHang>;
+    HangThanhVien hang = ViewBag.Hang as HangThanhVien;
+}
+
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-4">
+            <img style="width: 150px" class="rounded-circle" src="~/Content/images/user.png" alt="Alternate Text" />
+        </div>
+        <div class="col-8">
+            <h3>@Model.HoTen</h3>
+            @if (hang != null)
+            {
+                <p>Thành viên @hang.TenHang</p>
+            }
+else
+            {
+                <p>Bạn chưa có hàng thành viên</p>
+            }
+            <!-- Orange -->
+            <div class="progress">
+                <div class="progress-bar bg-warning" style="width:40%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container"></div>
+    <div id="exTab1" class="container">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="#1a" data-toggle="tab">Điều khoản thành viên</a>
+            </li>
+            <li>
+                <a href="#2a" data-toggle="tab">Ưu đãi của bạn</a>
+            </li>
+            <li>
+                <a href="#3a" data-toggle="tab">Tích điểm</a>
+            </li>
+            
+        </ul>
+
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="1a">
+                <p style=" color: white">
+                    a. Điều kiện tham gia
+                    - Chủ thẻ tín dụng (sau đây gọi tắt là “Thẻ”) do Công Ty Tài Chính TNHH Một Thành Viên
+                    Home Credit Việt Nam (sau đây gọi tắt là “HCVN” hoặc “Home Credit”) phát hành với đầu số
+                    4966 (sau đây gọi tắt là “Chủ thẻ”), có tài khoản Thẻ hợp lệ và trong tình trạng tốt (tài khoản Thẻ
+                    không trong tình trạng chậm thanh toán, bị tạm ngưng, bị chấm dứt hoặc bị hủy) sẽ được tham
+                    gia chương trình tích lũy điểm thưởng (sau đây gọi tắt là “Chương trình”).
+                    - Giao dịch hợp lệ (viết tắt là “Giao dịch”) được tham gia Chương trình bao gồm: giao dịch thanh
+                    toán hàng hóa, dịch vụ bằng Thẻ thành công tại các điểm chấp nhận thẻ được Home Credit quy
+                    định tại chương trình này. Chương trình không áp dụng cho các giao dịch rút tiền mặt, giao dịch
+                    được chuyển đổi trả góp, giao dịch thu chi hộ, giao dịch hoàn trả và các giao dịch ghi có khác
+                    trên Thẻ.
+                    b. Quy định về điểm thưởng và tích lũy điểm thưởng
+                    - Một (1) điểm thưởng trị giá một (1) VND. Điểm thưởng sẽ được tích lũy vào tài khoản Thẻ sau
+                    khi Giao dịch hợp lệ được thực hiện và hạch toán thành công.
+                    - Một Giao dịch thanh toán hợp lệ chỉ được tích điểm 1 lần theo quy tắc tích điểm của Chương
+                    trình.
+                    - Điểm thưởng không được tích lũy đối với các Giao dịch chưa được hạch toán, các Giao dịch bị
+                    hủy. Điểm thưởng sẽ bị giảm đối với các Giao dịch đã được hạch toán nhưng sau đó được hoàn
+                    tiền toàn bộ hoặc một phần (giảm tương ứng với số tiền được hoàn lại).
+                    - Thông tin điểm thưởng tích lũy khả dụng sẽ được thể hiện trên bảng sao kê định kỳ của Chủ
+                    thẻ.
+                    - Các chương trình tích lũy điểm thưởng:
+                    + Chương trình tích lũy điểm thưởng thông thường (theo mã MCC): là chương trình tích lũy
+                    điểm thưởng theo các danh mục được Home Credit quy định. Số điểm tích lũy khả dụng tối đa
+                    cho 1 kỳ sao kê là 500.000 điểm/kỳ.
+                    + Chương trình tích lũy điểm thưởng tại đối tác: là chương trình tích lũy điểm thưởng phát sinh
+                    thêm theo từng đối tác liên kết của Home Credit bên cạnh Chương trình tích lũy điểm thưởng
+                    thông thường. Số điểm tích lũy khả dụng cho 1 kỳ sao kê không bị giới hạn.Chủ thẻ được áp
+                    dụng đồng thời Chương trình tích lũy điểm thưởng thông thường và Chương trình tích lũy điểm
+                    thưởng tại đối tác cho cùng một Giao dịch theo quy định tại ĐKĐK này. Tỷ lệ quy đổi điểm
+                    thưởng theo mã MCC/ đối tác được HCVN công bố trên website www.homecredit.vn. tại thời
+                    điểm khách hàng thực hiện Giao dịch và có thể được thay đổi theo từng thời kỳ.
+                    + Chương trình tích lũy điểm thưởng theo tổng chi tiêu hàng năm: trường hợp tổng chi tiêu qua
+                    Thẻ của Chủ thẻ đạt mức từ 36 triệu/ 12 tháng kể từ thời điểm ký hợp đồng Thẻ, Chủ thẻ sẽ được
+                    tích lũy 200.000 điểm thưởng.
+                    - Sau khi Chủ thẻ thực hiện quy đổi điểm thưởng trongkỳ theo quy định tại ĐKĐK này, điểm
+                    thưởng tích lũy khả dụng còn lại sẽ được chuyển sang (các) kỳ tiếp theo.
+                    - Khi hợp đồng Thẻ bị hủy bỏ hoặc chấm dứt theo quy định, tất cả điểm thưởng trong tài khoản
+                    Thẻ sẽ tự động mất hiệu lực và HCVN sẽ không chấp nhận bất cứ yêu cầu liên quan đến việc quy
+                    đổi nào vào hoặc sau ngày hủy bỏ hoặc chấm dứt hợp đồng Thẻ.
+                    - Chủ Thẻ có thể kiểm tra chi tiết điểm thưởng theo một trong những cách thức được cập nhật chi
+                    tiết trên trang web của HCVN www.homecredit.vn theo từng thời kỳ.
+                    - Trong trường hợp Chủ Thẻ có những Giao dịch hợp lệ nhưng không nhận được ưu đãi điểm
+                    thưởng hoặc ưu đãi điểm thưởng chưa chính xác, vui lòng liên hệ HCVN chậm nhất 30 ngày kể
+                    từ ngày thực hiện Giao dịch hợp lệ để được giải đáp. HCVN có quyền yêu cầu Chủ thẻ cung cấp
+                    thông tin, chứng từ về Giao dịch để tiện cho việc xem xét giải đáp các vấn đề có liên quan. Đối
+                    với bất kỳ vấn đề nào được Chủ thẻ thông báo với HCVN sau khoản thời gian nêu trên, HCVN
+                    có quyền không giải đáp và giải quyết các thắc mắc.
+                    - Danh mục chi tiêu được xác định tùy thuộc vào Mã MCC do bên bán hàng thiết lập với ngân
+                    hàng thanh toán theo quy định của các tổ chức thẻ quốc tế. HCVN sẽ không chịu trách nhiệm
+                    trong trường hợp MCC đăng ký không chính xác, bị lỗi hoặc bị thay đổi.
+                    c. Quy định về quy đổi điểm thưởng
+                    - Chủ thẻ có thể thực hiện quy đổi điểm thưởng theo một trong những cách thức được cập nhật
+                    chi tiết trên trang web của HCVN www.homecredit.vn theo từng thời kỳ.
+                    - Chủ thẻ có thể yêu cầu quy đổi cho toàn bộ hay một phần giá trị của điểm thưởng.
+                    - Tiền quy đổi từ điểm thưởng được hoàn lại cho Chủ thẻ theo hình thức ghi có vào tài khoản
+                    Thẻ của Chủ thẻ, được thể hiện trên bảng sao kê trong kỳ. Điểm thưởng không được phép quy
+                    đổi thành tiền mặt. Nếu hợp đồng Thẻ bị hủy bỏ hoặc chấm dứt việc sử dụng theo quy định mà
+                    số tiền được quy đổi vào tài khoản Thẻ vẫn chưa được sử dụng hết, HCVN có quyền (nhưng
+                    không phải nghĩa vụ) xem xét, quyết định và thông báo cho Chủ thẻ (nếu có) về việc hoàn lại số
+                    tiền chưa sử dụng này cho Chủ thẻ theo cách thức được thông báo trên website của HCVN tại
+                    từng thời điểm.
+                    - Giá trị điểm thưởng quy đổi phải là bội số của 1000, tối thiểu là 100.000 VND/lần (tương ứng
+                    với 100.000 điểm/lần).
+                </p>
+              
+            </div>
+            <div class="tab-pane" id="2a">
+                <h3>Nhận ngay voucher dành riêng cho bạn</h3>
+                <div class="row">
+                    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                    <!------ Include the above in your HEAD tag ---------->
+
+                    <div class="container my-5">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                                    <div class="kiri p-3">
+                                        <div class="icon-container ">
+                                            <div class="icon-container_box">
+                                                <img src="data:image/png;base64,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" width="85" alt="totoprayogo.com" class="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tengah py-3 d-flex w-100 justify-content-start">
+                                        <div>
+                                            <span class="badge badge-success">Ưu đãi</span>
+                                            <h3 class="lead">Giảm 100k</h3>
+                                            <p class="text-muted mb-0">Giảm 100k cho đơn hàng đầu tiên</p>
+                                        </div>
+                                    </div>
+                                    <div class="kanan">
+                                        <div class="info m-3 d-flex align-items-center">
+                                            <div class="w-100">
+                                                <div class="block">
+                                                    <span class="time font-weight-light">
+                                                        <span>19 days</span>
+                                                    </span>
+                                                </div>
+                                                <a href="https://www.totoprayogo.com" target="_blank" class="btn btn-sm btn-outline-danger btn-block">
+                                                    Lưu
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                                    <div class="kiri p-3">
+                                        <div class="icon-container ">
+                                            <div class="icon-container_box">
+                                                <img src="data:image/png;base64,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" width="85" alt="totoprayogo.com" class="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tengah py-3 d-flex w-100 justify-content-start">
+                                        <div>
+                                            <span class="badge badge-success">Ưu đãi</span>
+                                            <h3 class="lead">Giảm 50k</h3>
+                                            <p class="text-muted mb-0">Giảm 50k</p>
+                                        </div>
+                                    </div>
+                                    <div class="kanan">
+                                        <div class="info m-3 d-flex align-items-center">
+                                            <div class="w-100">
+                                                <div class="block">
+                                                    <span class="time font-weight-light">
+                                                        <span>19 days</span>
+                                                    </span>
+                                                </div>
+                                                <a href="https://www.totoprayogo.com" target="_blank" class="btn btn-sm btn-outline-danger btn-block">
+                                                    show
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="3a">
+                @if (hang != null)
+                {
+                    <h3>Chúc mừng bạn đã thăng hạng @hang.TenHang</h3>
+                }
+else
+            {
+                    
+                <h4>Bạn chưa có hạng thành viên</h4>
+            }
+            <h4>Số điểm hiện tại: @Model.TichDiem</h4>
+                <h4>Tổng số đơn đã mua thành công: @ddh.Count</h4>
+                <h4>Tổng số tiền: @ddh.Sum(n => n.TongTienThucTe)</h4>
+                <h4>Mua thêm 13569000 thăng hạng vàng và nhận nhiều ưu đãi hơn nhé</h4>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+ 
+
+   
+
+    <!-- Bootstrap core JavaScript
+        ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</div>
+<style>
+  
+
+    #exTab1 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    #exTab2 h3 {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    /* remove border radius for the tab */
+
+    #exTab1 .nav-pills > li > a {
+        border-radius: 0;
+    }
+
+    /* change border radius for the tab , apply corners on top*/
+
+    #exTab3 .nav-pills > li > a {
+        border-radius: 4px 4px 0 0;
+    }
+
+    #exTab3 .tab-content {
+        color: white;
+        background-color: #428bca;
+        padding: 5px 15px;
+    }
+
+    body {
+        background: #dedede;
+    }
+
+    .coupon .kanan {
+        border-left: 1px dashed #ddd;
+        width: 40% !important;
+        position: relative;
+    }
+
+        .coupon .kanan .info::after, .coupon .kanan .info::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #dedede;
+            border-radius: 100%;
+        }
+
+        .coupon .kanan .info::before {
+            top: -10px;
+            left: -10px;
+        }
+
+        .coupon .kanan .info::after {
+            bottom: -10px;
+            left: -10px;
+        }
+
+    .coupon .time {
+        font-size: 1.6rem;
+    }
+</style>

@@ -11,7 +11,56 @@
 <div id="chitiet" class="container mt-3">
 
     <h1 class="text-center">Chi tiết đơn hàng @MaDDH</h1>
+    <div>
+        <div class="main">
 
+            <ul>
+                <li>
+                    <i class="icons awesome fa-solid fa-gift"></i>
+                    <div class="step first">
+                        <p>1</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Profile</p>
+                </li>
+                <li>
+                    <i class="icons awesome fa-solid fa-business-time"></i>
+                    <div class="step second">
+                        <p>2</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Finances</p>
+                </li>
+                <li>
+                    <i class="icons awesome fa-solid fa-car-side"></i>
+                   
+                    <div class="step third">
+                        <p>3</p>
+                       
+                    </div>
+                    <p class="label">Property</p>
+                </li>
+                <li>
+                    <i class="icons awesome fa-regular fa-star-half-stroke"></i>
+                    <div class="step fourth">
+                        <p>4</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Evaluation</p>
+                </li>
+                <li>
+                    <i class="icons awesome fa-solid fa-thumbs-up"></i>
+                    <div class="step fifth">
+                        <p>5</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Approval</p>
+                </li>
+            </ul>
+        </div>
+     
+
+    </div>
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
@@ -30,7 +79,7 @@
         <tbody>
             @{
                 int i = 0;
-                
+
             }
             @foreach (var item in Model)
             {
@@ -98,13 +147,13 @@
             }
 
             @{
-               
+
                 int IDDanhMuc = Model[0].SanPham.loaiSanPham.MaLoaiSP;
-             
+
 
 
             }
-           
+
 
         </tbody>
     </table>
@@ -114,6 +163,98 @@
     </div>
 </div>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    ul {
+        display: flex;
+    }
+
+        ul li {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 40px;
+        }
+
+            ul li .icons {
+                font-size: 25px;
+                color: #1b761b;
+                margin: 0 60px;
+            }
+
+            ul li .label {
+                font-family: sans-serif;
+                letter-spacing: 1px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #1b761b;
+            }
+
+            ul li .step {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: #d7d7c3;
+                margin: 16px 0 10px;
+                display: grid;
+                place-items: center;
+                color: ghostwhite;
+                position: relative;
+                cursor: pointer;
+            }
+
+    .step::after {
+        content: "";
+        position: absolute;
+        width: 197px;
+        height: 3px;
+        background-color: #d7d7c3;
+        right: 30px;
+    }
+
+    .first::after {
+        width: 0;
+        height: 0;
+    }
+
+    ul li .step .awesome {
+        display: none;
+    }
+
+    ul li .step p {
+        font-size: 18px;
+    }
+
+    ul li .active {
+        background-color: #1b761b;
+    }
+
+    li .active::after {
+        background-color: #1b761b;
+    }
+
+    ul li .active p {
+        display: none;
+    }
+
+    ul li .active .awesome {
+        display: flex;
+    }
     .img-report {
         width: 250px;
     }
@@ -160,5 +301,30 @@
 
 
 </style>
+<script>
+    const first = document.querySelector(".first");
+const second = document.querySelector(".second");
+const third = document.querySelector(".third");
+const fourth = document.querySelector(".fourth");
+const fifth = document.querySelector(".fifth");
+const steps = [first, second, third, fourth, fifth];
 
+function nextStep(currentStep) {
+    steps.forEach(step => step.classList.remove("active"));
+
+    steps.forEach((step, index) => {
+        if (index <= currentStep) {
+            step.classList.add("active");
+        } else {
+            step.classList.remove("active");
+        }
+    });
+}
+
+steps.forEach((step, index) => {
+    step.addEventListener("click", () => {
+        nextStep(index);
+    });
+});
+</script>
 

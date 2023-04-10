@@ -363,7 +363,30 @@ namespace WebsiteBanHang.Controllers
             return PartialView();
         }
 
+        public ActionResult XemThongTin(int MaTV)
+        {
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n=>n.MaThanhVien ==  MaTV);
+            List<DonDatHang> list = db.DonDatHangs.Where(n => n.MaKH == MaTV && n.MaTinhTrangGiaoHang == 3).ToList();
+            List<HangThanhVien> hang = db.HangThanhViens.ToList();
+            foreach (var item in hang)
+            {
+                if(tv.TichDiem > item.ToiThieu && tv.TichDiem <= item.ToiDa)
+                {
+                    
+                    ViewBag.Hang = item;
+                    ViewBag.DonDH = list;
+                    return View(tv);
+                }
+                else
+                {
+                    ViewBag.Hang = null;
+                    
+                }
+            }
 
+            ViewBag.DonDH = list;
+            return View(tv);
+        }
 
     }
 }

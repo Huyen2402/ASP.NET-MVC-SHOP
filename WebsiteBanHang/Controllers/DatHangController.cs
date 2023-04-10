@@ -119,12 +119,14 @@ namespace WebsiteBanHang.Controllers
                             }
                             ddh.TongTien = TongTien;
                             ddh.TongTienThucTe = TongTienThucTe - ddh.Voucher; ;
+                            ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == iduser);
+                            tv.TichDiem = ddh.TongTienThucTe / 10000;
                             db.SaveChanges();
                             try
                             {
                                 if (ModelState.IsValid)
                                 {
-                                    ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == iduser);
+                                   
                                     var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
                                     var receiverEmail = new MailAddress(tv.Email, "Receiver");
                                     var password = "yyxrbzsfbkrftlny";

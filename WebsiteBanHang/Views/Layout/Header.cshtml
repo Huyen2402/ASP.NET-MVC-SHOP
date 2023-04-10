@@ -34,6 +34,7 @@
                         <div class="dropdown">
                             <a class="lock dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-circle-user"></i>  @tv.HoTen</a>
                             <ul class="dropdown-menu" style="border-radius: 10px !important; border: white !important; background-color: #d8e8f7db !important; ">
+                                <li>  <a class="lock color-text" href="@Url.Action("XemThongTin","Home", new { @MaTV = tv.MaThanhVien })">Xem thông tin</a></li>
                                 <li>  <a class="lock color-text" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a></li>
                                 <li>  <a class="lock color-text" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a></li>
                                 <li><a class="lock color-text" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
@@ -44,6 +45,7 @@
                     </li>
                     <li> @Html.Action("ChatInHeader","Chat")</li>
                     <li> @Html.Action("GioHangPartial", "GioHang");</li>
+                    <li><i class="fa-solid fa-bell"></i>Thông báo</li>
 
 
 
