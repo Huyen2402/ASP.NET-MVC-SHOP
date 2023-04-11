@@ -106,7 +106,7 @@
                     <div class="flex flex-column _38g6so">
                         <div class="flex items-center">
                             <div class="flex items-center _34BHKe">
-                                <div class="_2yjfFH">₫@Model.DonGia</div>
+                                <div id="price-normal" class="_2yjfFH">₫@Model.DonGia</div>
                                 <div class="flex items-center">
                                     <div data-GiaHienTai="@price" id="GiaHienTai" class="_2Shl1j">@Giacuoicung</div>
 
@@ -124,7 +124,7 @@
                             <div class="flex items-center _34BHKe">
 
                                 <div class="flex items-center">
-                                    <div  data-GiaHienTai="@GiaTien" class="_2Shl1j">@GiaTien</div>
+                                    <div id="GiaHienTai"  data-GiaHienTai="@Model.DonGia" class="_2Shl1j">@GiaTien</div>
 
 
 
@@ -490,7 +490,7 @@ else
             var MaSP = $(this).attr("data-MaSP");
             var strURL = $(this).attr("data-strURL");
             var Gia = $("#GiaHienTai").attr("data-GiaHienTai");
-
+           
             console.log(Gia)
             $.ajax({
 

@@ -22,6 +22,7 @@ namespace WebsiteBanHang.Models
             this.DiaChi1 = new HashSet<DiaChi>();
             this.DonDatHang = new HashSet<DonDatHang>();
             this.KhachHang = new HashSet<KhachHang>();
+            this.ThongBaoDH = new HashSet<ThongBaoDH>();
             this.TraLoiBinhLuan = new HashSet<TraLoiBinhLuan>();
         }
     
@@ -53,6 +54,8 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachHang> KhachHang { get; set; }
         public virtual LoaiThanhVien LoaiThanhVien { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThongBaoDH> ThongBaoDH { get; set; }
         public virtual Tinh Tinh { get; set; }
         public virtual Xa Xa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

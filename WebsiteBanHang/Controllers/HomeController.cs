@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Hosting;
+using System.Web.UI.WebControls;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -387,6 +388,37 @@ namespace WebsiteBanHang.Controllers
             ViewBag.DonDH = list;
             return View(tv);
         }
+        public ActionResult NotifyPartial()
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            if (tv != null)
+            {
+                List<ThongBaoDH> noti = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien).ToList();
+                ViewBag.sl = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien && n.DaXem == false).Count();
+                ViewBag.IDUSER = tv.MaThanhVien;
+                return PartialView(noti);
+            }
+            
 
+            return PartialView();
+        }
+
+        public JsonResult DaXemNotify(int MaTV)
+        {
+            List<ThongBaoDH> tb = db.ThongBaoDHs.Where(n=>n.MaTV == MaTV && n.DaXem == false).ToList();
+            foreach (var item in tb)
+            {
+                item.DaXem = true;
+                
+            }
+            db.SaveChanges();
+            return Json(new {mess = "success"}, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult LoadNotify()
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+           int sl = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien && n.DaXem == false).Count();
+            return Json(new { mess = "success", sl = sl }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

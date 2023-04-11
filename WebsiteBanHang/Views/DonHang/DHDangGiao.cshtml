@@ -25,7 +25,7 @@
                 </li>
                 <li class="progress-step-item">
                     <i class="icons awesome fa-solid fa-truck"></i>
-                    <div class="step second ">
+                    <div class="step second active">
                         <p>2</p>
                         <i class="awesome fa-solid fa-check"></i>
                     </div>
@@ -33,17 +33,17 @@
                 </li>
                 <li class="progress-step-item">
                     <i class="fa-solid fa-check icons awesome"></i>
-                   
+
                     <div class="step third">
                         <p>3</p>
-                       
+
                     </div>
                     <p class="label">Giao thành công</p>
                 </li>
-                
+
             </ul>
         </div>
-     
+
 
     </div>
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
@@ -80,7 +80,7 @@
                         <td>@item.TenSP</td>
                         <td>@ViewBag.k</td>
                         <td><img class="img-report" src="@Url.Content(item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
-                        <td>@item.SoLuong</td>
+                        <td >@item.SoLuong</td>
 
                         <td>@tien.Value.ToString("#,##0")</td>
                         <td style="display: none">
@@ -95,7 +95,10 @@
 
 
                     </tr>
-                   
+                    @*<tr > 
+                        <td colspan="5"></td>
+                        <td ><a href="@Url.Action("XacNhanDonHang","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-warning">Đã Nhận Hàng</a></td>
+                    </tr>*@
                 }
                 else
                 {
@@ -142,8 +145,9 @@
 
 
         </tbody>
+        
     </table>
-
+   
     <div class="SanPhamTuongTu">
         @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = IDDanhMuc })
     </div>
@@ -157,7 +161,7 @@
 
     .main {
         width: 100%;
-       /* height: 100vh;*/
+        /* height: 100vh;*/
         display: flex;
         justify-content: center;
         align-items: center;
@@ -242,6 +246,7 @@
     .progress-step .progress-step-item .active .awesome {
         display: flex;
     }
+
     .img-report {
         width: 250px;
     }
@@ -285,33 +290,6 @@
         content: '\f006';
         font-family: FontAwesome;
     }
-
-
 </style>
-@*<script>
-    const first = document.querySelector(".first");
-const second = document.querySelector(".second");
-const third = document.querySelector(".third");
-const fourth = document.querySelector(".fourth");
-const fifth = document.querySelector(".fifth");
-const steps = [first, second, third, fourth, fifth];
 
-function nextStep(currentStep) {
-    steps.forEach(step => step.classList.remove("active"));
-
-    steps.forEach((step, index) => {
-        if (index <= currentStep) {
-            step.classList.add("active");
-        } else {
-            step.classList.remove("active");
-        }
-    });
-}
-
-steps.forEach((step, index) => {
-    step.addEventListener("click", () => {
-        nextStep(index);
-    });
-});
-</script>*@
 

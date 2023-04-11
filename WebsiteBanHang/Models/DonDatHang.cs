@@ -19,6 +19,7 @@ namespace WebsiteBanHang.Models
         {
             this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
             this.ChiTietDonDatHang1 = new HashSet<ChiTietDonDatHang>();
+            this.ThongBaoDH = new HashSet<ThongBaoDH>();
         }
     
         public Nullable<System.DateTime> NgayDat { get; set; }
@@ -44,6 +45,8 @@ namespace WebsiteBanHang.Models
         public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang1 { get; set; }
         public virtual ChiTietGiamGia ChiTietGiamGia { get; set; }
         public virtual Shop Shop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThongBaoDH> ThongBaoDH { get; set; }
         public virtual Huyen Huyen { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
         public virtual Tinh Tinh { get; set; }

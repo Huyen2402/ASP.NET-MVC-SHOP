@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
@@ -49,6 +50,7 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XacNhanDonHang(string MaDDH)
         {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             DonDatHang dhh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH.Equals(MaDDH));
             if(dhh == null)
             {
@@ -57,6 +59,13 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 dhh.MaTinhTrangGiaoHang = 3;
+                ThongBaoDH newTB = new ThongBaoDH();
+                newTB.MaTV = tv.MaThanhVien;
+                newTB.MaDH = MaDDH;
+                newTB.DaXem = false;
+                newTB.ThoiGian = DateTime.Now;
+                db.ThongBaoDHs.Add(newTB);
+                
                 db.SaveChanges();
             }
             return RedirectToAction("DHDangVanChuyen", "DonHang");
@@ -142,7 +151,19 @@ namespace WebsiteBanHang.Controllers
             return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
           
         }
+        public ActionResult DHDangGiao(string MaDDH)
+        {
+            List<ChiTietDonDatHang> ctddh = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
+            DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
+            ChiTietDonDatHang c = db.ChiTietDonDatHangs.First(n => n.MaDDH == MaDDH);
+            KichCo k = db.KichCos.First(n => n.MaSP == c.MaSP);
+            ViewBag.k = k.Ten;
+            ViewBag.MaDDH = MaDDH;
 
+            return View(ctddh);
+
+        }
+       
 
     }
 }

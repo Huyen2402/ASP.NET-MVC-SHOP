@@ -47,6 +47,7 @@ namespace WebsiteBanHang.Models
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }
+        public virtual DbSet<ThongBaoDH> ThongBaoDHs { get; set; }
         public virtual DbSet<Tinh> Tinhs { get; set; }
         public virtual DbSet<TinhTrangGiaoHang> TinhTrangGiaoHangs { get; set; }
         public virtual DbSet<TraLoiBinhLuan> TraLoiBinhLuans { get; set; }

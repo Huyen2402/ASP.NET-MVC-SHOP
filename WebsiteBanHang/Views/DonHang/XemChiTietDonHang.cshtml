@@ -11,7 +11,41 @@
 <div id="chitiet" class="container mt-3">
 
     <h1 class="text-center">Chi tiết đơn hàng @MaDDH</h1>
-   
+    <div>
+        <div class="main">
+
+            <ul class="progress-step">
+                <li class="progress-step-item">
+                    <i class="icons awesome fa-solid fa-business-time"></i>
+                    <div class="step first active">
+                        <p>1</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Chờ xác nhận</p>
+                </li>
+                <li class="progress-step-item">
+                    <i class="icons awesome fa-solid fa-truck"></i>
+                    <div class="step second active">
+                        <p>2</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Đang giao</p>
+                </li>
+                <li class="progress-step-item">
+                    <i class="fa-solid fa-check icons awesome"></i>
+
+                    <div class="step third active">
+                        <p>3</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Giao thành công</p>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
@@ -107,7 +141,7 @@
 
 
                         <td>
-                            <a href="#" class="btn btn-outline-success">Mua lại</a>
+                            <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP, @MaShop = item.SanPham.MaShop})" class="btn btn-outline-success">Mua lại</a>
 
                         </td>
 
@@ -153,6 +187,99 @@
     </div>
 </div>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .main {
+        width: 100%;
+        /* height: 100vh;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .progress-step {
+        display: flex;
+    }
+
+        .progress-step .progress-step-item {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 40px;
+        }
+
+            .progress-step .progress-step-item .icons {
+                font-size: 25px;
+                color: #1b761b;
+                margin: 0 60px;
+            }
+
+            .progress-step .progress-step-item .label {
+                font-family: sans-serif;
+                letter-spacing: 1px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #1b761b;
+            }
+
+            .progress-step .progress-step-item .step {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: #d7d7c3;
+                margin: 16px 0 10px;
+                display: grid;
+                place-items: center;
+                color: ghostwhite;
+                position: relative;
+                cursor: pointer;
+            }
+
+    .step::after {
+        content: "";
+        position: absolute;
+        width: 197px;
+        height: 3px;
+        background-color: #d7d7c3;
+        right: 30px;
+    }
+
+    .first::after {
+        width: 0;
+        height: 0;
+    }
+
+    .progress-step .progress-step-item .step .awesome {
+        display: none;
+    }
+
+    .progress-step .progress-step-item .step p {
+        font-size: 18px;
+    }
+
+    .progress-step .progress-step-item .active {
+        background-color: #1b761b;
+    }
+
+    .progress-step-item .active::after {
+        background-color: #1b761b;
+    }
+
+    .progress-step .progress-step-item .active p {
+        display: none;
+    }
+
+    .progress-step .progress-step-item .active .awesome {
+        display: flex;
+    }
     .img-report {
         width: 250px;
     }

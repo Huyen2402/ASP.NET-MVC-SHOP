@@ -7,7 +7,9 @@
     HangThanhVien hang = ViewBag.Hang as HangThanhVien;
 }
 
-
+@{ 
+    float giatri = ((float)Model.TichDiem / (float)hang.ToiDa) * 100;
+}
 
 <div class="container mt-3">
     <div class="row">
@@ -26,7 +28,7 @@ else
             }
             <!-- Orange -->
             <div class="progress">
-                <div class="progress-bar bg-warning" style="width:40%"></div>
+                <div class="progress-bar bg-warning" style="width: @giatri% "></div>
             </div>
         </div>
     </div>

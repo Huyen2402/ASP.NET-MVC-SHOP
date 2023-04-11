@@ -26,6 +26,7 @@ namespace WebsiteBanHang.Models
         public Nullable<decimal> ToiThieu { get; set; }
         public Nullable<int> SL { get; set; }
         public Nullable<int> MaShop { get; set; }
+        public Nullable<int> MaHangTV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietGiamGia> ChiTietGiamGia { get; set; }

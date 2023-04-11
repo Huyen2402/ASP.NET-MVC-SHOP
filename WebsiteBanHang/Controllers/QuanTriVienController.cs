@@ -371,5 +371,13 @@ namespace WebsiteBanHang.Controllers
 
 
         }
+        public ActionResult Voucher()
+        {
+            return View();  
+        }
+        public ActionResult AddVoucher()
+        {
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

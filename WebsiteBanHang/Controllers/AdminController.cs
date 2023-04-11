@@ -664,6 +664,12 @@ namespace WebsiteBanHang.Controllers
                 else
                 {
                     ddh.MaTinhTrangGiaoHang = 2;
+                    ThongBaoDH newTB = new ThongBaoDH();
+                    newTB.MaTV = ddh.MaKH;
+                    newTB.MaDH = MaDDH;
+                    newTB.DaXem = false;
+                    newTB.ThoiGian = DateTime.Now;
+                    db.ThongBaoDHs.Add(newTB);
                     db.SaveChanges();
                 }
             }

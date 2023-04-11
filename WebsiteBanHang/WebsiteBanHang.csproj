@@ -349,6 +349,9 @@
     <Compile Include="Models\ThanhVien.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ThongBaoDH.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tinh.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
@@ -789,6 +792,9 @@
     <Content Include="Views\QuanTriVien\XemNCC.cshtml" />
     <Content Include="Views\DatHang\DonHangHTML.cshtml" />
     <Content Include="Views\Home\XemThongTin.cshtml" />
+    <Content Include="Views\DonHang\DHDangGiao.cshtml" />
+    <Content Include="Views\Home\NotifyPartial.cshtml" />
+    <Content Include="Views\QuanTriVien\Voucher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
