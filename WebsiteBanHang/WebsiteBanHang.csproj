@@ -795,6 +795,8 @@
     <Content Include="Views\DonHang\DHDangGiao.cshtml" />
     <Content Include="Views\Home\NotifyPartial.cshtml" />
     <Content Include="Views\QuanTriVien\Voucher.cshtml" />
+    <Content Include="Views\QuanTriVien\XemVoucher.cshtml" />
+    <Content Include="Views\QuanTriVien\XemFlashSale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

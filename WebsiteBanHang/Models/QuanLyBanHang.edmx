@@ -528,6 +528,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__GiamGia__MaHangT__00B07205">
+          <End Role="HangThanhVien" Type="Self.HangThanhVien" Multiplicity="0..1" />
+          <End Role="GiamGia" Type="Self.GiamGia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HangThanhVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiamGia">
+              <PropertyRef Name="MaHangTV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KichCo__MaSP__08038257">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="KichCo" Type="Self.KichCo" Multiplicity="*" />
@@ -977,6 +989,10 @@
             <End Role="Shop" EntitySet="Shop" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
           </AssociationSet>
+          <AssociationSet Name="FK__GiamGia__MaHangT__00B07205" Association="Self.FK__GiamGia__MaHangT__00B07205">
+            <End Role="HangThanhVien" EntitySet="HangThanhVien" />
+            <End Role="GiamGia" EntitySet="GiamGia" />
+          </AssociationSet>
           <AssociationSet Name="FK__KichCo__MaSP__08038257" Association="Self.FK__KichCo__MaSP__08038257">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="KichCo" EntitySet="KichCo" />
@@ -1239,6 +1255,10 @@
             <End Role="Xa" EntitySet="Xa" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
           </AssociationSet>
+          <AssociationSet Name="FK__GiamGia__MaHangT__00B07205" Association="QuanLyBanHangModel.FK__GiamGia__MaHangT__00B07205">
+            <End Role="HangThanhVien" EntitySet="HangThanhVien" />
+            <End Role="GiamGia" EntitySet="GiamGia" />
+          </AssociationSet>
           <AssociationSet Name="FK__Shop__MaHuyen__002AF460" Association="QuanLyBanHangModel.FK__Shop__MaHuyen__002AF460">
             <End Role="Huyen" EntitySet="Huyen" />
             <End Role="Shop" EntitySet="Shop" />
@@ -1466,6 +1486,7 @@
           <Property Name="MaShop" Type="Int32" />
           <Property Name="MaHangTV" Type="Int32" />
           <NavigationProperty Name="ChiTietGiamGia" Relationship="QuanLyBanHangModel.FK__ChiTietGi__MaGia__673F4B05" FromRole="GiamGia" ToRole="ChiTietGiamGia" />
+          <NavigationProperty Name="HangThanhVien" Relationship="QuanLyBanHangModel.FK__GiamGia__MaHangT__00B07205" FromRole="GiamGia" ToRole="HangThanhVien" />
         </EntityType>
         <EntityType Name="HangThanhVien">
           <Key>
@@ -1475,6 +1496,7 @@
           <Property Name="TenHang" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ToiThieu" Type="Int32" />
           <Property Name="ToiDa" Type="Int32" />
+          <NavigationProperty Name="GiamGia" Relationship="QuanLyBanHangModel.FK__GiamGia__MaHangT__00B07205" FromRole="HangThanhVien" ToRole="GiamGia" />
         </EntityType>
         <EntityType Name="Huyen">
           <Key>
@@ -2056,6 +2078,18 @@
             </Principal>
             <Dependent Role="DonDatHang">
               <PropertyRef Name="MaXa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GiamGia__MaHangT__00B07205">
+          <End Type="QuanLyBanHangModel.HangThanhVien" Role="HangThanhVien" Multiplicity="0..1" />
+          <End Type="QuanLyBanHangModel.GiamGia" Role="GiamGia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HangThanhVien">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiamGia">
+              <PropertyRef Name="MaHangTV" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

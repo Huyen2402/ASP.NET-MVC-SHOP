@@ -14,9 +14,18 @@ namespace WebsiteBanHang.Models
     
     public partial class HangThanhVien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HangThanhVien()
+        {
+            this.GiamGia = new HashSet<GiamGia>();
+        }
+    
         public int ID { get; set; }
         public string TenHang { get; set; }
         public Nullable<int> ToiThieu { get; set; }
         public Nullable<int> ToiDa { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiamGia> GiamGia { get; set; }
     }
 }

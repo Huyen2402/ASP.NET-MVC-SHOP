@@ -263,5 +263,32 @@ namespace WebsiteBanHang.Controllers
             
             return RedirectToAction("GioHangPartial");
         }
+        public ActionResult ListGiamGia(int MaShop)
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<ChiTietGiamGia> list = new List<ChiTietGiamGia> ();
+            List<GiamGia> listGG = db.GiamGias.Where(n=>n.MaShop == MaShop).ToList();
+            List<ChiTietGiamGia> listCTGG = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+            foreach (var item in listGG)
+            {
+                foreach (var item1 in listCTGG)
+                {
+                    if(item.MaGiamGia == item1.MaGiamGia)
+                    {
+                        list.Add(item1);
+                    }
+                }
+            }
+            var v = list.Select(x => new
+            {
+                MaGiamGia = x.MaGiamGia,
+                MaCTGiamGia = x.MaCTGiamGia,
+                SoTien = x.GiamGia.SoTien,
+                TenGiamGia = x.GiamGia.TenGiamGia
+            });
+           
+
+            return Json(new { data = v }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

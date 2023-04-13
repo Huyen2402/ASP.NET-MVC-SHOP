@@ -5,7 +5,7 @@
     FlashSale fl = ViewBag.Day as FlashSale;
   
 }
-@if (Model.Count() > 0)
+@if (Model != null)
 {
     <div class="content-top container flash-sale">
 
@@ -38,7 +38,7 @@
                                     <div role="contentinfo" class="wrapper-upper-left__flashsale notranslate" tabindex="-1" data-ada-level="0" data-ada-pos="0-0">
 
                                         <i class="fa-solid fa-bolt suiiconfont sui_icon_flashsale_24px"></i>
-                                        <span class="wrapper-upper-left__flashsale-percent">-45%</span>
+                                        <span class="wrapper-upper-left__flashsale-percent">@item.KhuyenMai%</span>
                                     </div><!-- ccc-tsp角标 --><!--v-if-->
                                 </div>
                                 <img style="height: 326px" class="img-responsive" src="@Url.Content(item.HinhAnh)" alt="">
@@ -111,7 +111,7 @@
     var val = document.getElementById("time").value
     console.log(val)
     var ngay = val.slice(0, 10)
-    var gio = val.slice(11, 19)
+    var gio = val.slice(10)
     console.log(ngay)
     console.log(gio)
     const myArray = ngay.split("/");

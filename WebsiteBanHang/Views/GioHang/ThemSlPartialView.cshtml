@@ -21,7 +21,7 @@
             if (shop.MaShop == item.Key)
             {
                 <div class="shop-gio-hang">
-                    <input data-key="@item.Key" class="check-shop" type="checkbox" name="name" value="" />
+                    <input data-key="@item.Key" class="check-shop" type="radio" name="name" value="" />
                     <label>@shop.TenShop</label>
                 </div>
             }
@@ -34,7 +34,7 @@
 
 
                 <div id="hide" class="cart-header">
-                    <input data-Tien="@sp.GiaHienTai" data-sl="@sp.SoLuong" data-MaShop="@sp.MaShop" class="@Url.Content("item-check-shop_"+sp.MaShop)" type="checkbox" name="name" value="" />
+                    <input data-Tien="@sp.GiaHienTai" data-sl="@sp.SoLuong" data-MaShop="@sp.MaShop" class="@Url.Content("item-check-shop_"+sp.MaShop)" type="radio" name="name1" value="" />
                     <a data-MaSP="@sp.MaSP" @*href="@Url.Action("XoaGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="close1"> </a>
                     <div class="cart-sec simpleCart_shelfItem">
                         <div class="cart-item cyc">
@@ -54,10 +54,20 @@
                                 string GiaTien1 = number1.Value.ToString("#,##0");
                                 decimal? number = sp.GiaHienTai;
                                 string GiaTien = number.Value.ToString("#,##0");
-                            }
+
+
+}
                         <div class="delivery">
-                            <del class="m-2"> @GiaTien1</del>
-                            <p style="font-size:12px"> @GiaTien</p>
+                            @if (GiaTien1 != GiaTien)
+                            {
+                                <del class="m-2"> @GiaTien1</del>
+                                <p style="font-size:12px"> @GiaTien</p>
+                            }
+                            else
+                            {
+                                <p style="font-size:12px"> @GiaTien</p>
+                            }
+
                             <span>Thời gian nhận hàng từ 5-7 ngày</span>
                             <div class="clearfix"></div>
                         </div>
@@ -119,25 +129,11 @@
          
 
             <select class="form-select" id="sel1" name="sellist1">
-                @foreach (var i in list)
-                {
-                    foreach (var j in listgg)
-                    {
+                <option id="empty">
+                   ------------------
 
-                        if (i.MaGiamGia == j.MaGiamGia)
-                        {
-
-                            <option data-CTGG="@i.MaCTGiamGia" id="@j.MaGiamGia" value="@j.SoTien">
-                                @j.TenGiamGia
-
-                            </option>
-
-
-
-                        }
-
-                    }
-                }
+                </option>
+                <br />
 
             </select>
 
@@ -161,7 +157,7 @@
 
 
 <script>
-   
+
     $("#btn-dathang").click(function () {
         var checkTrangThai = $(".check-shop").prop("checked")
         if (checkTrangThai == false) {
@@ -169,17 +165,33 @@
 
                 icon: 'error',
                 title: 'Thất bại',
-                text: 'Thanh toán mua hàng thất bại do bạn chưa đăng nhập!',
+                text: 'Không được chọn voucher do bạn chưa chọn shop!',
                 showConfirmButton: true,
 
             })
         }
-       
+
         })
 
+    $('select').change(function () {
+        var checkTrangThai = $(".check-shop").prop("checked")
+        if (checkTrangThai == false) {
+            Swal.fire({
 
+                icon: 'error',
+                title: 'Thất bại',
+                text: 'Thanh toán mua hàng thất bại do bạn chưa chọn shop!',
+                showConfirmButton: true,
+
+            })
+        }
+
+    })
+    
     $(".check-shop").change(function () {
+       
         var checkTrangThai = $(this).prop("checked")
+       
         var MaShop = $(this).attr("data-key");
 
         if (checkTrangThai == true) {
@@ -206,7 +218,7 @@
             console.log("tongTien" + tongTien)
             console.log(mang)
             $(".TienBanDau").remove();
-          
+
             $("#tong").html('<label id="TenBL">' + tongTien + '</label>')
             $(".discount").html(
 
@@ -223,9 +235,51 @@
                 '</div>'
             );
 
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:62979/GioHang/ListGiamGia?MaShop=' + MaShop,
+
+                success: function (dataMH) {
+                    console.log(dataMH)
+                    $("#sel1").empty();
+                    $("#sel1").append('<option id="empty">'+
+                  ' ------------------ '
+
+               + ' </option> ')
+                    for (var i = 0; i < dataMH.data.length; i++) {
+                        $("#empty").after(
+
+                            '<option data-CTGG="' + dataMH.data[i].MaCTGiamGia + '" id="' + dataMH.data[i].MaGiamGia + '" value="' + dataMH.data[i].SoTien + '">' +
+                            dataMH.data[i].TenGiamGia
+
+                            + '</option>'
+
+
+                        );
+
+                    }
+                    
+
+
+                }
+
+            });
+
+
             //chon ma giam gia
             var um = tongTien
-        $('select').change(function () {
+            $('select').change(function () {
+                var checkTrangThai = $(".check-shop").prop("checked")
+                if (checkTrangThai == false) {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Thất bại',
+                        text: 'Thanh toán mua hàng thất bại do bạn chưa chọn shop!',
+                        showConfirmButton: true,
+
+                    })
+                }
             var optionSelected = $(this).find("option:selected");
             var valueSelected = optionSelected.val();
             var textSelected = optionSelected.attr("data-CTGG");
@@ -248,7 +302,7 @@
 
 
         });
-           
+
             var val = 1;
             $(".form-check-input").click(function () {
 
@@ -271,7 +325,7 @@
             })
 
         }
-       
+
         else {
             $(".item-check-shop_" + MaShop).prop("checked", false);
         }

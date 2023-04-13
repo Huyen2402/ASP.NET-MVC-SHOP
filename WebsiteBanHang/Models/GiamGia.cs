@@ -30,5 +30,6 @@ namespace WebsiteBanHang.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietGiamGia> ChiTietGiamGia { get; set; }
+        public virtual HangThanhVien HangThanhVien { get; set; }
     }
 }

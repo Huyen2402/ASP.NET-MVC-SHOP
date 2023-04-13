@@ -1,4 +1,5 @@
-﻿
+﻿@using WebsiteBanHang.Models
+@model List<HangThanhVien>
 @{
     ViewBag.Title = "Voucher";
     Layout = "~/Views/Layout/QuanTriLayout.cshtml";
@@ -14,7 +15,7 @@
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">Nhập mã voucher</label>
                         <div id="fsinput" class="col-sm-8">
-                            <input type="text" class="form-control1" id="focusedinput" placeholder="Default Input">
+                            <input type="text" name="TenGiamGia" class="form-control1" id="focusedinput" placeholder="Default Input">
 
                         </div>
 
@@ -22,7 +23,7 @@
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">Nhập số tiền</label>
                         <div id="einput" class="col-sm-8">
-                            <input  type="text" class="form-control1" id="endinput" placeholder="Default Input">
+                            <input  type="number" name="SoTien" class="form-control1" id="endinput" placeholder="Default Input">
                         </div>
 
                     </div>
@@ -30,11 +31,12 @@
                     <div class="form-group">
                         <label for="radio" class="col-sm-2 control-label">Áp dụng cho (Loại thành viên)</label>
                         <div class="col-sm-8">
-                            <div class="radio-inline"><label><input value="7" type="radio"> Đồng</label></div>
-                            <div class="radio-inline"><label><input value="10" type="radio"> Bạc</label></div>
-                            <div class="radio-inline"><label><input value="30" type="radio">  Vàng</label></div>
-                            <div class="radio-inline"><label><input value="30" type="radio">  Bạch kim</label></div>
-                            <div class="radio-inline"><label><input value="30" type="radio">  Kim cương</label></div>
+                            @foreach (var item in Model)
+                            {
+                                <div class="radio-inline"><label><input class="radio-rank" value="@item.ID" type="radio"> @item.TenHang</label></div>
+                            }
+
+                        
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,3 +72,55 @@
             background: #0b7dda;
         }
 </style>
+<script>
+    var arr = [];
+    $(".radio-rank").click(function () {
+       
+        let val = $(this).val();
+        if (arr.indexOf(val) == -1) {
+            arr.push(val);
+           
+        }
+       
+        console.log(arr)
+    })
+    $("#btn-fs").click(function () {
+        const TenGG = $("#focusedinput").val();
+        const SoTien = $("#endinput").val();
+        console.log(SoTien)
+        for (var i = 0; i < arr.length; i++) {
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/QuanTriVien/AddVoucher",
+                data: { TenGiamGia: TenGG, SoTien: SoTien, MaHangTV: arr[i] }, // serializes the form's elements.
+                success: function (dataT) {
+                    if (dataT.mess == "success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thêm thành công',
+                            text: 'Bạn đã thêm loại danh mục thành công',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload()
+                            }
+                        })
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+                }
+            });
+        }
+    })
+</script>

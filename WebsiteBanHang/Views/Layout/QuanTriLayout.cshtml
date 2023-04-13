@@ -54,12 +54,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="gn-scroller scrollbar1" tabindex="5000" style="overflow: hidden; outline: none;">
                             <ul class="gn-menu agile_menu_drop">
                                 <li><a href="@Url.Action("Index","QuanTriVien")"> <i class="fa fa-tachometer"></i> Dashboard</a></li>
-                                <li><a href="@Url.Action("Voucher","QuanTriVien")"> <i class="fa fa-tachometer"></i> Voucher</a></li>
                                 <li>
-                                    <a href="@Url.Action("TaoFlashSale","QuanTriVien")"><i class="fa fa-cogs" aria-hidden="true"></i> Tạo Flash Sale <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    <a href="@Url.Action("Voucher","QuanTriVien")"> <i class="fa fa-tachometer"></i> Voucher</a>
                                     <ul class="gn-submenu">
-                                        <li class="mini_list_agile"><a href="buttons.html"><i class="fa fa-caret-right" aria-hidden="true"></i> Buttons</a></li>
-                                        <li class="mini_list_w3"><a href="grids.html"> <i class="fa fa-caret-right" aria-hidden="true"></i> Grids</a></li>
+                                        <li class="mini_list_agile"><a href="@Url.Action("Voucher","QuanTriVien")"><i class="fa fa-caret-right" aria-hidden="true"></i> Tạo voucher</a></li>
+                                        <li class="mini_list_w3"><a href="@Url.Action("XemVoucher","QuanTriVien")"> <i class="fa fa-caret-right" aria-hidden="true"></i> Xem voucher</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("TaoFlashSale","QuanTriVien")"><i class="fa fa-cogs" aria-hidden="true"></i> Flash Sale <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    <ul class="gn-submenu">
+                                        <li class="mini_list_agile"><a href="@Url.Action("TaoFlashSale","QuanTriVien")"><i class="fa fa-caret-right" aria-hidden="true"></i> Tạo flash sale</a></li>
+                                        <li class="mini_list_w3"><a href="@Url.Action("XemFlashSale","QuanTriVien")"> <i class="fa fa-caret-right" aria-hidden="true"></i> Xem flash sale</a></li>
                                     </ul>
                                 </li>
                                 <li>

@@ -38,7 +38,7 @@ namespace WebsiteBanHang
             app.UseHangfireAspNet(GetHangfireServers);
             //app.UseHangfireDashboard();
             LienHeController obj = new LienHeController();
-            RecurringJob.AddOrUpdate(() => obj.SendMailAuto(), Cron.Weekly);
+            RecurringJob.AddOrUpdate(() => obj.RestartPrice(), Cron.Daily);
             DashboardOptions opts = new DashboardOptions
             {
                 AuthorizationFilters = new[] { new AuthorisationOverride() }

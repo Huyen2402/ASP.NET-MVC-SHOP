@@ -373,11 +373,124 @@ namespace WebsiteBanHang.Controllers
         }
         public ActionResult Voucher()
         {
-            return View();  
+            List<HangThanhVien> list = db.HangThanhViens.ToList();
+            return View(list);  
         }
-        public ActionResult AddVoucher()
+        public ActionResult AddVoucher(string TenGiamGia,   int SoTien, int MaHangTV)
         {
+            GiamGia gia = new GiamGia();
+            
+               
+                gia.TenGiamGia = TenGiamGia;
+                gia.SoTien = SoTien;
+                gia.MaHangTV = MaHangTV;
+                db.GiamGias.Add(gia);
+            db.SaveChanges();
+          
             return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult XemVoucher()
+        {
+            List<GiamGia> list = db.GiamGias.Where(n=>n.MaShop == null ).ToList();
+
+            return View(list);
+        }
+        public ActionResult XoaVoucher(int MaVoucher)
+        {
+           GiamGia check = db.GiamGias.SingleOrDefault(n=>n.MaGiamGia  == MaVoucher);
+            if(check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<ChiTietGiamGia> listCT = db.ChiTietGiamGias.Where(n => n.MaGiamGia == MaVoucher).ToList();
+                foreach (var item in listCT)
+                {
+                    db.ChiTietGiamGias.Remove(item);
+                }
+                db.GiamGias.Remove(check);  
+                db.SaveChanges();   
+                return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+        public ActionResult SuaVoucher(int MaVoucher)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            GiamGia check = db.GiamGias.SingleOrDefault(n => n.MaGiamGia == MaVoucher);
+            if (check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+              
+               
+                return Json(new { data = check }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        public ActionResult HangTV(int MaVoucher)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+           
+                HangThanhVien h = db.HangThanhViens.SingleOrDefault(n => n.ID == MaVoucher);
+
+                return Json(new {  hang = h }, JsonRequestBehavior.AllowGet);
+            
+
+        }
+        public JsonResult EditVoucher(FormCollection f)
+        {
+            //db.Configuration.ProxyCreationEnabled = false;
+            int MaGiamGia = Convert.ToInt32(f["MaGiamGia"]);
+            string TenLoai = f["TenGiamGia"];
+            string TenHang = f["MaHangTV"];
+            decimal SoTien = Convert.ToDecimal(f["SoTien"]);
+            GiamGia g = db.GiamGias.SingleOrDefault(n => n.MaGiamGia == MaGiamGia);
+            if(g == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                g.SoTien = SoTien;
+                g.TenGiamGia = TenLoai;
+                db.SaveChanges();
+                
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            // Checking no of files injected in Request object 
+
+           
+        }
+        public ActionResult XemFlashSale()
+        {
+            DateTime CurrentDay = DateTime.Now;
+            
+            List<SanPham> listSP = new List<SanPham>();
+
+            List<FlashSale> listFlash = db.FlashSales.ToList();
+            foreach (FlashSale flashSale in listFlash)
+            {
+                if (flashSale.NgaySale.Value.Date == CurrentDay.Date && flashSale.NgaySale.Value.Month == CurrentDay.Month && flashSale.NgaySale.Value.Year == CurrentDay.Year)
+                {
+                    ViewBag.Day = flashSale;
+
+                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n => n.MaSale == flashSale.MaSale).ToList();
+                    ViewBag.listSale = list;
+                    for (var i = 0; i < list.Count(); i++)
+                    {
+                        int? MaSP = list[i].MaSP;
+                        SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                        listSP.Add(sp);
+
+                    }
+
+                }
+            }
+            return View(listSP);
         }
     }
 }

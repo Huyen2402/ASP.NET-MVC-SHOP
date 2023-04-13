@@ -1,0 +1,372 @@
+﻿@using WebsiteBanHang.Models
+@model List<GiamGia>
+@{
+    ViewBag.Title = "XemVoucher";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+
+@{
+    int i = 1;
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) + 1;
+    int Trang = 1;
+}
+<div class="inner_content">
+    <h3>TẤT CẢ CÁC SHOP</h3>
+    <table id="table-max-height" class="max-height">
+        <thead>
+
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Tên Voucher</th>
+                <th class="text-center">Số Tiền</th>
+
+                <th class="text-center">Loại Thành Viên</th>
+
+
+                <th class="text-center">Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (soSP % soSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr class=" @Url.Content("item_sp Trang_"+Trang)">
+                    <td class="text-center" data-th="Name"><span class="bt-content">@i</span></td>
+                    <td class="text-center" data-th="Name"><span class="bt-content">@item.TenGiamGia</span></td>
+                    <td class="text-center" data-th="Name"><span class="bt-content">@item.SoTien</span></td>
+
+                    <td class="text-center" data-th="Name">
+
+                        <span class="bt-content">@item.HangThanhVien.TenHang</span>
+                    </td>
+                    <td class="text-center" data-th="Name">
+                        <button data-id="@item.MaGiamGia" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa <i class="fa-solid fa-pen-to-square"></i></button>
+                        <button data-id="@item.MaGiamGia" type="button" class="btn btn-danger btn-Khoa" data-bs-toggle="modal" data-bs-target="#myModal">Xóa <i class="fa-solid fa-trash"></i></button>
+
+                    </td>
+
+                </tr>
+                soSP++;
+                i++;
+
+            }
+
+
+
+        </tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      
+    </div>
+
+    <div class="w3-center">
+        <div class="w3-bar text-center">
+            <a href="#" class="w3-button">«</a>
+            @for (int j = 1; j <= soTrangHienThi; j++)
+            {
+
+                <a data-Trang="@j" href="#" class=" @Url.Content(" w3-button  page-item Trang_"+j)">@j</a>
+            }
+
+            <a href="#" class="w3-button">»</a>
+        </div>
+    </div>
+</div>
+<style>
+    .item_sp {
+        display: none;
+    }
+
+    .btn-info {
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin: 1.25em 0 0;
+        width: 100%;
+    }
+
+        table tr,
+        table th,
+        table td {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: .95em;
+        }
+
+        table th,
+        table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e53238;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        table tr td {
+            background: #f3faff;
+            color: #424242;
+        }
+
+        table tr:nth-of-type(2n+2) td {
+            background: #ffffff;
+        }
+
+        table.bt tfoot th,
+        table.bt tfoot td,
+        table.bt tbody td {
+            font-size: .8125rem;
+            padding: 0;
+        }
+
+            table.bt tfoot th:before,
+            table.bt tfoot td:before,
+            table.bt tbody td:before {
+                background: #e74c3c;
+                margin-right: 10px;
+                padding: 2px 10px;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            table.bt tfoot th .bt-content,
+            table.bt tfoot td .bt-content,
+            table.bt tbody td .bt-content {
+                display: inline-block;
+                padding: 2px 5px;
+            }
+
+            table.bt tfoot th:first-of-type:before,
+            table.bt tfoot th:first-of-type .bt-content,
+            table.bt tfoot td:first-of-type:before,
+            table.bt tfoot td:first-of-type .bt-content,
+            table.bt tbody td:first-of-type:before,
+            table.bt tbody td:first-of-type .bt-content {
+                padding-top: 10px;
+            }
+
+            table.bt tfoot th:last-of-type:before,
+            table.bt tfoot th:last-of-type .bt-content,
+            table.bt tfoot td:last-of-type:before,
+            table.bt tfoot td:last-of-type .bt-content,
+            table.bt tbody td:last-of-type:before,
+            table.bt tbody td:last-of-type .bt-content {
+                padding-bottom: 10px;
+            }
+</style>
+<script>
+
+    $('.Trang_1').show();
+    $('.page-item').click(function () {
+
+        $('.item_sp').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_' + Trang).show();
+
+
+
+    })
+
+    $(".btn-Khoa").click(function () {
+        const maVoucher = $(this).attr("data-id");
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Nếu bạn xóa voucher này, khách hàng sẽ mất voucher",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#40b043',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:62979/QuanTriVien/XoaVoucher?MaVoucher=' + maVoucher,
+
+                    success: function (data) {
+
+                        console.log(data)
+                        if (data.data == 'success') {
+                            Swal.fire({
+
+                                icon: 'success',
+                                title: 'Xóa thành công',
+                                text: 'Bạn đã xóa voucher thành công',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                        }
+
+
+                    }
+
+                });
+
+            }
+            else {
+                window.location.reload()
+            }
+        })
+    })
+
+    $(".btn-infoShop").click(function () {
+        const id = $(this).attr("data-id");
+
+        console.log(id)
+        $("#myModal").empty();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:62979/QuanTriVien/SuaVoucher?MaVoucher=' + id,
+
+            success: function (data) {
+                console.log(data)
+
+                $("#myModal").append(
+                    '<form action="" id="from-ChinhSua">'+
+                    '<div class="modal-dialog">' +
+                    ' <div class= "modal-content" >' +
+
+
+                    '<div class="modal-header">' +
+                    ' <h4 class="modal-title">THÔNG TIN MÃ GIẢM GIÁ ' + data.data.TenGiamGia + '</h4>' +
+                    ' <button type="button" class="btn-close" data-bs-dismiss="modal"></button>' +
+                    ' </div> ' +
+                    '  <input type="hidden"  value="' + data.data.MaGiamGia + '" class="form-control"  name="MaGiamGia">' +
+
+                    '  <div class="modal-body">' +
+                    '  <div class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">Tên Voucher:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.data.TenGiamGia + '"  name="TenGiamGia">' +
+                    ' </div>' +
+                    '  <div  id="MHKD" class="mb-3 mt-3">' +
+                    '    <label for="email" class="form-label">Số Tiền:</label>' +
+                    '  <input type="text" class="form-control" id="" value="' + data.data.SoTien + '"  name="SoTien">' +
+                    ' </div>' +
+                    '  <div class="mb-3 mt-3">' +
+
+                    ' </div>' +
+
+
+
+
+
+
+                    '  </div > ' +
+                    '  <div class="modal-footer">' +
+                    ' <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">Sửa</button>' +
+                    ' </div>' +
+
+                    '   </div >' +
+                    '   </div > ' +
+                    ' </form>'
+                     );
+
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:62979/QuanTriVien/HangTV?MaVoucher=' + data.data.MaHangTV,
+
+                    success: function (dataMH) {
+                        console.log(dataMH)
+                        $("#MHKD").append(
+                            '  <div  class="mb-3">' +
+                            ' <label for="pwd" class="form-label">Hạng Thành Viên:</label>' +
+                           
+     
+     
+   
+                            '  <input readonly type="text" class="form-control" id="" value="' + dataMH.hang.TenHang + '"  name="MaHangTV">'
+
+
+                        );
+
+
+                    }
+
+                });
+
+                $("form#from-ChinhSua").submit(function (e) {
+                    /*    $("#sua").click(function (e) {*/
+                    console.log("fsjdjf")
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    console.log(formData)
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:62979/QuanTriVien/EditVoucher",
+                        data: formData, // serializes the form's elements.
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data.mess = "success") {
+
+                                Swal.fire({
+
+                                    icon: 'success',
+                                    title: 'Sửa thành công',
+                                    text: 'Bạn đã sửa voucher thành công',
+                                    showConfirmButton: true,
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+                            }
+                            else {
+                                Swal.fire({
+
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
+
+                                })
+                            }
+                        }
+                    });
+
+                })
+
+
+                $(".btn-close").click(function () {
+                    /* $("#myModal").hide();*/
+                    window.location.reload();
+                })
+
+            }
+
+        });
+
+    })
+
+</script>

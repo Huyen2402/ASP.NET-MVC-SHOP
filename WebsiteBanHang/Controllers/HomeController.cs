@@ -240,7 +240,7 @@ namespace WebsiteBanHang.Controllers
                 {
                     ViewBag.Day = flashSale;
                    
-                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n=>n.MaSale == flashSale.MaSale).ToList();
+                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n=>n.MaSale == flashSale.MaSale && n.NgungSale == false).ToList();
                     List<SanPham> listSP = new List<SanPham>();
                     for (var i =0; i<list.Count(); i++)
                     {
@@ -369,13 +369,15 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = db.ThanhViens.SingleOrDefault(n=>n.MaThanhVien ==  MaTV);
             List<DonDatHang> list = db.DonDatHangs.Where(n => n.MaKH == MaTV && n.MaTinhTrangGiaoHang == 3).ToList();
             List<HangThanhVien> hang = db.HangThanhViens.ToList();
+
             foreach (var item in hang)
             {
                 if(tv.TichDiem > item.ToiThieu && tv.TichDiem <= item.ToiDa)
                 {
-                    
+                    List<GiamGia> listGG = db.GiamGias.Where(n=>n.MaHangTV == item.ID).ToList();
                     ViewBag.Hang = item;
                     ViewBag.DonDH = list;
+                    ViewBag.lisTGG = listGG;
                     return View(tv);
                 }
                 else

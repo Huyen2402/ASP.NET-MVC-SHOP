@@ -65,5 +65,33 @@ namespace WebsiteBanHang.Controllers
            
             return Json(new {status = "success"}, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult RestartPrice()
+        {
+            DateTime CurrentDay = DateTime.Now;
+
+            
+
+            List<FlashSale> listFlash = db.FlashSales.ToList();
+            foreach (FlashSale flashSale in listFlash)
+            {
+               
+                
+                    ViewBag.Day = flashSale;
+
+                    List<ChiTietFlashSale> list = db.ChiTietFlashSales.Where(n => n.MaSale == flashSale.MaSale).ToList();
+                    ViewBag.listSale = list;
+                    for (var i = 0; i < list.Count(); i++)
+                    {
+                        int? MaSP = list[i].MaSP;
+                        SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                        sp.KhuyenMai = null;
+                        db.SaveChanges();
+                       
+
+                    }
+                
+            }
+            return Json(new { status = "success" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
