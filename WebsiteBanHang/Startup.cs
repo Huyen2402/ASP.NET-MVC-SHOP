@@ -34,7 +34,7 @@ namespace WebsiteBanHang
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR();
-
+            
             app.UseHangfireAspNet(GetHangfireServers);
             //app.UseHangfireDashboard();
             LienHeController obj = new LienHeController();

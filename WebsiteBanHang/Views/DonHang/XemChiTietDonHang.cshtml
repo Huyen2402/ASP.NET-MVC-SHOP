@@ -375,7 +375,7 @@
     const arr_star = [];
     const arr_MaCTDDH = [];
     const arr_comment = [];
-    const arr_infor = [];
+    var arr_infor = [];
     const infor = {};
 
     function Review(MaCTDDH, start, comment) {
@@ -425,11 +425,12 @@
                    
 
                     for (var i = 0; i < arr_infor.length; i++) {
-                       
+                        console.log(arr_infor[i])
                             /*    var key = $("#email").val();*/
-                            $.getJSON("/DemoJQuery/Test?path=" + arr_infor[i].comment, function (ss) {
+                        $.getJSON("/DemoJQuery/Test?path=" + arr_infor[i].comment + "&MaCTDDH=" + arr_infor[i].MaCTDDH + "&start=" + arr_infor[i].start, function (ss) {
+                            console.log(arr_infor[i])
                                 console.log(ss)
-                                if (ss == 0) {
+                                if (ss.re == 0) {
                               
                                     Swal.fire({
                                       
@@ -446,11 +447,11 @@
                                    
                                 }
                                 else {
-
+                                   
                                     $.ajax({
                                         type: "get",
 
-                                        url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + arr_infor[i].MaCTDDH + "&comment=" + arr_infor[i].comment + "&start=" + arr_infor[i].start,
+                                        url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + ss.danhgia.MaCTDDH + "&comment=" + ss.danhgia.cmt + "&start=" + ss.danhgia.start,
                                         contenttype: "json",
 
                                         success: function ( data) {
@@ -460,7 +461,7 @@
                                                 Swal.fire({
 
                                                     icon: 'success',
-                                                    title: 'Your work has been saved',
+                                                    title: 'Đánh giá thành công',
                                                     showConfirmButton: true,
 
                                                 }).then((result) => {

@@ -16,7 +16,24 @@ using Microsoft.AspNet.SignalR.Hosting;
 
 namespace WebsiteBanHang.Controllers
 {
-    
+    // Create a Car class
+    class DanhGia
+    {
+        public string cmt;  // Create a field
+        public int MaCTDDH;
+        public int start;
+
+        // Create a class constructor for the Car class
+        public DanhGia(string cmt, int MaCTDDH, int start)
+        {
+            this.start = start;
+            this.cmt = cmt;
+            this.MaCTDDH = MaCTDDH;
+        }
+
+        
+    }
+
     public class DemoJQueryController : Controller
     {
        HttpClientHandler _client = new HttpClientHandler();
@@ -33,21 +50,24 @@ namespace WebsiteBanHang.Controllers
 
 
   
-        public async Task<string> Test(string path)
+        public async Task<Object> Test(string path, int MaCTDDH, int start)
         {
             string apires = "";
+            DanhGia dg = new DanhGia(path, MaCTDDH, start);
              kq = new KetQua();
             using(var cl = new HttpClient(_client))
             {
                 using(var responde = await cl.GetAsync("https://localhost:7193/WeatherForecast/Test?data="+path)) 
                 {
                      apires = await responde.Content.ReadAsStringAsync();
+
                    
-                
-                   
+
+
+
                 }
             }
-            return apires ;
+            return Json(new { re = apires, danhgia = dg }, JsonRequestBehavior.AllowGet) ;
         }
         public ActionResult CallOTPView()
         {

@@ -9,6 +9,8 @@
 @{ 
     List<GioHang> listSP = ViewBag.listSP as List<GioHang>;
     ChiTietGiamGia ct = ViewBag.ct as ChiTietGiamGia;
+    decimal gg = ViewBag.GG;
+    decimal t = ViewBag.TongTien - ViewBag.GG;
 }
 <div class="container color-wh ">
     @Html.Action("DiaChiPartial", "DatHang")
@@ -83,7 +85,7 @@
     <div>
         <p>
             Tổng số tiền (@listSP.Count sản phẩm):
-            <b style="font-size:15px">  ₫ @ViewBag.TongTien</b>
+            <b style="font-size:15px">  ₫ @t </b>
         </p>
     </div>
     <hr />

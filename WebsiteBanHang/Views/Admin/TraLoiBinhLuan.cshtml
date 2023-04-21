@@ -10,7 +10,7 @@
 }
 
 <div class="container mt-3" >
-    <h2>Trả Lời Bình Luận</h2>
+    <h2>Trả Lời Đánh Giá</h2>
     <div id="TraLoi" class="form-control">
         <div>
             <label>@Model.ChiTietDonDatHang.DonDatHang.ThanhVien.HoTen</label>
@@ -46,9 +46,10 @@
 
             </div>
             <div id="form-TL">
-                @using (Html.BeginForm("TraLoiBinhLuan", "Admin", FormMethod.Post))
+                @using (Html.BeginForm("TraLoiBinhLuan2", "Admin", FormMethod.Post, new { @id = "form-bl" }))
                 {
                     <input type="hidden" name="MaSP" value="@Model.MaSP" />
+                    <input type="hidden" name="MaThanhVien" value="@Model.ChiTietDonDatHang.DonDatHang.MaKH" />
                     <input type="hidden" name="MaBL" value="@Model.MaBL" />
                     <input class="form-control" type="text" name="NoiDungTraLoi" value="" />
 
@@ -65,3 +66,43 @@
     
 
 </div>
+<script>
+    $("form#form-bl").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var actionUrl = form.attr('action');
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+                if (data.mess == "success") {
+
+                    Swal.fire({
+
+                        icon: 'success',
+                        title: 'Trả lời thành công',
+                        text: 'Bạn đã trả lời đánh giá thành công',
+                        showConfirmButton: true,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    })
+
+                }
+                else {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Xảy ra lỗi',
+                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                        showConfirmButton: true,
+
+                    })
+                }
+            }
+        });
+    })
+</script>

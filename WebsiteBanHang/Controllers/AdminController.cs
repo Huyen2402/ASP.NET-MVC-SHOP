@@ -743,7 +743,19 @@ namespace WebsiteBanHang.Controllers
 
             return RedirectToAction("TraLoiBinhLuan", "Admin", new { MaBL = tlbl.MaBL });
         }
-
+        public ActionResult TraLoiBinhLuan2(FormCollection f)
+        {
+            Shop s = Session["CuaHang"] as Shop;
+            TraLoiBinhLuan traloi = new TraLoiBinhLuan();
+            traloi.MaBL = Int32.Parse(f["MaBL"]) ;
+            traloi.NoiDungTraLoi = f["NoiDungTraLoi"] ;
+            traloi.MaSP = Int32.Parse(f["MaSP"]);
+            traloi.NgayTao = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            traloi.MaThanhVien = Int32.Parse(f["MaThanhVien"]);
+            db.TraLoiBinhLuans.Add(traloi);
+            db.SaveChanges();
+            return Json(new { mess = "success"}, JsonRequestBehavior.AllowGet);
+        }
         public void InFileExcel()
         {
 

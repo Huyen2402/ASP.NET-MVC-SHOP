@@ -11,18 +11,6 @@ namespace WebsiteBanHang.Controllers
     {
         // GET: KhachHang
         Entities db = new Entities();
-        
-        public ActionResult Index()
-        {
-            var listKH = from kh in db.KhachHangs select kh;
-            
-            return View(listKH);
-        }
-
-        public ActionResult Index1()
-        {
-            var listKH = from kh in db.KhachHangs select kh;
-            return View(listKH);
-        }
+       
     }
 }

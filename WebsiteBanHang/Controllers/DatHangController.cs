@@ -249,13 +249,16 @@ namespace WebsiteBanHang.Controllers
 
                             if (listGioHang != null)
                             {
+                                decimal price = 0;
                                 decimal total = 0;
                                 for (int i = 0; i < listGioHang.Count(); i++)
                                 {
-                                    decimal price = listGioHang[i].ThanhTien;
-                                    total = (dh.ThanhTien) * 100;
+                                    total += listGioHang[i].GiaHienTai;
+                                   
                                 }
-                                total -= total - (decimal)ctgg.GiamGia.SoTien;
+                                
+                                total = (total - (decimal)ctgg.GiamGia.SoTien)*100;
+                                
                                 string tongiten = total.ToString();
                                 //ddh.HinhThucThanhToan = "VNPay";
                                 //ddh.DaThanhToan = true;
@@ -444,11 +447,14 @@ namespace WebsiteBanHang.Controllers
                             if (listGioHang != null)
                             {
                                 decimal total = 0;
-                                for (int i = 0; i < listGioHang.Count(); i++)
+                                 for (int i = 0; i < listGioHang.Count(); i++)
                                 {
-                                    decimal price = listGioHang[i].ThanhTien;
-                                    total = (dh.ThanhTien) * 100;
+                                    total += listGioHang[i].GiaHienTai;
+                                   
                                 }
+                                
+                                total = total*100;
+                                
                                 string tongiten = total.ToString();
                                 //ddh.HinhThucThanhToan = "VNPay";
                                 //ddh.DaThanhToan = true;
@@ -755,6 +761,7 @@ namespace WebsiteBanHang.Controllers
                 List<GioHang> listSPGioHang = Session["GioHang"] as List<GioHang>;
                 List<GioHang> listSP = new List<GioHang>();
                 ViewBag.ct = db.ChiTietGiamGias.SingleOrDefault(n=>n.MaCTGiamGia== MaCTGiamGia);
+               
                 for (int i = 0; i <= listSPGioHang.Count - 1; i++)
                 {
                     if (listSPGioHang[i].MaShop == MaShop)
@@ -764,6 +771,7 @@ namespace WebsiteBanHang.Controllers
                 }
                 ViewBag.listSP = listSP;
                 ViewBag.TongTien = TongTien();
+                ViewBag.GG = db.ChiTietGiamGias.SingleOrDefault(n => n.MaCTGiamGia == MaCTGiamGia).GiamGia.SoTien;
                 return View(shop);
             }
             else
@@ -781,6 +789,7 @@ namespace WebsiteBanHang.Controllers
                     }
                 }
                 ViewBag.TongTien = TongTien();
+               
                 ViewBag.listSP = listSP;
                 return View(shop);
             }

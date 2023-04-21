@@ -22,7 +22,6 @@ namespace WebsiteBanHang.Models
     
         public int MaSale { get; set; }
         public Nullable<System.DateTime> NgaySale { get; set; }
-        public string ThoiGianSale { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

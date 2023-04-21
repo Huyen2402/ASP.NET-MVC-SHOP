@@ -22,7 +22,6 @@ namespace WebsiteBanHang.Models
     
         public int MaLoaiTV { get; set; }
         public string TenLoai { get; set; }
-        public Nullable<int> UuDai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThanhVien> ThanhVien { get; set; }

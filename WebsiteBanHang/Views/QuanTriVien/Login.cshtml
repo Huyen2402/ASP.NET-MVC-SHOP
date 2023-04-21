@@ -12,7 +12,7 @@
     <div class="registration admin_agile">
 
         <div class="signin-form profile admin">
-            <h2>Admin Login</h2>
+            <h2>Quản Trị Viên Đăng Nhập</h2>
             <div class="login-form">
               
                     @using (Html.BeginForm("Login", "QuanTriVien", FormMethod.Post, new { @id = "LoginQTV" }))
@@ -21,7 +21,7 @@
                         <input type="password" name="MatKhau" value="" id="MatKhau" required="">
                         <p style="color: red">@ViewBag.Mess</p>
                         <div class="tp">
-                            <input type="submit" value="LOGIN">
+                            <input type="submit" value="ĐĂNG NHẬP">
                         </div>
                     }
                    
