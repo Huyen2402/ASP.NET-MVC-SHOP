@@ -81,10 +81,9 @@
     </div>
 </div>
 <style>
-    .color-text{
+    .color-text {
         color: black !important;
     }
-   
 </style>
 
 <div id="popup">
@@ -92,7 +91,7 @@
         <div id="close-icon"><i style="color:black;" class="fa-solid fa-xmark"></i></div>
         <h1>Đăng nhập</h1>
         <div class="account-pass">
-            @using(Ajax.BeginForm("DangNhap","Home", new AjaxOptions {InsertionMode=InsertionMode.Replace,UpdateTargetId="ThongBao" }))
+            @using (Ajax.BeginForm("DangNhap", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
             {
                 <div class="col-md-12 account-top">
 
@@ -106,9 +105,10 @@
                         <input name="MatKhau" type="password">
                     </div>
                     <h4 id="ThongBao" style="color:red;"></h4>
-                    <input id="btn-dangnhap" type="submit" value="Đăng nhập">
+                    <input id="btn-dangnhap" type="submit" value="Đăng nhập"><a id="btn-forgot"  style="float: right" href="#popup1">Quên mật khẩu</a>
                     <br />
-                    <a  href="@Url.Action("DangKy", "Home")">Tạo Tài Khoản</a>
+                    <br />
+                    <a href="@Url.Action("DangKy", "Home")">Tạo Tài Khoản</a>
                     <br />
                     <a href="@Url.Action("DangNhapCuaHang","Home")">Bạn có tài khoản cửa hàng?</a>
 
@@ -121,13 +121,137 @@
     </div>
 
 </div>
+<div id="popup1" class="overlay">
+    <div class="popup">
+       
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <h1>Vui lòng nhập tài khoản:</h1>
+            <form id="idForm" action="@Url.Action("QuenMK", "Home")">
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+                
+               
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+           
+        </div>
+    </div>
+</div>
+<div id="popup2" class="overlay">
+    <div class="popup">
+
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <h1>Vui lòng nhập mật khẩu mới:</h1>
+            <form  action="@Url.Action("QuenMK", "Home")">
+                <div class="mb-3 mt-3">
+                    <label for="" class="form-label">Email:</label>
+                    <input type="email" class="form-control"  placeholder="Enter email" name="">
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
 <style>
+    h1 {
+        text-align: center;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #06D85F;
+        margin: 80px 0;
+    }
+
+    .box {
+        width: 40%;
+        margin: 0 auto;
+        background: rgba(255,255,255,0.2);
+        padding: 35px;
+        border: 2px solid #fff;
+        border-radius: 20px/50px;
+        background-clip: padding-box;
+        text-align: center;
+    }
+
+    .button {
+        font-size: 1em;
+        padding: 10px;
+        color: #fff;
+        border: 2px solid #06D85F;
+        border-radius: 20px/50px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+    }
+
+        .button:hover {
+            background: #06D85F;
+        }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+            z-index:9999999999;
+        }
+
+    .popup {
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 30%;
+        position: relative;
+        transition: all 5s ease-in-out;
+    }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .popup .close:hover {
+                color: #06D85F;
+            }
+
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+        }
     #bell-notifi {
         float: left;
         margin-left: 90pc;
         font-size: 15px;
-
     }
+
     .icon-button {
         position: relative;
         display: flex;
@@ -164,10 +288,10 @@
         border-radius: 50%;
         font-size: 10px
     }
-    .dropdown-menu{
+
+    .dropdown-menu {
         max-width: 500px !important;
     }
-   
 </style>
 <script>
     $("#btn-DangNhap").click(function () {
@@ -179,5 +303,27 @@
     $("#close-icon").click(function () {
         $("#popup").hide();
     })
+    $("#btn-forgot").click(function () {
+        $("#popup").hide();
+    })
+    $("#idForm").submit(function (e) {
 
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+                if (data.mess == "success") {
+                    $("#popup1").hide();
+                    $("#popup2").show()
+                }
+            }
+        });
+
+    });
 </script>

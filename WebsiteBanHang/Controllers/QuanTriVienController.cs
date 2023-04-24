@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
+using System.Web.Hosting;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -109,6 +112,46 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 s.XacNhan = true;
+                db.SaveChanges();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+
+                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                        var receiverEmail = new MailAddress(s.TaiKhoan, "Receiver");
+                        var password = "yyxrbzsfbkrftlny";
+                        string subject = "Xác nhận cửa hàng - Sàn thương mại điện tử Ori Cute";
+                        string body = "Chào bạn, sau khi chúng tôi xem xét thì cửa hàng cửa bạn đã được xét duyệt. Hiện tại bạn có thể đăng nhập và bán hàng tại website. Cảm ơn bạn đã sử dụng Oriana.";
+                        //string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/Customer.html"));
+                        //body = body.Replace("######", s.captcha.ToString());
+
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            IsBodyHtml = true,
+                            Subject = subject,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
                 return Json(new {mess = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);

@@ -9,8 +9,8 @@
 @{ 
     List<GioHang> listSP = ViewBag.listSP as List<GioHang>;
     ChiTietGiamGia ct = ViewBag.ct as ChiTietGiamGia;
-    decimal gg = ViewBag.GG;
-    decimal t = ViewBag.TongTien - ViewBag.GG;
+    decimal gg = ViewBag.GG != null ? ViewBag.GG : 0;
+    decimal t = ViewBag.GG != null ? ViewBag.TongTien - ViewBag.GG : ViewBag.TongTien;
 }
 <div class="container color-wh ">
     @Html.Action("DiaChiPartial", "DatHang")

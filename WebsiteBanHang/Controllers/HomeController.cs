@@ -14,6 +14,7 @@ using System.Web.UI.WebControls;
 
 namespace WebsiteBanHang.Controllers
 {
+
     public class HomeController : Controller
     {
         Entities db = new Entities();
@@ -249,6 +250,7 @@ namespace WebsiteBanHang.Controllers
                         listSP.Add(sp);
                        
                     }
+                    ViewBag.countList = listSP.Count;
                     return PartialView(listSP);
                 }
             }
@@ -421,6 +423,56 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
            int sl = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien && n.DaXem == false).Count();
             return Json(new { mess = "success", sl = sl }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult QuenMK(FormCollection f)
+        {
+            string email = f["Email"];
+            Random random = new Random();
+            int captcha = random.Next(100000, 999999);
+            ThanhVien tv = db.ThanhViens.SingleOrDefault(n=>n.Email == email);
+            if(tv != null)
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+
+                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                        var receiverEmail = new MailAddress(tv.Email, "Receiver");
+                        var password = "yyxrbzsfbkrftlny";
+                        string subject = "Quên mật khẩu - Sàn thương mại điện tử Ori Cute";
+                        string body = "Mật khẩu mới của bạn là: "+ captcha;
+                        //string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/Customer.html"));
+                        //body = body.Replace("######", s.captcha.ToString());
+
+
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            IsBodyHtml = true,
+                            Subject = subject,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+
+                    }
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
+            }
+            return Json(new {mess = "success", JsonRequestBehavior.AllowGet});
         }
     }
 }

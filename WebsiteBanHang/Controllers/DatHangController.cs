@@ -612,7 +612,7 @@ namespace WebsiteBanHang.Controllers
             }
             return View();
         }
-        public ActionResult PaymentConfirm(int MaShop, int MaCTGiamGia)
+        public ActionResult PaymentConfirm(int MaShop)
         {
             SessionDiaChi ss = Session["DiaChi"] as SessionDiaChi;
             if (Request.QueryString.Count > 0)
