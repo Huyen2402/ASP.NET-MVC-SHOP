@@ -121,7 +121,7 @@
     </div>
 
 </div>
-<div id="popup1" class="overlay">
+<div style="display: none" id="popup1" class="overlay">
     <div class="popup">
        
         <a class="close" href="#">&times;</a>
@@ -129,43 +129,25 @@
             <h1>Vui lòng nhập tài khoản:</h1>
             <form id="idForm" action="@Url.Action("QuenMK", "Home")">
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="email" class="form-label">Tài khoản:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Nhập tài khoản..." name="email">
                 </div>
                 
                
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Gửi</button>
             </form>
            
         </div>
     </div>
 </div>
-<div id="popup2" class="overlay">
-    <div class="popup">
 
-        <a class="close" href="#">&times;</a>
-        <div class="content">
-            <h1>Vui lòng nhập mật khẩu mới:</h1>
-            <form  action="@Url.Action("QuenMK", "Home")">
-                <div class="mb-3 mt-3">
-                    <label for="" class="form-label">Email:</label>
-                    <input type="email" class="form-control"  placeholder="Enter email" name="">
-                </div>
-
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-
-        </div>
-    </div>
-</div>
 <style>
-    h1 {
+  /*  h1 {
         text-align: center;
         font-family: Tahoma, Arial, sans-serif;
         color: #06D85F;
         margin: 80px 0;
-    }
+    }*/
 
     .box {
         width: 40%;
@@ -294,6 +276,7 @@
     }
 </style>
 <script>
+   
     $("#btn-DangNhap").click(function () {
         $("#popup").fadeIn(400);
     });
@@ -305,6 +288,7 @@
     })
     $("#btn-forgot").click(function () {
         $("#popup").hide();
+        $("#popup1").css("display", "block");
     })
     $("#idForm").submit(function (e) {
 
@@ -320,10 +304,10 @@
             success: function (data) {
                 if (data.mess == "success") {
                     $("#popup1").hide();
-                    $("#popup2").show()
+                    
                 }
             }
         });
-
+        
     });
 </script>

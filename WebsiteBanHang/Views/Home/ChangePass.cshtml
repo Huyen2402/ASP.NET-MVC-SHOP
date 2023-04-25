@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "ChangePass";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
+<div class=" container">
+    <div class=" register">
+        <h1>Đổi mật khẩu</h1>
+
+        <input id="token" type="hidden" name="name" value="" />
+        <div class="col-md-12 register-top-grid">
+            <h3>Thông tin xác nhận</h3>
+            <form id="idForm1" action="@Url.Action("SubmitChange", "Home")" method="post">
+                <div>
+                    <span>Mật khẩu cũ:</span>
+                    <input id="Pass" name="Pass" type="password">
+                </div>
+                <div>
+                    <span>Mật khẩu mới:</span>
+                    <input id="newPass" name="newPass" type="password">
+                </div>
+                <div>
+                    <span>Xác nhận mật khẩu mới:</span>
+                    <input id="retry" name="retry" type="password">
+                </div>
+                <p  style="color:red; font-size:13px" id="error"></p>
+                <input class="btn btn-warning" id="btn-dangky" type="submit" value="Đổi mật khẩu">
+            </form>
+            <div class="clearfix"> </div>
+
+        </div>
+
+
+
+
+        <div class="clearfix"> </div>
+
+
+
+
+    </div>
+</div>
+<style>
+     input[type="password"] {
+        width: 100%;
+        padding: 1em;
+        margin: 1em 0;
+        background: none;
+        outline: none;
+        border: 1px solid #A09F9F;
+        -webkit-appearance: none;
+    }
+</style>
+<script>
+    $("#idForm1").submit(function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        const newpass = $("#newPass").val();
+        const retry = $("#retry").val();
+        if (newpass != retry) {
+            $("#error").html("Xác nhận mật khẩu không khớp");
+        }
+        else {
+            var form = $(this);
+            var actionUrl = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: form.serialize(), // serializes the form's elements.
+                success: function (dataT) {
+                    if (dataT.mess == "success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Đổi mật khẩu thành công',
+                            text: 'Bạn có thể đăng nhập với mật khẩu mới',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload()
+                            }
+                        })
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Sai mật khẩu',
+                            text: 'Xác nhận mật khẩu hiện tại của bạn không trùng khớp!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+                }
+            });
+        }
+      
+
+        
+
+    });
+</script>

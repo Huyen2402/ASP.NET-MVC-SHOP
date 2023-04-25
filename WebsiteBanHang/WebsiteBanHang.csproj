@@ -794,6 +794,7 @@
     <Content Include="Views\QuanTriVien\Voucher.cshtml" />
     <Content Include="Views\QuanTriVien\XemVoucher.cshtml" />
     <Content Include="Views\QuanTriVien\XemFlashSale.cshtml" />
+    <Content Include="Views\Home\ChangePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

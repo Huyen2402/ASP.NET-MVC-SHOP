@@ -51,6 +51,11 @@ namespace WebsiteBanHang.Controllers
         public ActionResult XacNhanDonHang(string MaDDH)
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == tv.MaThanhVien);
+            if(check == null)
+            {
+                Response.StatusCode = 404;
+            }
             DonDatHang dhh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH.Equals(MaDDH));
             if(dhh == null)
             {
@@ -65,7 +70,8 @@ namespace WebsiteBanHang.Controllers
                 newTB.DaXem = false;
                 newTB.ThoiGian = DateTime.Now;
                 db.ThongBaoDHs.Add(newTB);
-                
+                check.TichDiem = (dhh.TongTienThucTe / 10000) + check.TichDiem;
+
                 db.SaveChanges();
             }
             return RedirectToAction("DHDangVanChuyen", "DonHang");

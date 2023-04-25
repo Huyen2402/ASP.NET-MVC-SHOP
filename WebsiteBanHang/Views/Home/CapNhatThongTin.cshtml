@@ -61,15 +61,15 @@
                     <input style="background-color: #e8e8e9"  readonly id="txbTK" name="TaiKhoan" type="text" value="@Model.TaiKhoan">
                 </div>
 
-                <div>
+                @*<div>
                     <span>Mật khẩu</span>
                     <input id="password" name="MatKhau" type="password" value="@Model.MatKhau">
-                </div>
+                </div>*@
 
                 
 
                 <input id="btn-dangky" type="submit" value="Cập Nhật">
-
+                <a href="@Url.Action("ChangePass", "Home")">Đổi mật khẩu</a>
             </div>
             <div class="clearfix"> </div>
 

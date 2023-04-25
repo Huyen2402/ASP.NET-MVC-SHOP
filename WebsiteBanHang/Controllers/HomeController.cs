@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Web.Hosting;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -86,6 +87,7 @@ namespace WebsiteBanHang.Controllers
                     tv.MaLoaiTV = 1;
                     tv.DaKhoa = false;
                     tv.DaXacNhan = false;
+                    tv.TichDiem = 0;
                     //tv.captcha = random.Next(100000,999999);
                     db.ThanhViens.Add(tv);
 
@@ -374,7 +376,7 @@ namespace WebsiteBanHang.Controllers
 
             foreach (var item in hang)
             {
-                if(tv.TichDiem > item.ToiThieu && tv.TichDiem <= item.ToiDa)
+                if(tv.TichDiem >= item.ToiThieu && tv.TichDiem < item.ToiDa)
                 {
                     List<GiamGia> listGG = db.GiamGias.Where(n=>n.MaHangTV == item.ID).ToList();
                     ViewBag.Hang = item;
@@ -432,6 +434,9 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = db.ThanhViens.SingleOrDefault(n=>n.Email == email);
             if(tv != null)
             {
+                tv.MatKhau = captcha.ToString();
+                db.SaveChanges();
+
                 try
                 {
                     if (ModelState.IsValid)
@@ -473,6 +478,31 @@ namespace WebsiteBanHang.Controllers
                 }
             }
             return Json(new {mess = "success", JsonRequestBehavior.AllowGet});
+        }
+        public ActionResult ChangePass()
+        {
+            return View();
+        }
+        public ActionResult SubmitChange(FormCollection f)
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            string pass = f["Pass"];
+            string newPass = f["newPass"];
+            ThanhVien check = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == tv.MaThanhVien && n.MatKhau == pass);
+
+            if(check == null)
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                check.MatKhau = newPass;
+                db.SaveChanges();
+                return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            }
+
+           
         }
     }
 }
