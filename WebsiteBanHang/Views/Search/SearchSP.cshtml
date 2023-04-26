@@ -64,7 +64,7 @@
 
     @if (listshop.Count() > 0)
     {
-        <h2>Danh sách tìm Shop</h2>
+        <h2 style="font-family:'Cambria Math'">Danh sách tìm Shop</h2>
         foreach (var item in listshop)
         {
             if (DemSLSPTrenTrang % SlSPTrenTrang == 0)
@@ -104,7 +104,8 @@
 </div>
 <div class="clearfix"></div>
 <div class="container row">
-    <h1 class="text-center">Sản Phẩm Tìm Kiếm</h1>
+    <br />
+    <h1 style="font-family:'Cambria Math'; margin-top:20px" class="text-center">Sản Phẩm Tìm Kiếm</h1>
     @foreach (var item in Model)
     {
         if (DemSLSPTrenTrang % SlSPTrenTrang == 0)

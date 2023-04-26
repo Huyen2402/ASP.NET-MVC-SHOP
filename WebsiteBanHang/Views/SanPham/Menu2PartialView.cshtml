@@ -5,15 +5,15 @@
 
 <div class=" rsidebar span_1_of_left">
         <div class="of-left">
-            <h3 class="cate">Danh mục</h3>
+            <h3 style="font-family:'Cambria Math'" class="cate">Danh mục</h3>
         </div>
-        <ul class="menu">
+        <ul style="font-family:'Cambria Math'" class="menu">
             <li class="item1">
                 @foreach (var groupitems in Model.GroupBy(n=>n.loaiSanPham))
                 {
                     <a href="#">@groupitems.Key.TenLoai </a><ul class="cute" style="display: none;">
                        @foreach (var item in groupitems.GroupBy(n=>n.NhaSanXuat)) { 
-                        <li class="subitem1"><a href="@Url.Action("SanPham","SanPham", new { @MaLoaiSP = groupitems.Key.MaLoaiSP , @MaNSX = item.Key.MaNSX, @MaShop =  ViewBag.MaShop})">@item.Key.TenNSX </a></li>
+                        <li  class="subitem1"><a style="font-family:'Cambria Math'"  href="@Url.Action("SanPham","SanPham", new { @MaLoaiSP = groupitems.Key.MaLoaiSP , @MaNSX = item.Key.MaNSX, @MaShop =  ViewBag.MaShop})">@item.Key.TenNSX </a></li>
                         
                         }
                     </ul>
