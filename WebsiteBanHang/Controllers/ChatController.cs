@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using WebsiteBanHang.Models;
 
@@ -198,8 +199,24 @@ namespace WebsiteBanHang.Controllers
         public ActionResult ChatInHeader()
         {
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<int> termsList = new List<int>();
+            List<ChatwithShop> newChat = new List<ChatwithShop>();
             List<ChatwithShop> listChatShop = db.ChatwithShops.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
-            return PartialView(listChatShop);
+            foreach (var item in listChatShop)
+            {
+                termsList.Add(item.MaShop);
+            }
+            var numbers = new List<int>() { 10, 4, 8, 8 };
+            var list1 = termsList.Distinct().ToList();
+            for(int i = 0; i < list1.Count; i++)
+            {
+                int MaShop = list1[i];
+                ChatwithShop chat = db.ChatwithShops.Where(n=>n.MaThanhVien == tv.MaThanhVien && n.MaShop == MaShop).OrderByDescending(n=>n.NgayTao).First();
+                newChat.Add(chat);
+            }
+
+
+            return PartialView(newChat);
         }
 
 

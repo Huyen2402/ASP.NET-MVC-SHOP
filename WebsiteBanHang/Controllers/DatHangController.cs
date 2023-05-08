@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Net;
 using Microsoft.Ajax.Utilities;
 using System.Web.Hosting;
+using System.Text.RegularExpressions;
 
 namespace WebsiteBanHang.Controllers
 {
@@ -37,6 +38,7 @@ namespace WebsiteBanHang.Controllers
             DatHang dh = Session["DatHang"] as DatHang;
            
             SessionDiaChi ss = new SessionDiaChi(MaTinh, MaHuyen,MaXa,DiaChi);
+            Session["DiaChi"] = ss;
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
 
           
@@ -121,47 +123,16 @@ namespace WebsiteBanHang.Controllers
                             ddh.TongTienThucTe = TongTienThucTe - ddh.Voucher; ;
                             ThanhVien tv = db.ThanhViens.SingleOrDefault(n => n.MaThanhVien == iduser);
                             tv.TichDiem = ddh.TongTienThucTe / 10000;
-                            db.SaveChanges();
-                            try
-                            {
-                                if (ModelState.IsValid)
-                                {
-                                   
-                                    var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
-                                    var receiverEmail = new MailAddress(tv.Email, "Receiver");
-                                    var password = "yyxrbzsfbkrftlny";
-                                    string subject = "Xác nhận đơn đặt hàng - Sàn thương mại điện tử Ori Cute";
-                                    //string body = "Chào bạn, đây là mã xác nhận tài khoản của bạn: ";
-                                    string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/DonHang.html"));
-                                    body = body.Replace("###NAME###", "Nhẫn dạng hở Pearl & Crystal-Embellished - Vàng hồng");
-                                    body = body.Replace("###IMG###", "http://res.cloudinary.com/datidmq6e/image/upload/v1678161798/2022-L7-CK5-31470100-57-1.jpg");
-                                    body = body.Replace("###Gia", "450000");
-                                    
-                                    var smtp = new SmtpClient
-                                    {
-                                        Host = "smtp.gmail.com",
-                                        Port = 587,
-                                        EnableSsl = true,
-                                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                                        UseDefaultCredentials = false,
-                                        Credentials = new NetworkCredential(senderEmail.Address, password)
-                                    };
-                                    using (var mess = new MailMessage(senderEmail, receiverEmail)
-                                    {
-                                        IsBodyHtml = true,
-                                        Subject = subject,
-                                        Body = body
-                                    })
-                                    {
-                                        smtp.Send(mess);
-                                    }
 
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                ViewBag.Error = "Some Error";
-                            }
+                            
+                            db.SaveChanges();
+                            ThongBaoDH newTB = new ThongBaoDH();
+                            newTB.MaTV = tv.MaThanhVien;
+                            newTB.MaDH = ddh.MaDDH;
+                            newTB.DaXem = false;
+                            newTB.ThoiGian = DateTime.Now;
+                            db.ThongBaoDHs.Add(newTB);
+                            db.SaveChanges();
                             Session["GioHang"] = null;
                             Session["DatHang"] = null;
                             return View();

@@ -399,7 +399,7 @@ namespace WebsiteBanHang.Controllers
             ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
             if (tv != null)
             {
-                List<ThongBaoDH> noti = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien).ToList();
+                List<ThongBaoDH> noti = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien).OrderByDescending(n=>n.ThoiGian).ToList();
                 ViewBag.sl = db.ThongBaoDHs.Where(n => n.MaTV == tv.MaThanhVien && n.DaXem == false).Count();
                 ViewBag.IDUSER = tv.MaThanhVien;
                 return PartialView(noti);

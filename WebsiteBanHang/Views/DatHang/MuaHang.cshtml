@@ -103,9 +103,9 @@
         
         var idHuyen = $("#idHuyen1").attr("data-idHuyen");
         var idXa = $("#idXa1").attr("data-idXa");
-        console.log(idTinh)
-        console.log(idHuyen)
-        console.log(idXa)
+        console.log("idTinh", idTinh)
+        console.log("idHuyen", idHuyen)
+        console.log("idXa", idXa)
         var diaChi = $("#Diachi").text();
         var url = "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi;
                     window.location.href = url;
