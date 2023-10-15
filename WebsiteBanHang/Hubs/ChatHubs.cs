@@ -12,14 +12,14 @@ namespace WebsiteBanHang.Hubs
     {
         public ChatHubs()
         {
-            var tableDependency = new SqlTableDependency<ChatwithShop>(ConfigurationManager.ConnectionStrings["QuanLyBanHang"].ConnectionString, tableName: "ChatwithShop", schemaName: "dbo", executeUserPermissionCheck: false, includeOldValues: true);
+            var tableDependency = new SqlTableDependency<Chat>(ConfigurationManager.ConnectionStrings["QuanLyBanHang"].ConnectionString, tableName: "Chat", schemaName: "dbo", executeUserPermissionCheck: false, includeOldValues: true);
             tableDependency.OnChanged += TableDependency_Changed;
             tableDependency.OnError += TableDependency_OnError;
 
             tableDependency.Start();
         }
 
-        private void TableDependency_Changed(object sender, RecordChangedEventArgs<ChatwithShop> e)
+        private void TableDependency_Changed(object sender, RecordChangedEventArgs<Chat> e)
         {
             Show();
             ShowMessage();

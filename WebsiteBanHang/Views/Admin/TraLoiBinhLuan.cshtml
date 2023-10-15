@@ -9,7 +9,7 @@
     List<TraLoiBinhLuan> list = ViewBag.list as List<TraLoiBinhLuan>;
 }
 
-<div class="container mt-3" >
+<div style="min-height: 600px" class="container mt-3" >
     <h2>Trả Lời Đánh Giá</h2>
     <div id="TraLoi" class="form-control">
         <div>
@@ -31,7 +31,7 @@
                             <div id="itemCmtAdmin">
                                 <div class="mg-8">
                                     <div>
-                                        <label>@list[i].ThanhVien.HoTen</label>
+                                        <label>@ViewBag.tensop</label>
                                     </div>
                                     <div>
                                         @list[i].NoiDungTraLoi

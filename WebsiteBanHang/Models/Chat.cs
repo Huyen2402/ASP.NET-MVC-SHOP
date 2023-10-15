@@ -12,7 +12,7 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChatwithShop
+    public partial class Chat
     {
         public int ID { get; set; }
         public Nullable<int> MaShop { get; set; }

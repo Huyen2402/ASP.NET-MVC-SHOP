@@ -320,7 +320,7 @@
                                 {
                                     <i style="color: #FD4" class="fa-solid fa-star"></i>
                                 }
-                            <br />
+                                <br />
                                 @item.NoiDungBL
                             </div>
 
@@ -335,7 +335,7 @@
                                                 <div>
                                                     <label id="TenBL">@shop.TenShop</label>
                                                 </div>
-                                                <div  id="ndBL" >
+                                                <div id="ndBL">
                                                     @tl.NoiDungTraLoi
                                                 </div>
 
@@ -348,19 +348,21 @@
 
                         </div>
                         <br />
-                        <hr style="width:90%" class="mx-auto d-block" />
+
                     }
+                    <hr style="width:90%" class="mx-auto d-block" />
                 }
-else
-            {
-                <p>Chưa có đánh giá</p>
-            }
+
+                else
+                {
+                    <p>Chưa có đánh giá</p>
+                }
                 <b id="loadMore">Hịn thêm thì click dô</b>
             </div>
             
         </div>
     </div>
-
+    <div ><input type="hidden" name="DaKhoa" id="DaKhoa" value="@shop.DaKhoa.ToString()" /></div>
     <div class="SanPhamTuongTu">
         @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = Model.MaLoaiSP })
     </div>
@@ -462,7 +464,8 @@ else
 </style>
 <script>
     var arr = [];
-   
+    var daKhoa = $("#DaKhoa").val();
+    console.log("daKhoa", daKhoa)
     $(".outline-des").click(function () {
       
         $(".outline-des").css("background-color", "white");
@@ -481,6 +484,17 @@ else
                 text: "Vui lòng chọn Màu sắc/Kích cỡ của sản phẩm trước khi thêm vào giỏ hàng",
                 icon: 'info',
                
+                confirmButtonColor: '#3085d6',
+
+                confirmButtonText: 'OK'
+            })
+        }
+        else if (daKhoa == "true") {
+            Swal.fire({
+                title: 'Cửa hàng bị khóa',
+                text: "Vui lòng chọn cửa hàng khác",
+                icon: 'error',
+
                 confirmButtonColor: '#3085d6',
 
                 confirmButtonText: 'OK'

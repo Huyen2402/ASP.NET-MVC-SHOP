@@ -253,7 +253,7 @@
                 }
             })
         }
-        $('#btn-send').click(function send() {
+        $('#btn-send').click(function send(event) {
             event.preventDefault();
             var input = $('.msger-input').val();
             if (input == "") {

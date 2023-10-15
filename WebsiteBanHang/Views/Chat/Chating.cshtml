@@ -1,6 +1,6 @@
 ﻿
 @using WebsiteBanHang.Models;
-@model List<ChatwithShop>
+@model List<Chat>
 
 @{
     ViewBag.Title = "Chating";
@@ -249,7 +249,7 @@
             }
         })
     }
-    $('#btn-send').click(function send() {
+    $('#btn-send').click(function send(event) {
         event.preventDefault();
         var input = $('.msger-input').val();
         if (input == "") {

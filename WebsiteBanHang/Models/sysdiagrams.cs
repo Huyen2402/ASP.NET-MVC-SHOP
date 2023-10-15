@@ -12,17 +12,12 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChatwithShop
+    public partial class sysdiagrams
     {
-        public int ID { get; set; }
-        public Nullable<int> MaShop { get; set; }
-        public Nullable<int> MaThanhVien { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
-        public Nullable<bool> DaXem { get; set; }
-        public Nullable<bool> Client { get; set; }
-        public string Text { get; set; }
-    
-        public virtual Shop Shop { get; set; }
-        public virtual ThanhVien ThanhVien { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

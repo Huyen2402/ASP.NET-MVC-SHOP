@@ -260,9 +260,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </aside>
         <!--sidebar end-->
         <!--main content start-->
-        <section id="main-content">
+        <section  id="main-content">
 
-            <section class="wrapper">
+            <section style="min-height:600px" class="wrapper">
                 @RenderBody()
                 @* <!-- //market-->
                     <div class="market-updates">
@@ -844,8 +844,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                                 var mabl = $(this).attr("data-mabl")
                                 var masp = $(this).attr("data-masp")
-                                alert(mabl)
-                                alert(masp)
+                                
                                 $.ajax({
                                     url: location.origin + "/Admin/UpdateStatusComment?MaBL=" + mabl,
                                     type: "GET",

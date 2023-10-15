@@ -22,6 +22,7 @@
                 <th>Hình ảnh</th>
                 <th>Đánh Giá</th>
                 <th>Nội dung</th>
+                <th>Thời gian</th>
                 <th>Thao Tác</th>
 
 
@@ -33,10 +34,11 @@
             {
                 <tr>
                     <td>@i</td>
-                    <td class="col-4">@item.SanPham.TenSP</td>
+                    <td class="col-3">@item.SanPham.TenSP</td>
                     <td><img style="width:150px;" src="@Url.Content(item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
                     <td>@item.DanhGia  <i style="color: #FD4" class="fa-solid fa-star"></i></td>
                     <td>@item.NoiDungBL</td>
+                    <td>@item.NgayTao</td>
                     <td>
                         <a href="@Url.Action("TraLoiBinhLuan", "Admin", new { @MaBL = item.MaBL , @MaSP = item.MaSP })" class="btn btn-warning">Trả Lời</a>
                         <a id="x" data-MaBL="@item.MaBL" @*href="@Url.Action("BoQuaBL", "Admin", new { @MaBL = item.MaBL })"*@ class="btn btn-danger x">Bỏ Qua</a>
@@ -69,7 +71,7 @@
         $(".x").click(function () {
             var MaBL = $(this).attr("data-MaBL");
             var xoa = $(this).parent().parent();
-            alert(MaBL)
+           
             $.ajax({
                 type: 'GET',
                 dataType: 'JSON',

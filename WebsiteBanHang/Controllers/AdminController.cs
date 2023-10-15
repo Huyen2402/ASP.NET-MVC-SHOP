@@ -591,7 +591,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult DonHangChoXacNhan()
         {
             Shop s = Session["CuaHang"] as Shop;
-            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 1 && n.MaShop == s.MaShop).ToList();
+            List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 1 && n.MaShop == s.MaShop).OrderByDescending(n=>n.NgayDat).ToList();
 
 
 
@@ -697,7 +697,7 @@ namespace WebsiteBanHang.Controllers
             Shop sh = Session["CuaHang"] as Shop;
             DateTime dateStart = DateTime.Now.AddDays(-3);
             DateTime dateEnd = DateTime.Now;
-            List<BinhLuan> listBL = db.BinhLuans.Where(s => s.DaXem == false && s.SanPham.MaShop == sh.MaShop).OrderByDescending(b => b.NgayTao).ToList();
+            List<BinhLuan> listBL = db.BinhLuans.Where(s =>  s.SanPham.MaShop == sh.MaShop).OrderByDescending(b => b.NgayTao).ToList();
             //List<BinhLuan> listBL = db.BinhLuans.ToList();
 
             return View(listBL);
@@ -706,6 +706,7 @@ namespace WebsiteBanHang.Controllers
         [HttpGet]
         public ActionResult TraLoiBinhLuan(int? MaBL)
         {
+            Shop s = Session["CuaHang"] as Shop;
             if (MaBL == null)
             {
                 Response.StatusCode = 404;
@@ -721,6 +722,7 @@ namespace WebsiteBanHang.Controllers
                 {
                     List<TraLoiBinhLuan> list = db.TraLoiBinhLuans.ToList();
                     ViewBag.list = list;
+                    ViewBag.tensop = s.TenShop;
                     return View(checkBL);
                 }
             }
@@ -926,7 +928,8 @@ namespace WebsiteBanHang.Controllers
 
         public ActionResult XemVoucher()
         {
-            List<GiamGia> gg = db.GiamGias.ToList();
+            Shop shop = Session["CuaHang"] as Shop;
+            List<GiamGia> gg = db.GiamGias.Where(n=>n.MaShop == shop.MaShop).ToList();
             return View(gg);
         }
         public JsonResult GetVoucher(int MaGiamGia)
