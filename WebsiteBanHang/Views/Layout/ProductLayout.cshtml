@@ -31,7 +31,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <script src="~/Content/js/simpleCart.min.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+            <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
             <div id="_bsa_srv-CKYI627U_0"></div>
             <div id="_bsa_srv-CKYI653J_1"></div>
             <div id="_bsa_srv-CKYDL2JN_2"></div>
@@ -289,148 +291,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="clearfix"> </div>
                         </div>
                     </div>*@
-                <div class="container">
-                    <div class="head-top">
-                        <div class="logo">
-                            <a href="index.html"><img src="~/Content/images/logo.png" alt=""></a>
-                        </div>
-
-                        @Html.Action("MenuPartial", "Home");
-                        @*<div class=" h_menu4">
-                                <ul class="memenu skyblue">
-                                    <li class="showhide" style="display: none;"><span class="title">MENU</span><span class="icon1"></span><span class="icon2"></span></li>
-                                    <li class="active grid" style="display: inline;"><a class="color8" href="index.html">Home</a></li>
-                                    <li style="display: inline;">
-                                        <a class="color1" href="#">Shop</a>
-                                        <div class="mepanel">
-                                            <div class="row">
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <ul>
-                                                            <li><a href="products.html">Accessories</a></li>
-                                                            <li><a href="products.html">Bags</a></li>
-                                                            <li><a href="products.html">Caps &amp; Hats</a></li>
-                                                            <li><a href="products.html">Hoodies &amp; Sweatshirts</a></li>
-                                                            <li><a href="products.html">Jackets &amp; Coats</a></li>
-                                                            <li><a href="products.html">Jeans</a></li>
-                                                            <li><a href="products.html">Jewellery</a></li>
-                                                            <li><a href="products.html">Jumpers &amp; Cardigans</a></li>
-                                                            <li><a href="products.html">Leather Jackets</a></li>
-                                                            <li><a href="products.html">Long Sleeve T-Shirts</a></li>
-                                                            <li><a href="products.html">Loungewear</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <ul>
-                                                            <li><a href="products.html">Shirts</a></li>
-                                                            <li><a href="products.html">Shoes, Boots &amp; Trainers</a></li>
-                                                            <li><a href="products.html">Shorts</a></li>
-                                                            <li><a href="products.html">Suits &amp; Blazers</a></li>
-                                                            <li><a href="products.html">Sunglasses</a></li>
-                                                            <li><a href="products.html">Sweatpants</a></li>
-                                                            <li><a href="products.html">Swimwear</a></li>
-                                                            <li><a href="products.html">Trousers &amp; Chinos</a></li>
-                                                            <li><a href="products.html">T-Shirts</a></li>
-                                                            <li><a href="products.html">Underwear &amp; Socks</a></li>
-                                                            <li><a href="products.html">Vests</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <h4>Popular Brands</h4>
-                                                        <ul>
-                                                            <li><a href="products.html">Levis</a></li>
-                                                            <li><a href="products.html">Persol</a></li>
-                                                            <li><a href="products.html">Nike</a></li>
-                                                            <li><a href="products.html">Edwin</a></li>
-                                                            <li><a href="products.html">New Balance</a></li>
-                                                            <li><a href="products.html">Jack &amp; Jones</a></li>
-                                                            <li><a href="products.html">Paul Smith</a></li>
-                                                            <li><a href="products.html">Ray-Ban</a></li>
-                                                            <li><a href="products.html">Wood Wood</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="grid" style="display: inline;">
-                                        <a class="color2" href="#">	Lookbook</a>
-                                        <div class="mepanel">
-                                            <div class="row">
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <ul>
-                                                            <li><a href="products.html">Accessories</a></li>
-                                                            <li><a href="products.html">Bags</a></li>
-                                                            <li><a href="products.html">Caps &amp; Hats</a></li>
-                                                            <li><a href="products.html">Hoodies &amp; Sweatshirts</a></li>
-                                                            <li><a href="products.html">Jackets &amp; Coats</a></li>
-                                                            <li><a href="products.html">Jeans</a></li>
-                                                            <li><a href="products.html">Jewellery</a></li>
-                                                            <li><a href="products.html">Jumpers &amp; Cardigans</a></li>
-                                                            <li><a href="products.html">Leather Jackets</a></li>
-                                                            <li><a href="products.html">Long Sleeve T-Shirts</a></li>
-                                                            <li><a href="products.html">Loungewear</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <ul>
-                                                            <li><a href="products.html">Shirts</a></li>
-                                                            <li><a href="products.html">Shoes, Boots &amp; Trainers</a></li>
-                                                            <li><a href="products.html">Shorts</a></li>
-                                                            <li><a href="products.html">Suits &amp; Blazers</a></li>
-                                                            <li><a href="products.html">Sunglasses</a></li>
-                                                            <li><a href="products.html">Sweatpants</a></li>
-                                                            <li><a href="products.html">Swimwear</a></li>
-                                                            <li><a href="products.html">Trousers &amp; Chinos</a></li>
-                                                            <li><a href="products.html">T-Shirts</a></li>
-                                                            <li><a href="products.html">Underwear &amp; Socks</a></li>
-                                                            <li><a href="products.html">Vests</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col1">
-                                                    <div class="h_nav">
-                                                        <h4>Popular Brands</h4>
-                                                        <ul>
-                                                            <li><a href="products.html">Levis</a></li>
-                                                            <li><a href="products.html">Persol</a></li>
-                                                            <li><a href="products.html">Nike</a></li>
-                                                            <li><a href="products.html">Edwin</a></li>
-                                                            <li><a href="products.html">New Balance</a></li>
-                                                            <li><a href="products.html">Jack &amp; Jones</a></li>
-                                                            <li><a href="products.html">Paul Smith</a></li>
-                                                            <li><a href="products.html">Ray-Ban</a></li>
-                                                            <li><a href="products.html">Wood Wood</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li style="display: inline;"><a class="color4" href="blog.html">Blog</a></li>
-                                    <li style="display: inline;"><a class="color6" href="contact.html">Contact</a></li>
-                                </ul>
-                            </div>*@
-
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
+            
             </div>
-            <!---728x90--->
-            <!--content-->
-            <!---->
+
             <div class="product">
                 <div class="container">
                     <div class="col-md-3 product-price">
-
-                        <div class=" rsidebar span_1_of_left">
+                        @Html.Action("Menu2PartialView", "SanPham")
+                        @*<div class=" rsidebar span_1_of_left">
                             <div class="of-left">
                                 <h3 class="cate">Danh mục</h3>
                             </div>
@@ -477,7 +345,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </div>*@
                         <!--initiate accordion-->
                         <script type="text/javascript">
                             $(function () {
@@ -499,32 +367,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             });
                         </script>
                         <!---->
-                        <div class="product-middle">
-
-                            <div class="fit-top">
-                                <h6 class="shop-top">Lorem Ipsum</h6>
-                                <a href="#" class="shop-now">SHOP NOW</a>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
+                       
                         <div class="sellers">
                             <div class="of-left-in">
                                 <h3 class="tag">Từ khóa</h3>
                             </div>
                             <div class="tags">
                                 <ul>
-                                    <li><a href="#">điện thoại</a></li>
-                                    <li><a href="#">lap</a></li>
-                                    <li><a href="#">dell</a></li>
-                                    <li><a href="#">iphone</a></li>
-                                    <li><a href="#">hp</a></li>
-                                    <li><a href="#">samsung</a></li>
-                                    <li><a href="#">vivo</a></li>
-                                    <li><a href="#">oppo</a></li>
-                                    <li><a href="#">laptop</a></li>
-                                    <li><a href="#">điện</a></li>
-                                    <li><a href="#">ip</a></li>
-                                    <li><a href="#">apple</a></li>
+                                    <li><a href="#">merzy</a></li>
+                                    <li><a href="#">son</a></li>
+                                    <li><a href="#">s</a></li>
+                                    <li><a href="#">ttbc</a></li>
+                                    <li><a href="#">tẩy</a></li>
+                                    <li><a href="#">phấn nén</a></li>
+                                    <li><a href="#">dhc</a></li>
+                                    <li><a href="#">son dhc</a></li>
+                                    <li><a href="#">vichy</a></li>
+                                    <li><a href="#">seru</a></li>
+                                    <li><a href="#">tinh chat</a></li>
+                                    <li><a href="#">balance</a></li>
 
                                     <div class="clearfix"> </div>
                                 </ul>
@@ -534,7 +395,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
 
                         
-                        @Html.Action("SanPhamNoiBat", "SanPham");
+                        @Html.Action("SanPhamNoiBat", "SanPham")
                         <!---->
                         @*<div class="product-bottom">
                                 <div class="of-left-in">
@@ -837,7 +698,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                 </div>
                 <div class="footer-class">
-                    <p>© 2015 New store . All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+                    <p>© 2022 Huyen's Cosmetic | Design by  <a>HuyenPhanlayouts</a> </p>
                 </div>
             </div>
 

@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "XacNhanNguoiDung";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<div class=" container">
+    <div class=" register">
+        <h1>Xác nhận thành viên</h1>
+
+            <input id="token" type="hidden" name="name" value="" />
+            <div class="col-md-12 register-top-grid">
+                <h3>Thông tin xác nhận</h3>
+                <div>
+                    <span>Mã xác nhận:</span>
+                    <input id="captcha" name="captcha" type="text">
+                </div>
+
+
+                <input class="btn btn-warning" id="btn-dangky" type="button" value="Đăng ký">
+                <div class="clearfix"> </div>
+
+            </div>
+
+
+
+
+            <div class="clearfix"> </div>
+
+        
+      
+
+    </div>
+</div>
+
+<script>
+    (function getall() {
+
+        $.getJSON("/DemoJQuery/CallOTP", function (token) {
+            console.log(token.token)
+            $("#token").val(token.token)
+            //if (token.token.length > 0) {
+            //    $("#abc").append("<p>" + token.token + "</p>")
+            //}
+            //else {
+            //    $("#abc").append("<p>0</p>")
+            //}
+
+        })
+    })()
+
+    $("#btn-dangky").click(function () {
+        const token = $("#token").val();
+        const captcha = $("#captcha").val();
+
+        $.getJSON("/DemoJQuery/checkVerify?MaXacNhan=" + captcha + "&Token=" + token, function (ss) {
+            console.log(ss.result)
+
+            if (ss.result == 'success') {
+                Swal.fire({
+
+                    icon: 'success',
+                    title: "Thành công",
+                    text: 'Xác nhận tài khoản thành công',
+                    showConfirmButton: true,
+                   
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:62979/Home/MaXacNhan",
+
+                            success: function (data) {
+                                /*   $("#id02").css("display", "block");*/
+                                console.log(data.status)
+                                if (data.status == 'success') {
+                                    window.location.href = "http://localhost:62979/Home";
+                                }
+                                else {
+                                    window.location.reload();
+                                }
+
+
+
+                            }
+
+
+
+                        });
+                       
+                    }
+                })
+;
+              
+            }
+            else {
+                Swal.fire({
+
+                    icon: 'error',
+                    title: "Đã xảy ra lỗi",
+                    text: 'Vui lòng kiểm tra lại',
+                    showConfirmButton: true,
+                   
+
+                });
+            }
+
+        })
+    })
+    //    $(function () {
+    //    $("#form-xacnhan").submit(function (event) {
+    //        event.preventDefault();
+            
+           
+           
+
+
+    //        // /*   $("#form-dangky").submit();*/
+    //        //    var actionurl = event.currentTarget.action;
+
+    //        //    //do your own request an handle the results
+    //        //$.ajax({
+    //        //    type: 'GET',
+    //        //    dataType: 'JSON',
+    //        //    url: "http://localhost:62979/Home/MaXacNhan?captcha=" + captcha,
+    //        //    success: function (status, data) {
+    //        //        console.log(status)
+    //        //        console.log(status.status)
+
+    //        //        if (status.status == "success") {
+    //        //            console.log(data)
+    //        //            Swal.fire({
+
+    //        //                icon: 'success',
+    //        //                title: "Xác nhận tài khoản thành công",
+    //        //                showConfirmButton: false,
+    //        //                timer: 2500
+
+    //        //            })
+    //        //        }
+    //        //        else {
+    //        //            console.log(data)
+    //        //            Swal.fire({
+
+    //        //                icon: 'error',
+    //        //                title: "Đã xảy ra lỗi",
+    //        //                showConfirmButton: false,
+    //        //                timer: 2500
+
+    //        //            })
+    //        //        }
+    //        //    }
+
+    //        //})
+
+
+               
+    //            //window.location.reload();
+
+            
+
+
+    //    });
+    //});
+
+</script>
+

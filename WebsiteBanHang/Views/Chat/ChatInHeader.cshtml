@@ -1,0 +1,61 @@
+﻿@using WebsiteBanHang.Models
+@model List<Chat>
+
+<div class="dropdown">
+
+    <a class="lock dropdown-toggle" href="" data-bs-toggle="dropdown"><i class="fa-regular fa-message"></i>Tin nhắn</a>
+
+    <div class="dropdown-menu custom-drop-menu ex1">
+        @foreach (var item in Model)
+        {
+            <div>
+                
+                <a class="dropdown-item " href="@Url.Action("ChatWithShop","Chat", new {WithUserID = item.MaShop})">
+                    <div class="row">
+                        <div class="col-3 "> <img class="dot" src="@Url.Content(item.Shop.HinhAnh)" alt="Alternate Text" /></div>
+                        <div class="col-9">
+                            <div class="row">
+                                <p> <b>@item.Shop.TenShop</b></p>
+                            </div>
+                            <div class="row">
+                                <p>@item.Text</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+        }
+
+
+    </div>
+   
+</div>
+
+
+<style>
+    div.ex1 {
+        background-color: lightblue;
+        height: 400px;
+        
+        overflow-y: scroll;
+    }
+
+    div.custom-drop-menu.show {
+        border-radius: 10px !important;
+        border: white !important;
+        background-color: #ffffff !important;
+        width: 400px;
+      
+        inset: 0 auto auto -120px !important;
+
+    }
+    .dot {
+        height: 60px;
+        width: 60px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+</style>

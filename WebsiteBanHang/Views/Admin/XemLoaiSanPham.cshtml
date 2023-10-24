@@ -7,20 +7,28 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>XemLoaiSanPham</h2>
+
+@{ 
+    int soLSP = 1;
+    int TongLSP= Model.Count();
+    int soLSPHienThi = 6;
+    int soTrang = TongLSP / soLSPHienThi;
+    int kq = TongLSP % soLSPHienThi == 0 ? TongLSP / soLSPHienThi : (TongLSP / soLSPHienThi) + 1;
+    int Trang = 1;
+}
 
 
 
 
 
-<div class="container mt-3" style="padding-top:80px;">
     <h2>Danh Sách Loại Sản Phẩm</h2>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
-                <th>Tên loại Sản Phẩm</th>
+                <th>Tên Loại Sản Phẩm</th>
+                <th>Hình Ảnh</th>
                 <th>Thao Tác</th>
 
             </tr>
@@ -28,23 +36,47 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                if (soLSP % soLSPHienThi ==0)
+                {
+                    Trang++;
+                }
+                <tr class="@Url.Content(" itemLSP Trang_"+Trang)">
                     <td>@item.MaLoaiSP</td>
                     <td>@item.TenLoai</td>
-                    
                     <td>
+                        <img style="width:150px" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="Alternate Text" />
+                    </td>
+                    <td>
+
                         <a href="@Url.Action("SuaLoaiSanPham","Admin", new { @MaLoaiSP = item.MaLoaiSP })" class="btn btn-warning">Chỉnh Sửa</a>
                         <a data-MaLSP="@item.MaLoaiSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
                     </td>
-                   
+
                 </tr>
+                soLSP++;
             }
 
 
         </tbody>
     </table>
-</div>
+  
+
+<style>
+    .itemLSP{
+        display: none;
+    }
+</style>
+
 <script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    $(".Trang_1").show();
+    $('.page-item').click(function () {
+        $('.itemLSP').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_' + Trang).show();
+    })
 
     $(".x").click(function () {
         Swal.fire({

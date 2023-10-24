@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = "~/Views/Layout/ShopLayout.cshtml";
+}
+
+
+    @using (Html.BeginForm("DangNhapCuaHang", "Home", FormMethod.Post, new { @id = "form-DangNhapCuaHang", @name = "formDN" }))
+    {
+        <div class="con">
+            <!--     Start  header Content  -->
+            <header class="head-form">
+                <h2>ĐĂNG NHẬP</h2>
+                <!--     A welcome message or an explanation of the login form -->
+                <p>Đăng nhập với vai trò là cửa hàng trên hàng thương mại Ori</p>
+            </header>
+            <!--     End  header Content  -->
+            <br>
+            <div class="field-set">
+
+                <!--   user name -->
+                <span class="input-item">
+                    <i class="fa fa-user-circle"></i>
+                </span>
+                <!--   user name Input-->
+                <input name="TaiKhoan" class="form-input" id="txt-input" type="text" placeholder="UserName" required>
+
+
+                <br>
+
+                <!--   Password -->
+
+                <span class="input-item">
+                    <i class="fa fa-key"></i>
+                </span>
+                <!--   Password Input-->
+                <input class="form-input" type="password" placeholder="Password" id="pwd" name="Pass" required>
+
+                <!--      Show/hide password  -->
+                <span>
+                    <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
+                </span>
+
+
+                <br>
+                <!--        buttons -->
+                <!--      button LogIn -->
+                <button class="log-in"> Đăng Nhập </button>
+            </div>
+            <p style="color:red">@ViewBag.DaKhoa</p>
+            <!--   other buttons -->
+          
+
+            <!--   End Conrainer  -->
+        </div>
+    }
+    <!--   con = Container  for items in the form-->
+    <!-- End Form -->
+

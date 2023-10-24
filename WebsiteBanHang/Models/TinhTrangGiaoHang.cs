@@ -17,13 +17,13 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TinhTrangGiaoHang()
         {
-            this.DonDatHangs = new HashSet<DonDatHang>();
+            this.DonDatHang = new HashSet<DonDatHang>();
         }
     
         public int MaTinhTrangGiaoHang { get; set; }
         public string TenTinhTrang { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
+        public virtual ICollection<DonDatHang> DonDatHang { get; set; }
     }
 }

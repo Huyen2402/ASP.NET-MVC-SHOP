@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    <title>New Store A Ecommerce Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
+    <title>Sàn thương mại trực tuyến - Oriana</title>
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="~/Content/js/jquery.min.js"></script>
@@ -12,6 +12,7 @@
     <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all">
     <link href="~/Content/css/style_from.css" rel="stylesheet" type="text/css" media="all">
     <link href="~/Content/css/DangNhap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/Content/css/ModalAnimate.css" rel="stylesheet" >
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -32,6 +33,14 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="~/Content/css/style-starter.css" rel="stylesheet" />
+    <link href="~/Content/css/style-liberty.css" rel="stylesheet" />
+    <script src="~/Scripts/owl.carousel.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.2/assets/owl.carousel.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.2/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.2/assets/owl.theme.default.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.2/assets/owl.theme.default.min.css" rel="stylesheet" />
    
 </head>
 
@@ -72,13 +81,13 @@
                 </div>
             </div>*@
 
-        <div class="container">
+        <!--<div class="container">
             <div class="head-top">
                 <div class="logo">
-                    <a href="index.html"><img src="~/Content/images/logo.png" alt=""></a>
+                    <a href="index.html"><img style="max-width: 165px" src="~/Content/images/logo.png" alt=""></a>
                 </div>
 
-                @Html.Action("MenuPartial", "Home");
+              
                 @*<div class=" h_menu4">
                         <ul class="memenu skyblue">
                             <li class="showhide" style="display: none;"><span class="title">MENU</span><span class="icon1"></span><span class="icon2"></span></li>
@@ -202,50 +211,44 @@
                         </ul>
                     </div>*@
 
-                <div class="clearfix"> </div>
+                <!--<div class="clearfix"> </div>
             </div>
-        </div>
+        </div>-->
 
 
     </div>
+    
     <!-- Carousel -->
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+    <!--<div id="demo" class="carousel slide" data-bs-ride="carousel">-->
+    <!-- Indicators/dots -->
+    <!--<div class="carousel-indicators">
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>-->
+    <!-- The slideshow/carousel -->
+    <!--<div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/Content/images/banner1.jpg" alt="Los Angeles" class="d-block" style="width:100%">
 
-        <!-- Indicators/dots -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
         </div>
+        <div class="carousel-item">
+            <img src="~/Content/images/banner2.jpg" alt="Chicago" class="d-block" style="width:100%">
 
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="~/Content/images/banner1.jpg" alt="Los Angeles" class="d-block" style="width:100%">
-
-            </div>
-            <div class="carousel-item">
-                <img src="~/Content/images/banner2.jpg" alt="Chicago" class="d-block" style="width:100%">
-
-            </div>
-            <div class="carousel-item">
-                <img src="~/Content/images/banner3.jpg" alt="New York" class="d-block" style="width:100%">
-
-            </div>
         </div>
+        <div class="carousel-item">
+            <img src="~/Content/images/banner3.jpg" alt="New York" class="d-block" style="width:100%">
 
-        <!-- Left and right controls/icons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        </div>
+    </div>-->
+    <!-- Left and right controls/icons -->
+    <!--<button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
         </button>
-    </div>
-
-
-
-
+    </div>-->
     @*<div class="banner">
             <div class="container">
                 <script src="js/responsiveslides.min.js"></script>
@@ -292,10 +295,12 @@
         </div>*@
 
     <!--content-->
-    <div class="content">
+    <div class="content color-ali" style="background-color:aliceblue">
 
 
         @RenderBody()
+
+
         @*
                <div class="container">
                 <div class="content-top">
@@ -449,28 +454,26 @@
             </div>
         *@
     </div>
-    <div class="footer">
+    <div class="footer ">
         <div class="container">
             <div class="footer-top-at">
 
                 <div class="col-md-4 amet-sed">
-                    <h4>MORE INFO</h4>
+                    <h4>THÔNG TIN KHÁC</h4>
                     <ul class="nav-bottom">
-                        <li><a href="#">How to order</a></li>
+                        <li><a href="#">Mua hàng</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="contact.html">Location</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Membership</a></li>
+                        <li><a href="contact.html">Vị trí</a></li>
+                        <li><a href="#">Vận chuyển</a></li>
+                        <li><a href="#">Ưu đãi</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 amet-sed ">
-                    <h4>CONTACT US</h4>
+                    <h4>LIÊN HỆ VỚI CHÚNG TÔI</h4>
 
-                    <p>
-                        Contrary to popular belief
-                    </p>
-                    <p>The standard chunk</p>
-                    <p>office:  +12 34 995 0792</p>
+                   
+                    <p>Liên hệ</p>
+                    <p>office:  +84 356492230</p>
                     <ul class="social">
                         <li><a href="#"><i> </i></a></li>
                         <li><a href="#"><i class="twitter"> </i></a></li>
@@ -480,21 +483,20 @@
                     </ul>
                 </div>
                 <div class="col-md-4 amet-sed">
-                    <h4>Newsletter</h4>
+                    <h4>BẢN TIN</h4>
                     <p>
-                        Sign Up to get all news update
-                        and promo
+                        Tra cứu bản tin mới nhất
                     </p>
                     <form>
                         <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-                        <input type="submit" value="Sign up">
+                        <input type="submit" value="Tìm" style="background-color: #ff6f6f">
                     </form>
                 </div>
                 <div class="clearfix"> </div>
             </div>
         </div>
-        <div class="footer-class">
-            <p>© 2015 New store All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+        <div class="footer-class ">
+            <p>© 2022 Huyen's Cosmetic | Design by  <a>HuyenPhanlayouts</a> </p>
         </div>
     </div>
 

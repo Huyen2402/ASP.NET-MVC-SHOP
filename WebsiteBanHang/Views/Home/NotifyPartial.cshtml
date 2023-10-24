@@ -1,0 +1,67 @@
+﻿@using WebsiteBanHang.Models
+@model List<ThongBaoDH>
+   
+<div data-bs-spy="scroll">
+    <button data-id="@ViewBag.IDUSER" id="bell-notifi" type="button" class="icon-button dropdown-toggle" data-bs-toggle="dropdown">
+        <i class="fa-solid fa-bell"></i>
+        <span id="quantity" class="icon-button__badge">@ViewBag.sl</span>
+    </button>
+    <ul class="dropdown-menu" style=" height: 200px; overflow: auto">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <li   class="row">
+                    <img class="col-2" style="width:30px" src="@item.DonDatHang.Shop.HinhAnh" alt="Alternate Text" />
+                    <div class="col-9">
+                        <a href="@Url.Action("XemChiTietDonHang","DonHang", new {@MaDDH = item.MaDH})" class="dropdown-item " style="word-wrap: break-word; font-size: 13px; font-weight: bold;">Đơn hàng @item.MaDH đã được @item.DonDatHang.TinhTrangGiaoHang.TenTinhTrang</a>
+                    </div>
+                   
+                </li>
+                <br />
+            }
+        }
+        else
+        {
+            <li><a class="dropdown-item" href="#"></a></li>
+            <li><a class="dropdown-item" href="#"></a></li>
+            <li><a class="dropdown-item" href="#"></a></li>
+        }
+
+
+    </ul>
+</div>
+<style>
+    li p {
+        word-wrap: break-word;
+    }
+</style>
+<script>
+    $("#bell-notifi").click(function () {
+        const id = $(this).attr("data-id");
+        console.log(id)
+        $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            url: "http://localhost:62979/Home/DaXemNotify?MaTV=" + id,
+            success: function (data) {
+                if (data.mess == "success") {
+                    console.log("thành công")
+                    $.ajax({
+                        type: 'GET',
+                        dataType: 'JSON',
+                        url: "http://localhost:62979/Home/LoadNotify" ,
+                        success: function (data) {
+                            if (data.mess == "success") {
+                                $("#quantity").remove();
+                                $("#bell-notifi").append(' <span id="quantity" class="icon-button__badge">' + data.sl  +'</span>');
+                            }
+                        }
+
+                    })
+                }
+            }
+
+        })
+    })
+</script>

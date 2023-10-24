@@ -15,72 +15,76 @@
         @using (Html.BeginForm("DangKy", "Home", FormMethod.Post, new { @id = "form-dangky" }))
         {
 
-        <div class="col-md-6 register-top-grid">
-            <h3>Thông tin người dùng</h3>
-            <div>
-                <span>Họ tên</span>
-                <input name="HoTen" type="text">
+            <div class="col-md-6 register-top-grid">
+                <h3>Thông tin người dùng</h3>
+                <div>
+                    <span>Họ tên</span>
+                    <input name="HoTen" type="text">
+                </div>
+
+                <div>
+                    <span>Email</span>
+                    <input name="Email" type="text">
+                </div>
+                <div>
+                    <span>Điện thoại</span>
+                    <input name="SDT" type="text">
+                </div>
+                <div>
+                    <span class="label-m10">Tỉnh</span>
+                    @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh" })
+                </div>
+                <div>
+                    <span class="label-m10">Huyện</span>
+                    @Html.DropDownList("MaHuyen", new SelectList(""), "", new { @class = "form-select", @id = "idHuyen" })
+                </div>
+                <div>
+                    <span class="label-m10">Xã</span>
+                    @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
+                </div>
+                <div>
+                    <span>Địa chỉ</span>
+                    <input name="DiaChi" type="text">
+                </div>
+
+
+                <a class="news-letter" href="#">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
+                </a>
             </div>
 
-            <div>
-                <span>Email</span>
-                <input name="Email" type="text">
-            </div>
-            <div>
-                <span>Điện thoại</span>
-                <input name="SDT" type="text">
-            </div>
-            <div>
-                <span class="label-m10">Tỉnh</span>
-                @Html.DropDownList("MaTinh", null, new { @class = "form-select", @id = "idTinh"  })
-            </div>
-            <div>
-                <span class="label-m10">Huyện</span>
-                @Html.DropDownList("MaHuyen", new SelectList(""), "" ,new { @class = "form-select", @id = "idHuyen" })
-            </div>
-            <div>
-                <span class="label-m10">Xã</span>
-                @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select", @id = "idXa" })
-            </div>
-            <div>
-                <span >Địa chỉ</span>
-                <input name="DiaChi" type="text">
-            </div>
+            <div class="col-md-6 register-bottom-grid">
+                <h3>Thông tin tài khoản</h3>
+                <div>
+                    <span>Tài khoản</span>
+                    <input id="txbTK" name="TaiKhoan" type="text">
+                </div>
 
+                <div>
+                    <span>Mật khẩu</span>
+                    <input id="password" name="MatKhau" type="password">
+                </div>
+
+                <div>
+                    <span>Nhập lại mật khẩu</span>
+                    <input id="repass" name="repass" type="password">
+                    <p id="erorr" style="color:red;"></p>
+                </div>
+                <div>
+                    @Html.Captcha(5)
+                </div>
+                <input id="btn-dangky" type="submit" value="Đăng ký">
+                <div class="clearfix"> </div>
+                <a class="" href="@Url.Action("DangKyCuaHang","Home")">Đăng ký cửa hàng?</a>
+
+
+            </div>
            
-            <a class="news-letter" href="#">
-                <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
-            </a>
-        </div>
-
-        <div class="col-md-6 register-bottom-grid">
-            <h3>Thông tin tài khoản</h3>
-            <div>
-                <span>Tài khoản</span>
-                <input id="txbTK" name="TaiKhoan" type="text">
-            </div>
-
-            <div>
-                <span>Mật khẩu</span>
-                <input id="password" name="MatKhau" type="password">
-            </div>
-
-            <div>
-                <span>Nhập lại mật khẩu</span>
-                <input id="repass" name="repass" type="password">
-                <p id="erorr" style="color:red;"></p>
-            </div>
-            <div>
-                @Html.Captcha(5)
-            </div>
-            <input id="btn-dangky" type="submit" value="Đăng ký">
-
-        </div>
             <div class="clearfix"> </div>
-       
+
         }
-            <h2 style="color:aqua">@ViewBag.ThongBao</h2>
-        
+        <h2 style="color:aqua">@ViewBag.ThongBao</h2>
+
     </div>
 </div>
 <script>
@@ -119,48 +123,48 @@
 
     })
 
-    $(function () {
-        $("#form-dangky").submit(function (event) {
-            event.preventDefault();
-            var pass = $("#password").val();
-            var repass = $("#repass").val();
-            if (repass != pass) {
+    //$(function () {
+    //    $("#form-dangky").submit(function (event) {
+    //        event.preventDefault();
+    //        var pass = $("#password").val();
+    //        var repass = $("#repass").val();
+    //        if (repass != pass) {
                 
-                $("#erorr").text("Mật khẩu không trùng khớp");
-            }
+    //            $("#erorr").text("Mật khẩu không trùng khớp");
+    //        }
 
-            else {
+    //        else {
             
 
-             /*   $("#form-dangky").submit();*/
-                var actionurl = event.currentTarget.action;
+    //         /*   $("#form-dangky").submit();*/
+    //            var actionurl = event.currentTarget.action;
 
-                //do your own request an handle the results
-                $.ajax({
-                    url: actionurl,
-                    type: 'post',
-                    dataType: 'application/json',
-                    data: $("#form-dangky").serialize()
+    //            //do your own request an handle the results
+    //            $.ajax({
+    //                url: actionurl,
+    //                type: 'post',
+    //                dataType: 'application/json',
+    //                data: $("#form-dangky").serialize()
                    
                    
-                });
+    //            });
 
 
-                Swal.fire({
+    //            Swal.fire({
                    
-                    icon: 'success',
-                    title: 'Đăng ký tài khoản thành công',
-                    showConfirmButton: false,
-                    timer: 1500
+    //                icon: 'success',
+    //                title: 'Đăng ký tài khoản thành công',
+    //                showConfirmButton: false,
+    //                timer: 1500
                    
-                })
-                window.location.reload();
+    //            })
+    //            window.location.reload();
                
-            }
+    //        }
             
            
-        });
-    });
+    //    });
+    //});
 
 
     

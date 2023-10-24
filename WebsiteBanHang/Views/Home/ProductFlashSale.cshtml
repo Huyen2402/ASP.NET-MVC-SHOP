@@ -1,0 +1,161 @@
+﻿@using WebsiteBanHang.Models;
+@model IEnumerable<SanPham>
+
+@{
+    FlashSale fl = ViewBag.Day as FlashSale;
+  
+}
+@if (Model != null && ViewBag.countList > 0)
+{
+    <div class="content-top container flash-sale">
+
+
+        <h1 style="font-family:'Cambria Math'">ƯU ĐÃI TRONG NGÀY</h1>
+        <a class="nono" href="@Url.Action("ViewAllFlashSale","SanPham")" id="view-all">Xem tất cả   <i class="fa-solid fa-angle-right"></i></a>
+        <div id="time-flash-sale">
+            <span class="time" id="days">Ngảy</span> <p class="nono">:</p>
+            <span class="time" id="hours">Giờ</span> <p class="nono">:</p>
+            <span class="time" id="minutes">Phút</span> <p class="nono">:</p>
+            <span class="time" id="seconds">Giây</span>
+        </div>
+        <div class="grid-in">
+            <input id="time" type="hidden" name="name" value="@fl.EndTime" />
+
+            <div id="product-shop" class=" row bottom-product">
+                @foreach (var item in Model)
+                {
+
+                    decimal? number = item.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                    string Giacuoicung = (item.DonGia - (item.DonGia * item.KhuyenMai) / 100).Value.ToString("#,##0");
+
+                    <div class="col-md-3 bottom-cd simpleCart_shelfItem">
+
+
+                        <div class="product-at ">
+                            <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                                <div class="S-product-item__wrapper-upper-left">
+                                    <div role="contentinfo" class="wrapper-upper-left__flashsale notranslate" tabindex="-1" data-ada-level="0" data-ada-pos="0-0">
+
+                                        <i class="fa-solid fa-bolt suiiconfont sui_icon_flashsale_24px"></i>
+                                        <span class="wrapper-upper-left__flashsale-percent">@item.KhuyenMai%</span>
+                                    </div><!-- ccc-tsp角标 --><!--v-if-->
+                                </div>
+                                <img style="height: 326px" class="img-responsive" src="@Url.Content(item.HinhAnh)" alt="">
+                                <div class="pro-grid">
+                                    <span class="buy-in">Mua ngay</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div style="height:50px;">
+                            <b><p class="tun">@item.TenSP</p></b>
+                            <br />
+
+                        </div>
+                        <div class="row">
+                            <p class="number item_price col-6"><i> </i>@Giacuoicung</p>
+                            <del class="number item_price col-6">@GiaTien</del>
+                        </div>
+                        <br />
+                        <div class="progress">
+                            <div class="progress-bar color-blue" style="width:10%"></div>
+
+                        </div>
+                        <br>
+                        <p> 10% đã bán</p>
+
+
+                    </div>
+
+
+
+
+                }
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}
+
+
+<style>
+
+    .nono {
+        font-size: 17px;
+        font-weight: 800;
+        padding: 4px;
+        color: black;
+    }
+
+    .time {
+        border: solid 1px #ACACAC;
+        padding: 2px;
+        background-color: black;
+        color: white;
+        height: 30px;
+        width: 70px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+
+    #time-flash-sale, #view-all {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 70px;
+    }
+</style>
+<script language="javascript">
+
+    var val = document.getElementById("time").value
+    console.log(val)
+    var ngay = val.slice(0, 10)
+    var gio = val.slice(10)
+    console.log(ngay)
+    console.log(gio)
+    const myArray = ngay.split("/");
+    const myArray2 = gio.split(":");
+    console.log(myArray)
+    console.log(myArray2)
+    var day = myArray[1]; // Giờ
+    var month = myArray[0]; // Phút
+    var year = myArray[2]; // Giây
+    console.log(month)
+    var hour = myArray2[0]
+    var phut = myArray2[1]
+    var giay = myArray2[2]
+
+
+
+    function makeTimer() {
+
+        /*   		var endTime = new Date("29 April 2018 9:56:00 GMT+01:00");*/
+        var endTime = new Date(year + "," + month + "," + day + " " + hour + ": " + phut + ": " + giay + " ");
+        console.log(endTime)
+
+        endTime = (Date.parse(endTime) / 1000);
+        var now = new Date();
+        now = (Date.parse(now) / 1000);
+
+        var timeLeft = endTime - now;
+
+        var days = Math.floor(timeLeft / 86400);
+        var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+        var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60);
+        var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+
+        if (hours < "10") { hours = "0" + hours; }
+        if (minutes < "10") { minutes = "0" + minutes; }
+        if (seconds < "10") { seconds = "0" + seconds; }
+
+        $("#days").html(days + "<span>Days</span>");
+        $("#hours").html(hours + "<span>Hours</span>");
+        $("#minutes").html(minutes + "<span>Minutes</span>");
+        $("#seconds").html(seconds + "<span>Seconds</span>");
+
+    }
+
+    setInterval(function () { makeTimer(); }, 1000);
+
+</script>

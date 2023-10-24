@@ -1,0 +1,126 @@
+﻿@using WebsiteBanHang.Models
+@model List<HangThanhVien>
+@{
+    ViewBag.Title = "Voucher";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+
+<div style="min-height:700px"  class="inner_content">
+    <div class="wthree_general graph-form agile_info_shadow ">
+        <h3 class="w3_inner_tittle two">Tạo Voucher Dành Cho Khách Hàng Thân Thiết</h3>
+
+        <div class="grid-1 ">
+            <div class="form-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Nhập mã voucher</label>
+                        <div id="fsinput" class="col-sm-8">
+                            <input type="text" name="TenGiamGia" class="form-control1" id="focusedinput" >
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Nhập số tiền</label>
+                        <div id="einput" class="col-sm-8">
+                            <input  type="number" name="SoTien" class="form-control1" id="endinput" >
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="radio" class="col-sm-2 control-label">Áp dụng cho (Loại thành viên)</label>
+                        <div class="col-sm-8">
+                            @foreach (var item in Model)
+                            {
+                                <div class="radio-inline"><label><input class="radio-rank" value="@item.ID" type="radio"> @item.TenHang</label></div>
+                            }
+
+                        
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="radio" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <button id="btn-fs" type="button" class="radio block btn info">Tạo</button>
+
+                        </div>
+                    </div>
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    .btn {
+        border: none; /* Remove borders */
+        color: white; /* Add a text color */
+        padding: 14px 28px; /* Add some padding */
+        cursor: pointer; /* Add a pointer cursor on mouse-over */
+    }
+
+    .info {
+        background-color: #2196F3;
+    }
+        /* Blue */
+        .info:hover {
+            background: #0b7dda;
+        }
+</style>
+<script>
+    var arr = [];
+    $(".radio-rank").click(function () {
+       
+        let val = $(this).val();
+        if (arr.indexOf(val) == -1) {
+            arr.push(val);
+           
+        }
+       
+        console.log(arr)
+    })
+    $("#btn-fs").click(function () {
+        const TenGG = $("#focusedinput").val();
+        const SoTien = $("#endinput").val();
+        console.log(SoTien)
+        for (var i = 0; i < arr.length; i++) {
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/QuanTriVien/AddVoucher",
+                data: { TenGiamGia: TenGG, SoTien: SoTien, MaHangTV: arr[i] }, // serializes the form's elements.
+                success: function (dataT) {
+                    if (dataT.mess == "success") {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thêm thành công',
+                            text: 'Bạn đã thêm loại danh mục thành công',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload()
+                            }
+                        })
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+                }
+            });
+        }
+    })
+</script>

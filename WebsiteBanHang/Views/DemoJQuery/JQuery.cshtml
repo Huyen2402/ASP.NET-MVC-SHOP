@@ -1,8 +1,40 @@
 ﻿
 @{
     ViewBag.Title = "JQuery";
-    Layout = "~/Views/Layout/form.cshtml";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
 }
 
+<div class="mb-3 mt-3">
+    <label for="email" class="form-label">Từ Khóa:</label>
+    <input type="email" class="form-control" id="email" name="email">
+    <div id="abc"></div>
+</div>
+<button onclick="getall()" id="check">Check</button>
+
+<script>
+    //$("#check").click(function () {
+    //    var key = $("#email").val();
+    //    console.log(key)
+    //  /*  var url = "https://localhost:7193/WeatherForecast/Test?data=" + key;*/
+    //    /*console.log(url)*/
+    //    window.location.href = "https://localhost:62979/DemoJQuery/Test?path=" + key;
+
+
+    //})
+
+    function getall() {
+        var key = $("#email").val();
+        $.getJSON("/DemoJQuery/Test?path=" + key, function (ss) {
+            console.log(ss)
+            if (ss == 0) {
+                $("#abc").append("<p>Từ ngữ bạn dùng có chứa từ nhạy cảm</p>")
+            }
+            else {
+                $("#abc").append("<p>" + ss + "</p>")
+            }
+            
+        })
+    }
+</script>
 
 

@@ -1,0 +1,265 @@
+﻿@using WebsiteBanHang.Models
+@model List<DiaChi>
+
+@{ 
+    DiaChi lastAddress = ViewBag.lastAddress as DiaChi;
+
+}
+
+<div id="defaultAddress" class="mt-4">
+    <h4><i class="fa-solid fa-location-dot"></i> Địa chỉ nhận hàng</h4>
+    <div class="row mt-3">
+        <input type="hidden" name="ID" id="idchecked" value="@lastAddress.ID" />
+        <div class="col-3"><p>@lastAddress.ThanhVien.HoTen (+84) @lastAddress.Phone</p></div>
+        <div class="col-6"><p><span id="Diachi">@lastAddress.Address</span>,
+                              <span data-idXa="@lastAddress.Xa.MaXa" id="idXa1"> @lastAddress.Xa.TenXa</span>,
+                              <span data-idHuyen="@lastAddress.Huyen.MaHuyen" id="idHuyen1">  @lastAddress.Huyen.TenHuyen</span>, 
+                              <span data-idtinh="@lastAddress.Tinh.MaTinh" id="idTinh1"> @lastAddress.Tinh.TenTinh</span>
+             </p>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#myModal">
+                Thay đổi
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Trigger/Open The Modal -->
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thay đổi địa chỉ giao hàng</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body ex2">
+                @foreach (var item in Model)
+                {
+                    <div class="row ">
+                        <input type="hidden" class="arr-id" name="name" value="@item.ID" />
+                        <div class="col-2"><p><b>@item.ThanhVien.HoTen</b> @item.Phone</p></div>
+                        <div class="col-8"><p>@item.Address,@item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</p></div>
+                        <div class="col-2">
+
+                            <input class="check" type="radio" name="name" value="@item.ID" />
+
+                            <button class="btn btn-warning">Cập nhật <i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+
+                    </div>
+                }
+              
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                    Thêm địa chỉ <i class="fa-solid fa-plus"></i>
+                </button>
+               
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<!-- The Modal -->
+<div class="modal" id="myModalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thay đổi địa chỉ giao hàng</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <input type="hidden" id="url-string" name="url-string" value="@Request.Url.ToString()" />
+
+            @using (Html.BeginForm("AddAddress", "DatHang", FormMethod.Post, new { @id = "form-addAddress", @class = "modal-body" }))
+            {
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Tên người nhận hàng:</label>
+                    <input type="text" class="form-control" id="MaThanhVien" value="Huyen phan" readonly name="MaThanhVien">
+                </div>
+
+                <label for="email" class="form-label">SDT:</label>
+                <input type="text" class="form-control" id="SDT"  name="Phone">
+
+                <div>
+                    <span class="label-m10">Tỉnh</span>
+                    @Html.DropDownList("MaTinh", null, new { @class = "form-select mb-3 mt-3", @id = "idTinh" })
+                </div>
+
+
+                <div>
+                    <span class="label-m10">Huyện</span>
+                    @Html.DropDownList("MaHuyen", new SelectList(""), "", new { @class = "form-select mb-3 mt-3", @id = "idHuyen" })
+                </div>
+
+                <div>
+                    <span class="label-m10">Xã</span>
+                    @Html.DropDownList("MaXa", new SelectList(""), "", new { @class = "form-select mb-3 mt-3", @id = "idXa" })
+                </div>
+                <div class="mb-3">
+                    <label for="pwd" class="form-label">Địa chỉ:</label>
+                    <textarea class="form-control" rows="5" id="comment" name="Address"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Thêm</button>
+
+            }
+
+        </div>
+
+         
+        </div>
+</div>
+<style>
+    div.ex2 {
+      
+        height: 400px;
+        overflow-y: scroll;
+    }
+</style>
+<!-- The Modal -->
+
+<script>
+
+
+    // When the user clicks anywhere outside of the modal, close it
+
+    $('.check').click(function () {
+        var idDC = $(this).val()
+        console.log(idDC)
+        $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            url: "http://localhost:62979/DatHang/CustomAddress?ID=" + idDC,
+            success: function (status, data) {
+                if (status) {
+                    console.log(status.data[0].tenThanhVien)
+                    $("#defaultAddress").empty()
+                    $("#defaultAddress").html(
+                        ' <h2><i class="fa-solid fa-location-dot"></i>Địa chỉ nhận hàng</h2>' +
+                        ' <div class= "row" >' +
+                        '<div class="col-2"><p>' + status.data[0].tenThanhVien + ' (+84)' + status.data[0].sdt + '</p></div>' +
+                        ' <div class="col-8"><p>' +
+                        '<span id="Diachi">' + status.data[0].diaChi + '</span>'
+                        + ',' +
+                        '<span  id="idXa1" data-idXa="' +status.data[0].idXa+'">' + status.data[0].tenXa + '</span>'
+                        + ',' +
+                        '<span id="idHuyen1" data-idHuyen="' + status.data[0].idHuyen + '">' + status.data[0].tenHuyen + '</span>'
+                        + ', ' +
+                        '<span id="idTinh1"   data-idTinh="' + status.data[0].idTinh  + '">' + status.data[0].tenTinh + '</span>'
+                        + '</p></div> ' +
+                        ' <div class= "col-2" > <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"> ' +
+                        ' Thay đổi' +
+                        ' </button></div>' +
+                        '</div > '
+                    )
+
+                }
+            }
+
+        })
+
+    })
+
+    var idchecked = $("#idchecked").val()
+    var leng = $(".arr-id").length
+    var arr=[]
+    for (var i = 0; i <= leng - 1; i++) {
+        arr.push($(".arr-id")[i])
+
+    }
+    var one = arr[0]
+  
+
+
+    $("#idTinh").change(function () {
+        var idTinh = $(this).val();
+        $.ajax({
+            type: "post",
+
+            url: "http://localhost:62979/Home/LayHuyen?idTinh=" + idTinh,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idHuyen").empty();
+                $("#idHuyen").append(response);
+            }
+        })
+
+    })
+
+
+    $("#idHuyen").change(function () {
+        var idHuyen = $(this).val();
+        $.ajax({
+            type: "post",
+
+            url: "http://localhost:62979/Home/LayXa?idHuyen=" + idHuyen,
+            contentType: "html",
+            success: function (response) {
+                debugger
+                //$('#idHuyen').children().remove().end()
+                $("#idXa").empty();
+                $("#idXa").append(response);
+            }
+        })
+
+    })
+
+
+    $("#form-addAddress").submit(function (e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+                console.log(data)
+                alert("Thêm thành côn")
+                var url = $("#url-string").val()
+                var modal = $("#myModal")
+                modal.show()
+
+            }
+
+
+        });
+        Swal.fire({
+
+            icon: 'success',
+            title: 'Thêm địa chỉ mới thành công',
+            showConfirmButton: false,
+            timer: 1500
+
+        })
+        window.location.reload();
+
+    });
+
+
+
+</script>

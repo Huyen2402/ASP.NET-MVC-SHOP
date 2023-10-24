@@ -7,14 +7,14 @@
 @{
     ViewBag.Title = "XemNguoiDung";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
 }
 
 
 
-<div class="container mt-3" style="padding-top:80px;">
     <h2>Danh Sách Người Dùng</h2>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <table id="example" class="table table-light table-hover table-bordered " style="width:100%">
         <thead>
             <tr>
                 <th>STT</th>
@@ -27,8 +27,9 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.MaThanhVien</td>
+               
+                <tr >
+                    <td>@i</td>
                     <td>@item.HoTen</td>
                     <td>@item.Email</td>
                     <td>@item.SDT</td>
@@ -42,26 +43,44 @@
                     }
                     else
                     {
-                <td>
-                    <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-secondary unblock-user">Đã Khoá</a>
-                </td>
-                            }
+                        <td>
+                            <a data-MaThanhVien="@item.MaThanhVien" @*href="@Url.Action("KhoaNguoiDung","Admin", new { @MaThanhVien = item.MaThanhVien })"*@ class="btn btn-secondary unblock-user">Đã Khoá</a>
+                        </td>
+                    }
 
 
 
 
-                    </tr>
+                </tr>
+                i++;
             }
 
 
         </tbody>
     </table>
-</div>
+
+
+
+<style>
+    .itemUser {
+        display: none;
+    }
+
+</style>
 <script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    })
+    $(".Trang_1").show();
+   $('.page-item').click(function () {
+        $('.itemUser').hide();
+        var Trang = $(this).attr("data-Trang");
+        $('.Trang_'+Trang).show();
+    })
 
     $(".block-user").click(function () {
         $(this).text("Đã Khoá");
-        
+
         var matv = $(this).attr("data-MaThanhVien");
         console.log(matv);
         var url = "http://localhost:62979/Admin/KhoaNguoiDung?MaThanhVien=" + matv;
@@ -70,14 +89,14 @@
 
     $(".unblock-user").click(function () {
         $(this).text("Khoá");
-        
+
         var matv = $(this).attr("data-MaThanhVien");
         console.log(matv);
         var url = "http://localhost:62979/Admin/MoKhoaNguoiDung?MaThanhVien=" + matv;
         window.location.href = url;
     })
 
- 
+
 
 
 </script>

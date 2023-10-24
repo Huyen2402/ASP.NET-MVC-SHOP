@@ -1,0 +1,293 @@
+﻿@using WebsiteBanHang.Models;
+@model Shop
+
+
+@{
+    ViewBag.Title = "XemShop";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+    List<SanPham> list = ViewBag.list as List<SanPham>;
+}
+
+
+<h1 style="font-family:'Cambria Math'" class="text-center mt-4">Tất Cả Sản Phẩm</h1>
+<div class="product">
+
+    <div class="container">
+        <div class="col-md-3 product-price">
+            <div class="product-middle mb-3">
+
+                <div class="fit-top">
+                    <img class="img-responsive rounded-circle" src="@Url.Content( Model.HinhAnh)" alt="Alternate Text" />
+                    <h6 class="shop-top">@Model.TenShop</h6>
+                    <a href="@Url.Action("ChatWithShop","Chat", new { WithUserID=Model.MaShop})" class="shop-now">Chat ngay <i class="fa-solid fa-comment"></i></a>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            @Html.Action("Menu2PartialView", "SanPham", new { @MaShop = Model.MaShop })
+
+            <!--initiate accordion-->
+            <script type="text/javascript">
+                $(function () {
+                    var menu_ul = $('.menu > li > ul'),
+                        menu_a = $('.menu > li > a');
+                    menu_ul.hide();
+                    menu_a.click(function (e) {
+                        e.preventDefault();
+                        if (!$(this).hasClass('active')) {
+                            menu_a.removeClass('active');
+                            menu_ul.filter(':visible').slideUp('normal');
+                            $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                        } else {
+                            $(this).removeClass('active');
+                            $(this).next().stop(true, true).slideUp('normal');
+                        }
+                    });
+
+                });
+            </script>
+            <!---->
+            @*<div class="sellers">
+                <div class="of-left-in">
+                    <h3 class="tag">Từ khóa</h3>
+                </div>
+                <div class="tags">
+                    <ul>
+                        <li><a href="#">merzy</a></li>
+                        <li><a href="#">son</a></li>
+                        <li><a href="#">s</a></li>
+                        <li><a href="#">ttbc</a></li>
+                        <li><a href="#">tẩy</a></li>
+                        <li><a href="#">phấn nén</a></li>
+                        <li><a href="#">dhc</a></li>
+                        <li><a href="#">son dhc</a></li>
+                        <li><a href="#">vichy</a></li>
+                        <li><a href="#">seru</a></li>
+                        <li><a href="#">tinh chat</a></li>
+                        <li><a href="#">balance</a></li>
+
+                        <div class="clearfix"> </div>
+                    </ul>
+
+                </div>
+
+            </div>*@
+
+
+
+            <!---->
+
+
+
+        </div>
+        <div class="col-md-9 product1">
+            <input id="MaShop" type="hidden" name="name" value="@Model.MaShop" />
+            <div class="row sap-xep ">
+                <div class="col-1 text-center">Sắp xếp theo</div>
+                <div class="col-1  "><a id="popular" class="btn btn-outline-secondary btn-reponsive">Phổ biến</a></div>
+                <div class="col-1  "><a id="new" class="btn btn-outline-secondary btn-reponsive">Mới nhất</a></div>
+                <div class="col-1 "><a id="best-sell" class="btn btn-outline-secondary btn-reponsive">Bán chạy</a></div>
+                <div class="col-2  ">
+                    <form action="/" method="post">
+                        <select class="form-select" id="sell" name="sellist1">
+                            <option>---Giá---</option>
+                            <option value="1">Từ thấp đến cao</option>
+                            <option value="2">Từ cao đến thấp</option>
+
+                        </select>
+                    </form>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-2  ">
+                    <ul style="margin:0" class="pagination justify-content-end">
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-left"></i></a></li>
+
+                        <li class="page-item"><a class="page-link" href="javascript:void(0);"><i class="fa-solid fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="product-shop" class=" row bottom-product">
+                @foreach (var item in list)
+                {
+
+                    <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                        <div class="product-at ">
+                            <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                                <img style="height: 326px" class="img-responsive" src="@Url.Content(item.HinhAnh)" alt="">
+                                <div class="pro-grid">
+                                    <span class="buy-in">Mua ngay</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div style="height:50px;">
+                            <b><p class="tun">@item.TenSP</p></b>
+                        </div>
+                        @{
+                            decimal? number = item.DonGia;
+                            string GiaTien = number.Value.ToString("#,##0");
+                        }
+                    <a  class="item_add " href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
+                        <p class="number item_price"><i> </i>@GiaTien</p>
+                    </a>
+                    
+</div>
+
+
+
+
+                }
+
+            </div>
+
+        </div>
+        @Html.Action("SanPhamNoiBat", "SanPham")
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#new").click(function () {
+            var MaShop = $("#MaShop").val();
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/NewProduct?MaShop=" + MaShop,
+
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>'
+                            );
+                        });
+                    }
+                },
+
+            }
+
+            )
+        })
+
+        $("#best-sell").click(function () {
+            var MaShop = $("#MaShop").val();
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/BestSell?MaShop=" + MaShop,
+
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>' +
+                                '    <a id="ThemGioHang" data-MaSP="' + field.MaSP + '" data-strURL="' + window.location + '"  class="item_add ThemGioHang">' +
+                                ' <p data-MaSP="' + field.MaSP + '" data-strURL="' + window.location + '"  class="number item_price ThemGioHang"><i> </i>' + field.DonGia + '</p>' +
+                                ' </a>' +
+                                ' </div > '
+                            );
+                        });
+                    }
+                },
+
+            }
+
+            )
+        })
+
+        $("#sell").change(function () {
+
+            var val = $('#sell option:selected').val()
+            var MaShop = $("#MaShop").val();
+            console.log(val)
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Shop/filterProduct?MaShop=" + MaShop + "&val=" + val,
+
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        console.log(data)
+                        $("#product-shop").empty();
+                        $.each(data, function (i, field) {
+                            $("#product-shop").append('<div class="col-md-4 bottom-cd simpleCart_shelfItem">' +
+                                '<div class="product-at ">' +
+                                ' <a href="XemChiTietSP/SanPham?MaSP=' + field.MaSP + ' &MaShop=' + field.MaShop + '" > ' +
+                                ' <img style="height: 326px" class="img-responsive" src="/Content/images/' + field.HinhAnh + '" alt="">' +
+                                ' <div class="pro-grid">' +
+                                '  <span class="buy-in">Mua ngay</span>' +
+                                '</div > ' +
+                                '  </a>' +
+                                ' </div>' +
+                                '   <div style="height:50px;">' +
+                                '   <b><p class="tun">' + field.TenSP + '</p></b>' +
+                                '   </div>'
+                            );
+                        });
+                    }
+                },
+
+            }
+
+            )
+        })
+        $(document).on('click', '.ThemGioHang', function (e) {
+            var MaSP = $(this).attr("data-MaSP");
+            
+            var strURL = $(this).attr("data-strURL");
+            $.ajax({
+                type: "get",
+                url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&strURL" + strURL,
+                contentType: "html",
+                statusCode: {
+                    400: function (xhr) {
+
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Sản phẩm đã hết hàng',
+                            showConfirmButton: false,
+                            timer: 1500
+
+                        })
+                    }
+                },
+                success: function (response) {
+                    $("#GioHangPartial").html(response);
+                }
+
+            })
+            return false;
+        })
+    });
+</script>

@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "ChatHistory";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
+<div class="content-top container flash-sale">
+    <input type="text" value="@((Session["TaiKhoan"] as WebsiteBanHang.Models.ThanhVien).MaThanhVien)" id="UserID" hidden />
+    <div class="container mt-3 chat-history">
+        <h2>Lịch sử trò chuyện</h2>
+        <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>
+        <table class="table table-hover" style="">
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<style>
+    .chat-history {
+        border: 1px solid;
+        border-radius: 10px;
+        border-color: #ededed;
+    }
+</style>
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>

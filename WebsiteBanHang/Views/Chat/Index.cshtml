@@ -1,0 +1,69 @@
+﻿@using WebsiteBanHang.Models
+@model List<ChatwithShop>
+
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    Shop s = Session["CuaHang"] as Shop;
+}
+
+<h2>Danh Sách Khách Hàng</h2>
+
+<div class="container mt-3" style="padding-top:80px;">
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>Tên Khách Hàng</th>
+                <th>Nội Dung</th>
+                <th>Thời Gian</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="color:brown">
+                        <b>@Html.DisplayFor(modelItem => item.ThanhVien.HoTen)</b>
+                    </td>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => item.Text)</b>
+                    </td>
+                    @if (DateTime.Now.Subtract(item.NgayTao.Value).TotalDays <= 31)
+                    {
+                        if (DateTime.Now.Subtract(item.NgayTao.Value).TotalHours <= 24)
+                        {
+                            if (DateTime.Now.Subtract(item.NgayTao.Value).TotalMinutes <= 60)
+                            {
+                                <td>
+                                    @DateTime.Now.Subtract(item.NgayTao.Value).Minutes phút trước
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @DateTime.Now.Subtract(item.NgayTao.Value).Hours giờ @DateTime.Now.Subtract(item.NgayTao.Value).Minutes phút trước
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td>
+                                @DateTime.Now.Subtract(item.NgayTao.Value).Days ngày trước
+                            </td>
+                        }
+                    }
+                    <td>
+                        <a class="btn btn-primary btnEdit" href="@Url.Action("Chating","Chat",new { WithUserID=item.MaThanhVien})">Xem</a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+
+    </table>
+
+
+</div>
+

@@ -1,0 +1,106 @@
+﻿
+@using WebsiteBanHang.Models;
+@model SanPham
+
+@{
+
+
+    List<BinhLuan> listBL1 = ViewBag.listBL1 as List<BinhLuan>;
+    List<TraLoiBinhLuan> listTraLoi1 = ViewBag.listTraLoi1 as List<TraLoiBinhLuan>;
+
+}
+
+<div id="BinhLuanAjax">
+    <div id="CMT">
+        <h1>Bình luận </h1>
+        <div>
+            @*@using (Ajax.BeginForm("XemChitietSP", "SanPham", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divEmp", InsertionMode = InsertionMode.Replace })) {*@
+            @using (Html.BeginForm("XemChitietSP", "SanPham", FormMethod.Post, new { @id = "formBL" }))
+            {
+                <input id="getID" data-MaSP="@Model.MaSP" type="hidden" name="MaSP" value="@Model.MaSP" />
+                <input class="form-control" type="text" name="NoiDungBL" value="" />
+                <p id="ThongBao" style="color:red;">@ViewBag.ThongBao</p>
+                <p id="divEmp" style="color:red;"></p>
+
+                <div>
+                    @*<a id="btn-BL" href="" class="btn btn-primary">Gửi Bình Luận</a>*@
+                    <input id="btn-BL" type="submit" value="Gửi Bình Luận" class="btn btn-primary float-end" />
+                </div>
+            }
+
+
+        </div>
+        <div class="clearfix"> </div>
+
+        @{
+            int SoLuongBinhLuan = 1;
+            int SoLuongBinhLuanTrenTrang = 4;
+            int Trang = 1;
+            int tongSLBL = listBL1.Count;
+            int tongTrang = tongSLBL / SoLuongBinhLuanTrenTrang;
+        }
+
+
+        <div>
+            <div>
+                @foreach (var item in listBL1)
+                {
+                    if (item.MaSP == Model.MaSP)
+                    {
+                        if (SoLuongBinhLuan % SoLuongBinhLuanTrenTrang == 0)
+                        {
+                            Trang++;
+                        }
+                        <div class="@Url.Content("form-control itemSearch Trang_"+Trang)" id="binhluan">
+                            <div>
+                                <label id="TenBL"> @item.ThanhVien.HoTen</label>
+                            </div>
+                            <div id="ndBL">
+                                @item.NoiDungBL
+                            </div>
+
+                            @if (listTraLoi1 != null)
+                            {
+                                foreach (var tl in listTraLoi1)
+                                {
+                                    if (tl.MaBL == item.MaBL)
+                                    {
+                                        <div id="TraLoiBL">
+                                            <div class="form-control " id="TLbinhluan">
+                                                <div>
+                                                    <label id="TenBL">@tl.ThanhVien.HoTen</label>
+                                                </div>
+                                                <div id="ndBL">
+                                                    @tl.NoiDungTraLoi
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                        SoLuongBinhLuan++;
+                    }
+                }
+            </div>
+
+        </div>
+
+        @if (tongSLBL > 4)
+        {
+            <div class="container mt-3">
+
+                <a id="HienThiThem">Hiển thị thêm bình luận khác</a>
+
+            </div>
+        }
+
+
+
+
+
+    </div>
+</div>
+

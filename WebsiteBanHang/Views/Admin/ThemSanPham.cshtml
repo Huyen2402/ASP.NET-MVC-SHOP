@@ -1,4 +1,6 @@
-﻿@model WebsiteBanHang.Models.SanPham
+﻿
+@using WebsiteBanHang.Models
+@model SanPham
 
 @{
     ViewBag.Title = "ThemSanPham";
@@ -7,12 +9,12 @@
 
 <h2>Thêm Sản Phẩm</h2>
 
-@using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-addsp" }))
 {
 
 
 <div class="form-horizontal">
-    <h4>SanPham</h4>
+
     <hr />
 
 
@@ -21,7 +23,8 @@
         <label class="col-md-2 control-label">Tên Sản Phẩm</label>
 
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control", @id = "TenSP", @required = "required" } })
+            <p style="color:red" id="error"></p>
 
         </div>
     </div>
@@ -29,8 +32,8 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Đơn giá</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
-
+            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control", @id = "Gia", @required = "required", @type = "number" } })
+            <p style="color:red" id="error1"></p>
         </div>
     </div>
 
@@ -38,6 +41,16 @@
         <label class="col-md-2 control-label">Ngày Cập Nhật</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.NgayCapNhat, new { htmlAttributes = new { @id = "myDate", @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Mô Tả Ngắn</label>
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MoTaNgan, new { htmlAttributes = new { @class = "form-control", @id = "MoTaNgan", @required = "required" } })
+            <p style="color:red" id="error"></p>
 
         </div>
     </div>
@@ -58,6 +71,7 @@
             <img style="width: 150px;" id="preview-img" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin" type="file" name="HinhAnh" value="" />
+            <input type="hidden" name="url1" id="url1" value="" />
 
         </div>
     </div>
@@ -67,7 +81,7 @@
             <img style="width: 150px;" id="preview-img1" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="" />
-
+            <input type="hidden" name="url2" id="url2" value="" />
 
         </div>
     </div>
@@ -78,51 +92,39 @@
             <img style="width: 150px;" id="preview-img2" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="" />
-
+            <input type="hidden" name="url3" id="url3" value="" />
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">Hình Ảnh 3</label>
         <div class="col-md-10">
-            <img  style="width: 150px;" id="preview-img3" src="~/Content/images/no_img.png" alt="Alternate Text" />
+            <img style="width: 150px;" id="preview-img3" src="~/Content/images/no_img.png" alt="Alternate Text" />
 
             <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="" />
 
-
+            <input type="hidden" name="url4" id="url4" value="" />
         </div>
     </div>
 
-   
 
-    <div class="form-group">
+
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Số Lượng Tồn</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
         </div>
-    </div>
+    </div>*@
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">lượt Xem</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotXem, new { htmlAttributes = new { @class = "form-control" } })
 
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="col-md-2 control-label">Lượt Bình Chọn</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotBinhChon, new { htmlAttributes = new { @class = "form-control" } })
 
-        </div>
-    </div>
 
     <div class="form-group">
         <label class="col-md-2 control-label">Lượt Bình Luận</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="LuotBinhLuan" value="0" />
 
         </div>
     </div>
@@ -130,7 +132,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Số Lần Mua</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="SoLanMua" value="0" />
 
         </div>
     </div>
@@ -138,7 +140,7 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Mới</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="Moi" value="1" />
 
         </div>
     </div>
@@ -171,16 +173,16 @@
     <div class="form-group">
         <label class="col-md-2 control-label">Đã Xóa</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DaXoa, new { htmlAttributes = new { @class = "form-control" } })
+            <input class="form-control" readonly type="number" name="DaXoa" value="0" />
 
         </div>
     </div>
 
-
+    
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Thêm Mới" class="btn btn-default" />
+            <input type="submit" value="Tiếp tục" class="btn btn-success" id="btn-add" />
         </div>
     </div>
 
@@ -193,6 +195,8 @@
         });
     </script>
 }
+
+
 
 <script>
 
@@ -230,6 +234,8 @@
 </script>
 
 <script>
+
+
     // Hiển thị ảnh preview (xem trước) khi người dùng chọn Ảnh
 
     //hình 1
@@ -281,6 +287,90 @@
         const f3 = e.target.files[0];
         reader3.readAsDataURL(f3);
     })
+    $(document).ready(function () {
+        $('form#form-addsp').submit(function (e) {
+            /* const TenLoai = $("#TenLoai").val();*/
+
+            e.preventDefault();
+            const TenSP = $("#TenSP").val();
+            const Gia = $("#Gia").val();
+            const MoTaNgan = $("#MoTaNgan").val();
+            const mytextarea = $("mytextarea").val();
+            var formData = new FormData(this);
+            var form = $(this);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/Admin/ThemSanPhama",
+                data: form.serialize(), // serializes the form's elements.
+
+                success: function (dataT) {
+                    const MaSP = dataT.MaSP;
+                    console.log(dataT) // show response from the php script.
+                    if (dataT.mess == "success") {
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:3000/users/",
+                            data: formData, // serializes the form's elements.
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                console.log(data.data.url) // show response from the php script.
+                                if (data.status == true) {
+                                    let acc = [];
+                                    if (data.data.url.length > 0) {
+                                        for (var k = 0; k < data.data.url.length; k++) {
+                                            acc.push(data.data.url[k]);
+                                        }
+                                        console.log("acc", acc)
+
+                                        //console.log(test) // show response from the php script.
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://localhost:62979/Admin/SaveAsImg",
+                                            data: { MaSP: MaSP, url: acc }, // serializes the form's elements.
+
+                                            success: function (dataT) {
+
+                                                console.log(dataT) // show response from the php script.
+                                                window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP
+                                               
+                                            }
+                                        });
+                                       
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+
+
+
+                }
+            });
+         
+        });
+    });
+    $("#btn-size").click(function () {
+        $(".size").append(' <div class= "form-group" >'+
+           ' <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>'+
+          '  <div class="col-md-10">'+
+              '  <input class="form-control" type="text" name="Ten"  />'+
+
+           ' </div>'+
+      '  </div >'+
+           ' <div class="form-group">'+
+              '  <label class="col-md-2 control-label">Số Lượng</label>'+
+             '   <div class="col-md-10">'+
+                  '  <input class="form-control" type="number" name="SL" value="0" />'+
+
+              '  </div>'+
+           ' </div>'
+        )
+       
+    })
+  
 </script>
 
 

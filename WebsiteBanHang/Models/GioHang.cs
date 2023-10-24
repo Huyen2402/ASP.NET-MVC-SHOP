@@ -15,10 +15,13 @@ namespace WebsiteBanHang.Models
         public decimal Dongia { get; set; }
         public string HinhAnh { get; set; }
         public decimal ThanhTien { get; set; }
-
-        public GioHang (int MaSP, int sl)
+        public decimal GiaHienTai { get; set; }
+        public int MaShop { get; set; }
+        public string TenShop { get; set; }
+        public KichCo KichCo { get; set; }
+        public GioHang (int MaSP, int sl, decimal Gia, int MaKichCo)
         {
-            using (QuanLyBanHangEntities db = new QuanLyBanHangEntities()) 
+            using (Entities db = new Entities()) 
             {
                 
                 this.MaSP = MaSP;
@@ -26,8 +29,12 @@ namespace WebsiteBanHang.Models
                 this.TenSP = sp.TenSP;
                 this.HinhAnh = sp.HinhAnh;
                 this.Dongia = (decimal)sp.DonGia.Value;
+                this.GiaHienTai = Gia;
                 this.SoLuong = sl;
-                this.ThanhTien = Dongia * SoLuong;
+                this.MaShop = (int)sp.MaShop;
+                this.ThanhTien = GiaHienTai * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n => n.MaKichCo == MaKichCo);
+                this.KichCo = kc;
             }
 
             
@@ -35,24 +42,47 @@ namespace WebsiteBanHang.Models
 
 
         }
+        public GioHang(int MaSP, int? MaShop, decimal Gia, int MaKichCo)
+        {
+            using (Entities db = new Entities())
+            {
+                this.MaSP = MaSP;
+                SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                this.GiaHienTai = Gia;
+                this.MaShop = (int)MaShop;
+                this.TenSP = sp.TenSP;
+                this.HinhAnh = sp.HinhAnh;
+                this.Dongia = (decimal)sp.DonGia.Value;
+                this.TenShop = sp.Shop.TenShop;
+                this.SoLuong = 1;
+                this.ThanhTien = Dongia * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n => n.MaKichCo == MaKichCo);
+                this.KichCo = kc;
+            } 
+        }
         
         public GioHang()
         {
 
         }
 
-        public GioHang(int MaSP)
+        public GioHang(int MaSP, decimal Gia, int MaKichCo)
         {
-            using (QuanLyBanHangEntities db = new QuanLyBanHangEntities())
+            using (Entities db = new Entities())
             {
 
                 this.MaSP = MaSP;
-                SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
+                this.GiaHienTai = Gia;
+              SanPham sp = db.SanPhams.Single(n => n.MaSP == MaSP);
                 this.TenSP = sp.TenSP;
                 this.HinhAnh = sp.HinhAnh;
                 this.Dongia = (decimal)sp.DonGia.Value;
                 this.SoLuong = 1;
-                this.ThanhTien = Dongia * SoLuong;
+                this.MaShop = (int)sp.MaShop;
+                this.TenShop = sp.Shop.TenShop;
+                this.ThanhTien = GiaHienTai * SoLuong;
+                KichCo kc = db.KichCos.SingleOrDefault(n=>n.MaKichCo== MaKichCo);
+                this.KichCo = kc;
             }
 
 

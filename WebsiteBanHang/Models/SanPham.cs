@@ -17,9 +17,10 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SanPham()
         {
-            this.BinhLuans = new HashSet<BinhLuan>();
-            this.ChiTietDonDatHangs = new HashSet<ChiTietDonDatHang>();
-            this.ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
+            this.BinhLuan = new HashSet<BinhLuan>();
+            this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
+            this.ChiTietFlashSale = new HashSet<ChiTietFlashSale>();
+            this.KichCo = new HashSet<KichCo>();
         }
     
         public int MaSP { get; set; }
@@ -29,28 +30,33 @@ namespace WebsiteBanHang.Models
         public string MoTa { get; set; }
         public string HinhAnh { get; set; }
         public Nullable<int> SoLuongTon { get; set; }
-        public Nullable<int> LuotXem { get; set; }
-        public Nullable<int> LuotBinhChon { get; set; }
         public Nullable<int> LuotBinhLuan { get; set; }
         public Nullable<int> SoLanMua { get; set; }
         public Nullable<int> Moi { get; set; }
-        public Nullable<int> MaNCC { get; set; }
-        public Nullable<int> MaNSX { get; set; }
         public Nullable<int> MaLoaiSP { get; set; }
         public Nullable<bool> DaXoa { get; set; }
         public string HinhAnh1 { get; set; }
         public string HinhAnh2 { get; set; }
         public string HinhAnh3 { get; set; }
-        public string HinhAnh4 { get; set; }
+        public string SEOKeyword { get; set; }
+        public string MoTaNgan { get; set; }
+        public Nullable<int> MaShop { get; set; }
+        public Nullable<int> KhuyenMai { get; set; }
+        public Nullable<double> DanhGia { get; set; }
+        public Nullable<int> MaNSX { get; set; }
+        public Nullable<int> MaNCC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BinhLuan> BinhLuans { get; set; }
+        public virtual ICollection<BinhLuan> BinhLuan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+        public virtual ICollection<ChiTietFlashSale> ChiTietFlashSale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KichCo> KichCo { get; set; }
         public virtual loaiSanPham loaiSanPham { get; set; }
         public virtual NhaCungCap NhaCungCap { get; set; }
         public virtual NhaSanXuat NhaSanXuat { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

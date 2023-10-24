@@ -1,0 +1,469 @@
+﻿@using WebsiteBanHang.Models;
+@model List<GioHang>
+
+
+@{
+    List<GioHang> listGioHang = ViewBag.listGioHang as List<GioHang>;
+    List<ChiTietGiamGia> list = ViewBag.list as List<ChiTietGiamGia>;
+    List<GiamGia> listgg = ViewBag.listgg as List<GiamGia>;
+    List<Shop> listShop = ViewBag.listShop as List<Shop>;
+
+}
+<h1>Giỏ hàng của bạn (@ViewBag.TongSoLuong)</h1>
+
+<div class="col-md-9 cart-items">
+
+    @foreach (var item in listGioHang.GroupBy(n => n.MaShop))
+    {
+
+        foreach (var shop in listShop)
+        {
+            if (shop.MaShop == item.Key)
+            {
+                <div class="shop-gio-hang">
+                    <input data-key="@item.Key" class="check-shop" type="radio" name="name" value="" />
+                    <label>@shop.TenShop</label>
+                </div>
+            }
+        }
+        foreach (var sp in listGioHang)
+        {
+
+            if (sp.MaShop == item.Key)
+            {
+
+
+                <div id="hide" class="cart-header">
+                    <input data-Tien="@sp.GiaHienTai" data-sl="@sp.SoLuong" data-MaShop="@sp.MaShop" class="@Url.Content("item-check-shop_"+sp.MaShop)" type="radio" name="name1" value="" />
+                    <a data-MaSP="@sp.MaSP" @*href="@Url.Action("XoaGioHang", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() })"*@ class="close1"> </a>
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="@Url.Content(sp.HinhAnh)" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="#">@sp.TenSP</a><span>Model No: @sp.KichCo.Ten</span></h3>
+                            <ul class="qty">
+                                <li id="li_xemGH"><p>Số lượng: </p></li>
+                                <a id="ThemSL" data-MaSP="@sp.MaSP" data-slthem="@sp.SoLuong" class="btn sl slthem" @*href="@Url.Action("ThemSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>+</a>
+
+                                <li id="li_xemGH"><p class="slsp" id="slsp"> @sp.SoLuong</p></li>
+                                <a data-slgiam="@sp.SoLuong" data-MaSP="@sp.MaSP" class="btn sl slgiam" @*href="@Url.Action("GiamSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>-</a>
+                            </ul>
+                            @{
+                                decimal? number1 = sp.Dongia;
+                                string GiaTien1 = number1.Value.ToString("#,##0");
+                                decimal? number = sp.GiaHienTai;
+                                string GiaTien = number.Value.ToString("#,##0");
+
+
+}
+                        <div class="delivery">
+                            @if (GiaTien1 != GiaTien)
+                            {
+                                <del class="m-2"> @GiaTien1</del>
+                                <p style="font-size:12px"> @GiaTien</p>
+                            }
+                            else
+                            {
+                                <p style="font-size:12px"> @GiaTien</p>
+                            }
+
+                            <span>Thời gian nhận hàng từ 5-7 ngày</span>
+                            <div class="clearfix"></div>
+                        </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            }
+
+        }
+
+
+
+
+
+
+    }
+
+
+</div>
+@{
+    decimal tongtien = ViewBag.TongTien;
+    string TongGiaTien = tongtien.ToString("#,##0");
+}
+<div class="col-md-3 cart-total">
+    <a class="continue" href="#">Thanh Toán</a>
+    <div class="price-details">
+        <h3>Chi Tiết</h3>
+        <span>Tổng Tiền</span>
+
+        <span id="tong" class="total1"><p class="TienBanDau">0</p></span>
+        <span>Giảm Giá</span>
+        <span class="total1 discount">---</span>
+        <span>Hình thức thanh toán:</span>
+        <span class="total1">
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="1" name="optradio" value="option1" checked>
+                <label class="form-check-label" for="1">Thanh Toán Khi Nhận Hàng</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="2" name="optradio" value="option2">
+                <label class="form-check-label" for="2">Ví MoMo</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="3" name="optradio" value="option3">
+                <label for="3" class="form-check-label">VN Pay</label>
+            </div>
+        </span>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="price-details">
+        <h3>MÃ KHUYẾN MÃI</h3>
+
+        <span>Mã:</span>
+        <span class="total1">
+
+         
+
+            <select class="form-select" id="sel1" name="sellist1">
+                <option id="empty">
+                   ------------------
+
+                </option>
+                <br />
+
+            </select>
+
+        </span>
+        <div id="add-value"></div>
+        <div class="clearfix"></div>
+
+    </div>
+
+    <ul class="total_price">
+        <li class="last_price"> <h4>TỔNG</h4></li>
+        <li id="TienBanDau" class="last_price  discount"><span  class="TienBanDau">0 </span></li>
+        <div class="clearfix"> </div>
+    </ul>
+
+
+    <div class="clearfix"></div>
+    <a class="order" id="btn-dathang" @*href="@Url.Action("DatHang","DatHang")"*@>ĐẶT HÀNG</a>
+
+</div>
+
+
+<script>
+
+    $("#btn-dathang").click(function () {
+        var checkTrangThai = $(".check-shop").prop("checked")
+        if (checkTrangThai == false) {
+            Swal.fire({
+
+                icon: 'error',
+                title: 'Thất bại',
+                text: 'Không được chọn voucher do bạn chưa chọn shop!',
+                showConfirmButton: true,
+
+            })
+        }
+
+        })
+
+    $('select').change(function () {
+        var checkTrangThai = $(".check-shop").prop("checked")
+        if (checkTrangThai == false) {
+            Swal.fire({
+
+                icon: 'error',
+                title: 'Thất bại',
+                text: 'Thanh toán mua hàng thất bại do bạn chưa chọn shop!',
+                showConfirmButton: true,
+
+            })
+        }
+
+    })
+    
+    $(".check-shop").change(function () {
+       
+        var checkTrangThai = $(this).prop("checked")
+       
+        var MaShop = $(this).attr("data-key");
+
+        if (checkTrangThai == true) {
+            $(".item-check-shop_" + MaShop).prop("checked", true);
+            var sl = $(".item-check-shop_" + MaShop).prop("checked", true);
+
+            var tien = $(".item-check-shop_" + MaShop)
+            var tongTien = 0;
+            console.log(tien.length)
+            var mang = [];
+            for (var i = 0; i < tien.length; i++) {
+                var item = tien[i].getAttribute("data-Tien");
+                var sl = tien[i].getAttribute("data-sl");
+                var thanhTien = parseFloat(tien[i].getAttribute("data-Tien") * tien[i].getAttribute("data-sl"))
+
+                console.log("So luong:" +sl)
+                mang.push(item)
+                console.log(item)
+                console.log("thanh tien:" + thanhTien)
+                tongTien += parseFloat(thanhTien);
+
+
+            }
+            console.log("tongTien" + tongTien)
+            console.log(mang)
+            $(".TienBanDau").remove();
+
+            $("#tong").html('<label id="TenBL">' + tongTien + '</label>')
+            $(".discount").html(
+
+                '<div>' +
+                '<label id="TenBL">' + 0 + '</label>' +
+
+                '</div>'
+            );
+            $("#TienBanDau").html(
+
+                '<div>' +
+                '<label id="TenBL">' + tongTien + '</label>' +
+
+                '</div>'
+            );
+
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:62979/GioHang/ListGiamGia?MaShop=' + MaShop,
+
+                success: function (dataMH) {
+                    console.log(dataMH)
+                    $("#sel1").empty();
+                    $("#sel1").append('<option id="empty">'+
+                  ' ------------------ '
+
+               + ' </option> ')
+                    for (var i = 0; i < dataMH.data.length; i++) {
+                        $("#empty").after(
+
+                            '<option data-CTGG="' + dataMH.data[i].MaCTGiamGia + '" id="' + dataMH.data[i].MaGiamGia + '" value="' + dataMH.data[i].SoTien + '">' +
+                            dataMH.data[i].TenGiamGia
+
+                            + '</option>'
+
+
+                        );
+
+                    }
+                    
+
+
+                }
+
+            });
+
+
+            //chon ma giam gia
+            var um = tongTien
+            $('select').change(function () {
+                var checkTrangThai = $(".check-shop").prop("checked")
+                if (checkTrangThai == false) {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Thất bại',
+                        text: 'Thanh toán mua hàng thất bại do bạn chưa chọn shop!',
+                        showConfirmButton: true,
+
+                    })
+                }
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected = optionSelected.val();
+            var textSelected = optionSelected.attr("data-CTGG");
+            $("#add-value").html(' <input type="hidden" id="MaCTGiamGia" name="MaCTGiamGia" value="' + textSelected +'" /> ');
+            console.log(textSelected)
+            var tien1 = tongTien;
+
+            um = tien1 - valueSelected;
+            console.log(um)
+            /*  $("#tong").remove()*/
+            $(".TienBanDau").remove();
+            $("#tong").html('  <del>' + tien1 +'</del>')
+            $(".discount").html(
+
+                '<div>' +
+                '<label id="TenBL">' + um + '</label>' +
+
+                '</div>'
+            );
+
+
+        });
+
+            var val = 1;
+            $(".form-check-input").click(function () {
+
+                val = $(this).attr("id");
+                console.log(val)
+
+
+            })
+             $("#btn-dathang").click(function () {
+                value = $("#MaCTGiamGia").val();
+                console.log("Value:" + value)
+                if (check) {
+                    var url = "http://localhost:62979/DatHang/MuaHang?MaShop=" + MaShop + "&id=" + val + "&MaCTGiamGia=" + value +"&ThanhTien=" + um
+                    window.location.href = url;
+                } else {
+                    alert("Vui lòng đăng nhập để thanh toán!");
+                }
+
+
+            })
+
+        }
+
+        else {
+            $(".item-check-shop_" + MaShop).prop("checked", false);
+        }
+
+
+
+    });
+
+
+    var um = @tongtien
+        $('select').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected = optionSelected.val();
+            var textSelected = optionSelected.text();
+
+            var tien = @tongtien;
+
+            um = tien - valueSelected;
+
+
+            $(".TienBanDau").remove();
+            $("#tong").html('  <del>' + tien +'</del>')
+            $(".discount").html(
+
+                '<div>' +
+                '<label id="TenBL">' + um + '</label>' +
+
+                '</div>'
+            );
+
+
+        });
+
+        var check = $("#logout").length;
+
+
+
+        //$("#btn-dathang").click(function () {
+        //    if (check) {
+        //        var url = "http://localhost:62979/DatHang/DatHang?id=" + val + "&ThanhTien="+ um;
+        //        window.location.href = url;
+        //    } else {
+        //        alert("Vui lòng đăng nhập để thanh toán!");
+        //    }
+
+
+        //})
+
+        $(".slthem").click(function () {
+
+            var MaSP = $(this).attr("data-MaSP");
+
+
+            $.ajax({
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/ThemSl?MaSP=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#test").html(response);
+
+                }
+            })
+
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
+        })
+
+        $(".slgiam").click(function () {
+
+            var MaSP = $(this).attr("data-MaSP");
+
+            $.ajax({
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/GiamSL?MaSP=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#test").html(response);
+
+
+                }
+            })
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
+        })
+
+        $(".close1").click(function () {
+            var MaSP = $(this).attr("data-MaSP");
+            $.ajax({
+                url: "http://localhost:62979/GioHang/XoaGioHang?MaSP=" + MaSP,
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#test").html(response);
+
+
+                }
+            })
+            $.ajax({
+                url: "http://localhost:62979/GioHang/CapNhatGioHang",
+                contentType: "html",
+
+                success: function (response) {
+                    debugger
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+            })
+        })
+</script>

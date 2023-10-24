@@ -5,32 +5,32 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>SuaLoaiSanPham</h2>
+<h2>Sửa Loại Sản Phẩm</h2>
 
 @using (Html.BeginForm("SuaLoaiSanPham", "Admin", FormMethod.Post))
 {
-   
-    
+
+
     <div class="form-horizontal">
-        <h4>loaiSanPham</h4>
+
         <hr />
-       
+
         @Html.HiddenFor(model => model.MaLoaiSP)
 
         <div class="form-group">
             <label class="control-label col-md-2">Tên Loại:</label>
-           
+
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenLoai, new { htmlAttributes = new { @class = "form-control" } })
-             
+
             </div>
         </div>
 
-        
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Chỉnh Sửa" class="btn btn-default" />
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-success" />
             </div>
         </div>
     </div>

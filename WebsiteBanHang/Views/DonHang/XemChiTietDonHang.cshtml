@@ -1,0 +1,512 @@
+﻿@using WebsiteBanHang.Models
+@model List<ChiTietDonDatHang>
+
+
+@{
+    ViewBag.Title = "XemChiTietDonHang";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+    string MaDDH = ViewBag.MaDDH;
+}
+
+<div id="chitiet" class="container mt-3">
+
+    <h1 class="text-center">Chi tiết đơn hàng @MaDDH</h1>
+    <div>
+        <div class="main">
+
+            <ul class="progress-step">
+                <li class="progress-step-item">
+                    <i class="icons awesome fa-solid fa-business-time"></i>
+                    <div class="step first active">
+                        <p>1</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Chờ xác nhận</p>
+                </li>
+                <li class="progress-step-item">
+                    <i class="icons awesome fa-solid fa-truck"></i>
+                    <div class="step second active">
+                        <p>2</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Đang giao</p>
+                </li>
+                <li class="progress-step-item">
+                    <i class="fa-solid fa-check icons awesome"></i>
+
+                    <div class="step third active">
+                        <p>3</p>
+                        <i class="awesome fa-solid fa-check"></i>
+                    </div>
+                    <p class="label">Giao thành công</p>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>
+    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+
+                <th>Tên Sản Phẩm</th>
+                <th>Hình Ảnh</th>
+                <th>Số Lượng</th>
+                <th>Đơn giá</th>
+                <th>Đánh giá sản phẩm</th>
+                @*<th>Thao Tác</th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model)
+            {
+                if (item.DaDanhGia == false)
+                {
+                    decimal? tien = item.DonGia;
+
+                    i = i + 1;
+
+                    <tr>
+                        <td>@item.MaChiTietDDH1</td>
+
+                        <td>@item.TenSP</td>
+                        <td><img class="img-report" src="@Url.Content(item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                        <td>@item.SoLuong</td>
+
+                        <td>@tien.Value.ToString("#,##0")</td>
+                        <td style="display: none">
+                            <input class="@Url.Content("valDanhGia-"+i)" data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaChiTietDDH1" />
+                        </td>
+
+
+
+                        <td>
+                            <div class="stars">
+                                <form action="">
+                                    <input data-start="5" data-i="@i" class="@Url.Content("star star-i star-5 sp_"+i.ToString())" id="@Url.Content("star-5-"+i)" type="radio" name="star" />
+                                    <label class="star star-5" for="@Url.Content("star-5-"+i)"></label>
+                                    <input data-start="4" data-i="@i" class="@Url.Content("star star-i star-4 sp_"+i.ToString())" id="@Url.Content("star-4-"+i)" type="radio" name="star" />
+                                    <label class="star star-4" for="@Url.Content("star-4-"+i)"></label>
+                                    <input data-start="3" data-i="@i" class="@Url.Content("star star-i star-3 sp_"+i.ToString())" id="@Url.Content("star-3-"+i)" type="radio" name="star" />
+                                    <label class="star star-3" for="@Url.Content("star-3-"+i)"></label>
+                                    <input data-start="2" data-i="@i" class="@Url.Content("star star-i star-2 sp_"+i.ToString())" id="@Url.Content("star-2-"+i)" type="radio" name="star" />
+                                    <label class="star star-2" for="@Url.Content("star-2-"+i)"></label>
+                                    <input data-start="1" data-i="@i" class="@Url.Content("star star-i star-1 sp_"+i.ToString())" id="@Url.Content("star-1-"+i)" type="radio" name="star" />
+                                    <label class="star star-1" for="@Url.Content("star-1-"+i)"></label>
+                                </form>
+                            </div>
+                            <form action="">
+                                @*<div class="mb-3 mt-3">
+                                        <img style="width:50px" src="~/Content/images/no_img.png" alt="Alternate Text" />
+                                        <input type="file" name="name" value="" />
+                                    </div>*@
+                                <div class="mb-3 mt-3">
+
+                                    <textarea placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!" class="form-control" rows="5" id="@Url.Content("comment-"+i)" name="text"></textarea>
+                                </div>
+
+                            </form>
+
+                        </td>
+
+
+
+
+                    </tr>
+                }
+                else
+                {
+                    decimal? tien = item.DonGia;
+
+                    i = i + 1;
+
+                    <tr>
+                        <td>@item.MaChiTietDDH1</td>
+
+                        <td>@item.TenSP</td>
+                        <td><img class="img-report" src="@Url.Content(item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                        <td>@item.SoLuong</td>
+
+                        <td>@tien.Value.ToString("#,##0")</td>
+                        <td style="display: none">
+                            <input class="@Url.Content("valDanhGia-"+i)" data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaChiTietDDH1" />
+                        </td>
+
+
+
+                        <td>
+                            <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP, @MaShop = item.SanPham.MaShop})" class="btn btn-outline-success">Mua lại</a>
+
+                        </td>
+
+
+
+
+                    </tr>
+                }
+
+
+
+            }
+
+            @{
+                int count = Model.Count();
+                int IDDanhMuc = Model[0].SanPham.loaiSanPham.MaLoaiSP;
+                bool? danhgia = Model[0].DaDanhGia;
+
+
+            }
+            @if (danhgia == false)
+            {
+                <tr>
+                    <td colspan="6">
+                        <button id="btn-comment" type="submit" class="btn btn-primary float-end">Gửi đánh giá</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                       
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <div class="SanPhamTuongTu">
+        @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = IDDanhMuc })
+    </div>
+</div>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .main {
+        width: 100%;
+        /* height: 100vh;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .progress-step {
+        display: flex;
+    }
+
+        .progress-step .progress-step-item {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 40px;
+        }
+
+            .progress-step .progress-step-item .icons {
+                font-size: 25px;
+                color: #1b761b;
+                margin: 0 60px;
+            }
+
+            .progress-step .progress-step-item .label {
+                font-family: sans-serif;
+                letter-spacing: 1px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #1b761b;
+            }
+
+            .progress-step .progress-step-item .step {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: #d7d7c3;
+                margin: 16px 0 10px;
+                display: grid;
+                place-items: center;
+                color: ghostwhite;
+                position: relative;
+                cursor: pointer;
+            }
+
+    .step::after {
+        content: "";
+        position: absolute;
+        width: 197px;
+        height: 3px;
+        background-color: #d7d7c3;
+        right: 30px;
+    }
+
+    .first::after {
+        width: 0;
+        height: 0;
+    }
+
+    .progress-step .progress-step-item .step .awesome {
+        display: none;
+    }
+
+    .progress-step .progress-step-item .step p {
+        font-size: 18px;
+    }
+
+    .progress-step .progress-step-item .active {
+        background-color: #1b761b;
+    }
+
+    .progress-step-item .active::after {
+        background-color: #1b761b;
+    }
+
+    .progress-step .progress-step-item .active p {
+        display: none;
+    }
+
+    .progress-step .progress-step-item .active .awesome {
+        display: flex;
+    }
+    .img-report {
+        width: 250px;
+    }
+    div.stars {
+      
+        display: inline-block;
+    }
+
+    input.star {
+        display: none;
+    }
+
+    label.star {
+        float: right;
+        padding: 10px;
+        font-size: 13px;
+        color: #444;
+        transition: all .2s;
+    }
+
+    input.star:checked ~ label.star:before {
+        content: '\f005';
+        color: #FD4;
+        transition: all .25s;
+    }
+
+    input.star-5:checked ~ label.star:before {
+        color: #FE7;
+        text-shadow: 0 0 20px #952;
+    }
+
+    input.star-1:checked ~ label.star:before {
+        color: #F62;
+    }
+
+    label.star:hover {
+        transform: rotate(-15deg) scale(1.3);
+    }
+
+    label.star:before {
+        content: '\f006';
+        font-family: FontAwesome;
+    }
+
+
+    /*div.stars {
+        display: inline-block;
+    }
+
+    input.star {
+        display: none;
+    }
+
+    p.star {
+        float: right;
+        padding: 10px;
+        font-size: 13px;
+        color: #444;
+        transition: all .2s;
+    }*/
+        /*
+    input.star:checked ~ label.star:before {
+        content: '\f005';
+        color: #FD4;
+        transition: all .25s;
+    }*/
+
+        /*   input.star-5:checked ~ label.star:before {
+        color: #FE7;
+        text-shadow: 0 0 20px #952;
+    }
+
+    input.star-1:checked ~ label.star:before {
+        color: #F62;
+    }*/
+
+        /*p.star:hover {
+            transform: rotate(-15deg) scale(1.3);
+        }*/
+
+    /* p.star:before {
+        content: '\f006';
+        font-family: FontAwesome;
+    }*/
+
+</style>
+<script>
+   
+   
+
+    const count = @count;
+
+    const arr_star = [];
+    const arr_MaCTDDH = [];
+    const arr_comment = [];
+    var arr_infor = [];
+    const infor = {};
+
+    function Review(MaCTDDH, start, comment) {
+        this.MaCTDDH = MaCTDDH;
+        this.start = start;
+        this.comment = comment;
+    }
+    $(".star-i").click(function () {
+
+        var i = $(this).attr("data-i")
+        var MaCTDDH = $(".valDanhGia-" + i).val();
+        infor.MaCTDDH = MaCTDDH;
+        arr_MaCTDDH.push(MaCTDDH)
+        var start = $(this).attr("data-start")
+        infor.start = start;
+        console.log(arr_MaCTDDH)
+       
+        console.log(arr_infor)
+        console.log(arr_infor[0])
+        
+        
+       
+        $("#btn-comment").click(function () {
+            var comment = $("#comment-" + i).val();
+            infor.comment = comment;
+            arr_comment.push(comment)
+            arr_infor.push(new Review(MaCTDDH, start, comment))
+           
+            console.log(arr_comment)
+            console.log(infor)
+            console.log(arr_infor)
+          
+            Swal.fire({
+                title: 'Đánh giá sản phẩm',
+                text: "bạn đã chắc chắn với đánh giá của mình? nếu bạn chọn yes bạn sẽ không thể chỉnh sửa được nữa",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    //var start = $(this).attr("data-start")
+                    var mactddh = $(".valdanhgia").val();
+                    //console.log(start)
+                   
+
+                    for (var i = 0; i < arr_infor.length; i++) {
+                        console.log(arr_infor[i])
+                            /*    var key = $("#email").val();*/
+                        $.getJSON("/DemoJQuery/Test?path=" + arr_infor[i].comment + "&MaCTDDH=" + arr_infor[i].MaCTDDH + "&start=" + arr_infor[i].start, function (ss) {
+                            console.log(arr_infor[i])
+                                console.log(ss)
+                                if (ss.re == 0) {
+                              
+                                    Swal.fire({
+                                      
+                                        icon: 'error',
+                                        title: 'Nội dung nhạy cảm',
+                                        text: 'Phần đánh giá của bạn có từ ngữ nhạy cảm, vui lòng thử lại',
+                                        showConfirmButton: true,
+                                       
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload()
+                                        }
+                                    })
+                                   
+                                }
+                                else {
+                                   
+                                    $.ajax({
+                                        type: "get",
+
+                                        url: "http://localhost:62979/Donhang/evaluateProduct?MaCTDDH=" + ss.danhgia.MaCTDDH + "&comment=" + ss.danhgia.cmt + "&start=" + ss.danhgia.start,
+                                        contenttype: "json",
+
+                                        success: function ( data) {
+                                          
+                                            console.log("data", data.mess)
+                                            if (data.mess == "success") {
+                                                Swal.fire({
+
+                                                    icon: 'success',
+                                                    title: 'Đánh giá thành công',
+                                                    showConfirmButton: true,
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.reload()
+                                                    }
+                                                })
+                                            }
+                                            else {
+                                                Swal.fire({
+
+                                                    icon: 'error',
+                                                    title: 'Your work has been saved',
+                                                    showConfirmButton: true,
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.reload()
+                                                    }
+                                                })
+                                            }
+                                         
+                                           
+
+                                        }
+                                    })
+                                }
+
+                            })
+                        
+                       
+                    }
+                  
+
+
+                }
+            })
+
+        })
+
+
+
+
+    })
+
+
+</script>
+

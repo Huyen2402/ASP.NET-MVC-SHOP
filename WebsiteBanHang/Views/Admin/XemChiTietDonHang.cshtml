@@ -8,10 +8,10 @@
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>XemChiTietDonHang</h2>
+<h2>Xem Chi Tiết Đơn Hàng</h2>
 
-<div class="container mt-3" style="padding-top:80px;">
-    <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
+<div class="container mt-3">
+
 
     <table class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
@@ -21,28 +21,36 @@
                 <th>Tên Sản Phẩm</th>
                 <th>Số Lượng</th>
                 <th>Đơn giá</th>
+                <th>SDT</th>
                 @*<th>Thao Tác</th>*@
 
             </tr>
         </thead>
         <tbody>
+          
             @foreach (var item in Model)
             {
+                decimal? tien = item.DonGia;
+
+
+
                 <tr>
                     <td>@item.MaChiTietDDH1</td>
                     <td>@item.MaSP</td>
                     <td>@item.TenSP</td>
                     <td>@item.SoLuong</td>
-                    <td>@item.DonGia</td>
+
+                    <td>@tien.Value.ToString("#,##0")</td>
+                    <td>@item.DonDatHang.ThanhVien.SDT</td>
                     <input data-id="@item.MaDDH" type="hidden" id="txb-idDDH" name="name" value="@item.MaDDH" />
 
 
 
 
                     @*<td>
-                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
-                            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ</a>
-                        </td>*@
+            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
+            <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-danger">Huỷ</a>
+        </td>*@
 
 
 

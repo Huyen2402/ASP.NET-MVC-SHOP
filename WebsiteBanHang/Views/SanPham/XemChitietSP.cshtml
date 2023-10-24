@@ -4,83 +4,645 @@
 
 @{
     ViewBag.Title = "XemChitietSP";
-    Layout = "~/Views/Layout/ProductLayout.cshtml";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+
+    List<BinhLuan> ListBL = ViewBag.ListBL as List<BinhLuan>;
+    List<TraLoiBinhLuan> ListTL = ViewBag.ListTL as List<TraLoiBinhLuan>;
+    List<GiamGia> listGiamGia = ViewBag.listGiamGia as List<GiamGia>;
+    ThanhVien user = ViewBag.user as ThanhVien;
+    List<ChiTietGiamGia> listCTGG = ViewBag.listCTGG as List<ChiTietGiamGia>;
+    VideoQC vd = ViewBag.Video as VideoQC;
+    Shop shop = ViewBag.shop as Shop;
+    List<KichCo> listSize = ViewBag.listSize as List<KichCo>;
+
 }
 
-<div class="col-md-9 product-price1">
-    <div class="col-md-5 single-top">
-        <div class="flexslider">
 
-            <div class="flex-viewport" style="overflow: hidden; position: relative;">
-              
-                <ul class="slides" style="width: 1200%; transition-duration: 0.6s; transform: translate3d(-1217.6px, 0px, 0px);">
-                    <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh)" class="clone" aria-hidden="true" style="width: 304.4px; float: left; display: block;">
-                        <img src="@Url.Content("~/Content/images/"+Model.HinhAnh)" draggable="false">
-                    </li>
-                    <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh1)" style="width: 304.4px; float: left; display: block;" class="">
-                        <img src="@Url.Content("~/Content/images/"+Model.HinhAnh1)" draggable="false">
-                    </li>
-                    <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh2)" style="width: 304.4px; float: left; display: block;" class="">
-                        <img src="@Url.Content("~/Content/images/"+Model.HinhAnh2)" draggable="false">
-                    </li>
-                    <li data-thumb="@Url.Content("~/Content/images/"+Model.HinhAnh3)" style="width: 304.4px; float: left; display: block;" class="">
-                        <img src="@Url.Content("~/Content/images/"+Model.HinhAnh3)" draggable="false">
-                    </li>
+<div class="" id="video">
 
-                </ul>
-                
-            </div>
-        </div>
-        <!-- FlexSlider -->
-        <script defer="" src="~/Content/js/jquery.flexslider.js"></script>
-        <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen">
-        <script>
-            // Can also be used with $(document).ready()
-            $(window).load(function () {
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    controlNav: "thumbnails"
-                });
-            });
-        </script>
-    </div>
-    <div class="col-md-7 single-top-in simpleCart_shelfItem">
-        <div class="single-para ">
-            <h4>@Model.TenSP</h4>
-            <div class="star-on">
-                <ul class="star-footer">
-                    <li><a href="#"><i> </i></a></li>
-                    <li><a href="#"><i> </i></a></li>
-                    <li><a href="#"><i> </i></a></li>
-                    <li><a href="#"><i> </i></a></li>
-                    <li><a href="#"><i> </i></a></li>
-                </ul>
-                <div class="review">
-                    <a href="#"> 1 customer review </a>
+    <span class="close close-QC">&times;</span>
+    <video autoplay muted loop id="myVideo">
 
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-
-            <h5 class="item_price">$@Model.DonGia</h5>
-            <p>
-               @Model.MoTa
-            </p>
-            
-            
-            <a href="@Url.Action("ThemGioHang","GioHang", new { @MaSP = Model.MaSP, @strURL = Request.Url.ToString()  })" class="add-cart item_add">ĐẶT HÀNG</a>
-
-        </div>
-       
-    </div>
-    <div class="clearfix">
-       
-    </div>
-    
-    <!---->
-    <!---728x90--->
+        <source src="@vd.url" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
 
 
 </div>
 
+<div id="XemChiTietSP">
+    <input type="hidden" name="IdUser" id="IdUser" value="@ViewBag.IDUser" />
+    <div class="row product-price1 card-shop mt-4">
+
+        <div class="col-md-5 single-top">
+            <div class="flexslider">
+
+                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+
+                    <ul class="slides" style="width: 1200%; transition-duration: 0.6s; transform: translate3d(-1217.6px, 0px, 0px);">
+                        <li data-thumb="@Url.Content(Model.HinhAnh)" class="clone" aria-hidden="true" style="width: 304.4px; float: left; display: block;">
+                            <img src="@Url.Content(Model.HinhAnh)" draggable="false">
+                        </li>
+                        <li data-thumb="@Url.Content(Model.HinhAnh1)" style="width: 304.4px; float: left; display: block;" class="">
+                            <img src="@Url.Content(Model.HinhAnh1)" draggable="false">
+                        </li>
+                        <li data-thumb="@Url.Content(Model.HinhAnh2)" style="width: 304.4px; float: left; display: block;" class="">
+                            <img src="@Url.Content(Model.HinhAnh2)" draggable="false">
+                        </li>
+                        <li data-thumb="@Url.Content(Model.HinhAnh3)" style="width: 304.4px; float: left; display: block;" class="">
+                            <img src="@Url.Content(Model.HinhAnh3)" draggable="false">
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <!-- FlexSlider -->
+            <script defer="" src="~/Content/js/jquery.flexslider.js"></script>
+            <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen">
+            <script>
+                // Can also be used with $(document).ready()
+                $(window).load(function () {
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: "thumbnails"
+                    });
+                });
+            </script>
+        </div>
+        <div class="col-md-7 single-top-in simpleCart_shelfItem">
+            <div class="single-para ">
+                <h4>@Model.TenSP</h4>
+                <div class="star-on">
+                    <ul class="">
+                        @if (Model.DanhGia == null)
+                        {
+                            <li id="danhGia">Chưa có đánh giá</li>
+                        }
+                        else
+                        {
+                            <li id="danhGia">@Model.DanhGia <i style="color: #FD4" class="fa-solid fa-star"></i></li>
+                        }
+
+                    </ul>
+
+                    <div class="clearfix"> </div>
+                </div>
+                @{
+                    decimal? number = Model.DonGia;
+                    string GiaTien = number.Value.ToString("#,##0");
+                }
+
+                @*<div class="div-price">
+            <del>@GiaTien</del>
+            <h5 class="item_price">@GiaTien </h5>
+        </div>*@
+
+                @if (Model.KhuyenMai != null)
+                {
+                    string Giacuoicung = (Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100).Value.ToString("#,##0");
+                    decimal? price = (Model.DonGia - (Model.DonGia * Model.KhuyenMai) / 100);
+
+                    <div class="flex flex-column _38g6so">
+                        <div class="flex items-center">
+                            <div class="flex items-center _34BHKe">
+                                <div id="price-normal" class="_2yjfFH">₫@Model.DonGia</div>
+                                <div class="flex items-center">
+                                    <div data-GiaHienTai="@price" id="GiaHienTai" class="_2Shl1j">@Giacuoicung</div>
+
+                                    <div class="_3PlIlX">@Model.KhuyenMai % giảm</div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex flex-column _38g6so">
+                        <div class="flex items-center">
+                            <div class="flex items-center _34BHKe">
+
+                                <div class="flex items-center">
+                                    <div id="GiaHienTai"  data-GiaHienTai="@Model.DonGia" class="_2Shl1j">@GiaTien</div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="_3rFQYx">
+                    <div class="flex flex-column">
+                        <div aria-haspopup="true" aria-expanded="false" id="miniVoucherPopoverLabel" class="VrhRS0 _2o5GCQ OjT2aQ" tabindex="0" style="position: relative;">
+                            <div class="mini-vouchers _1fCsRQ">
+                                <div class="mini-vouchers__label">Mã giảm giá của Shop</div><div class="mini-vouchers__wrapper flex flex-auto flex-no-overflow">
+                                    <div class="mini-vouchers__vouchers flex flex-auto flex-no-overflow">
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class="">
+                                                <span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫10k</span>
+                                            </div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫15k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫5k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫20k</span></div>
+                                        </div>
+                                        <div class="voucher-ticket voucher-ticket--VN voucher-ticket--seller-mini-solid mini-voucher-with-popover">
+                                            <div class=""><span class="voucher-promo-value voucher-promo-value--absolute-value">Giảm ₫30k</span></div>
+                                        </div>
+                                        <div class="mini-vouchers__mask"></div>
+                                    </div>
+                                    <div id="ok" class="mini-vouchers__show-all">
+                                        Xem tất cả
+                                    </div>
+                                    <div id="hihi" class="scroller">
+                                        @if (listGiamGia.Count > 0)
+                                        {
+                                            <h1>Tất cả mã giảm giá</h1>
+                                            foreach (var km in listGiamGia)
+
+                                            {
+
+                                                <div class="card">
+                                                    <div class="card-body row">
+                                                        <div class="col-3">
+                                                            <img class="img-responsive dot" src="@Url.Content(shop.HinhAnh)" alt="Alternate Text" />
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <h5>Giảm @km.SoTien₫</h5>
+                                                            <h6>Đơn tối thiểu @km.ToiThieu₫</h6>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <a data-KM="@km.MaGiamGia" class="btn btn-danger luuKM">Lưu</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <div class="card">
+                                                <div class="card-body row">
+                                                    <p>Shop chưa có mã giảm giá nào</p>
+                                                </div>
+
+                                            </div>
+
+                                        }
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="br-bottom">
+                    <div class="custom-deatil ">
+                        <span>Chọn màu</span>
+                        @foreach (var size in listSize)
+                        {
+                            if (size.SL == 0)
+                            {
+                                <div style="background-color: #e8e8e8 " data-id="@size.MaKichCo" class=" sold-out text-center disabled">
+                                    <s><span>@size.Ten</span></s>
+                                    <span class="badge bg-secondary">Hết hàng</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div data-id="@size.MaKichCo" class="outline-des text-center">
+                                    <span>@size.Ten</span>
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+                <p>
+                    @Html.Raw(Model.MoTa)
+                </p>
+
+
+
+                <a data-MaSP="@Model.MaSP" data-strURL="@Request.Url.ToString()" class="add-cart item_add ThemGioHang">ĐẶT HÀNG</a>
+
+            </div>
+
+        </div>
+        <div class="clearfix">
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="content-top-bottom mt-4 mb-4">
+
+
+
+        <div class="row card-shop ">
+            <a href="@Url.Action("XemShop","Shop", new {@MaShop=shop.MaShop})" class="b-link-stripe b-animate-go col-2  thickbox">
+                <img class="img-responsive rounded-circle" src="@Url.Content(shop.HinhAnh)" alt="">
+
+            </a>
+            <p style="font-size:20px" class="col-4 mx-auto d-block"><b>@shop.TenShop</b></p>
+            <div class="col-5 mx-auto d-block" id="infor-shop">
+                <div class="row">
+
+                    <div class="col-3 item-infor mx-auto d-block">152 Sản Phẩm</div>
+                    <div class="col-3 item-infor">5.0 Đánh Giá</div>
+                    <div class="col-3 item-infor">100% Tỷ Lệ Phản Hồi</div>
+                    <div class="col-3 item-infor">Trong Vài Giờ</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="clearfix">
+
+
+    </div>
+
+    <div class="img-review">
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content(Model.HinhAnh)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content(Model.HinhAnh1)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content(Model.HinhAnh2)" alt="Alternate Text" /></div>
+        <div class="text-center m-3"><img class="img-productDetail" src="@Url.Content(Model.HinhAnh3)" alt="Alternate Text" /></div>
+    </div>
+
+    <div id="review-product">
+        <div id="CMT">
+            <h1 class="">Đánh giá sản phẩm</h1>
+            
+
+
+           
+            <div id="container-binhluan">
+                @if (ListBL.Count != 0)
+                {
+                    foreach (var item in ListBL)
+                    {
+                        <div class=" binhluan row " id="binhluan">
+                            <div class="col-6">
+                                <label style="margin-left: 32px" id="TenBL"> @item.ChiTietDonDatHang.DonDatHang.ThanhVien.HoTen</label>
+                            </div>
+                            <div id="ndBL" class="noidungbinhluan col-6" data-mabl="@item.MaBL">
+                                @for (int i = 0; i < item.DanhGia; i++)
+                                {
+                                    <i style="color: #FD4" class="fa-solid fa-star"></i>
+                                }
+                                <br />
+                                @item.NoiDungBL
+                            </div>
+
+                            @if (ListTL != null)
+                            {
+                                foreach (var tl in ListTL)
+                                {
+                                    if (tl.MaBL == item.MaBL)
+                                    {
+                                        <div style="padding-left:10%;width:85%" class=" binhluan" id="TraLoiBL">
+                                            <div class="form-control " id="TLbinhluan">
+                                                <div>
+                                                    <label id="TenBL">@shop.TenShop</label>
+                                                </div>
+                                                <div id="ndBL">
+                                                    @tl.NoiDungTraLoi
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        </div>
+                        <br />
+
+                    }
+                    <hr style="width:90%" class="mx-auto d-block" />
+                }
+
+                else
+                {
+                    <p>Chưa có đánh giá</p>
+                }
+                <b id="loadMore">Hịn thêm thì click dô</b>
+            </div>
+            
+        </div>
+    </div>
+    <div ><input type="hidden" name="DaKhoa" id="DaKhoa" value="@shop.DaKhoa.ToString()" /></div>
+    <div class="SanPhamTuongTu">
+        @Html.Action("SanPhamTuongTuPartial", "SanPham", new { @MaLSP = Model.MaLoaiSP })
+    </div>
+
+
+</div>
+
+
+<style>
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 4px;
+        background-color: white;
+    }
+    .close-QC {
+        position: absolute;
+        RIGHT: 0PX;
+        top: 0px;
+        z-index: 10000;
+    }
+        .close-QC:hover {
+            opacity: 0.7;
+            cursor: pointer;
+            background-color: #312b2b;
+        }
+        #video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            max-width: 400px;
+            max-height: 300px;
+            z-index: 1000;
+        }
+    .dot {
+        height: 50px;
+        width: 50px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    #HienThiThem {
+        color: blue;
+        text-decoration: blue;
+        text-decoration-line: none;
+        text-decoration-line: underline;
+        font-size: 12px;
+        padding: 4px;
+    }
+
+        #HienThiThem:hover {
+            cursor: pointer;
+        }
+
+    .itemSearch {
+        display: none;
+    }
+
+    .Trang_1 {
+        display: block;
+    }
+    .img-productDetail{
+        min-width: 1024px;
+    }
+
+    .br-bottom {
+        border-bottom: 1px solid #C4C3C3;
+        min-height: 50px;
+    }
+
+    .outline-des {
+        width: 70px;
+        border: 1px solid;
+        border-radius: 4px;
+        display: inline-block;
+        height: 30px;
+        color: #757575;
+    }
+    .sold-out {
+        width: 70px;
+        border: 1px solid;
+        border-radius: 4px;
+        display: inline-block;
+        height: 30px;
+        color: #757575;
+    }
+        .outline-des:hover {
+            cursor: pointer;
+            background-color: #e8e8e8;
+        }
+        .custom-deatil {
+            margin-top: 10px;
+            margin-left: 15px;
+            margin: 4px
+        }
+</style>
+<script>
+    var arr = [];
+    var daKhoa = $("#DaKhoa").val();
+    console.log("daKhoa", daKhoa)
+    $(".outline-des").click(function () {
+      
+        $(".outline-des").css("background-color", "white");
+        $(this).css("background-color", "rgb(158 198 240)");
+        var id = $(this).attr("data-id");
+        arr[0] = id;
+        console.log("arr", arr);
+        
+    })
+
+    $(".ThemGioHang").click(function () {
+        console.log("arr.length", arr);
+        if (arr.length == 0) {
+            Swal.fire({
+                title: 'Thiếu Thông Tin',
+                text: "Vui lòng chọn Màu sắc/Kích cỡ của sản phẩm trước khi thêm vào giỏ hàng",
+                icon: 'info',
+               
+                confirmButtonColor: '#3085d6',
+
+                confirmButtonText: 'OK'
+            })
+        }
+        else if (daKhoa == "true") {
+            Swal.fire({
+                title: 'Cửa hàng bị khóa',
+                text: "Vui lòng chọn cửa hàng khác",
+                icon: 'error',
+
+                confirmButtonColor: '#3085d6',
+
+                confirmButtonText: 'OK'
+            })
+        }
+        else {
+            var MaSP = $(this).attr("data-MaSP");
+            var strURL = $(this).attr("data-strURL");
+            var Gia = $("#GiaHienTai").attr("data-GiaHienTai");
+           
+            console.log(Gia)
+            $.ajax({
+
+
+                type: "get",
+
+                url: "http://localhost:62979/GioHang/ThemGioHang?MaSP=" + MaSP + "&Gia=" + Gia + "&MaKichCo=" + arr[0],
+                contentType: "html",
+                statusCode: {
+                    400: function (xhr) {
+
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Sản phẩm đã hết hàng',
+                            showConfirmButton: false,
+                            timer: 1500
+
+                        })
+                    }
+                },
+                success: function (response) {
+                    debugger
+
+
+                    $("#GioHangPartial").html(response);
+
+
+                }
+
+            })
+        }
+
+
+
+
+
+    })
+
+    $(".luuKM").click(function () {
+        var idUser = $("#IdUser").val();
+        console.log(idUser)
+        if (idUser != "") {
+            var maGiamGia = $(this).attr("data-KM");
+            var pt = $(this).parent().parent();
+
+
+            console.log(pt)
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/SanPham/LuuGiamGia?MaGiamGia=" + maGiamGia,
+                success: function (status) {
+                    if (status) {
+                        pt.remove()
+                    }
+                }
+
+            })
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Có lỗi',
+                text: 'Vui lòng đăng nhập để nhận vourcher',
+                
+            })
+           
+        }
+        
+    })
+
+    $(document).ready(function () {
+        $("#btn-BL").click(function () {
+            var masp = $("#masp").val();
+            var noidung = $("#noidung").val();
+            $.ajax('/SanPham/ThemBinhLuan',
+                {
+                    type: "POST",
+                    dataType: 'json',
+                    data: { NoiDungBL: noidung, MaSP: masp },  // data to submit
+                    success: function (data, status, xhr) {
+
+                        if (data.status) {
+                            $("#noidung").val('');
+
+                            alert("Thành công")
+
+                            $("#container-binhluan").prepend(
+                                '<div class="form-control " id="binhluan">' +
+                                '<div>' +
+                                '<label id="TenBL">' + data.TenThanhVien + '</label>' +
+                                '</div>' +
+                                '<div id="ndBL">'
+                                + noidung +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        console.log(data)
+                    }
+                });
+        });
+        $(".binhluan").hide();
+        $(".binhluan").slice(0, 4).show();
+        $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $(".binhluan:hidden").slice(0, 4).slideDown();
+            if ($(".binhluan:hidden").length == 0) {
+                $("#loadMore").text("Hết gòi bà dà");
+            }
+        });
+
+        $(".noidungbinhluan").click(function () {
+            var noidung = window.prompt("Nhập nội dung bình luận");
+            var mabl = $(this).attr("data-mabl")
+            if (noidung) {
+                $.ajax('/SanPham/SuaBinhLuan',
+                    {
+                        type: "POST",
+                        dataType: 'json',
+                        data: { MaBL: mabl, noidung: noidung },
+                        success: function (data, status, xhr) {
+                            if (data.status) {
+                                $('body').find('[data-mabl=' + mabl + ']').html(noidung);
+                            }
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            console.log(data)
+                        }
+                    });
+            }
+        })
+    });
+    $(".close-QC").click(function () {
+        $("#video").fadeOut(1500)
+    })
+</script>
 

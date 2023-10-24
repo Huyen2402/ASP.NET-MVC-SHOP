@@ -1,0 +1,221 @@
+﻿@using WebsiteBanHang.Models
+@model List<ChiTietMatHangKinhDoanh>
+@{
+    ViewBag.Title = "XemMatHang";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
+    List<loaiSanPham> lsp = ViewBag.LSP as List<loaiSanPham>;
+}
+
+<table id="example" class="table table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Mặt Hàng</th>
+
+            <th>
+                Thao Tác
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>@item.loaiSanPham.TenLoai</td>
+
+
+
+                <td>
+                    @if (item.NgungKD == true)
+                    {
+
+                        <a data-MaGG="@item.MaCTMatHang" id="btn-kd"
+                           class="btn disabled btn-secondary btn-kd ">Đã ngưng kinh doanh</a>
+                    }
+                    else
+                    {
+                        <a data-MaGG="@item.MaCTMatHang" id="x"
+                           class="btn btn-danger btn-huy x">Ngừng Kinh Doanh</a>
+                    }
+                </td>
+
+            </tr>
+            i++;
+        }
+
+
+
+    </tbody>
+
+</table>
+<button data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-success"><i class="fa-solid fa-plus"></i>Thêm Mặt Hàng</button>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">THÊM MỚI MẶT HÀNG KINH DOANH</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="themMH" action="@Url.Action("ThemMatHang","Admin")">
+                    <div class="mb-3 mt-3">
+                        <label for="email" class="form-label">Tên:</label>
+                        <select id="list-lsp" class="form-select">
+                            <option >-----------</option>
+                            @foreach (var m in lsp)
+                            {
+                                <option value="@m.MaLoaiSP">@m.TenLoai</option>
+                            }
+
+
+                        </select>
+                       
+                    </div>
+                   
+                    <button id="btn-addMH" type="button" class="btn btn-primary ">Thêm</button>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+
+        $("#list-lsp").change(function () {
+            var id = $(this).val();
+            console.log('ID', id);
+            $("#btn-addMH").click(function (e) {
+               
+                var form = $(this);
+                var actionUrl = form.attr('action');
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/Admin/ThemMatHang?MaLSP="+id,
+                  
+                    success: function (data) {
+                        console.log(data)
+                        if (data.data == "success") {
+                            Swal.fire({
+
+                                icon: 'success',
+                                title: 'Thêm thành công',
+                                text: 'Bạn đã thêm mặt hàng thành công',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                        }
+                        else if (data.data == "duplicate") {
+                            Swal.fire({
+
+                                icon: 'error',
+                                title: 'Trùng lặp',
+                                text: 'Mặt hàng bị trùng lặp, vui lòng chọn mặt hàng khác!',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                        }
+                        else {
+                            Swal.fire({
+
+                                icon: 'error',
+                                title: 'Xảy ra lỗi',
+                                text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload()
+                                }
+                            })
+                        }
+                    }
+                });
+            })
+        })
+
+        
+
+        $("#x").click(function () {
+            const MaCT = $(this).attr("data-MaGG")
+            Swal.fire({
+                title: 'Bạn đã chắc chắn?',
+                text: "Nếu ngưng kinh doanh thì khách hàng sẽ không thể mua được nữa!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#40b043',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ngưng kinh doanh!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:62979/Admin/NgungKD?MaCT=" + MaCT,
+
+
+                        success: function (data) {
+                            console.log(data) // show response from the php script.
+                            if (data.data == "success") {
+                                Swal.fire({
+
+                                    icon: 'success',
+                                    title: 'Cập nhật thành công',
+                                    text: 'Mặt hàng này sẽ ngưng bán trên website',
+                                    showConfirmButton: true,
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+                            }
+                            else {
+                                Swal.fire({
+
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
+
+                                })
+                            }
+                        }
+                    });
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        })
+
+    })
+</script>
+

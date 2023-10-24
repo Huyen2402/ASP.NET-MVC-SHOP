@@ -1,8 +1,94 @@
-﻿
+﻿@using WebsiteBanHang.Models
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
 }
 
-<h2>Index</h2>
+
+
+
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-2">
+        <div class="col-md-4 market-update-right">
+
+            <i class="fa fa-comment"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Bình Luận</h4>
+            <h3>@ViewBag.TongBL</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-1">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-users"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Khách Hàng</h4>
+            <h3>@ViewBag.TongTV</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-3">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-usd"></i>
+        </div>
+        @{ 
+            decimal tien = ViewBag.TongTien;
+            string TongTien = tien.ToString("#,##0");
+        }
+        <div class="col-md-8 market-update-left">
+            <h4>Tổng Tiền</h4>
+            <h3>@TongTien</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="col-md-3 market-update-gd">
+    <div class="market-update-block clr-block-4">
+        <div class="col-md-4 market-update-right">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </div>
+        <div class="col-md-8 market-update-left">
+            <h4>Tổng Đơn</h4>
+            <h3>@ViewBag.TongDDH</h3>
+            <p>Other hand, we denounce</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="clearfix"> </div>
+
+<a href="@Url.Action("InFileExcel", "Admin")">In Excel</a>
+
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+  window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	title: {
+		text: "Doanh thu theo tháng"
+	},
+	data: [{
+		type: "column",
+		dataPoints:  @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart.render();
+
+}
+</script>
 

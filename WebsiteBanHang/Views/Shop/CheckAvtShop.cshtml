@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "CheckAvtShop";
+    Layout = "~/Views/Layout/ShopLayout.cshtml";
+    int MaShop = ViewBag.MaShop;
+}
+
+@using (Html.BeginForm("CheckAvtShop", "Shop", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "form-UpAvt", @name = "upavt" }))
+{
+    <!--   con = Container  for items in the form-->
+    <div class="con" style="justify-content:center">
+        <!--     Start  header Content  -->
+        <header class="head-form">
+            <h2>CẬP NHẬT ẢNH ĐẠI DIỆN CỦA CỬA HÀNG</h2>
+            <!--     A welcome message or an explanation of the login form -->
+
+        </header>
+        <!--     End  header Content  -->
+        <br>
+        <div class="field-set" style="width: 360px">
+        
+                <input type="hidden" name="MaShop" value="@MaShop" />
+                <!--   user name -->
+                <img style="max-width: 360px" id="preview-img" class="mx-auto d-block" src="~/Content/images//no-avt.jpg" alt="Alternate Text" />
+                <input name="HinhAnh" class="form-input " id="hsp_tentaptin" type="file" required>
+
+
+
+                <br>
+
+                <!--   Password -->
+
+                <br>
+                <!--        buttons -->
+                <!--      button LogIn -->
+                <button style="margin-left:50px" id="btn-upavt" type="submit" class="log-in mx-auto d-block"> Thêm ảnh </button>
+           
+        </div>
+
+
+
+        <!--   End Conrainer  -->
+    </div>
+
+    <!-- End Form -->
+}
+    <style>
+        img {
+            border-radius: 50%;
+        }
+    </style>
+
+
+    <script>
+        const reader = new FileReader();
+        const fileInput = document.getElementById("hsp_tentaptin");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
+
+        $("form#form-UpAvt").submit(function (e) {
+            e.preventDefault();
+            console.log("hello")
+            var formData = new FormData(this);
+          
+                $.ajax({
+                    url: "http://localhost:3000/users/",
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        console.log(data.data.url)
+                        if (data.data.url.length > 0) {
+                            const url = data.data.url;
+                            $.ajax({
+                                url: "http://localhost:62979/Shop/UpAvt?url=" + url,
+                                type: "GET",
+                                
+                                success: function (data) {
+                                    console.log(data.mess)
+                                    if (data.mess == "success") {
+                                        Swal.fire({
+
+                                            icon: 'success',
+                                            title: 'Thêm thành công',
+                                            text: 'Ảnh đại diện của cửa hàng đã thêm thành công. Vui lòng chờ Admin xác nhận shop để có thể hoạt động nhé.',
+                                            showConfirmButton: true,
+
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = "http://localhost:62979/"
+                                            }
+                                        })
+                                      
+                                       
+                                    }
+                                    else {
+                                              Swal.fire(
+                                                  'Thất bại!',
+                                        'Vui lòng kiểm tra lại',
+                                        'error'
+                                    )
+                                    }
+
+
+                                   
+
+                                },
+                               
+                            });
+                        }
+
+                      
+                    },
+                   
+                });
+           
+        })
+    </script>
+

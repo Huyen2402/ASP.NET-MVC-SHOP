@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBanHang.Models;
@@ -10,14 +11,27 @@ namespace WebsiteBanHang.Controllers
     public class GioHangController : Controller
     {
 
-        QuanLyBanHangEntities db = new QuanLyBanHangEntities();
+        Entities db = new Entities();
         // GET: GioHang
         public ActionResult XemGioHang()
         {
-            List<GioHang> listGioHang = SessionGioHang();
-            ViewBag.TongSoLuong = TongSL();
-            ViewBag.TongTien = TongTien();
-            return View(listGioHang);
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            if (tv != null)
+            {
+                ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+
+                ViewBag.listgg = db.GiamGias.ToList();
+                List<GioHang> listGioHang = SessionGioHang();
+                List<ShopGioHang> listShopGioHang = SessionShopGioHang();
+                ViewBag.listShopGioHang = listShopGioHang;
+                ViewBag.TongSoLuong = TongSL();
+                ViewBag.TongTien = TongTien();
+                return View(listGioHang);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult GioHangPartial()
@@ -27,6 +41,16 @@ namespace WebsiteBanHang.Controllers
             return PartialView();
         }
 
+        public List<ShopGioHang> SessionShopGioHang()
+        {
+            List<ShopGioHang> listShopGioHang = (List<ShopGioHang>)Session["ShopGioHang"];
+            if (listShopGioHang == null)
+            {
+                listShopGioHang = new List<ShopGioHang>();
+                Session["ShopGioHang"] = listShopGioHang;
+            }
+            return listShopGioHang;
+        }
         public List<GioHang> SessionGioHang()
         {
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
@@ -37,8 +61,8 @@ namespace WebsiteBanHang.Controllers
             }
             return listGioHang;
         }
-
-        public ActionResult ThemGioHang(int? MaSP, string strURL)
+       
+        public ActionResult ThemGioHang(int? MaSP, decimal Gia, int MaKichCo)
         {
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
             if (sp == null)
@@ -49,8 +73,9 @@ namespace WebsiteBanHang.Controllers
             else
             {
                 //List<GioHang> listGioHang = SessionGioHang();
+                List<ShopGioHang> listShopGioHang = (List<ShopGioHang>)Session["ShopGioHang"];
                 List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
-               
+
                 if (listGioHang != null)
                 {
                     // check sản phẩm đã tồn tại hay chưa?
@@ -59,50 +84,57 @@ namespace WebsiteBanHang.Controllers
                     if (gh != null)
                     {
                         gh.SoLuong++;
-                        gh.ThanhTien = gh.SoLuong * gh.Dongia;
-                        return Redirect(strURL);
+                        gh.ThanhTien = gh.SoLuong * gh.GiaHienTai;
+                        //return Redirect(strURL);
+                        //return PartialView("GioHangPartial");
+                        return RedirectToAction("GioHangPartial");
                     }
                     else
                     {
-                        
-                        GioHang newgh = new GioHang((int)MaSP);
+
+                        GioHang newgh = new GioHang((int)MaSP, Gia, MaKichCo);
                         if (newgh.SoLuong < sp.SoLuongTon)
                         {
                             //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó
                             listGioHang.Add(newgh);
                             Session["GioHang"] = listGioHang;
-                            return Redirect(strURL);
+                            //return PartialView("GioHangPartial");
+                            return RedirectToAction("GioHangPartial");
                         }
                         else
                         {
-                            return View("ThongBao");
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
                         }
                     }
-                   
+
+
                 }
                 else
                 {
                     listGioHang = new List<GioHang>();
-                    GioHang newgh = new GioHang((int)MaSP);
+                    GioHang newgh = new GioHang((int)MaSP, Gia, MaKichCo);
                     if (newgh.SoLuong < sp.SoLuongTon)
                     {
                         //Sau khi tạo xong thì add item vào listGioHang đã tạo truo72c đó
                         listGioHang.Add(newgh);
                         Session["GioHang"] = listGioHang;
-                        return Redirect(strURL);
+                        //return PartialView("GioHangPartial");
+                        return RedirectToAction("GioHangPartial");
                     }
                     else
                     {
-                        return View("ThongBao");
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
                     }
                 }
-                
+
             }
 
-           
+
+
         }
+      
 
         public int TongSL()
         {
@@ -128,7 +160,7 @@ namespace WebsiteBanHang.Controllers
 
         }
 
-        public ActionResult XoaGioHang(int MaSP, string strURL)
+        public ActionResult XoaGioHang(int MaSP)
         {
 
             // Kiem tra xem co ton tai list gio hang chua
@@ -147,11 +179,15 @@ namespace WebsiteBanHang.Controllers
             }
             //nguoc lai, san pham ton tai trong gio hang, thi remove no khoi list san pham trong gio
             listGioHang.Remove(gh);
-            return Redirect(strURL);
+            ViewBag.listGioHang = listGioHang;
+            ViewBag.TongSoLuong = TongSL();
+            ViewBag.TongTien = TongTien();
+            return RedirectToAction("ThemSlPartialView");
         }
 
-        public ActionResult ThemSl(int MaSP, string strURL)
+        public ActionResult ThemSl(int MaSP)
         {
+            int id = MaSP;
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
             if(listGioHang == null)
             {
@@ -173,13 +209,29 @@ namespace WebsiteBanHang.Controllers
                         return null;
                     }
                 }
-                return Redirect(strURL);
+                //string url = "<script>window.location.href = 'http://localhost:62979/GioHang/ThemSl?MaSP="+id.ToString() +"'" + ";</script>";
+                //return Content(url);
+                return RedirectToAction("ThemSlPartialView");
             }
         }
 
-
-        public ActionResult GiamSL(int MaSP, string strURL)
+        public ActionResult ThemSlPartialView()
         {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            ViewBag.list = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien && n.DaSuDung == false).ToList();
+           
+            ViewBag.listShop = db.Shops.ToList();
+            ViewBag.listgg = db.GiamGias.ToList();
+            ViewBag.TongSoLuong = TongSL();
+            ViewBag.TongTien = TongTien();
+            ViewBag.listGioHang = Session["GioHang"];
+            return PartialView("ThemSlPartialView");
+        }
+
+
+        public ActionResult GiamSL(int MaSP)
+        {
+           
             List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
             if (listGioHang == null)
             {
@@ -194,7 +246,7 @@ namespace WebsiteBanHang.Controllers
                     if (sp.SoLuong == 1)
                     {
                         listGioHang.Remove(sp);
-                        return Redirect(strURL);
+                        return RedirectToAction("ThemSlPartialView");
                     }
                     else
                     {
@@ -202,8 +254,41 @@ namespace WebsiteBanHang.Controllers
                         sp.ThanhTien = sp.SoLuong * sp.Dongia;
                     }
                 }
-                return Redirect(strURL);
+                return RedirectToAction("ThemSlPartialView");
             }
+        }
+
+        public ActionResult CapNhatGioHang()
+        {
+            
+            return RedirectToAction("GioHangPartial");
+        }
+        public ActionResult ListGiamGia(int MaShop)
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<ChiTietGiamGia> list = new List<ChiTietGiamGia> ();
+            List<GiamGia> listGG = db.GiamGias.Where(n=>n.MaShop == MaShop).ToList();
+            List<ChiTietGiamGia> listCTGG = db.ChiTietGiamGias.Where(n => n.MaThanhVien == tv.MaThanhVien).ToList();
+            foreach (var item in listGG)
+            {
+                foreach (var item1 in listCTGG)
+                {
+                    if(item.MaGiamGia == item1.MaGiamGia)
+                    {
+                        list.Add(item1);
+                    }
+                }
+            }
+            var v = list.Select(x => new
+            {
+                MaGiamGia = x.MaGiamGia,
+                MaCTGiamGia = x.MaCTGiamGia,
+                SoTien = x.GiamGia.SoTien,
+                TenGiamGia = x.GiamGia.TenGiamGia
+            });
+           
+
+            return Json(new { data = v }, JsonRequestBehavior.AllowGet);
         }
     }
 }

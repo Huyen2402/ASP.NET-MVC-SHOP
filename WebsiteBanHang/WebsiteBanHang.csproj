@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props')" />
+  <Import Project="..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props" Condition="Exists('..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -58,6 +60,18 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=6.0.8.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.6.0.8\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.AspNet, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.AspNet.0.2.0\lib\net45\Hangfire.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.7.32.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.7.32\lib\net46\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.7.32.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.32\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -68,11 +82,38 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.ML, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    <Reference Include="Microsoft.ML.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.CpuMath, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.CpuMath.1.7.1\lib\netstandard2.0\Microsoft.ML.CpuMath.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.DataView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.DataView.1.7.1\lib\netstandard2.0\Microsoft.ML.DataView.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.KMeansClustering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.KMeansClustering.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.PCA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.PCA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.StandardTrainers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.StandardTrainers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Transforms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ML.1.7.1\lib\netstandard2.0\Microsoft.ML.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -86,11 +127,49 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.4.4.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.3.0\lib\net46\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Channels, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.4.7.1\lib\net461\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -144,6 +223,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="TableDependency.SqlClient, Version=8.5.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlTableDependency.8.5.8\lib\net451\TableDependency.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -157,35 +239,73 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DatHangController.cs" />
     <Compile Include="Controllers\DemoJQueryController.cs" />
+    <Compile Include="Controllers\DonHangController.cs" />
+    <Compile Include="Controllers\EmailTemplatesController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
+    <Compile Include="Controllers\GioiThieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JqueryController.cs" />
+    <Compile Include="Controllers\KetQua.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\LienHeController.cs" />
+    <Compile Include="Controllers\QuanTriVienController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Extensions\ConstHelper.cs" />
+    <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHubs.cs" />
     <Compile Include="Models\BinhLuan.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Chat.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChatwithShop.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietDonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChiTietPhieuNhap.cs">
+    <Compile Include="Models\ChiTietFlashSale.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietGiamGia.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChiTietMatHangKinhDoanh.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataChart.cs" />
+    <Compile Include="Models\DataPoint.cs" />
+    <Compile Include="Models\DatHang.cs" />
+    <Compile Include="Models\DiaChi.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DonDatHang.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FlashSale.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiamGia.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GioHang.cs" />
+    <Compile Include="Models\HangThanhVien.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Huyen.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\KhachHang.cs">
+    <Compile Include="Models\KichCo.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loaiSanPham.cs">
@@ -194,13 +314,13 @@
     <Compile Include="Models\LoaiThanhVien.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MatHangKinhDoanh.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\NhaCungCap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NhaSanXuat.cs">
-      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PhieuNhap.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QuanLyBanHang.Context.cs">
@@ -221,16 +341,30 @@
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\SessionDiaChi.cs" />
+    <Compile Include="Models\Shop.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShopGioHang.cs" />
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThanhVien.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThongBaoDH.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tinh.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TinhTrangGiaoHang.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TraLoiBinhLuan.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VideoQC.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Xa.cs">
@@ -245,10 +379,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\QuanLyBanHang.mdf" />
-    <Content Include="App_Data\QuanLyBanHang_log.ldf">
-      <DependentUpon>QuanLyBanHang.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\Admin\css\bootstrap.min.css" />
     <Content Include="Content\Admin\css\font-awesome.css" />
     <Content Include="Content\Admin\css\font.css" />
@@ -309,6 +439,9 @@
     <Content Include="Content\css\DangNhap.css" />
     <Content Include="Content\css\flexslider.css" />
     <Content Include="Content\css\memenu.css" />
+    <Content Include="Content\css\ModalAnimate.css" />
+    <Content Include="Content\css\style-liberty.css" />
+    <Content Include="Content\css\style-starter.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style_from.css" />
     <Content Include="Content\images\1.jpg" />
@@ -321,6 +454,12 @@
     <Content Include="Content\images\cart.png" />
     <Content Include="Content\images\close_1.png" />
     <Content Include="Content\images\co.png" />
+    <Content Include="Content\images\grid1.jpg" />
+    <Content Include="Content\images\grid2.jpg" />
+    <Content Include="Content\images\grid3.jpg" />
+    <Content Include="Content\images\grid4.jpg" />
+    <Content Include="Content\images\grid5.jpg" />
+    <Content Include="Content\images\grid6.jpg" />
     <Content Include="Content\images\img-sprite.png" />
     <Content Include="Content\images\lo.png" />
     <Content Include="Content\images\lo1.png" />
@@ -359,6 +498,61 @@
     <Content Include="Content\js\responsiveslides.min.js" />
     <Content Include="Content\js\simpleCart.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\QuanTriVien\css\basictable.css" />
+    <Content Include="Content\QuanTriVien\css\bootstrap.css" />
+    <Content Include="Content\QuanTriVien\css\circles.css" />
+    <Content Include="Content\QuanTriVien\css\component.css" />
+    <Content Include="Content\QuanTriVien\css\export.css" />
+    <Content Include="Content\QuanTriVien\css\flipclock.css" />
+    <Content Include="Content\QuanTriVien\css\font-awesome.css" />
+    <Content Include="Content\QuanTriVien\css\jQuery-plugin-progressbar1.css" />
+    <Content Include="Content\QuanTriVien\css\monthly.css" />
+    <Content Include="Content\QuanTriVien\css\style.css" />
+    <Content Include="Content\QuanTriVien\css\style_grid.css" />
+    <Content Include="Content\QuanTriVien\css\table-style.css" />
+    <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\QuanTriVien\images\a1.jpg" />
+    <Content Include="Content\QuanTriVien\images\a2.jpg" />
+    <Content Include="Content\QuanTriVien\images\a3.jpg" />
+    <Content Include="Content\QuanTriVien\images\a4.jpg" />
+    <Content Include="Content\QuanTriVien\images\admin.jpg" />
+    <Content Include="Content\QuanTriVien\images\bottom.jpg" />
+    <Content Include="Content\QuanTriVien\images\overlay.png" />
+    <Content Include="Content\QuanTriVien\images\pic.jpg" />
+    <Content Include="Content\QuanTriVien\images\pic1.jpg" />
+    <Content Include="Content\QuanTriVien\images\profile.jpg" />
+    <Content Include="Content\QuanTriVien\images\profile_bg.jpg" />
+    <Content Include="Content\QuanTriVien\images\progress.jpg" />
+    <Content Include="Content\QuanTriVien\js\amcharts.js" />
+    <Content Include="Content\QuanTriVien\js\bars.js" />
+    <Content Include="Content\QuanTriVien\js\bootstrap-3.1.1.min.js" />
+    <Content Include="Content\QuanTriVien\js\Chart.min.js" />
+    <Content Include="Content\QuanTriVien\js\circles.js" />
+    <Content Include="Content\QuanTriVien\js\classie.js" />
+    <Content Include="Content\QuanTriVien\js\contact_me.js" />
+    <Content Include="Content\QuanTriVien\js\export.js" />
+    <Content Include="Content\QuanTriVien\js\flipclock.js" />
+    <Content Include="Content\QuanTriVien\js\gauge.js" />
+    <Content Include="Content\QuanTriVien\js\gnmenu.js" />
+    <Content Include="Content\QuanTriVien\js\jqBootstrapValidation.js" />
+    <Content Include="Content\QuanTriVien\js\jquery-2.1.4.min.js" />
+    <Content Include="Content\QuanTriVien\js\jQuery-plugin-progressbar.js" />
+    <Content Include="Content\QuanTriVien\js\jquery.basictable.min.js" />
+    <Content Include="Content\QuanTriVien\js\jquery.nicescroll.js" />
+    <Content Include="Content\QuanTriVien\js\light.js" />
+    <Content Include="Content\QuanTriVien\js\modernizr.custom.js" />
+    <Content Include="Content\QuanTriVien\js\monthly.js" />
+    <Content Include="Content\QuanTriVien\js\pie.js" />
+    <Content Include="Content\QuanTriVien\js\prettymaps.js" />
+    <Content Include="Content\QuanTriVien\js\radar.js" />
+    <Content Include="Content\QuanTriVien\js\screenfull.js" />
+    <Content Include="Content\QuanTriVien\js\scripts.js" />
+    <Content Include="Content\QuanTriVien\js\serial.js" />
+    <Content Include="Content\QuanTriVien\js\skycons.js" />
+    <Content Include="Content\QuanTriVien\js\valida.2.1.6.min.js" />
+    <Content Include="Content\QuanTriVien\js\validator.min.js" />
+    <Content Include="Content\QuanTriVien\js\xy.js" />
     <Content Include="Content\tinymce\js\tinymce\icons\default\icons.min.js" />
     <Content Include="Content\tinymce\js\tinymce\license.txt" />
     <Content Include="Content\tinymce\js\tinymce\models\dom\model.min.js" />
@@ -419,6 +613,9 @@
     <Content Include="Content\tinymce\js\tinymce\skins\ui\tinymce-5\skin.shadowdom.min.css" />
     <Content Include="Content\tinymce\js\tinymce\themes\silver\theme.min.js" />
     <Content Include="Content\tinymce\js\tinymce\tinymce.min.js" />
+    <Content Include="EmailTemplates\Customer.html" />
+    <Content Include="EmailTemplates\DonHang.html" />
+    <Content Include="EmailTemplates\QuangCao.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -437,13 +634,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\tinymce\CHANGELOG.md" />
     <Content Include="Content\tinymce\js\tinymce\langs\README.md" />
-    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QuanLyBanHang.edmx.diagram">
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\Admin\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Admin\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Admin\fonts\fontawesome-webfont.woff" />
@@ -451,6 +641,26 @@
     <Content Include="Content\Admin\fonts\FontAwesome.otf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QuanLyBanHang.edmx.diagram">
+      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+    </Content>
+    <Content Include="MLModel1.mbconfig" />
+    <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\QuanTriVien\fonts\FontAwesome.otf" />
+    <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\QuanTriVien\images\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -466,6 +676,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\owl.carousel.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -513,6 +725,82 @@
     <Content Include="Views\Admin\DonHangChoXacNhan.cshtml" />
     <Content Include="Views\Admin\XemChiTietDonHang.cshtml" />
     <Content Include="Views\Admin\DonHangDangGiao.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Chat\Chating.cshtml" />
+    <Content Include="Views\SanPham\BinhLuan.cshtml" />
+    <Content Include="Views\SanPham\Menu2PartialView.cshtml" />
+    <Content Include="Views\Admin\XemBinhLuan.cshtml" />
+    <Content Include="Views\Admin\TraLoiBinhLuan.cshtml" />
+    <Content Include="Views\SanPham\ThemBinhLuan.cshtml" />
+    <Content Include="Views\SanPham\BinhLuanPartialView.cshtml" />
+    <Content Include="Views\GioHang\ThemSlPartialView.cshtml" />
+    <Content Include="Views\DatHang\ReturnUrl.cshtml" />
+    <Content Include="Views\DatHang\PaymentConfirm.cshtml" />
+    <Content Include="Views\Admin\DonHangThanhCong.cshtml" />
+    <Content Include="Views\GioiThieu\Index.cshtml" />
+    <Content Include="Views\LienHe\Index.cshtml" />
+    <Content Include="Views\DonHang\Index.cshtml" />
+    <Content Include="Views\DonHang\DHDangVanChuyen.cshtml" />
+    <Content Include="Views\DonHang\DHDaNhan.cshtml" />
+    <Content Include="Views\DonHang\buttonDonHangPartial.cshtml" />
+    <Content Include="Views\DonHang\XemChiTietDonHang.cshtml" />
+    <Content Include="Views\Home\ProductFlashSale.cshtml" />
+    <Content Include="Views\Home\SanPhamGoiY.cshtml" />
+    <Content Include="Views\Shop\XemShop.cshtml" />
+    <Content Include="Views\SanPham\ListSanPham.cshtml" />
+    <Content Include="Views\Home\DangKyCuaHang.cshtml" />
+    <Content Include="Views\Home\DangNhapCuaHang.cshtml" />
+    <Content Include="Views\Layout\ShopLayout.cshtml" />
+    <Content Include="Views\Shop\CheckAvtShop.cshtml" />
+    <Content Include="Views\Chat\ChatWithShop.cshtml" />
+    <Content Include="Views\Admin\AddFlashSale.cshtml" />
+    <Content Include="Views\Admin\AddProductFlashSale.cshtml" />
+    <Content Include="Views\Admin\AddDiscount.cshtml" />
+    <Content Include="Views\SanPham\ViewAllFlashSale.cshtml" />
+    <Content Include="Views\DatHang\MuaHang.cshtml" />
+    <Content Include="Views\DatHang\DiaChiPartial.cshtml" />
+    <Content Include="Views\DatHang\DatHang.cshtml" />
+    <Content Include="Views\SanPham\SanPhamTuongTuPartial.cshtml" />
+    <Content Include="Views\Home\ModalLoadPartial.cshtml" />
+    <Content Include="Views\Home\XacNhanNguoiDung.cshtml" />
+    <Content Include="Views\Layout\Email.cshtml" />
+    <Content Include="Views\EmailTemplates\Customer.cshtml" />
+    <Content Include="Views\EmailTemplates\DonHang.cshtml" />
+    <Content Include="Views\EmailTemplates\QuangCao.cshtml" />
+    <Content Include="Views\Layout\QuanTriLayout.cshtml" />
+    <Content Include="Views\QuanTriVien\Index.cshtml" />
+    <Content Include="Views\Layout\LoginQuanTri.cshtml" />
+    <Content Include="Views\QuanTriVien\Login.cshtml" />
+    <Content Include="Views\QuanTriVien\ChoXetDuyet.cshtml" />
+    <Content Include="Views\QuanTriVien\ThongTinShop.cshtml" />
+    <Content Include="Views\QuanTriVien\TaoFlashSale.cshtml" />
+    <Content Include="Views\Shop\UpAvt.cshtml" />
+    <Content Include="Views\Chat\ChatHistory.cshtml" />
+    <Content Include="Views\Chat\ChatInHeader.cshtml" />
+    <Content Include="Views\Search\suggestProduct.cshtml" />
+    <Content Include="Views\SanPham\DetailSanPham.cshtml" />
+    <Content Include="Views\DemoJQuery\CallOTPView.cshtml" />
+    <Content Include="Views\DemoJQuery\CallOTP.cshtml" />
+    <Content Include="Views\Admin\XemVoucher.cshtml" />
+    <Content Include="Views\Admin\ThemVoucher.cshtml" />
+    <Content Include="Views\QuanTriVien\GetAllShop.cshtml" />
+    <Content Include="Views\Admin\ContThemSP.cshtml" />
+    <Content Include="Views\QuanTriVien\XemLSP.cshtml" />
+    <Content Include="Views\DemoJQuery\Upload1.cshtml" />
+    <Content Include="Views\Admin\XemMatHang.cshtml" />
+    <Content Include="Views\DonHang\XemChiTietDH.cshtml" />
+    <Content Include="Views\Admin\XemSPFlashSale.cshtml" />
+    <Content Include="Views\Admin\SaleFuture.cshtml" />
+    <Content Include="Views\QuanTriVien\XemNSX.cshtml" />
+    <Content Include="Views\QuanTriVien\XemNCC.cshtml" />
+    <Content Include="Views\DatHang\DonHangHTML.cshtml" />
+    <Content Include="Views\Home\XemThongTin.cshtml" />
+    <Content Include="Views\DonHang\DHDangGiao.cshtml" />
+    <Content Include="Views\Home\NotifyPartial.cshtml" />
+    <Content Include="Views\QuanTriVien\Voucher.cshtml" />
+    <Content Include="Views\QuanTriVien\XemVoucher.cshtml" />
+    <Content Include="Views\QuanTriVien\XemFlashSale.cshtml" />
+    <Content Include="Views\Home\ChangePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -531,8 +819,18 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\DatHang\" />
+  <ItemGroup />
+  <ItemGroup Label="MLModel1">
+    <None Include="MLModel1.consumption.cs">
+      <DependentUpon>MLModel1.mbconfig</DependentUpon>
+    </None>
+    <None Include="MLModel1.training.cs">
+      <DependentUpon>MLModel1.mbconfig</DependentUpon>
+    </None>
+    <None Include="MLModel1.zip">
+      <DependentUpon>MLModel1.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -567,11 +865,15 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.CpuMath.1.7.1\build\netstandard2.0\Microsoft.ML.CpuMath.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets" Condition="Exists('..\packages\Microsoft.ML.1.7.1\build\netstandard2.0\Microsoft.ML.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

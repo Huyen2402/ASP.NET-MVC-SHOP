@@ -1120,14 +1120,24 @@ figure {
 img {
   vertical-align: middle;
 }
+.img-gt{
+    width: 400px;
+    height: 400px;
+}
+.tiltle-blog {
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+}
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 .img-rounded {
   border-radius: 6px;

@@ -1,0 +1,57 @@
+﻿
+@using WebsiteBanHang.Models;
+@model List<FlashSale>
+
+@{
+    ViewBag.Title = "AddFlashSale";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    DateTime d = (DateTime)ViewBag.CurrentDay ;
+}
+
+<h2>Tạo Flash Sale</h2>
+
+
+
+    <div style="min-height:600px" class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên Loại:</label>
+
+            <div class="col-md-10">
+                <select class="form-select" id="select-sale" name="sellist1">
+                    <option>--Chọn ngày sale--</option>
+                    @foreach (var item in Model)
+                    {
+                        if (item.NgaySale.Value.Date >= d.Date && item.NgaySale.Value.Month >= d.Month && item.NgaySale.Value.Year >= d.Year)
+                        {
+                            <option value="@item.MaSale">@item.NgaySale</option>
+                        }
+
+
+                    }
+
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a id="continute" class="btn btn-primary" >Tiếp tục</a>
+              
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#select-sale").change(function () {
+            var MaSale = $('#select-sale option:selected').val()
+            $("#continute").click(function () {
+                var url = "http://localhost:62979/Admin/AddProductFlashSale?MaSale=" + MaSale;
+                window.location.href = url;
+            })
+        })
+    </script>
+
+

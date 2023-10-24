@@ -1,0 +1,229 @@
+﻿@using WebsiteBanHang.Models;
+@model List<GiamGia>
+@{
+    ViewBag.Title = "XemVoucher";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 0;
+}
+
+<table id="example" class="table table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Voucher</th>
+            <th>
+
+                Số Tiền
+            </th>
+            <th>
+
+                Số Lượng
+            </th>
+            <th>
+                Thao Tác
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>@item.TenGiamGia</td>
+
+                <td>@item.SoTien</td>
+                <td>@item.SL</td>
+
+                <td>
+                    <a data-id="@item.MaGiamGia"  data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-warning btn-edit" href="">Chỉnh Sửa</a>
+
+                    <a data-MaGG="@item.MaGiamGia" id="x"
+                       class="btn btn-danger btn-huy x">Xoá</a>
+                </td>
+
+            </tr>
+            i++;
+        }
+
+
+
+    </tbody>
+  
+</table>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">CHỈNH SỬA VOUCHER GIẢM GIÁ</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="form-edit" action="" method="post">
+                </form>
+                @*@using (Html.BeginForm("EditVoucher", "Admin", FormMethod.Post, new { @id = "form-edit" }))
+            {
+
+            }*@
+            </div>
+            <button id="cf" type="button" class="btn btn-primary btn-sumbitVoucher">Chỉnh sửa</button>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger " data-bs-dismiss="modal">Hủy</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+
+        $(".btn-edit").click(function () {
+            const id = $(this).attr("data-id");
+            console.log(id)
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:62979/Admin/GetVoucher?MaGiamGia=" + id,
+
+                success: function (data) {
+                    console.log(data.data)
+                    $(".modal-body").empty()
+                    $(".modal-body").append(' <div class="mb-3 mt-3">' +
+                        '  <input type="hidden" id="MaGiamGia" name="MaGiamGia" value="' + data.data.MaGiamGia + '" />' +
+                        '<label for= "email" class= "form-label" > Tên Voucher:</label >' +
+                        '  <input type="text" id="TenGiamGia" class="form-control" name="TenGiamGia" value="' + data.data.TenGiamGia + '" />' +
+
+                        '  </div>' +
+                        '  <div class="mb-3">' +
+                        '  <label for="pwd" class="form-label">Số Tiền:</label>' +
+
+                        '  <input type="number" id="SoTien" class="form-control" name="SoTien" value="' + data.data.SoTien + '" />' +
+                        ' </div>' +
+
+                        '<div class="mb-3">' +
+                        '  <label for="pwd" class="form-label">Số Lượng:</label>' +
+
+                        '  <input type="number" id="SL" class="form-control" name="SL" value="' + data.data.SL + '" />' +
+                        ' </div>' 
+                        
+                    )
+                }
+
+
+
+            });
+        })
+
+
+        $("#cf").click(function () {
+            console.log("fdgactionUrl")
+        
+            var form = $(this);
+            var actionUrl = form.attr('action');
+            const MaGiamGia = $("#MaGiamGia").val();
+            const SoTien = $("#SoTien").val();
+            const SL = $("#SL").val();
+            const TenGiamGia = $("#TenGiamGia").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/Admin/EditVoucher",
+                data: { MaGiamGia: MaGiamGia, TenGiamGia: TenGiamGia, SoTien: SoTien, SL: SL }, // serializes the form's elements.
+                success: function (data) {
+
+                    if (data.data == "success") {
+
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Sửa thành công',
+                            text: 'Bạn đã sửa voucher thành công',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload()
+                            }
+                        })
+
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+                }
+            });
+
+        });
+
+        $(".btn-huy").click(function () {
+            const MaGiamGia = $(this).attr("data-MaGG");
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Nếu bạn xóa mọi thông tin về voucher sẽ mất đi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#40b043',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:62979/Admin/XoaVoucher?MaGiamGia=" + MaGiamGia,
+                       
+                       
+                        success: function (data) {
+                            if (data.mess == "success") {
+
+                                Swal.fire({
+
+                                    icon: 'success',
+                                    title: 'Xóa thành công',
+                                    text: 'Bạn đã xóa voucher thành công',
+                                    showConfirmButton: true,
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+
+                            }
+                            else {
+                                Swal.fire({
+
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
+
+                                })
+                            }
+                        }
+                    })
+                   
+                }
+            })
+        })
+
+        
+    })
+</script>

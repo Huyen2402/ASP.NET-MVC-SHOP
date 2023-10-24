@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "TaoFlashSale";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+
+<div style="min-height:700px"  class="inner_content">
+    <div class="wthree_general graph-form agile_info_shadow ">
+        <h3 class="w3_inner_tittle two">Tạo Flash Sale</h3>
+
+        <div class="grid-1 ">
+            <div class="form-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Chọn ngày flash sale</label>
+                        <div id="fsinput" class="col-sm-8">
+                            <input type="date" class="form-control1" id="focusedinput" placeholder="Default Input">
+                         
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="focusedinput" class="col-sm-2 control-label">Ngày kết thúc</label>
+                        <div id="einput" class="col-sm-8">
+                            <input readonly type="date" class="form-control1" id="endinput" placeholder="Default Input">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="radio" class="col-sm-2 control-label">Tạo tự động (Thời gian tính từ hiện tại)</label>
+                        <div class="col-sm-8">
+                            <div class="radio-inline"><label><input value="7" type="radio"> Tạo 7 ngày</label></div>
+                            <div class="radio-inline"><label><input value="10" type="radio"> Tạo 10 ngày</label></div>
+                            <div class="radio-inline"><label><input value="30" type="radio">  Tạo 30 ngày</label></div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="radio" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <button id="btn-fs" type="button" class="radio block btn info">Tạo</button>
+
+                        </div>
+                    </div>
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+      .btn {
+           border: none; /* Remove borders */
+           color: white; /* Add a text color */
+           padding: 14px 28px; /* Add some padding */
+           cursor: pointer; /* Add a pointer cursor on mouse-over */
+       }
+
+       .info {
+           background-color: #2196F3;
+       }
+           /* Blue */
+           .info:hover {
+               background: #0b7dda;
+           }
+</style>
+
+<script>
+    $(document).ready(function () {
+        function addZero(i) {
+            if (i < 10) { i = "0" + i }
+            return i;
+        }
+
+        $("#focusedinput").click(function () {
+            $('input[type="radio"]').prop('disabled', true);
+            $('input[type="radio"]').css('background-color', '#e7e7e7');
+
+        })
+        $("#focusedinput").change(function () {
+            var date = $(this).val()
+            var val = null;
+          
+            var arr = date.split("-")
+            var end = date.replace(arr[2], parseInt(arr[2])+ 1)
+           
+            
+            $("#btn-fs").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/QuanTriVien/TaoFlashSale?value=" + val + "&date=" + date + "&end=" + end,
+
+                    success: function (data) {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã tạo thời gian flash sale thành công',
+                            showConfirmButton: true,
+                            
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    }
+                });
+            })
+        })
+
+        $('input[type="radio"]').click(function () {
+            console.log("Fg")
+            
+            var d = new Date();
+            var val = $(this).val();
+            var date = null;
+            var end = null;
+           
+            $("#btn-fs").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/QuanTriVien/TaoFlashSaleAjax?value=" + val + "&date=" + date +"&end=" +end,
+
+                    success: function (data) {
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã tạo thời gian flash sale thành công',
+                            showConfirmButton: true,
+                          
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost:62979/QuanTriVien/ChoXetDuyet"
+                            }
+                        })
+                    }
+                });
+            })
+        })
+        
+    })
+  
+
+</script>

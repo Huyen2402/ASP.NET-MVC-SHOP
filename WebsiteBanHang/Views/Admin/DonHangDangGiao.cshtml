@@ -5,14 +5,14 @@
 @{
     ViewBag.Title = "DonHangDangGiao";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
 }
 
-<h2>DonHangDangGiao</h2>
 
-<div class="container mt-3" style="padding-top:80px;">
-    <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
 
-    <table class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <h2>Danh Sách Đơn Hàng Đang Giao </h2>
+
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
         <thead>
             <tr>
                 <th>STT</th>
@@ -22,14 +22,16 @@
                 <th>Tình Trạng GH</th>
                 <th>Hình Thức Thanh Toán</th>
                 <th>Tình Trạng TT</th>
-               
+
+
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.MaDDH</td>
+                
+                <tr >
+                    <td>@i</td>
                     <td>@item.ThanhVien.HoTen</td>
                     <td>@item.NgayDat</td>
                     <td>@item.UuDai</td>
@@ -46,13 +48,15 @@
 
 
 
-                
+
+
 
 
 
 
 
                 </tr>
+                i++;
             }
 
 
@@ -61,5 +65,22 @@
     </table>
 
 
-</div>
+<style>
+    .itemLSP {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    })
+    $(".Trang_1").show();
+    $('.page-item').click(function () {
+        $('.itemLSP').hide();
+        var Trang = $(this).attr("data-Trang");
+
+        $('.Trang_' + Trang).show();
+    })
+
+</script>
 

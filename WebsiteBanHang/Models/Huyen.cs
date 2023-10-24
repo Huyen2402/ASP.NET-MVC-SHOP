@@ -17,9 +17,11 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Huyen()
         {
-            this.DonDatHangs = new HashSet<DonDatHang>();
-            this.Xas = new HashSet<Xa>();
-            this.ThanhViens = new HashSet<ThanhVien>();
+            this.DiaChi = new HashSet<DiaChi>();
+            this.DonDatHang = new HashSet<DonDatHang>();
+            this.Shop = new HashSet<Shop>();
+            this.Xa = new HashSet<Xa>();
+            this.ThanhVien = new HashSet<ThanhVien>();
         }
     
         public int MaHuyen { get; set; }
@@ -27,11 +29,15 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaTinh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
+        public virtual ICollection<DiaChi> DiaChi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Xa> Xas { get; set; }
+        public virtual ICollection<DonDatHang> DonDatHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Shop> Shop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Xa> Xa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThanhVien> ThanhVien { get; set; }
         public virtual Tinh Tinh { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThanhVien> ThanhViens { get; set; }
     }
 }

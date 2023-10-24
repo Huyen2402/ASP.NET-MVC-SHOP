@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "CallOTPView";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<button onclick="getall()" class="btn btn-primary">click</button>
+<div id="abc"></div>
+<script>
+
+    function getall() {
+
+        $.getJSON("/DemoJQuery/CallOTP", function (token) {
+            console.log(token.token)
+            if (token.token.length > 0) {
+                $("#abc").append("<p>" + token.token + "</p>")
+            }
+            else {
+                $("#abc").append("<p>0</p>")
+            }
+
+        })
+    }
+</script>
+

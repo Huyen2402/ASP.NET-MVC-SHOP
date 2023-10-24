@@ -1,0 +1,115 @@
+﻿@using WebsiteBanHang.Models
+@model Shop
+
+
+@{
+    ViewBag.Title = "MuaHang";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+}
+@{ 
+    List<GioHang> listSP = ViewBag.listSP as List<GioHang>;
+    ChiTietGiamGia ct = ViewBag.ct as ChiTietGiamGia;
+    decimal gg = ViewBag.GG != null ? ViewBag.GG : 0;
+    decimal t = ViewBag.GG != null ? ViewBag.TongTien - ViewBag.GG : ViewBag.TongTien;
+}
+<div class="container color-wh ">
+    @Html.Action("DiaChiPartial", "DatHang")
+    <hr />
+    <div>
+        <h2>Sản phẩm</h2>
+        <b>@Model.TenShop</b>
+        <div>
+            @foreach (var sp in listSP)
+            {
+
+
+
+
+                <div id="hide" class="cart-header">
+
+
+                    <div class="cart-sec simpleCart_shelfItem">
+                        <div class="cart-item cyc">
+                            <img src="@Url.Content(sp.HinhAnh)" class="img-responsive" alt="">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="#">@sp.TenSP</a><span>Số lượng: @sp.SoLuong</span><span>Model No: @sp.KichCo.Ten</span></h3>
+                           
+                            @{
+                                decimal? number = sp.ThanhTien;
+                                string GiaTien = number.Value.ToString("#,##0");
+                            }
+                            <div class="delivery">
+                                <p>Giá: @GiaTien</p>
+                                <span>Thời gian nhận hàng từ 5-7 ngày</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+
+
+            }
+        </div>
+    </div>
+
+    <hr />
+    @if (ct == null)
+    {
+
+
+        <div>
+            <b id="text-discount">Giảm giá của Shop: -0k</b>
+        </div>
+    }
+    else
+    {
+        <div>
+            <b id="text-discount">Giảm giá của Shop: ₫ @ct.GiamGia.SoTien </b>
+        </div>
+    }
+
+    <hr />
+    <div class="row">
+        <div class="col-2">Đơn vị vận chuyển:</div>
+        <div class="col-4">
+            Nhanh
+            Nhận hàng vào 20 Th12 - 22 Th12
+        </div>
+        <div class="col-2"><button class="btn btn-custom">Thay đổi</button></div>
+        <div class="col-2">Phí ship: ₫42.500</div>
+    </div>
+    <hr />
+    <div>
+        <p>
+            Tổng số tiền (@listSP.Count sản phẩm):
+            <b style="font-size:15px">  ₫ @t </b>
+        </p>
+    </div>
+    <hr />
+    <div>
+        <a style="width:70px; height:30px" href="@Url.Action("DatHang","DatHang")" id="btn-muahang" class="btn btn-custom">
+            ĐẶT HÀNG
+        </a>
+    </div>
+</div>
+
+<script>
+    $("#btn-muahang").click(function (e) {
+        e.preventDefault();
+        var idTinh = $("#idTinh1").attr("data-idTinh");
+        
+        var idHuyen = $("#idHuyen1").attr("data-idHuyen");
+        var idXa = $("#idXa1").attr("data-idXa");
+        console.log("idTinh", idTinh)
+        console.log("idHuyen", idHuyen)
+        console.log("idXa", idXa)
+        var diaChi = $("#Diachi").text();
+        var url = "http://localhost:62979/DatHang/DatHang?MaTinh=" + idTinh + "&MaHuyen=" + idHuyen + "&MaXa=" + idXa + "&DiaChi=" + diaChi;
+                    window.location.href = url;
+
+      
+    })
+</script>

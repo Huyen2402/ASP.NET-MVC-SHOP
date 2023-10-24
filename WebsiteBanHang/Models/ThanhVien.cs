@@ -17,9 +17,13 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThanhVien()
         {
-            this.BinhLuans = new HashSet<BinhLuan>();
-            this.DonDatHangs = new HashSet<DonDatHang>();
-            this.KhachHangs = new HashSet<KhachHang>();
+            this.Chat = new HashSet<Chat>();
+            this.ChatwithShop = new HashSet<ChatwithShop>();
+            this.ChiTietGiamGia = new HashSet<ChiTietGiamGia>();
+            this.DiaChi1 = new HashSet<DiaChi>();
+            this.DonDatHang = new HashSet<DonDatHang>();
+            this.ThongBaoDH = new HashSet<ThongBaoDH>();
+            this.TraLoiBinhLuan = new HashSet<TraLoiBinhLuan>();
         }
     
         public int MaThanhVien { get; set; }
@@ -34,16 +38,27 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaTinh { get; set; }
         public Nullable<int> MaHuyen { get; set; }
         public Nullable<int> MaXa { get; set; }
+        public Nullable<int> captcha { get; set; }
+        public Nullable<bool> DaXacNhan { get; set; }
+        public Nullable<decimal> TichDiem { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BinhLuan> BinhLuans { get; set; }
+        public virtual ICollection<Chat> Chat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
+        public virtual ICollection<ChatwithShop> ChatwithShop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietGiamGia> ChiTietGiamGia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiaChi> DiaChi1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonDatHang> DonDatHang { get; set; }
         public virtual Huyen Huyen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachHang> KhachHangs { get; set; }
         public virtual LoaiThanhVien LoaiThanhVien { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThongBaoDH> ThongBaoDH { get; set; }
         public virtual Tinh Tinh { get; set; }
         public virtual Xa Xa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraLoiBinhLuan> TraLoiBinhLuan { get; set; }
     }
 }

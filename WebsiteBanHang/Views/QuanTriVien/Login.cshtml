@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Layout/LoginQuanTri.cshtml";
+}
+
+<div class="inner_content">
+
+<div class="inner_content_w3_agile_info">
+
+
+    <div class="registration admin_agile">
+
+        <div class="signin-form profile admin">
+            <h2>Quản Trị Viên Đăng Nhập</h2>
+            <div class="login-form">
+              
+                    @using (Html.BeginForm("Login", "QuanTriVien", FormMethod.Post, new { @id = "LoginQTV" }))
+                    {
+                        <input type="email" name="Email" value="" id="Email" required="">
+                        <input type="password" name="MatKhau" value="" id="MatKhau" required="">
+                        <p style="color: red">@ViewBag.Mess</p>
+                        <div class="tp">
+                            <input type="submit" value="ĐĂNG NHẬP">
+                        </div>
+                    }
+                   
+            </div>
+            <div class="login-social-grids admin_w3">
+                <ul>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
+            </div>
+
+            <h6><a href="main-page.html">Back To Home</a></h6><h6>
+            </h6>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+</div>
+<script>
+

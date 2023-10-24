@@ -1,0 +1,19 @@
+﻿@using WebsiteBanHang.Models
+@model List<BinhLuan>
+
+<div>
+    <h1>Bình luận</h1>
+    @foreach(var item in Model)
+            {
+                <div>
+                   <div>
+                       @item.ThanhVien.HoTen
+                   </div>
+                   <div>
+                       @item.NoiDungBL
+                   </div>
+
+                </div>
+            }
+    
+</div>

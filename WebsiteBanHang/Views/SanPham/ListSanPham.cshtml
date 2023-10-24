@@ -1,0 +1,44 @@
+﻿
+@using WebsiteBanHang.Models;
+@model List<SanPham>
+
+@{
+    ViewBag.Title = "ListSanPham";
+    Layout = "~/Views/Layout/SearchLayout.cshtml";
+    int MaLSP = (int)ViewBag.MaLSP ;
+}
+
+
+@Html.Action("MenuPartial", "Home")
+
+
+@*<div class="content-top">
+
+        <h1>SẢN PHẨM MỚI</h1>
+        <div class="grid-in">
+            @foreach (var item in Model)
+            {
+
+
+                <div class="col-3 col-xs-12 grid-top ">
+                    <a href="@Url.Action("XemChiTietSP","SanPham", new {@id=item.MaSP})" class="b-link-stripe b-animate-go  thickbox">
+                        <img class="img-responsive" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="">
+                        <div class="b-wrapper">
+                            <h3 class="b-animate b-from-left    b-delay03 ">
+                                <span>@item.MoTaNgan</span>
+                            </h3>
+                        </div>
+                    </a>
+
+
+                    <p><a href="single.html">@item.TenSP</a></p>
+                </div>
+
+
+
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>*@
+
+@Html.Action("SanPhamStyle1Partial", "SanPham", new {@MaLSP = MaLSP})

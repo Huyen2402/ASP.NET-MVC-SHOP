@@ -1,0 +1,103 @@
+﻿
+@using WebsiteBanHang.Models;
+@model List<SanPham>
+
+
+@{
+    ViewBag.Title = "AddProductFlashSale";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
+}
+
+<h2>Tạo Flash Sale</h2>
+<input id="MaSale" type="hidden" name="name" value="@ViewBag.MaSale" />
+<table id="example" class="table table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Sản Phẩm</th>
+            <th>
+
+                Hình Ảnh
+            </th>
+            <th>
+                Thao Tác
+            </th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>@item.TenSP</td>
+                <td>
+                    <img style="width:150px;" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
+                </td>
+                <td>
+                    <input class="checked-sale" type="checkbox" name="checked-sale" value="@item.MaSP" />
+                </td>
+
+            </tr>
+            i++;
+        }
+
+
+
+    </tbody>
+</table>
+
+<a id="addProduct"  class="btn btn-primary">Tiếp tục</a>
+<style>
+    .item_sp {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+        var arr = []
+        var MaSale = $("#MaSale").val()
+        $(".checked-sale").change(function () {
+            var val = $(this).val()
+
+            console.log(MaSale)
+            console.log(val)
+            arr.push(val);
+
+            console.log(arr)
+          
+            
+
+        })
+        $("#addProduct").click(function (e) {
+
+            $.ajax({
+                type: "POST",
+                data: { arr: arr, MaSale: MaSale },
+                url: "http://localhost:62979/Admin/AddChiTietFlashSale",
+                success: function (status) {
+                    if (status) {
+
+                        console.log("gghfh")
+                        return window.location.href = "http://localhost:62979/Admin/AddDiscount"
+
+                    }
+                }
+
+            });
+
+
+        })
+
+    });
+
+
+
+
+
+</script>

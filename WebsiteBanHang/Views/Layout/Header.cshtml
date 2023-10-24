@@ -3,61 +3,95 @@
 
 
 <div class="header-top">
+    @Html.Action("NotifyPartial", "Home")
     <div class="container">
+        <a class="navbar-brand" href="@Url.Action("Index","Home")">
+            @*<img src="~/Content/images/logo.png" alt="Avatar Logo" style="width:140px;" >*@
+            <h1 id="brand">OriMART <i style="color: #d20053" class="fa-solid fa-heart"></i></h1>
+        </a>
+
         <div class="search">
-            @using (Html.BeginForm("SearchSP","Search"))
+            @using (Html.BeginForm("SearchSP", "Search"))
             {
-                <input name="txbSearch" type="text" value="">
-                <input name="btnSearch" type="submit" value="Tìm">
+                <input name="txbSearch" type="text" placeholder="Nhập từ khóa tìm kiếm" value="">
+
+                <button class="btn" type="submit" name="btnSearch">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+
             }
         </div>
         <div class="header-left">
-            
-            <ul>
+
+
+
+
+            <ul style="font-weight:900; font-size:12px">
                 @if (Session["TaiKhoan"] != "" && Session["TaiKhoan"] != null)
                 {
                     ThanhVien tv = (ThanhVien)Session["TaiKhoan"];
-                    <li><a  class="lock" href="#">Chào bạn @tv.HoTen</a>
-                        <a class="lock" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a>
+                    <li>
+                        <div class="dropdown">
+                            <a class="lock dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-circle-user"></i>  @tv.HoTen</a>
+                            <ul class="dropdown-menu" style="border-radius: 10px !important; border: white !important; background-color: #d8e8f7db !important; ">
+                                <li>  <a class="lock color-text" href="@Url.Action("XemThongTin","Home", new { @MaTV = tv.MaThanhVien })">Xem thông tin</a></li>
+                                <li>  <a class="lock color-text" href="@Url.Action("CapNhatTHongTin","Home", new { @MaTV = tv.MaThanhVien })">Cập nhật thông tin</a></li>
+                                <li>  <a class="lock color-text" href="@Url.Action("Index","DonHang", new { @MaTV = tv.MaThanhVien })">Đơn hàng của tôi</a></li>
+                                <li><a class="lock color-text" href="@Url.Action("DangXuat", "Home")" id="logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+
+
                     </li>
-                    <li><a class="lock" href="@Url.Action("DangXuat", "Home")">Đăng xuất</a></li>
-                    
+                    <li> @Html.Action("ChatInHeader", "Chat")</li>
+                    <li> @Html.Action("GioHangPartial", "GioHang");</li>
+
+
+
 
                 }
                 else
                 {
-                    <li><a id="btn-DangNhap" class="lock" href="#">Đăng nhập</a></li>
-                    <li><a class="lock" href="@Url.Action("DangKy", "Home")">Đăng ký</a></li>
+                    <li><a id="btn-DangNhap" class="lock" href="#"><i class="fa-solid fa-circle-user"></i>Tài Khoản</a></li>
+                    <li>
+                        @Html.Action("GioHangPartial", "GioHang");
+                    </li>
+
                 }
                 <li>
                 </li>
             </ul>
-            @Html.Action("GioHangPartial", "GioHang");
-            
+
+
             @*<div class="cart box_1">
-                <a href="checkout.html">
-                    <h3>
-                        <div class="total">
-                            <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)
-                        </div>
-                        <img src="images/cart.png" alt="">
-                    </h3>
-                </a>
-                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-            </div>*@
+                    <a href="checkout.html">
+                        <h3>
+                            <div class="total">
+                                <span class="simpleCart_total">$0.00</span> (<span id="simpleCart_quantity" class="simpleCart_quantity">0</span> items)
+                            </div>
+                            <img src="images/cart.png" alt="">
+                        </h3>
+                    </a>
+                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                </div>*@
             <div class="clearfix"> </div>
         </div>
         <div class="clearfix"> </div>
     </div>
 </div>
-
+<style>
+    .color-text {
+        color: black !important;
+    }
+</style>
 
 <div id="popup">
     <div id="frm-DangNhap" class="account mx-auto d-block ">
         <div id="close-icon"><i style="color:black;" class="fa-solid fa-xmark"></i></div>
         <h1>Đăng nhập</h1>
         <div class="account-pass">
-            @using(Ajax.BeginForm("DangNhap","Home", new AjaxOptions {InsertionMode=InsertionMode.Replace,UpdateTargetId="ThongBao" }))
+            @using (Ajax.BeginForm("DangNhap", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
             {
                 <div class="col-md-12 account-top">
 
@@ -71,7 +105,12 @@
                         <input name="MatKhau" type="password">
                     </div>
                     <h4 id="ThongBao" style="color:red;"></h4>
-                    <input id="btn-dangnhap" type="submit" value="Đăng nhập">
+                    <input id="btn-dangnhap" type="submit" value="Đăng nhập"><a id="btn-forgot"  style="float: right" href="#popup1">Quên mật khẩu</a>
+                    <br />
+                    <br />
+                    <a href="@Url.Action("DangKy", "Home")">Tạo Tài Khoản</a>
+                    <br />
+                    <a href="@Url.Action("DangNhapCuaHang","Home")">Bạn có tài khoản cửa hàng?</a>
 
                 </div>
 
@@ -82,8 +121,162 @@
     </div>
 
 </div>
+<div style="display: none" id="popup1" class="overlay">
+    <div class="popup">
+       
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <h1>Vui lòng nhập tài khoản:</h1>
+            <form id="idForm" action="@Url.Action("QuenMK", "Home")">
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Tài khoản:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Nhập tài khoản..." name="email">
+                </div>
+                
+               
+                <button type="submit" class="btn btn-primary">Gửi</button>
+            </form>
+           
+        </div>
+    </div>
+</div>
 
+<style>
+  /*  h1 {
+        text-align: center;
+        font-family: Tahoma, Arial, sans-serif;
+        color: #06D85F;
+        margin: 80px 0;
+    }*/
+
+    .box {
+        width: 40%;
+        margin: 0 auto;
+        background: rgba(255,255,255,0.2);
+        padding: 35px;
+        border: 2px solid #fff;
+        border-radius: 20px/50px;
+        background-clip: padding-box;
+        text-align: center;
+    }
+
+    .button {
+        font-size: 1em;
+        padding: 10px;
+        color: #fff;
+        border: 2px solid #06D85F;
+        border-radius: 20px/50px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+    }
+
+        .button:hover {
+            background: #06D85F;
+        }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+            z-index:9999999999;
+        }
+
+    .popup {
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 30%;
+        position: relative;
+        transition: all 5s ease-in-out;
+    }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .popup .close:hover {
+                color: #06D85F;
+            }
+
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+        }
+    #bell-notifi {
+        float: left;
+        margin-left: 90pc;
+        font-size: 15px;
+    }
+
+    .icon-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        color: #333333;
+        background: #dddddd;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+    }
+
+        .icon-button:hover {
+            cursor: pointer;
+        }
+
+        .icon-button:active {
+            background: #cccccc;
+        }
+
+    .icon-button__badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 15px;
+        height: 15px;
+        background: red;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 10px
+    }
+
+    .dropdown-menu {
+        max-width: 500px !important;
+    }
+</style>
 <script>
+   
     $("#btn-DangNhap").click(function () {
         $("#popup").fadeIn(400);
     });
@@ -93,5 +286,28 @@
     $("#close-icon").click(function () {
         $("#popup").hide();
     })
+    $("#btn-forgot").click(function () {
+        $("#popup").hide();
+        $("#popup1").css("display", "block");
+    })
+    $("#idForm").submit(function (e) {
 
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function (data) {
+                if (data.mess == "success") {
+                    $("#popup1").hide();
+                    
+                }
+            }
+        });
+        
+    });
 </script>

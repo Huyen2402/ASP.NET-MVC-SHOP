@@ -1,0 +1,100 @@
+﻿@using WebsiteBanHang.Models
+@model List<BinhLuan>
+
+@{
+    ViewBag.Title = "TraLoiBinhLuan";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
+}
+
+
+
+
+
+
+ 
+    <h2>Đánh Giá Gần Đây </h2>
+    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th class="col-4">Tên Sản Phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Đánh Giá</th>
+                <th>Nội dung</th>
+                <th>Thời gian</th>
+                <th>Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td class="col-3">@item.SanPham.TenSP</td>
+                    <td><img style="width:150px;" src="@Url.Content(item.SanPham.HinhAnh)" alt="Alternate Text" /></td>
+                    <td>@item.DanhGia  <i style="color: #FD4" class="fa-solid fa-star"></i></td>
+                    <td>@item.NoiDungBL</td>
+                    <td>@item.NgayTao</td>
+                    <td>
+                        <a href="@Url.Action("TraLoiBinhLuan", "Admin", new { @MaBL = item.MaBL , @MaSP = item.MaSP })" class="btn btn-warning">Trả Lời</a>
+                        <a id="x" data-MaBL="@item.MaBL" @*href="@Url.Action("BoQuaBL", "Admin", new { @MaBL = item.MaBL })"*@ class="btn btn-danger x">Bỏ Qua</a>
+                    </td>
+
+                </tr>
+                i++;
+            }
+
+
+
+        </tbody>
+    </table>
+
+    
+
+
+<style>
+    .itemSearch {
+        display: none;
+    }
+
+   
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+
+        $(".x").click(function () {
+            var MaBL = $(this).attr("data-MaBL");
+            var xoa = $(this).parent().parent();
+           
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                url: "http://localhost:62979/Admin/BoQuaBL?MaBL=" + MaBL,
+                success: function (status) {
+                    if (status) {
+                        xoa.remove()
+                    }
+                }
+
+            })
+        })
+    })
+    $(".Trang_1").show();
+       $('.linkPage').click(function () {
+        $('.itemSearch').hide();
+        // lay gia tri trang click vao
+        var s = $(this).attr('data-page');
+        //var s = $(this).data("page");
+        // show ra sp cua trnag do
+
+        $('.'+@Url.Content("s")).show();
+
+
+    })
+</script>

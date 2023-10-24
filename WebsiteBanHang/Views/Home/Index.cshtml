@@ -13,41 +13,218 @@
 }
 
 
-<div class="container">
+@Html.Action("ModalLoadPartial", "Home")
+<input type="hidden" value="@Session["idKH"]" id="UserID" />
+<div class="container" style="background-color:white">
     <div id="chat">
         @*<div id="img-chat"><i class="fa-brands fa-rocketchat"></i></div>*@
-        <img id="img-chat" src="~/Content/images/chat.png" alt="Alternate Text" />
-        <div  class="card" id="box-chat">
+        @*<img id="img-chat" src="~/Content/images/chat.png" alt="Alternate Text" />*@
+        <div class="card" id="box-chat">
             <div class="card-header" id="title-chat">Tin Nhắn Của Bạn <i id="exit-chat" class="fa-solid fa-xmark"></i></div>
             <div class="card-body" id="body-chat">
-                <div id="gui"><p>Hi bạn</p></div>
-                <div id="nhan"><p>Buổi chiều vui vẻ</p></div>
             </div>
-            
+
             <div class="card-header row" id="footer-chat">
                 @*<textarea class="col-10"></textarea>*@
-                <input style="margin:3px;" class="col-9" type="text" name="name" value="" />
-                
+                <input style="margin:3px;" class="col-9" type="text" name="name" value="" id="btn-input" />
+
                 <a id="btn-send" class="btn col-2" href="#">Gửi</a>
+                <img src="~/Content/images/loading.gif" class="loading-send btn bt_bg btn-sm" style="display:none;" />
             </div>
         </div>
+
     </div>
-    @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", listDT)
-    @Html.Partial("~/Views/SanPham/SanPhamStyle2Partial.cshtml", listLT)
+
+    @*<div id="carousel-shop" class="container row mt-4">
+        <div class="col-8">
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwf2759f77/images/Muse/Spring23/spring-model-campaign/charles-keith-spring-23-campaign-blog-01.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dw2fbfd363/images/Muse/Spring23/chau-bui/charles-keith-spring-23-chaubui-collab-vietnam-blog-01.jpg" alt="Chicago" class="d-block" style="width:100%">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwce6eebe5/images/Muse/Spring23/rabbit-capsule/charles-keith-spring-23-rabbit-capsule-blog-01.jpg" alt="New York" class="d-block" style="width:100%">
+
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dw3429489d/images/Muse/Spring23/evening-shoes/charles-keith-spring-23-evening-capsule-blog-01.jpg" alt="Alternate Text" />
+            </div>
+            <div class="row">
+                <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwad664476/images/Muse/Spring23/disney-judy-hopps/charles-keith-spring-23-judy-hopps-blog-01.jpg" alt="Alternate Text" />
+            </div>
+        </div>
+    </div>*@
+
+    @Html.Action("MenuPartial", "Home");
+
+    @Html.Action("ProductFlashSale", "Home")
 
 
+    <div class="row">
+        <img src="https://img.ltwebstatic.com/images3_app/2023/03/04/167791604619b1b507d0ec4aa1d3f95e0bda5b101f_thumbnail_1885x.webp" alt="Alternate Text" />
+    </div>
+
+
+    @Html.Action("SanPhamNoiBat", "SanPham")
 
 </div>
+<style>
+   
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 
+    .scroller {
+        width: 300px;
+        height: 100px;
+        overflow-y: scroll;
+        scrollbar-color: rebeccapurple green;
+        scrollbar-width: thin;
+    }
+
+    #nhan {
+        margin-bottom: 12px;
+    }
+
+
+
+
+   
+</style>
+<script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+<script src="~/signalr/hubs" type="text/javascript"></script>
 <script>
-    $("#img-chat").click(function () {
-        $("#img-chat").css("display", "none");
-        $("#box-chat").css("display", "block");
 
-    });
-    $("#exit-chat").click(function () {
-        $("#box-chat").css("display", "none");
-        $("#img-chat").css("display", "block");
+
+    var video = document.getElementById("myVideo");
+    var btn = document.getElementById("myBtn");
+
+    function myFunction() {
+        if (video.paused) {
+            video.play();
+            btn.innerHTML = "Pause";
+        } else {
+            video.pause();
+            btn.innerHTML = "Play";
+        }
+    }
+
+    $(document).ready(function () {
+        var userID = $('#UserID').val();
+        if (userID) {
+            $("#img-chat").click(function () {
+                $("#img-chat").css("display", "none");
+                $("#box-chat").css("display", "block");
+
+            });
+            $("#exit-chat").click(function () {
+                $("#box-chat").css("display", "none");
+                $("#img-chat").css("display", "block");
+            })
+        }
+
+        $(function () {
+            var chat = $.connection.chatHubs
+            chat.client.displayMessage = function () {
+                getAllData();
+            }
+            $.connection.hub.start();
+            getAllData();
+        })
+
+        function getAllData() {
+            if (userID != undefined) {
+                var chatbox = $('#body-chat');
+                $.ajax({
+                    url: location.origin + "/Chat/GetAllMessageChating?UserID=" + userID,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        chatbox.empty()
+                        if (data.length > 0) {
+                            console.log(data)
+                            $.each(data, function (i, model) {
+                                if (model.FromUserID == userID) {
+                                    lastMessID = model.ID;
+                                    chatbox.append(
+                                        '<div id="nhan"><p>' + model.Text + '</p></div>'
+                                    );
+                                } else {
+                                    chatbox.append(
+                                        '<div id="gui"><p>' + model.Text + '</p></div>'
+                                    );
+                                }
+                            })
+                        } else {
+                            chatbox.append(
+                                '<p>Chưa có tin nhắn...</p>'
+                            );
+                        }
+                    }
+                })
+                $("#body-chat").animate({ scrollTop: 2000000 }) ;
+               
+            }
+        }
+
+        $('#btn-send').click(function send() {
+            var text = $('#btn-input').val();
+            $.ajax({
+                url: location.origin + "/Chat/Send",
+                data: { FromUserID: userID, ToUserID: 1002, Text: text, Side: "Client" },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.status) {
+                        $("#btn-send").show();
+                        $(".loading-send").hide();
+                        $('#btn-input').val("");
+                        $("#body-chat").animate({ scrollTop: 2000000 });
+                    } else {
+                        alert("Có lỗi xảy ra!");
+                        return;
+                    }
+                }
+            })
+            $("#btn-send").hide();
+            $(".loading-send").show();
+        })
     })
 
 </script>

@@ -1,0 +1,368 @@
+﻿@using WebsiteBanHang.Models
+@model List<NhaCungCap>
+@{
+    ViewBag.Title = "XemNSX";
+    Layout = "~/Views/Layout/QuanTriLayout.cshtml";
+}
+@{
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) + 1;
+    int Trang = 1;
+    int i = 1;
+}
+<div style="min-height:700px"  class="inner_content">
+    <h3>TẤT CẢ CÁC LOẠI SẢN PHẨM</h3>
+    <button data-bs-toggle="modal" data-bs-target="#myModal1" type="button" class="btn btn-success btn-Khoa">Thêm mới <i class="fa-solid fa-plus"></i></button>
+    <table id="table-max-height" class="max-height">
+        <thead>
+
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Tên Nhà Cung Cấp</th>
+
+
+
+                <th class="text-center">Thao Tác</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ie in Model)
+            {
+                if (soSP % soSPHienThi == 0)
+                {
+                    Trang++;
+                }
+                <tr>
+                    <td class="text-center">
+                        @i
+                    </td>
+                    <td class="text-center">
+                        @ie.TenNCC
+                    </td>
+                    <td class="text-center">
+                        <button data-id="@ie.MaNCC" type="button" class="btn btn-warning btn-infoShop" data-bs-toggle="modal" data-bs-target="#myModal">Sửa <i class="fa-solid fa-pen-to-square"></i></button>
+                    </td>
+                </tr>
+                soSP++;
+                i++;
+            }
+
+        </tbody>
+    </table>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">THÊM NHÀ CUNG CẤP</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="data" action="/" method="post">
+                        <div class="mb-3 mt-3">
+                            <label for="TenNSX" class="form-label">Tên NCC:</label>
+                            <input type="text" class="form-control" id="TenNSX" placeholder="Nhập tên NCC...." name="TenNCC">
+                        </div>
+
+                        <button class="btn btn-primary" type="button" id="btnUpload">Thêm</button>
+
+                    </form>
+                    @*<form id="data" action="/" method="post">
+                            <input type="number" name="Number" value="" />
+                            <input name="FileUpload1" type="file" id="FileUpload1" />
+                            <input type="submit" id="btnUpload" value="Upload Files" />
+                        </form>*@
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModal">
+        <span class="close" title="Close Modal">&times;</span>
+        <form action="@Url.Action("EditNSX","QuanTriVien")" id="from-ChinhSua">
+        </form>
+
+    </div>
+    @*<div id="id01" class="modal w3-animate-zoom">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <form id="from-ChinhSua" class="modal-content" action="/">
+            </form>
+        </div>*@
+    <div class="w3-center">
+        <div class="w3-bar text-center">
+            <a href="#" class="w3-button">«</a>
+            @for (int j = 1; j <= soTrangHienThi; j++)
+            {
+
+                <a data-Trang="@j" href="#" class=" @Url.Content(" w3-button  page-item Trang_"+j)">@j</a>
+            }
+
+            <a href="#" class="w3-button">»</a>
+        </div>
+    </div>
+</div>
+<style>
+    .item_sp {
+        display: none;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn-info {
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #46b8da;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    table {
+        background: white;
+        border-collapse: collapse;
+        margin: 1.25em 0 0;
+        width: 100%;
+    }
+
+        table tr,
+        table th,
+        table td {
+            border: none;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 13px;
+        }
+
+        table th,
+        table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #e53238;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        table tr td {
+            background: #f3faff;
+            color: #424242;
+        }
+
+        table tr:nth-of-type(2n+2) td {
+            background: #ffffff;
+        }
+
+        table.bt tfoot th,
+        table.bt tfoot td,
+        table.bt tbody td {
+            font-size: .8125rem;
+            padding: 0;
+        }
+
+            table.bt tfoot th:before,
+            table.bt tfoot td:before,
+            table.bt tbody td:before {
+                background: #e74c3c;
+                margin-right: 10px;
+                padding: 2px 10px;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            table.bt tfoot th .bt-content,
+            table.bt tfoot td .bt-content,
+            table.bt tbody td .bt-content {
+                display: inline-block;
+                padding: 2px 5px;
+            }
+
+            table.bt tfoot th:first-of-type:before,
+            table.bt tfoot th:first-of-type .bt-content,
+            table.bt tfoot td:first-of-type:before,
+            table.bt tfoot td:first-of-type .bt-content,
+            table.bt tbody td:first-of-type:before,
+            table.bt tbody td:first-of-type .bt-content {
+                padding-top: 10px;
+            }
+
+            table.bt tfoot th:last-of-type:before,
+            table.bt tfoot th:last-of-type .bt-content,
+            table.bt tfoot td:last-of-type:before,
+            table.bt tfoot td:last-of-type .bt-content,
+            table.bt tbody td:last-of-type:before,
+            table.bt tbody td:last-of-type .bt-content {
+                padding-bottom: 10px;
+            }
+</style>
+<script>
+    $("#btnUpload").click(function () {
+        const nsx = $("#TenNSX").val();
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:62979/QuanTriVien/AddNCC",
+            data: { TenNCC: nsx }, // serializes the form's elements.
+
+            success: function (dataT) {
+                console.log(dataT) // show response from the php script.
+                if (dataT.mess == "success") {
+                    Swal.fire({
+
+                        icon: 'success',
+                        title: 'Thêm thành công',
+                        text: 'Bạn đã thêm NCC thành công',
+                        showConfirmButton: true,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    })
+                }
+                else {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Xảy ra lỗi',
+                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                        showConfirmButton: true,
+
+                    })
+                }
+            }
+        });
+    });
+    $(".btn-infoShop").click(function () {
+        const id = $(this).attr("data-id");
+
+        console.log(id)
+        $("#from-ChinhSua").empty();
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:62979/QuanTriVien/GetInfoNCC?MaNCC=' + id,
+
+            success: function (data) {
+                console.log(data);
+                if (data.mess == "success") {
+                    $("#from-ChinhSua").append(
+                        '<div class="modal-dialog">' +
+                        ' <div class= "modal-content" >' +
+
+
+                        '<div class="modal-header">' +
+                        ' <h4 class="modal-title">THÔNG TIN NHÀ CUNG CẤP</h4>' +
+                        /*    ' <button type="button" id="close" class="btn-close" data-bs-dismiss="modal"></button>' +*/
+                        ' </div> ' +
+                        '  <input type="hidden" id="ma"  value="' + data.data.MaNCC + '" class="form-control"  name="MaNCC">' +
+
+                        '  <div class="modal-body">' +
+                        '  <div class="mb-3 mt-3">' +
+                        '    <label for="email" class="form-label">Tên NSX:</label>' +
+                        '  <input type="text" class="form-control" id="TenNSX" value="' + data.data.TenNCC + '"  name="TenNCC">' +
+                        ' </div>' +
+
+                        ' <div class="modal-footer">' +
+                        '  <button type = "submit" id="sua" class= "btn btn-warning"  > Sửa</button >' +
+                        '  </div > '
+                        //'  <div id="MHKD" class="mb-3">' +
+                        //' <label for="pwd" class="form-label">Ngày Đăng Ký:</label>' +
+                        //'  <input type="text" class="form-control" id="" value="' + data.data.NgayTao + '" readonly name="">' +
+                        //' </div>' +
+
+
+                    );
+                }
+
+                ////hình 1
+                //const reader = new FileReader();
+                //const fileInput = document.getElementById("HinhAnh");
+                //const img = document.getElementById("preview-img");
+                //reader.onload = e => {
+                //    img.src = e.target.result;
+                //}
+                //fileInput.addEventListener('change', e => {
+                //    const f = e.target.files[0];
+                //    reader.readAsDataURL(f);
+                //})
+                $("form#from-ChinhSua").submit(function (e) {
+                    /*    $("#sua").click(function (e) {*/
+                    console.log("fsjdjf")
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    console.log(formData)
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:62979/QuanTriVien/EditNCC",
+                        data: formData, // serializes the form's elements.
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data.mess = "success") {
+
+                                Swal.fire({
+
+                                    icon: 'success',
+                                    title: 'Sửa thành công',
+                                    text: 'Bạn đã sửa nhà cung cấp thành công',
+                                    showConfirmButton: true,
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                })
+                            }
+                            else {
+                                Swal.fire({
+
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                    showConfirmButton: true,
+
+                                })
+                            }
+                        }
+                    });
+
+                })
+
+
+
+
+
+            }
+
+        });
+
+    })
+    $(".close").click(function () {
+        window.location.reload()
+    })
+</script>
+
+

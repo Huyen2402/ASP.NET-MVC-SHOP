@@ -1,88 +1,135 @@
 ﻿
 @using WebsiteBanHang.Models;
-@model List<SanPham>
+@model List<ChiTietMatHangKinhDoanh>
 
 @{
     ViewBag.Title = "XemSanPham";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    int i = 1;
+    List<SanPham> listCT = ViewBag.listCT as List<SanPham>;
 }
 
+@*@{ 
+    int soSP = 1;
+    int tongSoSP = Model.Count();
+    int soSPHienThi = 6;
+    int soTrang = (tongSoSP / soSPHienThi);
+    int soTrangHienThi = tongSoSP % soSPHienThi == 0 ? tongSoSP / soSPHienThi : (tongSoSP / soSPHienThi) +1;
+    int Trang = 1;
+}*@
+<table id="example" class="table table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Sản Phẩm</th>
+            <th>
 
-
-<div class="container mt-3" style="padding-top:80px;">
-    <h2>Danh Sách Sản Phẩm</h2>
-
-    <table class="table table-light table-hover table-bordered  " style="z-index:99999;">
-        <thead>
-            <tr class="row">
-                <th class="col-1">STT</th>
-                <th class="col-7">Tên Sản Phẩm</th>
-                <th class="col-2">
-
-                    Hình Ảnh
-                </th>
-                <th class="col-2">
+                Hình Ảnh
+            </th>
+            <th>
                 Thao Tác
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr class="row">
-                    <td class="col-1">@item.MaSP</td>
-                    <td class="col-7">@item.TenSP</td>
-                    <td class="col-2"><img style="width:150px;" src="@Url.Content("~/Content/images/"+item.HinhAnh)" alt="" /></td>
-                    <td class="col-2"><a href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })" class="btn btn-warning">Chỉnh Sửa</a>
-                        <a data-MaSP="@item.MaSP" id="x" @*href="@Url.Action("XoaSanPham", "Admin", new { @MaSP = item.MaSP })"*@ class="btn btn-danger x">Xoá</a>
-                    </td>
-               
-                </tr>
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in listCT)
+        {
+           
+            <tr>
+                <td>@i</td>
+                <td>@item.TenSP</td>
+                <td >
+                <img style="width:150px;"  src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
+                </td>
+                <td>
+                    @foreach (var m in Model)
+                    {
+                        if (item.MaLoaiSP == m.MaLSP)
+                        {
+                            if (m.NgungKD == true)
+                            {
+                                <p>Mặt hàng này ngưng kinh doanh</p>
+                            }
+                            else
+                            {
+                                <a class="btn btn-warning" href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })">Chỉnh Sửa</a>
+
+                                <a data-MaSP="@item.MaSP" id="x"
+                                   class="btn btn-danger x">Xoá</a>
+
+                            }
+                        }
+
+                    }
+
+                </td>
+
+                    </tr>
+            i++;
+        }
+
+
+
+            </tbody>
+           
+        </table>
+
+        <style>
+            .item_sp {
+                display: none;
             }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+                $(".x").click(function () {
+                    Swal.fire({
+                        title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
+
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#218838',
+                        cancelButtonColor: '#c82333',
+                        confirmButtonText: 'Xoá',
+                        cancelButtonText: 'Không'
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
 
 
-        </tbody>
-    </table>
-</div>
-<script>
+                            Swal.fire(
 
-    $(".x").click(function () {
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xoá sản phẩm này?',
-            
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#218838',
-            cancelButtonColor: '#c82333',
-            confirmButtonText: 'Xoá',
-            cancelButtonText: 'Không'
-            
-        }).then((result) => {
-            if (result.isConfirmed) {
-               
-                
-                Swal.fire(
-                   
-                    'Xoá thành công!',
-                    'Your file has been deleted.',
-                    'success'
-                   
-                   
-                    
-                )
-               
-                var ma = $(this).attr("data-MaSP");
-                var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
-                window.location.href = url;
-                
-            }
-            
-        })
-    })
-    
+                                'Xoá thành công!',
+                                'Your file has been deleted.',
+                                'success'
 
 
-</script>
+
+                            )
+
+                            var ma = $(this).attr("data-MaSP");
+                            var url = 'http://localhost:62979/Admin/XoaSanPham?MaSP=' + ma;
+                            window.location.href = url;
+
+                        }
+
+                    })
+                })
+
+            });
+            $('.Trang_1').show();
+            $('.page-item').click(function () {
+                $('.item_sp').hide();
+                var Trang = $(this).attr("data-Trang");
+                $('.Trang_'+@Url.Content("Trang")).show();
+            })
+
+           
+
+
+
+        </script>
 
 
 
