@@ -17,7 +17,7 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FlashSale()
         {
-            this.ChiTietFlashSale = new HashSet<ChiTietFlashSale>();
+            this.ChiTietFlashSales = new HashSet<ChiTietFlashSale>();
         }
     
         public int MaSale { get; set; }
@@ -25,6 +25,6 @@ namespace WebsiteBanHang.Models
         public Nullable<System.DateTime> EndTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietFlashSale> ChiTietFlashSale { get; set; }
+        public virtual ICollection<ChiTietFlashSale> ChiTietFlashSales { get; set; }
     }
 }

@@ -28,7 +28,13 @@
 
         </div>
     </div>
-
+    <div class="form-group">
+        <label class="col-md-2 control-label">Giá Nhập Vào </label>
+        <div class="col-md-10">
+            <input required class="form-control"  type="number" id="NhapVao" name="NhapVao" value="" />
+            <p style="color:red" id="error1"></p>
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-md-2 control-label">Đơn giá</label>
         <div class="col-md-10">
@@ -110,12 +116,12 @@
 
 
     @*<div class="form-group">
-        <label class="col-md-2 control-label">Số Lượng Tồn</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            <label class="col-md-2 control-label">Số Lượng Tồn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
-        </div>
-    </div>*@
+            </div>
+        </div>*@
 
 
 
@@ -178,7 +184,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -296,6 +302,7 @@
             const Gia = $("#Gia").val();
             const MoTaNgan = $("#MoTaNgan").val();
             const mytextarea = $("mytextarea").val();
+            const GiaNhap = $("NhapVao").val();
             var formData = new FormData(this);
             var form = $(this);
             $.ajax({
@@ -328,7 +335,7 @@
                                         $.ajax({
                                             type: "POST",
                                             url: "http://localhost:62979/Admin/SaveAsImg",
-                                            data: { MaSP: MaSP, url: acc }, // serializes the form's elements.
+                                            data: { MaSP: MaSP, url: acc, GiaNhap: GiaNhap }, // serializes the form's elements.
 
                                             success: function (dataT) {
 

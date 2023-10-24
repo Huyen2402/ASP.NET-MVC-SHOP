@@ -17,13 +17,16 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiThanhVien()
         {
-            this.ThanhVien = new HashSet<ThanhVien>();
+            this.Shippers = new HashSet<Shipper>();
+            this.ThanhViens = new HashSet<ThanhVien>();
         }
     
         public int MaLoaiTV { get; set; }
         public string TenLoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThanhVien> ThanhVien { get; set; }
+        public virtual ICollection<Shipper> Shippers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThanhVien> ThanhViens { get; set; }
     }
 }

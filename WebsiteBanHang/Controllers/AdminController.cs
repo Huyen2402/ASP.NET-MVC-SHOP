@@ -45,7 +45,7 @@ namespace WebsiteBanHang.Controllers
                 .Select(x => new DataChart()
                 {
                     Month = (x.FirstOrDefault().NgayDat.Value.Month),
-                    Total = x.ToList().Sum(y => y.ChiTietDonDatHang.Sum(b => b.SoLuong * b.DonGia)).Value
+                    Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
                 }).ToList();
 
             List<DataPoint> dataPoints = new List<DataPoint>();
@@ -157,7 +157,6 @@ namespace WebsiteBanHang.Controllers
             sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
-
             db.SaveChanges();
             return Json(new { mess = "success", MaSP = sp.MaSP }, JsonRequestBehavior.AllowGet);
             //return RedirectToAction("ContThemSP","Admin", new {@MaSP = sp.MaSP });
@@ -165,7 +164,7 @@ namespace WebsiteBanHang.Controllers
 
 
         }
-        public JsonResult SaveAsImg(int MaSP, string[] url)
+        public JsonResult SaveAsImg(int MaSP, string[] url, decimal GiaNhap)
         {
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
 
@@ -182,9 +181,15 @@ namespace WebsiteBanHang.Controllers
                     sp.HinhAnh1 = url[1];
                     sp.HinhAnh2 = url[2];
                     sp.HinhAnh3 = url[3];
-                    db.SaveChanges();
+                   
                 }
+                PhieuNhapHang nhap = new PhieuNhapHang();
+                nhap.MaSP = sp.MaSP;
+                nhap.GiaNhap = GiaNhap;
+                nhap.GiaBan = sp.DonGia;
+                db.PhieuNhapHangs.Add( nhap );
 
+                db.SaveChanges();
 
                 return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
             }
@@ -257,6 +262,8 @@ namespace WebsiteBanHang.Controllers
                     ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai", sp.MaLoaiSP);
                     ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX", sp.MaNSX);
                     ViewBag.KC = db.KichCos.Where(n => n.MaSP == sp.MaSP).ToList();
+                    ViewBag.phieu = db.PhieuNhapHangs.SingleOrDefault(n=>n.MaSP == sp.MaSP);
+
                     return View(sp);
                 }
 

@@ -323,6 +323,9 @@
     <Compile Include="Models\NhaSanXuat.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhieuNhapHang.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\QuanLyBanHang.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -342,11 +345,14 @@
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SessionDiaChi.cs" />
+    <Compile Include="Models\Shipper.cs">
+      <DependentUpon>QuanLyBanHang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Shop.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShopGioHang.cs" />
-    <Compile Include="Models\sysdiagrams.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QuanLyBanHang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ThanhVien.cs">
@@ -641,13 +647,6 @@
     <Content Include="Content\Admin\fonts\FontAwesome.otf" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff2" />
-    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QuanLyBanHang.edmx.diagram">
-      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
-    </Content>
     <Content Include="MLModel1.mbconfig" />
     <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\QuanTriVien\fonts\fontawesome-webfont.ttf" />
@@ -659,6 +658,13 @@
     <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\QuanTriVien\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\QuanTriVien\images\Thumbs.db" />
+    <EntityDeploy Include="Models\QuanLyBanHang.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuanLyBanHang.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QuanLyBanHang.edmx.diagram">
+      <DependentUpon>QuanLyBanHang.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\huyenphan2402-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
