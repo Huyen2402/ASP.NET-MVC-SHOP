@@ -122,7 +122,7 @@ namespace WebsiteBanHang.Controllers
                         var receiverEmail = new MailAddress(s.TaiKhoan, "Receiver");
                         var password = "yyxrbzsfbkrftlny";
                         string subject = "Xác nhận cửa hàng - Sàn thương mại điện tử Ori Cute";
-                        string body = "Chào bạn, sau khi chúng tôi xem xét thì cửa hàng cửa bạn đã được xét duyệt. Hiện tại bạn có thể đăng nhập và bán hàng tại website. Cảm ơn bạn đã sử dụng Oriana.";
+                        string body = "Chào bạn, sau khi chúng tôi xem xét thì cửa hàng cửa bạn đã được xét duyệt. Hiện tại bạn có thể đăng nhập và bán hàng tại website. Cảm ơn bạn đã sử dụng PhoneShop.";
                         //string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplates/Customer.html"));
                         //body = body.Replace("######", s.captcha.ToString());
 
