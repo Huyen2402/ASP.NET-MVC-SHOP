@@ -71,6 +71,10 @@
 <a href="@Url.Action("InFileExcel", "Admin")">In Excel</a>
 
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<br />
+<div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+<br />
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
   window.onload = function () {
@@ -87,7 +91,33 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		dataPoints:  @Html.Raw(ViewBag.DataPoints)
 	}]
 });
-chart.render();
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	title: {
+		text: "Doanh thu theo quý"
+	},
+	data: [{
+		type: "column",
+		dataPoints:  @Html.Raw(ViewBag.DataPoints1)
+	}]
+});
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	title: {
+		text: "Doanh thu theo năm"
+	},
+	data: [{
+		type: "column",
+		dataPoints:  @Html.Raw(ViewBag.DataPoints2)
+	}]
+});
+      chart.render();
+      chart1.render();
+      chart2.render();
 
 }
 </script>

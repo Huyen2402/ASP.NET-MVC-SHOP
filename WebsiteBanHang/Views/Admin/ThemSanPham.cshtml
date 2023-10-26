@@ -28,7 +28,7 @@
 
         </div>
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Giá Nhập Vào </label>
         <div class="col-md-10">
             <input required class="form-control"  type="number" id="NhapVao" name="NhapVao" value="" />
@@ -41,7 +41,7 @@
             @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control", @id = "Gia", @required = "required", @type = "number" } })
             <p style="color:red" id="error1"></p>
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <label class="col-md-2 control-label">Ngày Cập Nhật</label>
@@ -127,7 +127,7 @@
 
 
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Lượt Bình Luận</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="LuotBinhLuan" value="0" />
@@ -141,15 +141,15 @@
             <input class="form-control" readonly type="number" name="SoLanMua" value="0" />
 
         </div>
-    </div>
+    </div>*@
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Mới</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="Moi" value="1" />
 
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <label class="col-md-2 control-label">Nhà CC</label>
@@ -176,13 +176,13 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Đã Xóa</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="DaXoa" value="0" />
 
         </div>
-    </div>
+    </div>*@
 
 
 
@@ -335,12 +335,34 @@
                                         $.ajax({
                                             type: "POST",
                                             url: "http://localhost:62979/Admin/SaveAsImg",
-                                            data: { MaSP: MaSP, url: acc, GiaNhap: GiaNhap }, // serializes the form's elements.
+                                            data: { MaSP: MaSP, url: acc }, // serializes the form's elements.
 
                                             success: function (dataT) {
 
-                                                console.log(dataT) // show response from the php script.
-                                                window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP
+                                                if (dataT.mess == "success") {
+                                                    Swal.fire({
+
+                                                        icon: 'success',
+                                                        title: 'Thành công',
+                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
+                                                        showConfirmButton: true,
+
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                                                        }
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+
+                                                        icon: 'error',
+                                                        title: 'Xảy ra lỗi',
+                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                                        showConfirmButton: true,
+
+                                                    })
+                                                }
                                                
                                             }
                                         });

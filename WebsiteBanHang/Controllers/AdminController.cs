@@ -56,6 +56,42 @@ namespace WebsiteBanHang.Controllers
 
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
+            List<DataChart> data1 = db.DonDatHangs.Where(x => x.NgayDat.Value.Year == year)
+                .GroupBy(x => (x.NgayDat.Value.Month -1)/ 3)
+                .Select(x => new DataChart()
+                {
+                    Month = (x.FirstOrDefault().NgayDat.Value.Month),
+                    Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
+                }).ToList();
+
+            List<DataPoint> dataPoints1 = new List<DataPoint>();
+            int quater = 1;
+            foreach (var item in data1)
+            {
+                dataPoints1.Add(new DataPoint("Quý " + quater.ToString(), double.Parse(item.Total.ToString())));
+                quater++;
+            }
+
+            ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints1);
+
+            List<DataChart> data2 = db.DonDatHangs.ToList()
+                .GroupBy(x => x.NgayDat.Value.Year )
+                .Select(x => new DataChart()
+                {
+                    Month = (x.FirstOrDefault().NgayDat.Value.Year),
+                    Total = x.ToList().Sum(y => y.ChiTietDonDatHangs.Sum(b => b.SoLuong * b.DonGia)).Value
+                }).ToList();
+
+            List<DataPoint> dataPoints2 = new List<DataPoint>();
+           
+            foreach (var item in data2)
+            {
+                dataPoints2.Add(new DataPoint("Năm " + item.Month.ToString(), double.Parse(item.Total.ToString())));
+               
+            }
+
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints2);
+
             return View();
         }
 
@@ -111,49 +147,13 @@ namespace WebsiteBanHang.Controllers
             ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai");
             ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX");
 
-
-
-            //// upload file hình ảnh
-            //for (int i = 0; i < HinhAnh.Length; i++)
-            //{
-            //    //Check content image
-            //    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
-            //    {
-            //        //Get file name
-            //        var fileName = Path.GetFileName(HinhAnh[i].FileName);
-            //        //Get path
-            //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-            //        HinhAnh[i].SaveAs(path);
-            //        //Check exitst
-            //        //if (!System.IO.File.Exists(path))
-            //        //{
-            //        //    //Add image into folder
-            //       // HinhAnh[i].SaveAs(path);
-            //        //   
-
-
-
-            //        //}
-
-
-            //    }
-            //    else
-            //    {
-            //        return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
-            //    }
-
-            //}
-
-            //sp.HinhAnh = HinhAnh[0].FileName;
-            //sp.HinhAnh1 = HinhAnh[1].FileName;
-            //sp.HinhAnh2 = HinhAnh[2].FileName;
-            //sp.HinhAnh3 = HinhAnh[3].FileName;
             sp.NgayCapNhat = DateTime.Now;
             sp.LuotBinhLuan = 0;
             sp.SoLanMua = 0;
             sp.DaXoa = false;
             sp.Moi = 1;
-
+            sp.SoLuongTon = 0;
+            sp.DonGia = 0;
             sp.MaShop = s.MaShop;
             sp.SEOKeyword = StringHelper.UrlFriendly(sp.TenSP);
             db.SanPhams.Add(sp);
@@ -164,7 +164,7 @@ namespace WebsiteBanHang.Controllers
 
 
         }
-        public JsonResult SaveAsImg(int MaSP, string[] url, decimal GiaNhap)
+        public JsonResult SaveAsImg(int MaSP, string[] url)
         {
             SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
 
@@ -183,12 +183,7 @@ namespace WebsiteBanHang.Controllers
                     sp.HinhAnh3 = url[3];
                    
                 }
-                PhieuNhapHang nhap = new PhieuNhapHang();
-                nhap.MaSP = sp.MaSP;
-                nhap.GiaNhap = GiaNhap;
-                nhap.GiaBan = sp.DonGia;
-                db.PhieuNhapHangs.Add( nhap );
-
+               
                 db.SaveChanges();
 
                 return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
@@ -363,53 +358,13 @@ namespace WebsiteBanHang.Controllers
             SanPham check = db.SanPhams.SingleOrDefault(n => n.MaSP == sp.MaSP && n.MaShop == s.MaShop);
             if (check != null)
             {
-                //for (int i = 0; i < HinhAnh.Length; i++)
-                //{
-                //    //Check content image
-                //    if (HinhAnh[i] != null && HinhAnh[i].ContentLength > 0)
-                //    {
-                //        //Get file name
-                //        var fileName = Path.GetFileName(HinhAnh[i].FileName);
-                //        //Get path
-                //        var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
-                //        //Check exitst
-                //        if (!System.IO.File.Exists(path))
-                //        {
-                //            //Add image into folder
-                //            HinhAnh[i].SaveAs(path);
-                //        }
-                //    }
-                //}
+               
 
-                //if (HinhAnh[0] != null)
-                //{
-                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh));
-                //    check.HinhAnh = HinhAnh[0].FileName;
-                //}
-                //if (HinhAnh[1] != null)
-                //{
-                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh1));
-                //    check.HinhAnh1 = HinhAnh[1].FileName;
-                //}
-                //if (HinhAnh[2] != null)
-                //{
-                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh2));
-                //    check.HinhAnh2 = HinhAnh[2].FileName;
-                //}
-                //if (HinhAnh[3] != null)
-                //{
-                //    System.IO.File.Delete(Server.MapPath("~/Content/images/" + check.HinhAnh3));
-                //    check.HinhAnh3 = HinhAnh[3].FileName;
-                //}
-
-
-                check.LuotBinhLuan = sp.LuotBinhLuan;
-                check.DaXoa = sp.DaXoa;
                 check.TenSP = sp.TenSP;
                 check.MoTa = sp.MoTa;
                 check.NgayCapNhat = DateTime.Now;
                 check.DonGia = sp.DonGia;
-                check.SoLuongTon = sp.SoLuongTon;
+                
                 check.MoTaNgan = sp.MoTaNgan;
                 check.MaNSX = sp.MaNSX;
                 check.loaiSanPham = sp.loaiSanPham;
@@ -599,7 +554,7 @@ namespace WebsiteBanHang.Controllers
         {
             Shop s = Session["CuaHang"] as Shop;
             List<DonDatHang> listddh = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 1 && n.MaShop == s.MaShop).OrderByDescending(n=>n.NgayDat).ToList();
-
+            ViewBag.shipper = db.Shippers.Where(n=>n.MaXa == s.MaXa).ToList();
 
 
 
@@ -654,7 +609,7 @@ namespace WebsiteBanHang.Controllers
             return RedirectToAction("DonHangChoXacNhan");
         }
 
-        public ActionResult XacNhanDonHang(string MaDDH)
+        public ActionResult XacNhanDonHang(string MaDDH, int MaShipper)
         {
             if (MaDDH == null)
             {
@@ -671,6 +626,7 @@ namespace WebsiteBanHang.Controllers
                 else
                 {
                     ddh.MaTinhTrangGiaoHang = 2;
+                    ddh.MaShipper = MaShipper;
                     ThongBaoDH newTB = new ThongBaoDH();
                     newTB.MaTV = ddh.MaKH;
                     newTB.MaDH = MaDDH;
@@ -680,7 +636,7 @@ namespace WebsiteBanHang.Controllers
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("DonHangChoXacNhan");
+            return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -1119,6 +1075,109 @@ namespace WebsiteBanHang.Controllers
             {
                 return Json(new { mess = "faild" }, JsonRequestBehavior.AllowGet);
             }
+
+        }
+
+        public ActionResult NhapHang(int MaSP)
+        {
+           
+            SanPham sp = db.SanPhams.SingleOrDefault(n=>n.MaSP == MaSP);
+            ViewBag.kc = db.KichCos.Where(n=>n.MaSP == MaSP).ToList();
+            
+
+            return View(sp);
+        }
+
+        public JsonResult SubmitNhapHang( FormCollection f)
+        {
+
+            int MaSP = Int32.Parse(f["MaSP"]);
+            string Ten = f["Ten"];
+            int SL = Int32.Parse(f["SL"]);
+            int? MaKichCo = Int32.Parse(f["MaKichCo"]) ;
+            string Code = f["code"];
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            if (sp != null)
+            {
+                if (MaKichCo != 0)
+                {
+                    KichCo c = db.KichCos.SingleOrDefault(n => n.MaKichCo == MaKichCo);
+                    
+                    c.SL += SL;
+
+                    
+                }
+                else
+                {
+                    KichCo c = new KichCo();
+                    c.MaSP = MaSP;
+                    c.Ten = Ten;
+                    c.SL = SL;
+                    db.KichCos.Add(c);
+                }
+                //int? TongSL = db.KichCos.Where(n => n.MaSP == MaSP).Sum(x => x.SL);
+                
+                //sp.SoLuongTon = TongSL;
+                db.SaveChanges();
+              
+                return Json(new { mess = "success", code = Code }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+        public ActionResult bbbb(int MaSP)
+        {
+
+           
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult TotalKC(int MaSP, decimal GiaNhap, decimal BanRa, string code)
+        {
+            
+            DateTime t = DateTime.Now;
+            int? TongSL = db.KichCos.Where(n => n.MaSP == MaSP).Sum(x => x.SL);
+            SanPham sp = db.SanPhams.SingleOrDefault(n => n.MaSP == MaSP);
+            sp.SoLuongTon = TongSL;
+            sp.DonGia = BanRa;
+            PhieuNhapHang check = db.PhieuNhapHangs.SingleOrDefault(n => n.CodePhieuNhap == code);
+            if(check == null)
+            {
+                PhieuNhapHang phieu = new PhieuNhapHang();
+                phieu.MaSP = sp.MaSP;
+                phieu.CodePhieuNhap = code;
+                phieu.GiaNhap = GiaNhap;
+                phieu.GiaBan = BanRa;
+                phieu.NgayTao = t;
+                db.PhieuNhapHangs.Add(phieu);
+            }
+           
+            
+            db.SaveChanges();
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult KhoHang(int MaSP, int TongSlNhap, string code)
+        {
+
+            KhoHang checkkho = db.KhoHangs.SingleOrDefault(n => n.CodePhieuNhap == code);
+            if(checkkho == null)
+            {
+                KhoHang khoHang = new KhoHang();
+                khoHang.MaSP = MaSP;
+                khoHang.CodePhieuNhap = code;
+                khoHang.SL = TongSlNhap;
+                db.KhoHangs.Add(khoHang);
+                db.SaveChanges();
+            }
+                
+            
+
+           
+           
+            return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
+            
 
         }
     }

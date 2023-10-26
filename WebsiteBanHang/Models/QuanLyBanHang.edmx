@@ -155,6 +155,15 @@
           <Property Name="TenHuyen" Type="nvarchar" MaxLength="200" />
           <Property Name="MaTinh" Type="int" />
         </EntityType>
+        <EntityType Name="KhoHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSP" Type="int" />
+          <Property Name="SL" Type="int" />
+          <Property Name="CodePhieuNhap" Type="nvarchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="KichCo">
           <Key>
             <PropertyRef Name="MaKichCo" />
@@ -214,6 +223,8 @@
           <Property Name="MaSP" Type="int" />
           <Property Name="GiaNhap" Type="decimal" Precision="18" Scale="0" />
           <Property Name="GiaBan" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="CodePhieuNhap" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -605,6 +616,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KhoHang__MaSP__2A93FF3D">
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+          <End Role="KhoHang" Type="Self.KhoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="KhoHang">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KichCo__MaSP__08038257">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="KichCo" Type="Self.KichCo" Multiplicity="*" />
@@ -993,6 +1016,7 @@
           <EntitySet Name="GiamGia" EntityType="Self.GiamGia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HangThanhVien" EntityType="Self.HangThanhVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Huyen" EntityType="Self.Huyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhoHang" EntityType="Self.KhoHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KichCo" EntityType="Self.KichCo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loaiSanPham" EntityType="Self.loaiSanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiThanhVien" EntityType="Self.LoaiThanhVien" Schema="dbo" store:Type="Tables" />
@@ -1094,6 +1118,10 @@
           <AssociationSet Name="FK__GiamGia__MaHangT__00B07205" Association="Self.FK__GiamGia__MaHangT__00B07205">
             <End Role="HangThanhVien" EntitySet="HangThanhVien" />
             <End Role="GiamGia" EntitySet="GiamGia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhoHang__MaSP__2A93FF3D" Association="Self.FK__KhoHang__MaSP__2A93FF3D">
+            <End Role="SanPham" EntitySet="SanPham" />
+            <End Role="KhoHang" EntitySet="KhoHang" />
           </AssociationSet>
           <AssociationSet Name="FK__KichCo__MaSP__08038257" Association="Self.FK__KichCo__MaSP__08038257">
             <End Role="SanPham" EntitySet="SanPham" />
@@ -1238,6 +1266,7 @@
           <EntitySet Name="GiamGias" EntityType="luanvanModel.GiamGia" />
           <EntitySet Name="HangThanhViens" EntityType="luanvanModel.HangThanhVien" />
           <EntitySet Name="Huyens" EntityType="luanvanModel.Huyen" />
+          <EntitySet Name="KhoHangs" EntityType="luanvanModel.KhoHang" />
           <EntitySet Name="KichCoes" EntityType="luanvanModel.KichCo" />
           <EntitySet Name="loaiSanPhams" EntityType="luanvanModel.loaiSanPham" />
           <EntitySet Name="LoaiThanhViens" EntityType="luanvanModel.LoaiThanhVien" />
@@ -1399,6 +1428,10 @@
           <AssociationSet Name="FK_TinhtoHuyen" Association="luanvanModel.FK_TinhtoHuyen">
             <End Role="Tinh" EntitySet="Tinhs" />
             <End Role="Huyen" EntitySet="Huyens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KhoHang__MaSP__2A93FF3D" Association="luanvanModel.FK__KhoHang__MaSP__2A93FF3D">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="KhoHang" EntitySet="KhoHangs" />
           </AssociationSet>
           <AssociationSet Name="FK__KichCo__MaSP__08038257" Association="luanvanModel.FK__KichCo__MaSP__08038257">
             <End Role="SanPham" EntitySet="SanPhams" />
@@ -1660,6 +1693,16 @@
           <NavigationProperty Name="ThanhViens" Relationship="luanvanModel.FK_ThanhVientoHuyen" FromRole="Huyen" ToRole="ThanhVien" />
           <NavigationProperty Name="Tinh" Relationship="luanvanModel.FK_TinhtoHuyen" FromRole="Huyen" ToRole="Tinh" />
         </EntityType>
+        <EntityType Name="KhoHang">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSP" Type="Int32" />
+          <Property Name="SL" Type="Int32" />
+          <Property Name="CodePhieuNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="luanvanModel.FK__KhoHang__MaSP__2A93FF3D" FromRole="KhoHang" ToRole="SanPham" />
+        </EntityType>
         <EntityType Name="KichCo">
           <Key>
             <PropertyRef Name="MaKichCo" />
@@ -1729,6 +1772,8 @@
           <Property Name="MaSP" Type="Int32" />
           <Property Name="GiaNhap" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="CodePhieuNhap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SanPham" Relationship="luanvanModel.FK__PhieuNhapH__MaSP__31D52E52" FromRole="PhieuNhapHang" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="SanPham">
@@ -1760,6 +1805,7 @@
           <NavigationProperty Name="BinhLuans" Relationship="luanvanModel.FK_BinhLuan_SanPham" FromRole="SanPham" ToRole="BinhLuan" />
           <NavigationProperty Name="ChiTietDonDatHangs" Relationship="luanvanModel.FK_ChiTietDonDatHang_SanPham" FromRole="SanPham" ToRole="ChiTietDonDatHang" />
           <NavigationProperty Name="ChiTietFlashSales" Relationship="luanvanModel.FK__ChiTietFla__MaSP__1A17459A" FromRole="SanPham" ToRole="ChiTietFlashSale" />
+          <NavigationProperty Name="KhoHangs" Relationship="luanvanModel.FK__KhoHang__MaSP__2A93FF3D" FromRole="SanPham" ToRole="KhoHang" />
           <NavigationProperty Name="KichCoes" Relationship="luanvanModel.FK__KichCo__MaSP__08038257" FromRole="SanPham" ToRole="KichCo" />
           <NavigationProperty Name="loaiSanPham" Relationship="luanvanModel.FK_SanPham_LoaiSanPham" FromRole="SanPham" ToRole="loaiSanPham" />
           <NavigationProperty Name="NhaCungCap" Relationship="luanvanModel.FK__SanPham__MaNCC__5815436A" FromRole="SanPham" ToRole="NhaCungCap" />
@@ -2349,6 +2395,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KhoHang__MaSP__2A93FF3D">
+          <End Type="luanvanModel.SanPham" Role="SanPham" Multiplicity="0..1" />
+          <End Type="luanvanModel.KhoHang" Role="KhoHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="KhoHang">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KichCo__MaSP__08038257">
           <End Type="luanvanModel.SanPham" Role="SanPham" Multiplicity="0..1" />
           <End Type="luanvanModel.KichCo" Role="KichCo" Multiplicity="*" />
@@ -2543,7 +2601,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2712,6 +2770,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="KhoHangs">
+            <EntityTypeMapping TypeName="luanvanModel.KhoHang">
+              <MappingFragment StoreEntitySet="KhoHang">
+                <ScalarProperty Name="CodePhieuNhap" ColumnName="CodePhieuNhap" />
+                <ScalarProperty Name="SL" ColumnName="SL" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="KichCoes">
             <EntityTypeMapping TypeName="luanvanModel.KichCo">
               <MappingFragment StoreEntitySet="KichCo">
@@ -2772,6 +2840,8 @@
           <EntitySetMapping Name="PhieuNhapHangs">
             <EntityTypeMapping TypeName="luanvanModel.PhieuNhapHang">
               <MappingFragment StoreEntitySet="PhieuNhapHang">
+                <ScalarProperty Name="CodePhieuNhap" ColumnName="CodePhieuNhap" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
                 <ScalarProperty Name="GiaNhap" ColumnName="GiaNhap" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />

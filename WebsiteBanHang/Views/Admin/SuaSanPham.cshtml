@@ -30,7 +30,15 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Giá Nhập Vào </label>
             <div class="col-md-10">
-                <input readonly class="form-control" type="number" id="NhapVao" name="NhapVao" value="@phieu.GiaNhap" />
+                @if (phieu == null)
+                {
+                    <input readonly class="form-control" type="number" id="NhapVao" name="NhapVao" value="0" />
+                }
+                else
+                {
+                    <input readonly class="form-control" type="number" id="NhapVao" name="NhapVao" value="@phieu.GiaNhap" />
+                }
+
                 <p style="color:red" id="error1"></p>
             </div>
         </div>
@@ -78,15 +86,7 @@
 
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Hình Ảnh Mới</label>
-
-            <div class="col-md-10">
-                <input id="hsp_tentaptin" type="file" name="HinhAnh" value="@ViewBag.HinhAnh" />
-
-
-            </div>
-        </div>
+      
         <div class="form-group">
             <label class="control-label col-md-2">Hình Ảnh 1 Hiện Tại</label>
 
@@ -96,18 +96,7 @@
 
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Hình Ảnh 1 Mới</label>
-
-            <div class="col-md-10">
-
-
-                <input id="hsp_tentaptin1" type="file" name="HinhAnh" value="@ViewBag.HinhAnh1" />
-
-
-            </div>
-
-        </div>
+      
         <div class="form-group">
             <label class="control-label col-md-2">Hình Ảnh 2 Hiện Tại</label>
 
@@ -118,16 +107,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Hình Ảnh 2 Mới</label>
-
-            <div class="col-md-10">
-                <input id="hsp_tentaptin2" type="file" name="HinhAnh" value="@ViewBag.HinhAnh2" />
-
-
-            </div>
-
-        </div>
+    
         <div class="form-group">
             <label class="control-label col-md-2">Hình Ảnh 3 Hiện Tại</label>
 
@@ -137,56 +117,7 @@
 
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Hình Ảnh 3 Mới</label>
-
-            <div class="col-md-10">
-                <input id="hsp_tentaptin3" type="file" name="HinhAnh" value="@ViewBag.HinhAnh3" />
-
-
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Số Lượng Tồn</label>
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
-
-
-
-
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Lượt Bình Luận</label>
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LuotBinhLuan, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Số Lần Mua</label>
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoLanMua, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Mới</label>
-
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
-
-            </div>
-        </div>
+    
 
         <div class="form-group">
             <label class="control-label col-md-2">Nhà Cung Cấp</label>
@@ -216,37 +147,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Đã Xoá</label>
-
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.DaXoa)
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="size">
-            @foreach (var i in KC)
-            {
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" name="Ten" value="@i.Ten" />
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Số Lượng</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="number" name="SL" value="@i.SL" />
-
-                    </div>
-                </div>
-            }
-        </div>
+      
         <button type="button" style="float:right" id="btn-size" class="btn"><i class="fa-solid fa-plus"></i></button>
 
         <div class="form-group">
@@ -407,123 +308,124 @@
                     const MaSP = dataT.MaSP;
                     console.log(dataT) // show response from the php script.
                     if (dataT.mess == "success") {
-                        //$.ajax({
-                        //    type: "GET",
-                        //    url: "http://localhost:62979/Admin/GetAllImg?MaSP=" + MaSP,
+                        Swal.fire({
+
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã chỉnh sửa sản phẩm thành công',
+                            showConfirmButton: true,
+
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                            }
+                        })
+                    }
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+
+                    //if (dataT.mess == "success") {
+                    //    //$.ajax({
+                    //    //    type: "GET",
+                    //    //    url: "http://localhost:62979/Admin/GetAllImg?MaSP=" + MaSP,
                            
 
-                        //    success: function (datas) {
+                    //    //    success: function (datas) {
 
-                        //        console.log("data", datas) // show response from the php script.
+                    //    //        console.log("data", datas) // show response from the php script.
                                
-                        //        /*  window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP*/
+                    //    //        /*  window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP*/
 
 
-                        //    }
-                        //});
-                        $.ajax({
-                            type: "POST",
-                            url: "http://localhost:3000/users/",
-                            data: formData, // serializes the form's elements.
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
+                    //    //    }
+                    //    //});
+                    //    $.ajax({
+                    //        type: "POST",
+                    //        url: "http://localhost:3000/users/",
+                    //        data: formData, // serializes the form's elements.
+                    //        cache: false,
+                    //        contentType: false,
+                    //        processData: false,
+                    //        success: function (data) {
                                
-                                if (data.status == true) {
-                                    let acc = [];
-                                    if (Array.isArray(data.data.url)) {
-                                        console.log("day la mang")
-                                        data.data.url.forEach(i => console.log(i))
-                                        for (var k = 0; k < data.data.url.length; k++) {
-                                            acc.push(data.data.url[k]);
-                                        }
+                    //            if (data.status == true) {
+                    //                let acc = [];
+                    //                if (Array.isArray(data.data.url)) {
+                    //                    console.log("day la mang")
+                    //                    data.data.url.forEach(i => console.log(i))
+                    //                    for (var k = 0; k < data.data.url.length; k++) {
+                    //                        acc.push(data.data.url[k]);
+                    //                    }
 
-                                        //console.log(test) // show response from the php script.
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "http://localhost:62979/Admin/EditSaveAsImg",
-                                            data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
+                    //                    //console.log(test) // show response from the php script.
+                    //                    $.ajax({
+                    //                        type: "POST",
+                    //                        url: "http://localhost:62979/Admin/EditSaveAsImg",
+                    //                        data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
 
-                                            success: function (dataT) {
+                    //                        success: function (dataT) {
 
-                                                console.log(dataT) // show response from the php script.
-                                                if (dataT.mess == "success") {
-                                                    Swal.fire({
+                    //                            console.log(dataT) // show response from the php script.
+                    //                            if (dataT.mess == "success") {
+                    //                                Swal.fire({
 
-                                                        icon: 'success',
-                                                        title: 'Thành công',
-                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
-                                                        showConfirmButton: true,
+                    //                                    icon: 'success',
+                    //                                    title: 'Thành công',
+                    //                                    text: 'Đã chỉnh sửa sản phẩm thành công',
+                    //                                    showConfirmButton: true,
 
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
-                                                        }
-                                                    })
-                                                }
-                                                else {
-                                                    Swal.fire({
+                    //                                }).then((result) => {
+                    //                                    if (result.isConfirmed) {
+                    //                                        window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                    //                                    }
+                    //                                })
+                    //                            }
+                    //                            else {
+                    //                                Swal.fire({
 
-                                                        icon: 'error',
-                                                        title: 'Xảy ra lỗi',
-                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
-                                                        showConfirmButton: true,
+                    //                                    icon: 'error',
+                    //                                    title: 'Xảy ra lỗi',
+                    //                                    text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                    //                                    showConfirmButton: true,
 
-                                                    })
-                                                }
+                    //                                })
+                    //                            }
 
-                                            }
-                                        });
+                    //                        }
+                    //                    });
 
-                                    }
-                                    else {
-                                        console.log("khong la mang")
-                                        console.log(data.data.url) 
-                                        let acc = [];
-                                        acc.push(data.data.url)
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "http://localhost:62979/Admin/EditSaveAsImg",
-                                            data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
+                    //                }
+                    //                else {
+                    //                    console.log("khong la mang")
+                    //                    console.log(data.data.url) 
+                    //                    let acc = [];
+                    //                    acc.push(data.data.url)
+                    //                    $.ajax({
+                    //                        type: "POST",
+                    //                        url: "http://localhost:62979/Admin/EditSaveAsImg",
+                    //                        data: { MaSP: MaSP, url: acc, a: a }, // serializes the form's elements.
 
-                                            success: function (dataT) {
-                                                console.log(dataT) // show response from the php script.
-                                                if (dataT.mess == "success") {
-                                                    Swal.fire({
-
-                                                        icon: 'success',
-                                                        title: 'Thành công',
-                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
-                                                        showConfirmButton: true,
-
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
-                                                        }
-                                                    })
-                                                }
-                                                else {
-                                                    Swal.fire({
-
-                                                        icon: 'error',
-                                                        title: 'Xảy ra lỗi',
-                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
-                                                        showConfirmButton: true,
-
-                                                    })
-                                                }
-                                               
+                    //                        success: function (dataT) {
+                    //                            console.log(dataT) // show response from the php script.
+                                                
                                                
 
-                                            }
-                                        });
-                                    }
-                                }
+                    //                        }
+                    //                    });
+                    //                }
+                    //            }
 
-                            }
-                        });
-                    }
+                    //        }
+                    //    });
+                    //}
 
 
 

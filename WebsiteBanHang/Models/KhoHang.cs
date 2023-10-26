@@ -12,13 +12,11 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PhieuNhapHang
+    public partial class KhoHang
     {
         public int ID { get; set; }
         public Nullable<int> MaSP { get; set; }
-        public Nullable<decimal> GiaNhap { get; set; }
-        public Nullable<decimal> GiaBan { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
+        public Nullable<int> SL { get; set; }
         public string CodePhieuNhap { get; set; }
     
         public virtual SanPham SanPham { get; set; }
