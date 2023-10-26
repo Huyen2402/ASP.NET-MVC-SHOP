@@ -12,21 +12,22 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NhaCungCap
+    public partial class Shipper
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NhaCungCap()
+        public Shipper()
         {
-            this.SanPhams = new HashSet<SanPham>();
+            this.DonDatHangs = new HashSet<DonDatHang>();
         }
     
-        public int MaNCC { get; set; }
-        public string TenNCC { get; set; }
-        public string DiaChi { get; set; }
-        public string Email { get; set; }
-        public string SDT { get; set; }
+        public int ID { get; set; }
+        public string TenShip { get; set; }
+        public Nullable<int> MaXa { get; set; }
+        public Nullable<int> MaLTV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPham> SanPhams { get; set; }
+        public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
+        public virtual LoaiThanhVien LoaiThanhVien { get; set; }
+        public virtual Xa Xa { get; set; }
     }
 }

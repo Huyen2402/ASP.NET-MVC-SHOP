@@ -17,7 +17,7 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GiamGia()
         {
-            this.ChiTietGiamGia = new HashSet<ChiTietGiamGia>();
+            this.ChiTietGiamGias = new HashSet<ChiTietGiamGia>();
         }
     
         public int MaGiamGia { get; set; }
@@ -29,7 +29,7 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaHangTV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietGiamGia> ChiTietGiamGia { get; set; }
+        public virtual ICollection<ChiTietGiamGia> ChiTietGiamGias { get; set; }
         public virtual HangThanhVien HangThanhVien { get; set; }
     }
 }

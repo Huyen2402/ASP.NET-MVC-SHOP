@@ -63,6 +63,7 @@ namespace WebsiteBanHang.Controllers
 
                         if (dh.id == 1)
                         {
+                            Shipper ship = db.Shippers.SingleOrDefault(n=>n.MaXa == ss.MaXa);
                             ddh.MaGiamGia = dh.MaCTGiamGia;
                             ddh.Voucher = ctgg.GiamGia.SoTien;
                             ddh.MaDDH = DateTime.Now.Ticks.ToString();
@@ -70,6 +71,7 @@ namespace WebsiteBanHang.Controllers
                             ddh.DaThanhToan = false;
                             ddh.MaShop = dh.MaShop;
                             ddh.UuDai = 0;
+                            ddh.MaShipper = ship.ID;
                             ddh.MaKH = iduser;
                             ddh.MaTinh = ss.MaTinh;
                             ddh.MaHuyen = ss.MaHuyen;
@@ -269,10 +271,10 @@ namespace WebsiteBanHang.Controllers
                     // trường hợp k sử dụng mã giảm giá
                     else
                     {
-                        
-
+                       
                         if (dh.id == 1)
                         {
+                            Shipper ship = db.Shippers.SingleOrDefault(n => n.MaXa == ss.MaXa);
                             ddh.MaGiamGia = null;
                             ddh.Voucher = 0;
                             ddh.MaDDH = DateTime.Now.Ticks.ToString();
@@ -280,6 +282,7 @@ namespace WebsiteBanHang.Controllers
                             ddh.DaThanhToan = false;
                             ddh.MaShop = dh.MaShop;
                             ddh.UuDai = 0;
+                            ddh.MaShipper = ship.ID;
                             ddh.MaKH = iduser;
                             ddh.MaTinh = ss.MaTinh;
                             ddh.MaHuyen = ss.MaHuyen;
@@ -523,8 +526,10 @@ namespace WebsiteBanHang.Controllers
                             total = total + price;
                         }
                         string tongiten = total.ToString();
+                        Shipper ship = db.Shippers.SingleOrDefault(n => n.MaXa == ss.MaXa);
+                       
+                        ddh.MaShipper = ship.ID;
 
-                        
                         ddh.HinhThucThanhToan = "MoMo";
                         ddh.DaThanhToan = true;
                         ddh.MaShop = MaShop;
@@ -639,7 +644,9 @@ namespace WebsiteBanHang.Controllers
                                 }
                                 string tongiten = total.ToString();
 
-
+                                Shipper ship = db.Shippers.SingleOrDefault(n => n.MaXa == ss.MaXa);
+                               
+                                ddh.MaShipper = ship.ID;
                                 ddh.HinhThucThanhToan = "VNPay";
                                 ddh.DaThanhToan = true;
                                 ddh.MaShop = MaShop;

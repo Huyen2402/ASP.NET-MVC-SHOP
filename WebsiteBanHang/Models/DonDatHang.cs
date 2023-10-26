@@ -17,9 +17,9 @@ namespace WebsiteBanHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DonDatHang()
         {
-            this.ChiTietDonDatHang = new HashSet<ChiTietDonDatHang>();
-            this.ChiTietDonDatHang1 = new HashSet<ChiTietDonDatHang>();
-            this.ThongBaoDH = new HashSet<ThongBaoDH>();
+            this.ChiTietDonDatHangs = new HashSet<ChiTietDonDatHang>();
+            this.ChiTietDonDatHangs1 = new HashSet<ChiTietDonDatHang>();
+            this.ThongBaoDHs = new HashSet<ThongBaoDH>();
         }
     
         public Nullable<System.DateTime> NgayDat { get; set; }
@@ -38,15 +38,17 @@ namespace WebsiteBanHang.Models
         public Nullable<int> MaGiamGia { get; set; }
         public Nullable<decimal> TongTienThucTe { get; set; }
         public Nullable<decimal> Voucher { get; set; }
+        public Nullable<int> MaShipper { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang { get; set; }
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHangs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHang1 { get; set; }
+        public virtual ICollection<ChiTietDonDatHang> ChiTietDonDatHangs1 { get; set; }
         public virtual ChiTietGiamGia ChiTietGiamGia { get; set; }
+        public virtual Shipper Shipper { get; set; }
         public virtual Shop Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThongBaoDH> ThongBaoDH { get; set; }
+        public virtual ICollection<ThongBaoDH> ThongBaoDHs { get; set; }
         public virtual Huyen Huyen { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
         public virtual Tinh Tinh { get; set; }

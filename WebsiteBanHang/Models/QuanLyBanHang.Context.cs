@@ -38,15 +38,18 @@ namespace WebsiteBanHang.Models
         public virtual DbSet<GiamGia> GiamGias { get; set; }
         public virtual DbSet<HangThanhVien> HangThanhViens { get; set; }
         public virtual DbSet<Huyen> Huyens { get; set; }
+        public virtual DbSet<KhoHang> KhoHangs { get; set; }
         public virtual DbSet<KichCo> KichCos { get; set; }
         public virtual DbSet<loaiSanPham> loaiSanPhams { get; set; }
         public virtual DbSet<LoaiThanhVien> LoaiThanhViens { get; set; }
         public virtual DbSet<MatHangKinhDoanh> MatHangKinhDoanhs { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
         public virtual DbSet<NhaSanXuat> NhaSanXuats { get; set; }
+        public virtual DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
+        public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagramss { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }
         public virtual DbSet<ThongBaoDH> ThongBaoDHs { get; set; }
         public virtual DbSet<Tinh> Tinhs { get; set; }

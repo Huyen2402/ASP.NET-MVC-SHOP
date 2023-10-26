@@ -20,6 +20,7 @@
                 <th>Thời Gian Đặt</th>
                 <th>Ưu Đãi</th>
                 <th>Tình Trạng GH</th>
+                <th>Shipper</th>
                 <th>Hình Thức Thanh Toán</th>
                 <th>Tình Trạng TT</th>
 
@@ -30,12 +31,13 @@
             @foreach (var item in Model)
             {
                 
-                <tr >
+                <tr>
                     <td>@i</td>
                     <td>@item.ThanhVien.HoTen</td>
                     <td>@item.NgayDat</td>
                     <td>@item.UuDai</td>
                     <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
+                    <td>@item.Shipper.TenShip</td>
                     <td>@item.HinhThucThanhToan</td>
                     @if (@item.DaThanhToan == true)
                     {

@@ -5,68 +5,108 @@
     ViewBag.Title = "DonHangChoXacNhan";
     Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
     int i = 1;
+    List<Shipper> shipper = ViewBag.shipper as List<Shipper>;
 }
 
 
 
 
-    <h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-    <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
-        <thead>
-            <tr >
-                <th >STT</th>
-                <th >Tên Người Mua</th>
-                <th >Địa Chỉ</th>
-                <th >Thời Gian Đặt</th>
-                <th >Ưu Đãi</th>
-                <th >Tình Trạng GH</th>
-                <th >Hình Thức Thanh Toán</th>
-                <th >Tình Trạng TT</th>
-                <th >Thao Tác</th>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chọn Shipper</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
+                    <select id="select-ship" class="form-select">
+                        <option >-----------</option>
+                        @foreach (var ship in shipper)
+                        {
+                            <option value="@ship.ID">@ship.TenShip</option>
+                        }
+
+
+                    </select>
+                    <br />
+                    <button type="button" class="btn btn-primary btn-shipper">Chọn</button>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
+
+<table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên Người Mua</th>
+            <th>Địa Chỉ</th>
+            <th>Thời Gian Đặt</th>
+            <th>Ưu Đãi</th>
+            <th>Tình Trạng GH</th>
+         
+            <th>Hình Thức Thanh Toán</th>
+            <th>Tình Trạng TT</th>
+            <th>Thao Tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@i</td>
+                <td>@item.ThanhVien.HoTen</td>
+                <td>@item.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
+                <td>@item.NgayDat</td>
+                <td>@item.UuDai</td>
+                <td>@item.TinhTrangGiaoHang.TenTinhTrang</td>
+            
+                <td>@item.HinhThucThanhToan</td>
+                @if (@item.DaThanhToan == true)
+                {
+                    <td>Đã Thanh Toán</td>
+                }
+                else
+                {
+                    <td>Chưa Thanh Toán</td>
+                }
+
+
+
+                <td style="width:300px">
+                    <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
+                    <a data-id ="@item.MaDDH" data-bs-toggle="modal" data-bs-target="#myModal" @*href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })"*@ class="btn btn-success btn-xd">Xác Nhận</a>
+                </td>
+
+
+
+
+
+
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-
-                <tr >
-                    <td >@i</td>
-                    <td >@item.ThanhVien.HoTen</td>
-                    <td >@item.DiaChi, @item.Xa.TenXa, @item.Huyen.TenHuyen, @item.Tinh.TenTinh</td>
-                    <td >@item.NgayDat</td>
-                    <td >@item.UuDai</td>
-                    <td >@item.TinhTrangGiaoHang.TenTinhTrang</td>
-                    <td >@item.HinhThucThanhToan</td>
-                    @if (@item.DaThanhToan == true)
-                    {
-                        <td >Đã Thanh Toán</td>
-                    }
-                    else
-                    {
-                        <td >Chưa Thanh Toán</td>
-                    }
+            i++;
+        }
 
 
+    </tbody>
 
-                    <td  style="width:300px">
-                        <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
-                        <a href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-success">Xác Nhận</a>
-                    </td>
-
-
-
-
-
-
-                </tr>
-                i++;
-            }
-
-
-        </tbody>
-
-    </table>
+</table>
 
 
 
@@ -84,8 +124,54 @@
     $('.page-item').click(function () {
         $('.itemLSP').hide();
         var Trang = $(this).attr("data-Trang");
-       
-        $('.Trang_'+Trang).show();
-    })
 
+        $('.Trang_' + Trang).show();
+        
+        
+
+    })
+    $(".btn-xd").click(function () {
+        var maddh = $(this).attr("data-id");
+        console.log(maddh);
+        $("#select-ship").change(function () {
+            var id = $(this).val();
+            console.log(id);
+            $(".btn-shipper").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:62979/Admin/XacNhanDonHang?MaDDH=" + maddh + "&MaShipper=" + id,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.mess = "success") {
+                            Swal.fire({
+
+                                icon: 'success',
+                                title: 'Xác nhận thành công',
+                                text: 'Bạn đã xác nhận đơn hàng thành công',
+                                showConfirmButton: true,
+
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+
+                        }
+                        else {
+                            Swal.fire({
+
+                                icon: 'error',
+                                title: 'Xảy ra lỗi',
+                                text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                showConfirmButton: true,
+
+                            })
+                        }
+                    }
+                });
+            })
+
+
+        })
+    })
 </script>

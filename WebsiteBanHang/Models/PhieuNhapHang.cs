@@ -12,12 +12,15 @@ namespace WebsiteBanHang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class PhieuNhapHang
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> MaSP { get; set; }
+        public Nullable<decimal> GiaNhap { get; set; }
+        public Nullable<decimal> GiaBan { get; set; }
+        public Nullable<System.DateTime> NgayTao { get; set; }
+        public string CodePhieuNhap { get; set; }
+    
+        public virtual SanPham SanPham { get; set; }
     }
 }

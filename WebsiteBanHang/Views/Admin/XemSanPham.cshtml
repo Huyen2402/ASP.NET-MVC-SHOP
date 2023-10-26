@@ -27,9 +27,13 @@
                 Hình Ảnh
             </th>
             <th>
+
+                Còn lại
+            </th>
+            <th>
                 Thao Tác
             </th>
-           
+
         </tr>
     </thead>
     <tbody>
@@ -39,9 +43,10 @@
             <tr>
                 <td>@i</td>
                 <td>@item.TenSP</td>
-                <td >
-                <img style="width:150px;"  src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
+                <td>
+                    <img style="width:150px;" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
                 </td>
+                <td>@item.SoLuongTon</td>
                 <td>
                     @foreach (var m in Model)
                     {
@@ -53,6 +58,7 @@
                             }
                             else
                             {
+                                <a class="btn btn-primary" href="@Url.Action("NhapHang","Admin", new { @MaSP = item.MaSP })">Nhập Hàng</a>
                                 <a class="btn btn-warning" href="@Url.Action("SuaSanPham","Admin", new { @MaSP = item.MaSP })">Chỉnh Sửa</a>
 
                                 <a data-MaSP="@item.MaSP" id="x"
@@ -65,7 +71,7 @@
 
                 </td>
 
-                    </tr>
+            </tr>
             i++;
         }
 

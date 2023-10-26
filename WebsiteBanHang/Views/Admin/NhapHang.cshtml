@@ -1,0 +1,214 @@
+﻿@using WebsiteBanHang.Models
+@model SanPham
+@{
+    ViewBag.Title = "NhapHang";
+    Layout = "~/Views/Layout/AdminHomeLayout.cshtml";
+    List<KichCo> kc = ViewBag.kc as List<KichCo>;
+    
+}
+
+<h2>Nhập Hàng Sản Phẩm</h2>
+<form id="idForm" action="/" method="post">
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+            <input type="hidden" id="MaSP" name="name" value="@Model.MaSP" />
+            <label class="control-label col-md-2">Tên Sản Phẩm:</label>
+
+            <div class="col-md-10">
+                <input required class="form-control" type="text" name="TenSP" value="@Model.TenSP" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Giá Nhập:</label>
+
+            <div class="col-md-10">
+                <input required class="form-control" type="number" id="NhapVao" name="NhapVao" value="" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Bán Ra:</label>
+
+            <div class="col-md-10">
+                <input required class="form-control" type="number" id="BanRa" name="NhapVao" value="" />
+
+            </div>
+        </div>
+
+        <div    class="form-group">
+            <div style="width: 98%" class="size">
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in kc)
+                {
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>
+                        <div class="col-md-10">
+                            <input id="name_@i" class="form-control m-3" type="text" name="Ten" value="@item.Ten" />
+                            <input type="hidden" id="id_@i" name="name" value="@item.MaKichCo" />
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                      
+                        <label class="col-md-2 control-label">Số Lượng</label>
+                        <div class="col-md-10">
+                            <input required id="sl_@i" class="form-control m-3" type="number" name="SL" />
+
+                        </div>
+                    </div>
+                    i++;
+                }
+
+            </div>
+        </div>
+
+        <a href="#" style="float:right" id="btn-size" class="btn"><i class="fa-solid fa-plus"></i></a>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    let i = @Html.Raw(kc.Count);
+    $("#btn-size").click(function () {
+
+        $(".size").append(' <div class="item-size i-' + i + '">' + ' <div class= "form-group" >' +
+            ' <label class="col-md-2 control-label">Kích cỡ/Màu sắc</label>' +
+            '  <div class="col-md-10">' +
+            '  <input id="name_' + i + '" class="form-control m-3" type="text" name="Ten"  />' +
+
+            ' </div>' +
+            '  </div >' +
+            ' <div class="form-group">' +
+            '  <label class="col-md-2 control-label">Số Lượng</label>' +
+            '   <div class="col-md-10">' +
+            '  <input id="sl_' + i + '" class="form-control m-3" type="number" name="SL"  />' +
+
+            '  </div>' +
+            ' </div>' +
+            ' </div>'
+        )
+        i = i + 1;
+
+    })
+    function Review(Name, sl, maKC) {
+        this.Name = Name;
+        this.sl = sl;
+        this.MaKC = maKC;
+
+    }
+
+
+    $("#idForm").submit(function (e) {
+        var NhapVao = $("#NhapVao").val();
+        var BanRa = $("#BanRa").val();
+        const code = Date.now();
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var arr = document.getElementsByClassName("item-size")
+        var arr_infor = []
+        console.log(arr.length)
+        var MaSP = $("#MaSP").val();
+        console.log("MaSP", MaSP);
+        for (var j = 0; j < i; j++) {
+            var Name = $("#name_" + j).val();
+            var MaKC = $("#id_" + j).val();
+            var sl = $("#sl_" + j).val();
+
+            arr_infor.push(new Review(Name, sl, MaKC))
+        }
+        console.log(arr_infor)
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+        var TongSlNhap = 0;
+        for (var c = 0; c < arr_infor.length; c++) {
+            TongSlNhap += parseInt(arr_infor[c].sl) ;
+            console.log(TongSlNhap);
+            console.log('gt');
+            let MaKC = arr_infor[c].MaKC == undefined ? 0 : arr_infor[c].MaKC;
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:62979/Admin/SubmitNhapHang",
+                data: { Ten: arr_infor[c].Name, SL: arr_infor[c].sl, MaSP: MaSP, MaKichCo: MaKC, code: code}, // serializes the form's elements.
+                success: function (data) {
+                    if (data.mess == "success" ) {
+                        var code = data.code;
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:62979/Admin/TotalKC?MaSP=" + MaSP + "&GiaNhap=" + NhapVao + "&BanRa=" + BanRa + "&code=" + code,
+
+                            success: function (dataT) {
+                                console.log(dataT) // show response from the php script.
+                                if (data.mess = "success") {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "http://localhost:62979/Admin/KhoHang?MaSP=" + MaSP + "&TongSLNHap=" + TongSlNhap + "&code=" + code,
+                                      
+                                        success: function (data) {
+                                            if (data.mess = "success") {
+                                                Swal.fire({
+
+                                                    icon: 'success',
+                                                    title: 'Thêm thành công',
+                                                    text: 'Bạn đã thêm sản phẩm thành công',
+                                                    showConfirmButton: true,
+
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        window.location.href = "http://localhost:62979/Admin/XemSanPham";
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    });
+                                    
+
+                                }
+                                else {
+                                    Swal.fire({
+
+                                        icon: 'error',
+                                        title: 'Xảy ra lỗi',
+                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                        showConfirmButton: true,
+
+                                    })
+                                }
+                            }
+                        });
+
+                    }
+
+                    else {
+                        Swal.fire({
+
+                            icon: 'error',
+                            title: 'Xảy ra lỗi',
+                            text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                            showConfirmButton: true,
+
+                        })
+                    }
+
+                }
+            });
+        }
+
+
+    });
+</script>
+

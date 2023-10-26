@@ -28,14 +28,20 @@
 
         </div>
     </div>
-
+    @*<div class="form-group">
+        <label class="col-md-2 control-label">Giá Nhập Vào </label>
+        <div class="col-md-10">
+            <input required class="form-control"  type="number" id="NhapVao" name="NhapVao" value="" />
+            <p style="color:red" id="error1"></p>
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-md-2 control-label">Đơn giá</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control", @id = "Gia", @required = "required", @type = "number" } })
             <p style="color:red" id="error1"></p>
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <label class="col-md-2 control-label">Ngày Cập Nhật</label>
@@ -110,18 +116,18 @@
 
 
     @*<div class="form-group">
-        <label class="col-md-2 control-label">Số Lượng Tồn</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            <label class="col-md-2 control-label">Số Lượng Tồn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
-        </div>
-    </div>*@
-
-
+            </div>
+        </div>*@
 
 
 
-    <div class="form-group">
+
+
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Lượt Bình Luận</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="LuotBinhLuan" value="0" />
@@ -135,15 +141,15 @@
             <input class="form-control" readonly type="number" name="SoLanMua" value="0" />
 
         </div>
-    </div>
+    </div>*@
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Mới</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="Moi" value="1" />
 
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <label class="col-md-2 control-label">Nhà CC</label>
@@ -170,15 +176,15 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <label class="col-md-2 control-label">Đã Xóa</label>
         <div class="col-md-10">
             <input class="form-control" readonly type="number" name="DaXoa" value="0" />
 
         </div>
-    </div>
+    </div>*@
 
-    
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -296,6 +302,7 @@
             const Gia = $("#Gia").val();
             const MoTaNgan = $("#MoTaNgan").val();
             const mytextarea = $("mytextarea").val();
+            const GiaNhap = $("NhapVao").val();
             var formData = new FormData(this);
             var form = $(this);
             $.ajax({
@@ -332,8 +339,30 @@
 
                                             success: function (dataT) {
 
-                                                console.log(dataT) // show response from the php script.
-                                                window.location.href = "http://localhost:62979/Admin/ContThemSP?MaSP=" + MaSP
+                                                if (dataT.mess == "success") {
+                                                    Swal.fire({
+
+                                                        icon: 'success',
+                                                        title: 'Thành công',
+                                                        text: 'Đã chỉnh sửa sản phẩm thành công',
+                                                        showConfirmButton: true,
+
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            window.location.href = "http://localhost:62979/Admin/XemSanPham"
+                                                        }
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+
+                                                        icon: 'error',
+                                                        title: 'Xảy ra lỗi',
+                                                        text: 'Đã xảy ra lỗi, vui lòng thử lại sau!',
+                                                        showConfirmButton: true,
+
+                                                    })
+                                                }
                                                
                                             }
                                         });
