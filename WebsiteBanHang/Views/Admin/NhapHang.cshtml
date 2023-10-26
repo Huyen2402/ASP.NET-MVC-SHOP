@@ -27,7 +27,7 @@
             <label class="control-label col-md-2">Giá Nhập:</label>
 
             <div class="col-md-10">
-                <input required class="form-control" type="number" id="NhapVao" name="NhapVao" value="" />
+                <input required class="form-control" type="number" id="NhapVao" name="NhapVao" value=""  min="1" />
 
             </div>
         </div>
@@ -35,7 +35,7 @@
             <label class="control-label col-md-2">Bán Ra:</label>
 
             <div class="col-md-10">
-                <input required class="form-control" type="number" id="BanRa" name="NhapVao" value="" />
+                <input required class="form-control" type="number" id="BanRa" name="NhapVao" value="" min="1" />
 
             </div>
         </div>
@@ -61,7 +61,7 @@
                       
                         <label class="col-md-2 control-label">Số Lượng</label>
                         <div class="col-md-10">
-                            <input required id="sl_@i" class="form-control m-3" type="number" name="SL" />
+                            <input required id="sl_@i" class="form-control m-3" type="number" name="SL"  min="1" />
 
                         </div>
                     </div>
@@ -96,7 +96,7 @@
             ' <div class="form-group">' +
             '  <label class="col-md-2 control-label">Số Lượng</label>' +
             '   <div class="col-md-10">' +
-            '  <input id="sl_' + i + '" class="form-control m-3" type="number" name="SL"  />' +
+            '  <input id="sl_' + i + '" class="form-control m-3" type="number" name="SL"  min="1" />' +
 
             '  </div>' +
             ' </div>' +

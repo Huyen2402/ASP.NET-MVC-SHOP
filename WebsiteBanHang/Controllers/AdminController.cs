@@ -257,7 +257,7 @@ namespace WebsiteBanHang.Controllers
                     ViewBag.MaLoaiSP = new SelectList(db.loaiSanPhams, "MaLoaiSP", "TenLoai", sp.MaLoaiSP);
                     ViewBag.MaNSX = new SelectList(db.NhaSanXuats, "MaNSX", "TenNSX", sp.MaNSX);
                     ViewBag.KC = db.KichCos.Where(n => n.MaSP == sp.MaSP).ToList();
-                    ViewBag.phieu = db.PhieuNhapHangs.Where(n=>n.MaSP == sp.MaSP).ToList();
+                    ViewBag.phieu = db.PhieuNhapHangs.Where(n=>n.MaSP == sp.MaSP).ToList().LastOrDefault();
                   
                     return View(sp);
                 }

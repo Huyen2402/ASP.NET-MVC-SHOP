@@ -46,7 +46,8 @@
             <label class="control-label col-md-2">Đơn Giá</label>
 
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+                <input  class="form-control" type="number" id="NhapVao" name="NhapVao" value="@Model.DonGia" min="1"/>
+            
 
             </div>
         </div>
