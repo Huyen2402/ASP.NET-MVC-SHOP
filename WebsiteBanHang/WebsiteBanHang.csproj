@@ -811,6 +811,7 @@
     <Content Include="Views\QuanTriVien\XemFlashSale.cshtml" />
     <Content Include="Views\Home\ChangePass.cshtml" />
     <Content Include="Views\Admin\NhapHang.cshtml" />
+    <Content Include="Views\Admin\DonHangBiHuy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

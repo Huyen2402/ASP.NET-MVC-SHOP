@@ -595,13 +595,8 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
-                for (var i = 0; i < listCT.Count(); i++)
-                {
-                    db.ChiTietDonDatHangs.Remove(listCT[i]);
-                }
                 DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
-                db.DonDatHangs.Remove(ddh);
+                ddh.MaTinhTrangGiaoHang = 4;
 
 
             }
@@ -1179,6 +1174,11 @@ namespace WebsiteBanHang.Controllers
             return Json(new { mess = "success" }, JsonRequestBehavior.AllowGet);
             
 
+        }
+        public ActionResult DonHangBiHuy()
+        {
+            List<DonDatHang> donhang = db.DonDatHangs.Where(n => n.MaTinhTrangGiaoHang == 4).ToList();
+            return View(donhang);
         }
     }
 }

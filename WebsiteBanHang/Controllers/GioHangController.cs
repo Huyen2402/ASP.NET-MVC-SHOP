@@ -257,6 +257,35 @@ namespace WebsiteBanHang.Controllers
                 return RedirectToAction("ThemSlPartialView");
             }
         }
+        public ActionResult UpdateQuantity(int MaSP, int SL)
+        {
+
+            List<GioHang> listGioHang = (List<GioHang>)Session["GioHang"];
+            
+            if (listGioHang == null)
+            {
+                return null;
+            }
+            else
+            {
+                GioHang sp = listGioHang.SingleOrDefault(n => n.MaSP == MaSP);
+                if (sp != null)
+                {
+                    int? makc = sp.KichCo.MaKichCo;
+                    KichCo checkSp = db.KichCos.SingleOrDefault(n => n.MaKichCo == makc);
+                    if(checkSp.SL >= SL)
+                    {
+                        sp.SoLuong = SL;
+                        sp.ThanhTien = sp.SoLuong * sp.Dongia;
+                        return RedirectToAction("ThemSlPartialView");
+                    }
+                    return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+                    
+                    
+                }
+                return Json(new { mess = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult CapNhatGioHang()
         {

@@ -44,10 +44,10 @@
                             <h3><a href="#">@sp.TenSP</a><span>Model No: @sp.KichCo.Ten</span></h3>
                             <ul class="qty">
                                 <li id="li_xemGH"><p>Số lượng: </p></li>
-                                <a id="ThemSL" data-MaSP="@sp.MaSP" data-slthem="@sp.SoLuong" class="btn sl slthem" @*href="@Url.Action("ThemSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>+</a>
+                                
+                                <input data-id="@sp.MaSP"  style="width:40px; height: 30px" class="slsp" id="slsp" type="number" name="name" value="@sp.SoLuong" min="1" />
+                                @*<li id="li_xemGH"><p class="slsp" id="slsp"> @sp.SoLuong</p></li>*@
 
-                                <li id="li_xemGH"><p class="slsp" id="slsp"> @sp.SoLuong</p></li>
-                                <a data-slgiam="@sp.SoLuong" data-MaSP="@sp.MaSP" class="btn sl slgiam" @*href="@Url.Action("GiamSL",("GioHang"), new { @MaSP = item.MaSP, strURL = Request.Url.ToString() })"*@>-</a>
                             </ul>
                             @{
                                 decimal? number1 = sp.Dongia;
@@ -466,4 +466,50 @@
                 }
             })
         })
+    $("#slsp").change(function () {
+        console.log($(this).val());
+        var MaSP = $(this).attr("data-id");
+        var sl = $(this).val();
+        console.log("MaSP: ", MaSP)
+        $.ajax({
+            type: "get",
+
+            url: "http://localhost:62979/GioHang/UpdateQuantity?MaSP=" + MaSP + "&SL=" + sl,
+            contentType: "html",
+
+            success: function (response) {
+                console.log(response)
+                if (response.mess == "fail") {
+                    Swal.fire({
+
+                        icon: 'error',
+                        title: 'Số lượng không đủ',
+                        showConfirmButton: true,
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    })
+                }
+
+                $("#test").html(response);
+
+
+            }
+        })
+        $.ajax({
+            url: "http://localhost:62979/GioHang/CapNhatGioHang",
+            contentType: "html",
+
+            success: function (response) {
+                debugger
+
+                $("#GioHangPartial").html(response);
+
+
+            }
+        })
+
+    })
 </script>
