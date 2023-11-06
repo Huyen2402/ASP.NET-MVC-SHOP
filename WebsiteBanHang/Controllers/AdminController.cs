@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -597,10 +599,44 @@ namespace WebsiteBanHang.Controllers
             {
                 DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
                 ddh.MaTinhTrangGiaoHang = 4;
-
+                db.SaveChanges();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        string email = ddh.ThanhVien.Email;
+                        string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                        var receiverEmail = new MailAddress(email, "Receiver");
+                        var password = "yyxrbzsfbkrftlny";
+                        var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                        var body = "Đơn hàng của bạn vừa bị hủy bởi chủ cửa hàng. Rất xin lỗi vì sự bất tiện này ";
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = sub,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
 
             }
-            db.SaveChanges();
+           
             return RedirectToAction("DonHangChoXacNhan");
         }
 
@@ -629,6 +665,40 @@ namespace WebsiteBanHang.Controllers
                     newTB.ThoiGian = DateTime.Now;
                     db.ThongBaoDHs.Add(newTB);
                     db.SaveChanges();
+                    try
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            string email = ddh.ThanhVien.Email;
+                            string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                            var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                            var receiverEmail = new MailAddress(email, "Receiver");
+                            var password = "yyxrbzsfbkrftlny";
+                            var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                            var body = "Đơn hàng của bạn đang được giao đến cho bạn.";
+                            var smtp = new SmtpClient
+                            {
+                                Host = "smtp.gmail.com",
+                                Port = 587,
+                                EnableSsl = true,
+                                DeliveryMethod = SmtpDeliveryMethod.Network,
+                                UseDefaultCredentials = false,
+                                Credentials = new NetworkCredential(senderEmail.Address, password)
+                            };
+                            using (var mess = new MailMessage(senderEmail, receiverEmail)
+                            {
+                                Subject = sub,
+                                Body = body
+                            })
+                            {
+                                smtp.Send(mess);
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ViewBag.Error = "Some Error";
+                    }
                 }
             }
             return Json(new { data = "success" }, JsonRequestBehavior.AllowGet);

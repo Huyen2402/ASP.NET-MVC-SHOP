@@ -11,44 +11,9 @@
 
 
 
-<!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Chọn Shipper</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="/action_page.php">
-                    <select id="select-ship" class="form-select">
-                        <option>-----------</option>
-                        @foreach (var ship in shipper)
-                        {
-                            <option value="@ship.ID">@ship.TenShip</option>
-                        }
 
 
-                    </select>
-                    <br />
-                    <button type="button" class="btn btn-primary btn-shipper">Chọn</button>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<h2>Danh Sách Đơn Hàng Chờ Xác Nhận</h2>
+<h2>Danh Sách Đơn Hàng Bị Hủy</h2>
 
 <table id="example" class="table table-light table-hover table-bordered " style="z-index:99999;">
     <thead>
@@ -62,7 +27,7 @@
 
             <th>Hình Thức Thanh Toán</th>
             <th>Tình Trạng TT</th>
-            <th>Thao Tác</th>
+        
         </tr>
     </thead>
     <tbody>
@@ -86,14 +51,6 @@
                 {
                     <td>Chưa Thanh Toán</td>
                 }
-
-
-
-                <td style="width:300px">
-                    <a href="@Url.Action("XemChiTietDonHang","Admin", new { @MaDDH = item.MaDDH })" class="btn btn-primary">Xem Chi Tiết</a>
-                    <a data-id="@item.MaDDH" data-bs-toggle="modal" data-bs-target="#myModal" @*href="@Url.Action("XacNhanDonHang","Admin", new { @MaDDH = item.MaDDH })"*@ class="btn btn-success btn-xd">Xác Nhận</a>
-                </td>
-
 
 
 

@@ -137,6 +137,40 @@ namespace WebsiteBanHang.Controllers
                             db.SaveChanges();
                             Session["GioHang"] = null;
                             Session["DatHang"] = null;
+                            try
+                            {
+                                if (ModelState.IsValid)
+                                {
+                                    string email = ddh.ThanhVien.Email;
+                                    string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                                    var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                                    var receiverEmail = new MailAddress(email, "Receiver");
+                                    var password = "yyxrbzsfbkrftlny";
+                                    var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                                    var body = "Đơn hàng của bạn đang chờ chủ của hàng xác nhận.";
+                                    var smtp = new SmtpClient
+                                    {
+                                        Host = "smtp.gmail.com",
+                                        Port = 587,
+                                        EnableSsl = true,
+                                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                                        UseDefaultCredentials = false,
+                                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                                    };
+                                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                                    {
+                                        Subject = sub,
+                                        Body = body
+                                    })
+                                    {
+                                        smtp.Send(mess);
+                                    }
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                ViewBag.Error = "Some Error";
+                            }
                             return View();
                         }
                         if (dh.id == 2)
@@ -579,6 +613,40 @@ namespace WebsiteBanHang.Controllers
                         Session["DatHang"] = null;
                         ViewBag.message = "Đặt hàng và thanh toán thành công";
                         ViewBag.check = "success";
+                        try
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                string email = ddh.ThanhVien.Email;
+                                string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                                var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                                var receiverEmail = new MailAddress(email, "Receiver");
+                                var password = "yyxrbzsfbkrftlny";
+                                var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                                var body = "Đơn hàng của bạn đang chờ chủ của hàng xác nhận.";
+                                var smtp = new SmtpClient
+                                {
+                                    Host = "smtp.gmail.com",
+                                    Port = 587,
+                                    EnableSsl = true,
+                                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                                    UseDefaultCredentials = false,
+                                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                                };
+                                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                                {
+                                    Subject = sub,
+                                    Body = body
+                                })
+                                {
+                                    smtp.Send(mess);
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            ViewBag.Error = "Some Error";
+                        }
                         //return RedirectToAction("XemGioHang", "GioHang");
                         return View();
                     }
@@ -695,6 +763,41 @@ namespace WebsiteBanHang.Controllers
                                 Session["DatHang"] = null;
                                 ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
                                 ViewBag.check = "success";
+
+                                try
+                                {
+                                    if (ModelState.IsValid)
+                                    {
+                                        string email = ddh.ThanhVien.Email;
+                                        string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                                        var receiverEmail = new MailAddress(email, "Receiver");
+                                        var password = "yyxrbzsfbkrftlny";
+                                        var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                                        var body = "Đơn hàng của bạn đang chờ chủ của hàng xác nhận.";
+                                        var smtp = new SmtpClient
+                                        {
+                                            Host = "smtp.gmail.com",
+                                            Port = 587,
+                                            EnableSsl = true,
+                                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                                            UseDefaultCredentials = false,
+                                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                                        };
+                                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                                        {
+                                            Subject = sub,
+                                            Body = body
+                                        })
+                                        {
+                                            smtp.Send(mess);
+                                        }
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    ViewBag.Error = "Some Error";
+                                }
                                 //return RedirectToAction("XemGioHang", "GioHang");
                                 return View();
                             }

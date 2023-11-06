@@ -2,20 +2,20 @@
 @model List<DonDatHang>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "DHDaHuy";
     Layout = "~/Views/Layout/SearchLayout.cshtml";
 
     List<ChiTietDonDatHang> listChiTiet = ViewBag.listChiTiet as List<ChiTietDonDatHang>;
-    
+
 }
 
 
 <div id="Donhang" class="container mt-3">
-    <a href="@Url.Action("Index", "DonHang")" class="active btn btn-outline-dark">Đơn hàng chờ xác nhận</a>
+    <a href="@Url.Action("Index", "DonHang")" class=" btn btn-outline-dark">Đơn hàng chờ xác nhận</a>
 
     <a href="@Url.Action("DHDangVanChuyen", "DonHang")" class="btn btn-outline-dark">Đơn hàng đang giao</a>
     <a href="@Url.Action("DHDaNhan", "DonHang")" class="btn btn-outline-dark">Đơn hàng đã nhận</a>
-    <a href="@Url.Action("DHDaHuy", "DonHang")" class="btn btn-outline-dark">Đơn hàng đã hủy</a>
+    <a href="@Url.Action("DHDaHuy", "DonHang")" class="active btn btn-outline-dark">Đơn hàng đã hủy</a>
     <h1 class="text-center">Đơn hàng của tôi</h1>
 
     <table id="DonHang" class="table table-light table-hover table-bordered " style="z-index:99999;">
@@ -30,7 +30,7 @@
 
                 <th>Hình Thức Thanh Toán</th>
                 <th>Tình Trạng TT</th>
-                <th>Thao Tác</th>
+              
             </tr>
         </thead>
         <tbody>
@@ -58,10 +58,6 @@
 
 
 
-                    <td style="width:300px">
-                        <a data-idDDh="@item.MaDDH" href="@Url.Action("XemChiTietDH","DonHang", new { @MaDDH = item.MaDDH })" class="btn btn-primary XemChiTiet">Xem Chi Tiết</a>
-                        <a data-idDDh="@item.MaDDH" @*href="@Url.Action("HuyDonHang","DonHang", new { @MaDDH = item.MaDDH })"*@ class="btn btn-danger HuyDonHang">Huỷ Đơn</a>
-                    </td>
 
 
 
@@ -84,7 +80,7 @@
 
 <script>
     $(".HuyDonHang").click(function () {
-       
+
         Swal.fire({
             title: 'Bạn có chắc muốn huỷ đơn hàng này không?',
             text: "Nếu huỷ đơn hàng này dữ liệu sẽ không còn!",
@@ -102,11 +98,11 @@
                     {
                         type: "GET",
                         dataType: 'json',
-                       
+
                         success: function (data, status, xhr) {
 
                             if (data.status) {
-                            
+
                                 $(".Xoa").parent().parent().remove();
                             }
                         },
@@ -118,6 +114,6 @@
         })
     })
 
-   
+
 </script>
 

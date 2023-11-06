@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -86,17 +88,47 @@ namespace WebsiteBanHang.Controllers
             }
             else
             {
-                List<ChiTietDonDatHang> listCT = db.ChiTietDonDatHangs.Where(n => n.MaDDH == MaDDH).ToList();
-                for (var i = 0; i < listCT.Count(); i++)
-                {
-                    db.ChiTietDonDatHangs.Remove(listCT[i]);
-                }
+                
                 DonDatHang ddh = db.DonDatHangs.SingleOrDefault(n => n.MaDDH == MaDDH);
-                db.DonDatHangs.Remove(ddh);
-
+                ddh.MaTinhTrangGiaoHang = 4;
+                db.SaveChanges();
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        string email = ddh.ThanhVien.Email;
+                        string tinhteang = ddh.TinhTrangGiaoHang.TenTinhTrang;
+                        var senderEmail = new MailAddress("huyenb1910384@student.ctu.edu.vn", "Huyen");
+                        var receiverEmail = new MailAddress(email, "Receiver");
+                        var password = "yyxrbzsfbkrftlny";
+                        var sub = "Thông báo tình trạng đơn hàng - Đơn hàng" + tinhteang;
+                        var body = "Đơn hàng của bạn vừa bị hủy. ";
+                        var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = sub,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";
+                }
 
             }
-            db.SaveChanges();
+            
             return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
 
@@ -169,7 +201,16 @@ namespace WebsiteBanHang.Controllers
             return View(ctddh);
 
         }
-       
+        public ActionResult DHDaHuy()
+        {
+            ThanhVien tv = Session["TaiKhoan"] as ThanhVien;
+            List<DonDatHang> listdh = db.DonDatHangs.Where(n => n.MaKH == tv.MaThanhVien && n.MaTinhTrangGiaoHang == 4).OrderByDescending(p => p.NgayDat).ToList();
+
+
+            return View(listdh);
+        }
+
+
 
     }
 }
