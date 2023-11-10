@@ -10,17 +10,17 @@
 
         <div class="cardContainer inactive col-2">
 
-            <div class="cardFlashSale">
+            <div style="height: 300px" class="cardFlashSale">
                 <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
                     <div class="side front">
 
 
-                        <img class="img img1" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
+                        <img style="height:170px" class="img img1" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
                         <div class="info">
 
                             <p>@item.TenSP</p>
                             <div class="row">
-                                <p style="font-size:13px; font-weight" class="number item_price col-6"><i> </i>@GiaTien</p>
+                                <p style="font-size:13px; font-weight: 600" class="number item_price col-6"><i> </i>@GiaTien</p>
 
                             </div>
                         </div>

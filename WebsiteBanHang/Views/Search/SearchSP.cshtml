@@ -16,49 +16,6 @@
 }
 
 
-@*<div id="carousel-shop" class="container row mt-4">
-    <div class="col-8">
-        <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-            </div>
-
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwf2759f77/images/Muse/Spring23/spring-model-campaign/charles-keith-spring-23-campaign-blog-01.jpg" alt="Los Angeles" class="d-block" style="width:100%">
-
-                </div>
-                <div class="carousel-item">
-                    <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dw2fbfd363/images/Muse/Spring23/chau-bui/charles-keith-spring-23-chaubui-collab-vietnam-blog-01.jpg" alt="Chicago" class="d-block" style="width:100%">
-
-                </div>
-                <div class="carousel-item">
-                    <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwce6eebe5/images/Muse/Spring23/rabbit-capsule/charles-keith-spring-23-rabbit-capsule-blog-01.jpg" alt="New York" class="d-block" style="width:100%">
-
-                </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="row">
-            <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dw3429489d/images/Muse/Spring23/evening-shoes/charles-keith-spring-23-evening-capsule-blog-01.jpg" alt="Alternate Text" />
-        </div>
-        <div class="row">
-            <img src="https://www.charleskeith.vn/on/demandware.static/-/Library-Sites-CharlesKeithVN/default/dwad664476/images/Muse/Spring23/disney-judy-hopps/charles-keith-spring-23-judy-hopps-blog-01.jpg" alt="Alternate Text" />
-        </div>
-    </div>
-</div>*@
-
 
 <div class="content-top-bottom flash-sale">
 
@@ -115,14 +72,14 @@
         decimal? number = item.DonGia;
         string GiaTien = number.Value.ToString("#,##0");
 
-        <div class="cardContainer inactive col-2">
+        <div style="height: 300px" class="cardContainer inactive col-2">
 
             <div class="@Url.Content(" cardFlashSale  men grid-top itemSearch Trang_"+Trang.ToString())">
                 <a href="@Url.Action("XemChiTietSP","SanPham", new {@id = item.MaSP, @MaShop = item.MaShop})">
                     <div class="side front">
 
 
-                        <img class="img img1" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
+                        <img style="height: 170px" class="img img1" src="@Url.Content(item.HinhAnh)" alt="Alternate Text" />
                         <div class="info">
 
                             <p>@item.TenSP</p>

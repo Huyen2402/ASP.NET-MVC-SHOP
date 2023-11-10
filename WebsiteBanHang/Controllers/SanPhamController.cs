@@ -233,7 +233,7 @@ namespace WebsiteBanHang.Controllers
         public ActionResult SanPhamTuongTuPartial(int MaLSP)
         {
 
-            List<SanPham> listDanhMuc = db.SanPhams.Where(n=>n.MaLoaiSP== MaLSP).Take(9).ToList();
+            List<SanPham> listDanhMuc = db.SanPhams.Where(n=>n.MaLoaiSP== MaLSP && n.DaXoa == false).Take(9).ToList();
             return PartialView(listDanhMuc);
         }
 
